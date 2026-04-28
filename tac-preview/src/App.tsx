@@ -240,28 +240,19 @@ function TrustStrip() {
 function ScienceCards() {
   const cards = [
     {
-      idx: '01',
-      tag: 'Genomics',
-      title: 'First DNA-guided longevity protocols in India',
-      desc: 'Genome-informed dosing for everything from antioxidants to cardiovascular drugs.',
-      img: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1200&q=85',
-      meta: 'Research note · 6 min read',
+      title: 'Feel and look great',
+      desc: 'Stay active and enjoy your life into your late years.',
+      img: 'https://images.unsplash.com/photo-1505144808419-1957a94ca61e?w=1200&q=85',
     },
     {
-      idx: '02',
-      tag: 'Peptides',
-      title: 'Peptide therapy for cellular repair',
-      desc: 'Targeted peptides for tissue regeneration, immune balance and metabolic recovery.',
-      img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=85',
-      meta: 'Clinical brief · 4 min read',
+      title: 'Prevent diseases',
+      desc: 'Avoid age-related diseases, and extend your lifespan and health-span.',
+      img: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1200&q=85',
     },
     {
-      idx: '03',
-      tag: 'Biological Age',
-      title: 'Reverse biological age with measurable change',
-      desc: 'Quarterly retesting of methylation age, telomere length and inflammation markers.',
-      img: 'https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=1200&q=85',
-      meta: 'Method paper · 5 min read',
+      title: 'Improve performance',
+      desc: 'Strengthen your body and sharpen your mind to get better results in sport and business.',
+      img: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1200&q=85',
     },
   ]
   const ref = useRef<HTMLDivElement>(null)
@@ -269,111 +260,65 @@ function ScienceCards() {
     if (reduceMotion()) return
     const cardsEls = ref.current?.querySelectorAll<HTMLElement>('.sci-card')
     if (!cardsEls) return
-    gsap.set(cardsEls, { y: 60, opacity: 0 })
+    gsap.set(cardsEls, { y: 40, opacity: 0 })
     gsap.to(cardsEls, {
       y: 0,
       opacity: 1,
-      duration: 1.1,
+      duration: 1.0,
       ease: 'expo.out',
-      stagger: 0.14,
-      scrollTrigger: { trigger: ref.current, start: 'top 78%' },
+      stagger: 0.12,
+      scrollTrigger: { trigger: ref.current, start: 'top 80%' },
     })
   }, [])
 
   return (
     <section
       id="science"
-      className="bg-white pt-28 pb-28 md:pt-40 md:pb-36 px-6 md:px-12"
+      className="bg-white pt-24 pb-24 md:pt-32 md:pb-32 px-6 md:px-12"
     >
-      <div className="max-w-[1320px] mx-auto">
+      <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10 mb-20">
-          <div className="max-w-[680px]">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="w-8 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                First-Class Longevity
-              </span>
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 mb-16 md:mb-20 items-start">
+          <div>
+            <div className="text-[11px] tracking-[0.3em] text-stone uppercase font-medium mb-6">
+              Longevity Science
             </div>
-            <h2 className="font-display font-bold text-[36px] md:text-[60px] leading-[1.0] tracking-[-0.03em] text-ink">
-              Cutting-edge science to{' '}
-              <span className="font-script font-normal text-rust text-[1.4em] leading-[0.8]">
-                reverse
-              </span>{' '}
-              ageing.
+            <h2 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.025em] text-ink">
+              Cutting-edge science
+              <br />
+              to reverse ageing.
             </h2>
           </div>
-          <div className="md:max-w-[440px] md:pb-2 flex flex-col gap-6">
-            <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite font-light">
-              We bring lab-grade preventive medicine to India — built on
-              diagnostics, biology, and a long view of what makes a body well.
-            </p>
-            <a
-              href="#"
-              data-cursor="hover"
-              className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] text-ink uppercase font-medium hover:text-rust transition-colors group self-start"
-            >
-              View all research
-              <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
-                →
-              </span>
-            </a>
-          </div>
+          <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite md:pt-3 max-w-[420px]">
+            With the help of science, you can improve your biological age by 5
+            to 15 years and slow down your rate of ageing.
+          </p>
         </div>
 
         {/* Cards */}
-        <div ref={ref} className="grid md:grid-cols-3 gap-x-6 md:gap-x-10 gap-y-16">
+        <div ref={ref} className="grid md:grid-cols-3 gap-6 md:gap-7">
           {cards.map((c) => (
-            <a
+            <article
               key={c.title}
-              href="#"
-              data-cursor="hover"
-              className="sci-card group block"
+              className="sci-card bg-cream/60 group overflow-hidden"
             >
-              {/* Image */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-nougat mb-7">
+              <div className="aspect-[5/4] overflow-hidden bg-mist">
                 <img
                   src={c.img}
                   alt={c.title}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
-                {/* Subtle bottom gradient for index legibility */}
-                <span className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent pointer-events-none" />
-                {/* Card index */}
-                <span className="absolute top-5 left-5 text-[11px] tracking-[0.3em] text-white/95 font-semibold uppercase tabular-nums">
-                  {c.idx}
-                </span>
-                {/* Meta — top right */}
-                <span className="absolute top-5 right-5 text-[10px] tracking-[0.18em] text-white/80 uppercase">
-                  {c.meta}
-                </span>
-                {/* Reveal underline on hover */}
-                <span className="absolute inset-x-0 bottom-0 h-[2px] bg-rust scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-[700ms]" />
               </div>
-
-              {/* Body */}
-              <div className="px-0.5">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] tracking-[0.3em] text-rust font-semibold uppercase">
-                    {c.tag}
-                  </span>
-                  <span className="flex-1 h-px bg-mist" />
-                </div>
-                <h3 className="font-display text-[22px] md:text-[26px] leading-[1.18] tracking-[-0.01em] text-ink mb-4 group-hover:text-rust-deep transition-colors duration-300">
+              <div className="px-7 py-8 md:px-8 md:py-9">
+                <h3 className="font-display font-bold text-[20px] md:text-[22px] leading-[1.25] tracking-[-0.01em] text-ink mb-3">
                   {c.title}
                 </h3>
-                <p className="text-[14px] text-graphite leading-[1.65] font-light mb-6">
+                <p className="text-[14px] md:text-[15px] text-graphite leading-[1.6]">
                   {c.desc}
                 </p>
-                <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.22em] text-ink uppercase font-medium group-hover:text-rust transition-colors">
-                  Read the science
-                  <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
-                    →
-                  </span>
-                </span>
               </div>
-            </a>
+            </article>
           ))}
         </div>
       </div>
