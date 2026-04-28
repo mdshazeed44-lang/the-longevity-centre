@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:theantiagingcentre.com)",
+      "WebFetch(domain:www.healthylongevity.clinic)",
+      "WebFetch(domain:cdn.prod.website-files.com)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ]
+  }
+}

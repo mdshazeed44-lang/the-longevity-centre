@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  color: #3A3833;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Cabinet Grotesk everywhere — except cursive accent */
+h1, h2, h3, h4, h5, h6,
+button, input, select, textarea,
+.font-display, .font-sans, .font-editorial {
+  font-family: 'Cabinet Grotesk', sans-serif !important;
+}
+
+/* Accent cursive (Alex Brush per brand guide) */
+.font-script {
+  font-family: 'Alex Brush', cursive !important;
+}
+
+/* Hierarchy weight conventions */
+h1 { font-weight: 700; }
+h2 { font-weight: 700; }
+h3 { font-weight: 600; }
+h4, h5, h6 { font-weight: 600; }
+button, .nav-link { font-weight: 500; }
+
+@keyframes methodNumIn {
+  0%   { opacity: 0; transform: translateY(40px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.method-num {
+  animation: methodNumIn 700ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Hero video — slow Ken Burns push for cinematic feel (40s loop, scale + drift) */
+@keyframes heroKenBurns {
+  0%   { transform: scale(1.05) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+  100% { transform: scale(1.05) translate3d(0, 0, 0); }
+}
+.hero-video {
+  animation: heroKenBurns 60s ease-in-out infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { animation: none; }
+}
+
+/* Subtle SVG film grain noise — adds premium analog texture */
+.hero-grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+  background-repeat: repeat;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.font-display {
+  font-family: 'Cabinet Grotesk', sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Custom cursor ---------- */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ---------- Reusable masked-line wrapper for SplitText reveals ---------- */
+.line-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.line-mask > * {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ---------- Magnetic / interactive hover affordance ---------- */
+[data-magnetic] {
+  display: inline-flex;
+  will-change: transform;
+}
+
+/* ---------- Section progress nav line accent ---------- */
+.progress-line {
+  background: linear-gradient(180deg, transparent, #945455 50%, transparent);
+}
+
+/* ---------- Hero number ticker / odometer ---------- */
+.odo {
+  display: inline-flex;
+  overflow: hidden;
+  height: 1em;
+  line-height: 1;
+}
+.odo-col {
+  display: flex;
+  flex-direction: column;
+  transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+.odo-col > span {
+  height: 1em;
+  display: block;
+}
+
+/* ---------- Programs horizontal-scroll polish ---------- */
+.h-card {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease;
+  will-change: transform, filter, opacity;
+}
+
+/* ---------- Method clip-path image transitions ---------- */
+.method-img {
+  clip-path: inset(0 0 0 0);
+}
+.method-img.is-leaving {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.method-img.is-entering {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0s;
+}
+.method-img.is-active {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------- Drawn underline / line accents ---------- */
+.draw-line {
+  position: relative;
+}
+.draw-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.draw-line:hover::after,
+.draw-line.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Subtle scroll-tied vignette for hero exit ---------- */
+.hero-fade-mask {
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+}
+
+@keyframes scrollDot {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* ---------- Marquee ---------- */
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  animation: marqueeX 32s linear infinite;
+  width: max-content;
+}
+@keyframes marqueeX {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
