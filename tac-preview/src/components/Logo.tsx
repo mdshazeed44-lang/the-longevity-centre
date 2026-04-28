@@ -1,64 +1,53 @@
 type Variant = 'light' | 'dark'
 
+// Compact mark-only variant — uses the white logo asset (works on dark bg)
 export function LogoMark({
   className = '',
-  size = 22,
-  variant = 'dark',
+  size = 44,
+  variant = 'light',
 }: {
   className?: string
   size?: number
   variant?: Variant
 }) {
-  const stroke = variant === 'light' ? '#EEE6DB' : '#945455'
-  const fill = variant === 'light' ? '#EEE6DB' : '#945455'
+  // For dark backgrounds (footer, header) — use white logo as-is.
+  // For light backgrounds — invert via CSS filter.
+  const inverted = variant === 'dark'
   return (
-    <svg
+    <img
+      src="/new-logo-white.webp"
+      alt="The Anti-Aging Centre"
       width={size}
       height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      className={className}
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="12" r="10.6" stroke={stroke} strokeWidth="0.7" />
-      <circle cx="12" cy="12" r="6.2" stroke={stroke} strokeWidth="0.5" opacity="0.6" />
-      <circle cx="12" cy="12" r="1.8" fill={fill} />
-    </svg>
+      className={`object-contain ${className}`}
+      style={{
+        height: size,
+        width: 'auto',
+        filter: inverted ? 'invert(1)' : 'none',
+      }}
+    />
   )
 }
 
+// Full logo lockup — uses the official client logo asset
 export function Logo({
-  variant = 'dark',
-  showTagline = true,
+  variant = 'light',
+  showTagline: _showTagline = true,
   className = '',
 }: {
   variant?: Variant
   showTagline?: boolean
   className?: string
 }) {
-  const wordColor = variant === 'light' ? 'text-pearl' : 'text-ink'
-  const tagColor = variant === 'light' ? 'text-pearl/55' : 'text-stone'
-  const ruleColor = variant === 'light' ? 'bg-pearl/30' : 'bg-mist'
+  // The official asset already contains the wordmark, so we ignore showTagline
+  // and just render the asset at an appropriate size.
+  const inverted = variant === 'dark'
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <LogoMark variant={variant} />
-      <span
-        className={`font-display font-medium text-[14px] tracking-[0.32em] uppercase ${wordColor}`}
-      >
-        TLC
-      </span>
-      {showTagline && (
-        <>
-          <span
-            className={`hidden md:inline-block w-px h-3 ${ruleColor} mx-1`}
-          />
-          <span
-            className={`hidden md:inline-block text-[10px] tracking-[0.28em] uppercase ${tagColor}`}
-          >
-            The Longevity Centre
-          </span>
-        </>
-      )}
-    </div>
+    <img
+      src="/new-logo-white.webp"
+      alt="The Anti-Aging Centre"
+      className={`object-contain h-[44px] w-auto ${className}`}
+      style={{ filter: inverted ? 'invert(1)' : 'none' }}
+    />
   )
 }
