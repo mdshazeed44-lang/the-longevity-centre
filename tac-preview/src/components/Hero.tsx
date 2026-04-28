@@ -114,21 +114,8 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         '-=0.4'
       )
 
-    const exitST = ScrollTrigger.create({
-      trigger: root.current,
-      start: 'top top',
-      end: '+=85%',
-      scrub: 0.6,
-      pin: false,
-      onUpdate: (self) => {
-        const p = self.progress
-        if (inner.current) inner.current.style.setProperty('--p', String(p))
-      },
-    })
-
     return () => {
       tl.kill()
-      exitST.kill()
     }
   }, [])
 
@@ -170,15 +157,6 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       <div
         ref={inner}
         className="relative z-[5] flex flex-col items-center justify-center text-center min-h-[100vh] md:min-h-[92vh] px-6 md:px-12 max-w-[1100px] mx-auto pt-[80px] pb-[80px]"
-        style={
-          {
-            transform:
-              'translate3d(0, calc(var(--p, 0) * -30px), 0) scale(calc(1 - var(--p, 0) * 0.03))',
-            opacity: 'calc(1 - var(--p, 0) * 0.85)',
-            transformOrigin: 'center center',
-            ['--p' as never]: '0',
-          } as React.CSSProperties
-        }
       >
         <div ref={eyebrow} className="flex items-center gap-4 mb-12">
           <span className="w-10 h-px bg-rust" />
@@ -238,18 +216,18 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* Centered biomarker ticker */}
         <div
           ref={ticker}
-          className="grid grid-cols-3 gap-8 md:gap-16 max-w-[640px] w-full border-t border-mist pt-8"
+          className="grid grid-cols-3 max-w-[760px] w-full border-y border-mist divide-x divide-mist"
         >
           {[
             { val: '163', label: 'Biomarkers measured' },
             { val: '12 mo', label: 'Supervised protocol' },
             { val: '5', label: 'Centres pan-India' },
           ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-display text-[24px] md:text-[34px] leading-none text-ink mb-2 tabular-nums">
+            <div key={s.label} className="text-center px-4 py-7">
+              <div className="font-display font-bold text-[34px] md:text-[48px] leading-none text-ink mb-3 tabular-nums tracking-[-0.02em]">
                 {s.val}
               </div>
-              <div className="text-[10px] tracking-[0.22em] text-stone uppercase leading-snug">
+              <div className="text-[10px] md:text-[11px] tracking-[0.25em] text-graphite uppercase font-medium leading-snug">
                 {s.label}
               </div>
             </div>
@@ -257,21 +235,6 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[5] hidden md:flex flex-col items-center gap-3">
-        <div className="text-[10px] tracking-[0.3em] text-stone uppercase">
-          Scroll
-        </div>
-        <div className="relative w-px h-10 bg-mist overflow-hidden">
-          <div
-            className="absolute left-0 w-full bg-rust"
-            style={{
-              height: '50%',
-              animation: 'scrollDot 2.4s ease-in-out infinite',
-            }}
-          />
-        </div>
-      </div>
     </section>
   )
 }
