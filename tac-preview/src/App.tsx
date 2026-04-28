@@ -421,10 +421,10 @@ function ResultsSplit() {
           <img
             src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1100&q=85"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover object-[75%_35%] opacity-90 mix-blend-luminosity"
+            className="absolute inset-0 w-full h-full object-cover object-[100%_30%] opacity-85 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-green/55" />
-          <div className="absolute inset-0 bg-gradient-to-r from-green/70 via-green/30 to-transparent" />
+          <div className="absolute inset-0 bg-green/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-green via-green/95 via-50% to-transparent" />
           <div className="relative h-full p-9 md:p-11 flex flex-col">
             <div className="text-[10px] tracking-[0.3em] uppercase text-rust-soft font-semibold mb-4">
               Top experts on longevity

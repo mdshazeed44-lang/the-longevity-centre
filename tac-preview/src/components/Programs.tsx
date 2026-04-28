@@ -136,8 +136,8 @@ export function Programs() {
       className="relative bg-cream overflow-hidden h-screen"
     >
       {/* Header strip */}
-      <div className="absolute top-0 inset-x-0 z-10 px-6 md:px-12 pt-24 md:pt-28">
-        <div className="max-w-[1500px] mx-auto flex items-end justify-between gap-8">
+      <div className="absolute top-0 inset-x-0 z-10 px-6 md:px-12 pt-24 md:pt-28 pb-10 bg-gradient-to-b from-cream via-cream to-cream/0 pointer-events-none">
+        <div className="max-w-[1500px] mx-auto flex items-end justify-between gap-8 pointer-events-auto">
           <div className="max-w-[640px]">
             <div className="text-[11px] tracking-[0.25em] text-rust font-semibold uppercase mb-4">
               Our Programs
@@ -166,7 +166,7 @@ export function Programs() {
       </div>
 
       {/* Pinned horizontal track */}
-      <div className="absolute inset-0 flex items-center pt-32 md:pt-44 pb-20">
+      <div className="absolute inset-0 flex items-center pt-44 md:pt-56 pb-24">
         <div
           ref={track}
           className="flex gap-8 md:gap-12 pl-6 md:pl-24 pr-[40vw] will-change-transform"
