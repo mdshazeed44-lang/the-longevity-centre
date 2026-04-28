@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { reduceMotion } from '../lib/motion'
-import { LogoMark } from './Logo'
 
 export function Preloader({ onDone }: { onDone: () => void }) {
   const root = useRef<HTMLDivElement>(null)
@@ -16,8 +15,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
     const el = root.current
     if (!el) return
     const q = (sel: string) => el.querySelectorAll(sel)
-    gsap.set(q('.pre-mark-icon'), { opacity: 0, scale: 0.7 })
-    gsap.set(q('.pre-mark span'), { y: '110%' })
+    gsap.set(q('.pre-logo'), { opacity: 0, y: 12, scale: 0.96 })
     gsap.set(q('.pre-tag'), { opacity: 0, y: 8 })
     gsap.set(q('.pre-bar-fill'), {
       scaleX: 0,
@@ -29,30 +27,21 @@ export function Preloader({ onDone }: { onDone: () => void }) {
         onDone()
       },
     })
-    tl.to(q('.pre-mark-icon'), {
+    tl.to(q('.pre-logo'), {
       opacity: 1,
+      y: 0,
       scale: 1,
       duration: 0.9,
       ease: 'expo.out',
     })
       .to(
-        q('.pre-mark span'),
-        {
-          y: '0%',
-          duration: 0.9,
-          ease: 'expo.out',
-          stagger: 0.06,
-        },
-        '-=0.5'
-      )
-      .to(
         q('.pre-tag'),
         { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-        '-=0.5'
+        '-=0.4'
       )
       .to(
         q('.pre-bar-fill'),
-        { scaleX: 1, duration: 1.0, ease: 'power3.inOut' },
+        { scaleX: 1, duration: 1.1, ease: 'power3.inOut' },
         '-=0.4'
       )
       .to(q('.pre-content'), {
@@ -84,31 +73,25 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       className="fixed inset-0 z-[200] pointer-events-none"
       aria-hidden="true"
     >
+      {/* Two-curtain reveal */}
       <div className="absolute inset-0 flex flex-col">
-        <div className="pre-curtain bg-cream flex-1" />
-        <div className="pre-curtain bg-cream flex-1" />
+        <div className="pre-curtain bg-ink flex-1" />
+        <div className="pre-curtain bg-ink flex-1" />
       </div>
 
+      {/* Centered TAC logo + tagline + progress line */}
       <div className="pre-content absolute inset-0 flex flex-col items-center justify-center">
-        <div className="pre-mark-icon mb-6">
-          <LogoMark size={48} />
+        <img
+          src="/new-logo-white.webp"
+          alt="The Anti-Aging Centre"
+          className="pre-logo h-[60px] md:h-[72px] w-auto object-contain"
+          style={{ willChange: 'transform, opacity' }}
+        />
+        <div className="pre-tag mt-8 text-[10px] tracking-[0.4em] uppercase text-white/55 font-medium">
+          Premium Longevity Medicine · India
         </div>
-        <div className="pre-mark flex items-baseline gap-2 overflow-hidden">
-          <span className="inline-block font-display font-medium text-[36px] md:text-[44px] leading-none tracking-[0.42em] uppercase text-ink">
-            T
-          </span>
-          <span className="inline-block font-display font-medium text-[36px] md:text-[44px] leading-none tracking-[0.42em] uppercase text-ink">
-            L
-          </span>
-          <span className="inline-block font-display font-medium text-[36px] md:text-[44px] leading-none tracking-[0.42em] uppercase text-ink">
-            C
-          </span>
-        </div>
-        <div className="pre-tag mt-5 text-[10px] tracking-[0.4em] uppercase text-stone">
-          The Longevity Centre
-        </div>
-        <div className="mt-10 h-px w-[200px] bg-mist overflow-hidden">
-          <div className="pre-bar-fill h-full w-full bg-rust" />
+        <div className="mt-10 h-px w-[220px] bg-white/15 overflow-hidden">
+          <div className="pre-bar-fill h-full w-full bg-rust-soft" />
         </div>
       </div>
     </div>
