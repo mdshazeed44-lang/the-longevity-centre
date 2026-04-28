@@ -125,22 +125,18 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* Simple eyebrow — small caps, no rules */}
         <div
           ref={eyebrow}
-          className="text-[11px] tracking-[0.4em] text-rust font-semibold uppercase mb-14"
+          className="text-[11px] tracking-[0.4em] text-stone uppercase font-medium mb-14"
         >
           Premium Longevity Medicine · India
         </div>
 
         {/* Headline */}
-        <h1 className="font-display font-bold text-[48px] md:text-[88px] xl:text-[112px] leading-[0.98] tracking-[-0.04em] text-ink mb-12">
+        <h1 className="font-display font-bold text-[48px] md:text-[88px] xl:text-[104px] leading-[1.0] tracking-[-0.04em] text-ink mb-12">
           <MaskedReveal text="Age should" delay={0.45} />
           <br />
           <MaskedReveal text="never define" delay={0.6} />
           <br />
-          <MaskedReveal
-            text="your story."
-            delay={0.85}
-            className="font-script font-normal text-rust text-[1.35em] leading-[0.85] inline-block translate-y-[0.08em]"
-          />
+          <MaskedReveal text="your story." delay={0.8} />
         </h1>
 
         {/* Description */}
