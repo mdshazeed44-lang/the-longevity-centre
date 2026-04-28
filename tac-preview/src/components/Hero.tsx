@@ -1,8 +1,7 @@
-import { Suspense, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { HeroDnaScene } from './HeroDnaScene'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -64,11 +63,13 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
   const para = useRef<HTMLParagraphElement>(null)
   const ctas = useRef<HTMLDivElement>(null)
   const ticker = useRef<HTMLDivElement>(null)
+  const ornament = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
 
     gsap.set(eyebrow.current, { opacity: 0, y: -10 })
+    gsap.set(ornament.current, { opacity: 0, scaleX: 0 })
     gsap.set(para.current, { opacity: 0, y: 16 })
     gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
     gsap.set(ticker.current?.children ?? [], { opacity: 0, y: 10 })
@@ -81,9 +82,14 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       ease: 'power3.out',
     })
       .to(
+        ornament.current,
+        { opacity: 1, scaleX: 1, duration: 1.4, ease: 'expo.out' },
+        '+=0.25'
+      )
+      .to(
         para.current,
         { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-        '+=0.7'
+        '+=0.45'
       )
       .to(
         ctas.current?.children ?? [],
@@ -108,7 +114,6 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         '-=0.4'
       )
 
-    // Scroll exit: lift + fade content
     const exitST = ScrollTrigger.create({
       trigger: root.current,
       start: 'top top',
@@ -131,35 +136,8 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
     <section
       id="hero"
       ref={root}
-      className="relative w-full overflow-hidden pt-[80px] min-h-[100vh]"
-      style={{
-        background:
-          'radial-gradient(ellipse 75% 60% at 50% 30%, #FFFFFF 0%, #FAF6EF 55%, #F1E8D8 100%)',
-      }}
+      className="relative w-full overflow-hidden pt-[80px] min-h-[100vh] bg-white"
     >
-      {/* 3D rotating DNA helix — premium ambient motion */}
-      <div className="absolute inset-0 z-[1]">
-        <Suspense fallback={null}>
-          <HeroDnaScene />
-        </Suspense>
-      </div>
-
-      {/* Soft radial spotlight — keeps headline readable above the helix */}
-      <div
-        className="absolute inset-0 z-[2] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 55% 60% at 50% 50%, rgba(250,246,239,0.78) 0%, rgba(250,246,239,0.35) 40%, transparent 75%)',
-        }}
-      />
-
-      {/* Faint film grain — analog texture */}
-      <div className="absolute inset-0 z-[2] pointer-events-none mix-blend-multiply opacity-[0.18] hero-grain" />
-
-      {/* Top + bottom gentle fades so canvas blends with sections above/below */}
-      <div className="absolute inset-x-0 top-0 h-[120px] z-[2] bg-gradient-to-b from-white via-white/70 to-transparent pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-[160px] z-[2] bg-gradient-to-t from-white via-white/85 to-transparent pointer-events-none" />
-
       {/* Vertical decorative index — left edge */}
       <div className="hidden xl:flex absolute left-10 top-1/2 -translate-y-1/2 flex-col items-center gap-6 z-[3]">
         <div
@@ -194,14 +172,15 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         className="relative z-[5] flex flex-col items-center justify-center text-center min-h-[100vh] md:min-h-[92vh] px-6 md:px-12 max-w-[1100px] mx-auto pt-[80px] pb-[80px]"
         style={
           {
-            transform: 'translate3d(0, calc(var(--p, 0) * -30px), 0) scale(calc(1 - var(--p, 0) * 0.03))',
+            transform:
+              'translate3d(0, calc(var(--p, 0) * -30px), 0) scale(calc(1 - var(--p, 0) * 0.03))',
             opacity: 'calc(1 - var(--p, 0) * 0.85)',
             transformOrigin: 'center center',
             ['--p' as never]: '0',
           } as React.CSSProperties
         }
       >
-        <div ref={eyebrow} className="flex items-center gap-4 mb-10">
+        <div ref={eyebrow} className="flex items-center gap-4 mb-12">
           <span className="w-10 h-px bg-rust" />
           <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
             Premium Longevity Medicine — India
@@ -209,7 +188,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <span className="w-10 h-px bg-rust" />
         </div>
 
-        <h1 className="font-display font-bold text-[44px] md:text-[80px] xl:text-[100px] leading-[1.0] tracking-[-0.03em] text-ink mb-10">
+        <h1 className="font-display font-bold text-[44px] md:text-[80px] xl:text-[104px] leading-[1.0] tracking-[-0.035em] text-ink mb-8">
           <MaskedReveal text="Age should" delay={0.45} />
           <br />
           <MaskedReveal text="never define" delay={0.6} />
@@ -221,19 +200,26 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           />
         </h1>
 
+        {/* Editorial ornament — hairline + diamond */}
+        <div ref={ornament} className="flex items-center gap-3 mb-10 origin-center">
+          <span className="w-16 h-px bg-mist" />
+          <span className="w-1.5 h-1.5 rotate-45 border border-rust" />
+          <span className="w-16 h-px bg-mist" />
+        </div>
+
         <p
           ref={para}
-          className="text-[16px] md:text-[19px] leading-[1.65] text-graphite max-w-[580px] mb-12"
+          className="text-[16px] md:text-[19px] leading-[1.7] text-graphite max-w-[580px] mb-12 font-light"
         >
           Innovative, personalised preventive medicine to extend the years your
           body feels strong, sharp, and fully alive.
         </p>
 
-        <div ref={ctas} className="flex flex-wrap gap-4 mb-16 justify-center">
+        <div ref={ctas} className="flex flex-wrap gap-4 mb-20 justify-center">
           <a
             href="#cta"
             data-cursor="hover"
-            className="group inline-flex items-center gap-3 px-8 py-4 bg-ink text-white text-[12px] tracking-[0.18em] font-medium hover:bg-rust-deep transition-colors duration-300"
+            className="group inline-flex items-center gap-3 px-9 py-[18px] bg-ink text-white text-[12px] tracking-[0.18em] font-medium hover:bg-rust-deep transition-colors duration-300"
           >
             BOOK CONSULTATION
             <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
@@ -243,7 +229,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <a
             href="#programs"
             data-cursor="hover"
-            className="inline-flex items-center px-8 py-4 border border-ink text-ink text-[12px] tracking-[0.18em] font-medium hover:bg-ink hover:text-white transition-colors duration-300"
+            className="inline-flex items-center px-9 py-[18px] border border-ink text-ink text-[12px] tracking-[0.18em] font-medium hover:bg-ink hover:text-white transition-colors duration-300"
           >
             EXPLORE PROGRAMS
           </a>
