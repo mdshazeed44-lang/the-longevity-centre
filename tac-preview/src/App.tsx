@@ -661,28 +661,25 @@ function Editorial() {
     <section
       id="editorial"
       ref={sectionRef}
-      className="bg-nougat py-32 md:py-48 px-6 md:px-12"
+      className="bg-white py-24 md:py-32 px-6 md:px-12"
     >
-      <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-12 md:gap-24 items-center">
-        <div className="aspect-[4/5] overflow-hidden">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div className="aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-mist">
           <img
             ref={imgRef}
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=80"
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=85"
             alt=""
             className="w-full h-[110%] object-cover"
           />
         </div>
-        <div>
-          <div className="text-[11px] tracking-[0.2em] text-rust font-medium uppercase mb-6">
+        <div className="md:max-w-[480px]">
+          <div className="text-[11px] tracking-[0.3em] text-stone uppercase font-medium mb-6">
             Diagnostics
           </div>
-          <h2 className="font-display font-bold text-[40px] md:text-[56px] leading-[1.1] tracking-[-0.025em] text-ink mb-8">
-            <span className="font-script text-rust text-[1.4em] leading-[0.8]">
-              Measurement
-            </span>{' '}
-            is medicine.
+          <h2 className="font-display font-bold text-[36px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink mb-8">
+            Measurement is medicine.
           </h2>
-          <div className="space-y-6 text-[17px] leading-[1.7] text-graphite max-w-[520px]">
+          <div className="space-y-5 text-[15px] md:text-[16px] leading-[1.7] text-graphite">
             <p>Most clinics treat symptoms. We treat the systems behind them.</p>
             <p>
               Our diagnostic stack — 163 blood parameters, full-genome analysis,
@@ -698,10 +695,10 @@ function Editorial() {
           <a
             href="#"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 mt-8 text-[13px] tracking-[0.1em] text-ink group"
+            className="inline-flex items-center gap-2 mt-10 text-[11px] tracking-[0.25em] text-ink uppercase font-medium hover:text-rust transition-colors group"
           >
-            VIEW DIAGNOSTICS{' '}
-            <span className="text-rust inline-block group-hover:translate-x-2 transition-transform duration-300">
+            View Diagnostics
+            <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
               →
             </span>
           </a>
