@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState, Suspense } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
-import { ParticleCanvas } from './DnaHelix'
 import { Preloader } from './components/Preloader'
 import { Cursor } from './components/Cursor'
 import { ScrollProgress } from './components/ScrollProgress'
@@ -29,13 +28,13 @@ function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'h-[64px] bg-white/85 backdrop-blur-lg border-b border-mist'
-          : 'h-[80px] bg-transparent border-b border-transparent'
+          ? 'h-[64px] bg-ink/95 backdrop-blur-lg border-b border-white/10'
+          : 'h-[80px] bg-ink border-b border-white/10'
       }`}
     >
       <div className="h-full flex items-center justify-between px-6 md:px-12">
-        <a href="#" data-cursor="hover" className="text-ink">
-          <Logo variant="dark" />
+        <a href="#" data-cursor="hover" className="text-white">
+          <Logo variant="light" />
         </a>
         <nav className="hidden md:flex gap-9">
           {['About', 'Programs', 'Diagnostics', 'Clinics', 'Blog', 'Contact'].map(
@@ -44,10 +43,10 @@ function Header() {
                 key={label}
                 href={`#${label.toLowerCase()}`}
                 data-cursor="hover"
-                className="relative text-[14px] text-ink hover:text-rust transition-colors duration-300 group"
+                className="relative text-[14px] text-white/80 hover:text-white transition-colors duration-300 group"
               >
                 {label}
-                <span className="absolute left-0 -bottom-1 h-px w-0 bg-rust group-hover:w-full transition-all duration-500" />
+                <span className="absolute left-0 -bottom-1 h-px w-0 bg-rust-soft group-hover:w-full transition-all duration-500" />
               </a>
             )
           )}
@@ -56,7 +55,7 @@ function Header() {
           href="#cta"
           data-cursor="hover"
           data-magnetic
-          className="hidden md:inline-flex items-center px-6 py-3 bg-ink text-white text-[13px] tracking-wide hover:bg-rust transition-colors duration-300"
+          className="hidden md:inline-flex items-center px-6 py-3 bg-white text-ink text-[13px] tracking-wide hover:bg-rust hover:text-white transition-colors duration-300"
         >
           Book a Consultation
         </a>
@@ -67,58 +66,124 @@ function Header() {
 
 // ---------- Clinics band ----------
 function ClinicsBand() {
+  // Source: theantiagingcentre.com — the five physical centres, verbatim.
   const clinics = [
-    { city: 'Gurugram', region: 'NCR', addr: 'Sohna Road, Sector 48' },
-    { city: 'Delhi', region: 'NCR', addr: 'Greater Kailash-1' },
-    { city: 'Pune', region: 'Maharashtra', addr: 'Hadapsar · Kumar Prism' },
-    { city: 'Bangalore', region: 'Karnataka', addr: 'JP Nagar · Sadashivnagar' },
+    {
+      city: 'Gurugram',
+      region: 'Haryana · NCR',
+      area: 'Sector 48',
+      addr: 'Block A1, Tikri, Vipul World, Sohna Road, near GD Goenka Public School.',
+      phone: '+91 87701 95833',
+    },
+    {
+      city: 'Delhi',
+      region: 'NCR',
+      area: 'Greater Kailash-1',
+      addr: 'S-79, Ground Floor, Greater Kailash-1, New Delhi 110048.',
+      phone: '+91 97171 46500',
+    },
+    {
+      city: 'Pune',
+      region: 'Maharashtra',
+      area: 'Hadapsar',
+      addr: '2nd Floor, Kumar Prism, Amanora Road, opposite Fab India.',
+      phone: '+91 97623 86121',
+    },
+    {
+      city: 'Bangalore',
+      region: 'Karnataka',
+      area: 'JP Nagar',
+      addr: '2nd Floor, Kalyani Magnum, 87, 3rd Main Road, Dollars Colony, Phase 4.',
+      phone: '+91 80767 19637',
+    },
+    {
+      city: 'Bangalore',
+      region: 'Karnataka',
+      area: 'Sadashivnagar',
+      addr: '1st Floor, 73, Railway Parallel Road, 4th Block, Kumara Park West.',
+      phone: '+91 80767 19637',
+    },
   ]
+
   const ref = useRef<HTMLDivElement>(null)
+  const headRef = useRef<HTMLHeadingElement>(null)
+
   useEffect(() => {
     if (reduceMotion()) return
+
+    // Heading line reveal
+    const lines = headRef.current?.querySelectorAll<HTMLElement>('.line-mask > span')
+    let headTween: gsap.core.Tween | undefined
+    if (lines?.length) {
+      gsap.set(lines, { yPercent: 110 })
+      headTween = gsap.to(lines, {
+        yPercent: 0,
+        duration: 1.1,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
+      })
+    }
+
+    // Cell stagger reveal
     const cells = ref.current?.querySelectorAll<HTMLElement>('.clinic-cell')
-    if (!cells) return
-    gsap.set(cells, { opacity: 0, y: 24 })
-    gsap.to(cells, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: ref.current, start: 'top 85%' },
-    })
+    let cellTween: gsap.core.Tween | undefined
+    if (cells?.length) {
+      gsap.set(cells, { opacity: 0, y: 32 })
+      cellTween = gsap.to(cells, {
+        opacity: 1,
+        y: 0,
+        duration: 1.0,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: ref.current, start: 'top 85%' },
+      })
+    }
+
+    return () => {
+      headTween?.scrollTrigger?.kill()
+      headTween?.kill()
+      cellTween?.scrollTrigger?.kill()
+      cellTween?.kill()
+    }
   }, [])
+
   return (
-    <section className="bg-white border-y border-mist">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-20 md:py-28">
+    <section id="clinics" className="bg-white">
+      <div className="max-w-[1380px] mx-auto px-6 md:px-12 py-16 md:py-24">
         {/* Header */}
-        <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-20 mb-14 md:mb-20 items-end">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-20 mb-16 md:mb-24 items-end">
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-7">
               <span className="w-8 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
                 Our Centres
               </span>
             </div>
-            <h2 className="font-display font-bold text-[34px] md:text-[52px] leading-[1.0] tracking-[-0.03em] text-ink">
-              Find us where{' '}
-              <span className="font-script font-normal text-rust text-[1.4em] leading-[0.8]">
-                you
-              </span>{' '}
-              live.
+            <h2
+              ref={headRef}
+              className="font-display font-bold text-[36px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink"
+            >
+              <span className="line-mask">
+                <span>Find us where</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span>you live.</span>
+              </span>
             </h2>
           </div>
-          <div className="flex flex-col md:items-end gap-5">
-            <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right">
-              Four flagship centres across India, with online consultations
-              everywhere else — including Mumbai and Hyderabad.
+          <div className="flex flex-col md:items-end gap-6">
+            <p className="text-[15px] md:text-[16px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right">
+              Five flagship centres across India, with online consultations
+              available in Mumbai, Bangalore and Hyderabad.
             </p>
             <a
-              href="#clinics"
+              href="#cta"
               data-cursor="hover"
               className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] text-ink uppercase font-medium hover:text-rust transition-colors group self-start md:self-end"
             >
-              See all clinics
+              Book a Consultation
               <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
                 →
               </span>
@@ -126,52 +191,111 @@ function ClinicsBand() {
           </div>
         </div>
 
-        {/* City grid */}
+        {/* Centres — 3-up grid, 6th cell is the "Online" feature */}
         <div
           ref={ref}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-mist border border-mist"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {clinics.map((c, i) => (
             <a
-              key={c.city}
-              href="#clinics"
+              key={c.city + c.area}
+              href="#cta"
               data-cursor="hover"
-              className="clinic-cell group relative bg-white p-7 md:p-10 hover:bg-cream transition-colors duration-500 overflow-hidden"
+              className="clinic-cell group relative bg-cream/40 hover:bg-cream rounded-[24px] p-8 md:p-10 overflow-hidden border border-mist/60 transition-colors duration-500"
             >
-              {/* Left rust rule on hover */}
-              <span className="absolute left-0 top-0 bottom-0 w-px bg-rust origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
-
-              {/* Header row: index + region */}
-              <div className="flex items-center justify-between mb-7">
-                <span className="text-[10px] tracking-[0.3em] text-stone uppercase font-medium tabular-nums">
+              {/* number / region */}
+              <div className="flex items-center justify-between mb-10">
+                <span className="font-display text-[18px] md:text-[20px] text-rust font-semibold tabular-nums tracking-tight">
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[10px] tracking-[0.25em] text-stone uppercase">
+                <span className="text-[10px] tracking-[0.28em] text-stone uppercase font-medium">
                   {c.region}
                 </span>
               </div>
 
-              {/* City name */}
-              <h3 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.0] tracking-[-0.02em] text-ink mb-4 group-hover:text-rust-deep transition-colors duration-300">
-                {c.city}
-              </h3>
+              {/* city + area */}
+              <div className="mb-6">
+                <h3 className="font-display font-bold text-[32px] md:text-[40px] leading-[1.0] tracking-[-0.025em] text-ink group-hover:text-rust-deep transition-colors duration-500">
+                  {c.city}
+                </h3>
+                <div className="mt-2 text-[12px] tracking-[0.22em] uppercase text-graphite font-medium">
+                  {c.area}
+                </div>
+              </div>
 
-              {/* Address */}
-              <p className="text-[13px] md:text-[14px] text-graphite leading-[1.55] mb-8 min-h-[2.2em]">
+              {/* address */}
+              <p className="text-[13.5px] md:text-[14px] text-graphite leading-[1.65] font-light min-h-[3.8em] mb-7">
                 {c.addr}
               </p>
 
-              {/* CTA */}
-              <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.25em] text-ink uppercase font-medium">
-                <span className="opacity-60 group-hover:opacity-100 transition-opacity">
-                  View clinic
+              {/* phone + CTA */}
+              <div className="flex items-center justify-between pt-6 border-t border-mist/80">
+                <span className="text-[12px] text-ink font-medium tracking-tight tabular-nums">
+                  {c.phone}
                 </span>
-                <span className="inline-block group-hover:translate-x-1 transition-transform duration-300 text-rust">
+                <span className="inline-flex items-center gap-2 text-[10.5px] tracking-[0.25em] text-ink uppercase font-semibold">
+                  Visit
+                  <span className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">
+                    →
+                  </span>
+                </span>
+              </div>
+
+              {/* hover accent — soft rust glow at top-right */}
+              <span
+                aria-hidden
+                className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-rust/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl pointer-events-none"
+              />
+            </a>
+          ))}
+
+          {/* Online consultations card — accent treatment */}
+          <a
+            href="#cta"
+            data-cursor="hover"
+            className="clinic-cell group relative bg-ink text-white rounded-[24px] p-8 md:p-10 overflow-hidden transition-colors duration-500"
+          >
+            <div className="flex items-center justify-between mb-10">
+              <span className="font-display text-[18px] md:text-[20px] text-rust-soft font-semibold tabular-nums tracking-tight">
+                06
+              </span>
+              <span className="text-[10px] tracking-[0.28em] text-white/55 uppercase font-medium">
+                Pan-India
+              </span>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="font-display font-bold text-[32px] md:text-[40px] leading-[1.0] tracking-[-0.025em]">
+                Online
+              </h3>
+              <div className="mt-2 text-[12px] tracking-[0.22em] uppercase text-white/65 font-medium">
+                Mumbai · Bangalore · Hyderabad
+              </div>
+            </div>
+
+            <p className="text-[13.5px] md:text-[14px] text-white/75 leading-[1.65] font-light min-h-[3.8em] mb-7">
+              Virtual consultations with our anti-aging, metabolic and dermatology
+              specialists — full programme delivery, anywhere in India.
+            </p>
+
+            <div className="flex items-center justify-between pt-6 border-t border-white/15">
+              <span className="text-[12px] text-white font-medium tracking-tight">
+                +91 88268 09123
+              </span>
+              <span className="inline-flex items-center gap-2 text-[10.5px] tracking-[0.25em] text-white uppercase font-semibold">
+                Book Online
+                <span className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust-soft">
                   →
                 </span>
               </span>
-            </a>
-          ))}
+            </div>
+
+            {/* subtle ambient glow */}
+            <span
+              aria-hidden
+              className="absolute -top-20 -right-20 w-56 h-56 rounded-full bg-rust/40 opacity-40 group-hover:opacity-70 transition-opacity duration-700 blur-3xl pointer-events-none"
+            />
+          </a>
         </div>
       </div>
     </section>
@@ -201,7 +325,7 @@ function Counter({ value, suffix = '' }: { value: number; suffix?: string }) {
 
 function TrustStrip() {
   return (
-    <section className="bg-cream py-32 md:py-48 px-6 md:px-12">
+    <section className="bg-cream py-20 md:py-28 px-6 md:px-12">
       <div className="max-w-[1280px] mx-auto text-center">
         <div className="text-[11px] tracking-[0.2em] text-rust font-semibold uppercase mb-6">
           A Medical Practice, Rooted in Nature
@@ -274,7 +398,7 @@ function ScienceCards() {
   return (
     <section
       id="science"
-      className="bg-white pt-24 pb-24 md:pt-32 md:pb-32 px-6 md:px-12"
+      className="bg-white py-16 md:py-24 px-6 md:px-12"
     >
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
@@ -365,83 +489,165 @@ function PressStrip() {
 
 // ---------- Results split ----------
 function ResultsSplit() {
-  const bullets = [
-    'Lower biological age',
-    'Improved energy & clarity',
-    'Better sleep & recovery',
-    'Reduced cardiometabolic risk',
-    'Healthier skin & body composition',
+  // Source: theantiagingcentre.com — "Way to a New Reformed Life" + Intervention copy.
+  const outcomes = [
+    {
+      label: 'Reversed metabolic risk',
+      detail: 'Diabetes, prediabetes, cholesterol, fatty liver',
+    },
+    {
+      label: 'PCOD & hormonal balance',
+      detail: 'Thyroid, insulin resistance, sex hormones',
+    },
+    {
+      label: 'Targeted fat loss',
+      detail: 'Body composition, not just the number on the scale',
+    },
+    {
+      label: 'Gut & microbiome restored',
+      detail: 'Bloating, IBS-like symptoms, food sensitivities resolved',
+    },
+    {
+      label: 'Skin & hair anti-aging',
+      detail: 'Dermatology-led, rooted in nutrient and hormonal health',
+    },
+    {
+      label: 'Expanded lifespan, restored vitality',
+      detail: 'A measurably longer, healthier, more vibrant life',
+    },
   ]
+
   const ref = useRef<HTMLDivElement>(null)
+  const headRef = useRef<HTMLHeadingElement>(null)
+
   useEffect(() => {
     if (reduceMotion()) return
+
+    // Heading line reveal
+    const lines = headRef.current?.querySelectorAll<HTMLElement>('.line-mask > span')
+    let headTween: gsap.core.Tween | undefined
+    if (lines?.length) {
+      gsap.set(lines, { yPercent: 110 })
+      headTween = gsap.to(lines, {
+        yPercent: 0,
+        duration: 1.1,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: headRef.current, start: 'top 85%' },
+      })
+    }
+
+    // Row reveal
     const items = ref.current?.querySelectorAll<HTMLElement>('.result-row')
-    if (!items) return
-    gsap.set(items, { x: -20, opacity: 0 })
-    gsap.to(items, {
-      x: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: ref.current, start: 'top 78%' },
-    })
+    let rowTween: gsap.core.Tween | undefined
+    if (items?.length) {
+      gsap.set(items, { y: 24, opacity: 0 })
+      rowTween = gsap.to(items, {
+        y: 0,
+        opacity: 1,
+        duration: 0.85,
+        ease: 'expo.out',
+        stagger: 0.07,
+        scrollTrigger: { trigger: ref.current, start: 'top 78%' },
+      })
+    }
+
+    return () => {
+      headTween?.scrollTrigger?.kill()
+      headTween?.kill()
+      rowTween?.scrollTrigger?.kill()
+      rowTween?.kill()
+    }
   }, [])
 
   return (
-    <section id="results" className="bg-cream py-24 md:py-32 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-stretch">
-        <div ref={ref} className="flex flex-col justify-center">
-          <div className="text-[11px] tracking-[0.3em] text-rust font-semibold uppercase mb-6">
-            Outcomes
+    <section id="results" className="bg-cream/50 py-16 md:py-24 px-6 md:px-12">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-20 items-start">
+        {/* LEFT — outcomes list */}
+        <div className="md:pt-2">
+          <div className="flex items-center gap-3 mb-7">
+            <span className="w-8 h-px bg-rust" />
+            <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+              What 12 Months Brings
+            </span>
           </div>
-          <h2 className="font-display font-bold text-[36px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink mb-10">
-            You will{' '}
-            <span className="font-script font-normal text-rust text-[1.4em] leading-[0.8]">
-              feel
-            </span>{' '}
-            the results.
+          <h2
+            ref={headRef}
+            className="font-display font-bold text-[40px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink mb-8"
+          >
+            <span className="line-mask">
+              <span>A new,</span>
+            </span>
+            <br />
+            <span className="line-mask">
+              <span>
+                reformed{' '}
+                <span className="font-script font-normal text-rust text-[1.05em] leading-[0.8] italic">
+                  life.
+                </span>
+              </span>
+            </span>
           </h2>
-          <ul className="space-y-4">
-            {bullets.map((b) => (
+          <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite font-light max-w-[520px] mb-12">
+            After the thorough 12-month programme, our patients describe a
+            reformed life — restored vitality, measurably better health, and a
+            sense of well-being that wasn't there before.
+          </p>
+
+          <ul ref={ref} className="border-t border-mist">
+            {outcomes.map((o, i) => (
               <li
-                key={b}
-                className="result-row flex items-start gap-4 border-b border-mist pb-4 last:border-0"
+                key={o.label}
+                className="result-row group flex items-baseline gap-6 md:gap-8 py-5 border-b border-mist"
               >
-                <span className="mt-2 w-2 h-2 bg-rust shrink-0" />
-                <span className="text-[16px] md:text-[17px] text-graphite leading-[1.5]">
-                  {b}
+                <span className="font-display text-[14px] text-rust font-semibold tabular-nums tracking-tight w-8 shrink-0">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="font-display font-bold text-[18px] md:text-[20px] leading-[1.25] tracking-[-0.01em] text-ink group-hover:text-rust-deep transition-colors duration-300">
+                    {o.label}
+                  </div>
+                  <div className="mt-1.5 text-[13px] md:text-[14px] text-stone leading-[1.55] font-light">
+                    {o.detail}
+                  </div>
+                </div>
+                <span className="hidden md:inline-block text-rust opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-500 text-lg">
+                  →
                 </span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="relative bg-green text-white overflow-hidden md:h-full min-h-[460px] md:min-h-[520px] max-h-[640px]">
-          <img
-            src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1100&q=85"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover object-[100%_30%] opacity-85 mix-blend-luminosity"
-          />
-          <div className="absolute inset-0 bg-green/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-green via-green/95 via-50% to-transparent" />
-          <div className="relative h-full p-9 md:p-11 flex flex-col">
-            <div className="text-[10px] tracking-[0.3em] uppercase text-rust-soft font-semibold mb-4">
-              Top experts on longevity
+        {/* RIGHT — clean image, no text overlay */}
+        <div className="md:sticky md:top-28 flex flex-col gap-6">
+          <div className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-[24px] bg-mist">
+            <img
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1200&q=85"
+              alt="A patient in restored health"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Caption block — separate from image, not overlaid */}
+          <div className="bg-white rounded-[20px] border border-mist p-7 md:p-8">
+            <div className="text-[10px] tracking-[0.3em] uppercase text-rust font-semibold mb-3">
+              One Coordinated Team
             </div>
-            <h3 className="font-display font-bold text-[26px] md:text-[32px] leading-[1.1] tracking-[-0.02em] mb-5 max-w-[320px]">
-              Led by India's most senior preventive-medicine specialists.
-            </h3>
-            <p className="text-[14px] leading-[1.6] text-white/80 max-w-[340px] mb-auto">
-              Internal medicine, endocrinology, dermatology, gastroenterology —
-              coordinated under one programme, one record, one team.
+            <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-6">
+              Internal medicine, endocrinology, dermatology and gastroenterology —
+              under one shared medical record, one programme, one team.
             </p>
             <a
-              href="#"
+              href="#cta"
               data-cursor="hover"
-              className="mt-8 inline-flex items-center gap-3 self-start px-5 py-3 bg-white text-green text-[11px] tracking-[0.2em] font-semibold uppercase hover:bg-rust hover:text-white transition-colors duration-300"
+              className="inline-flex items-center gap-3 text-[11px] tracking-[0.25em] text-ink uppercase font-semibold group hover:text-rust transition-colors duration-300"
             >
-              Meet The Team <span>→</span>
+              Meet the team
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">
+                →
+              </span>
             </a>
           </div>
         </div>
@@ -551,7 +757,7 @@ function Benefits() {
     }
   }, [])
   return (
-    <section className="bg-cream/40 py-24 md:py-32 px-6 md:px-12">
+    <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
         <div className="grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 mb-16 md:mb-20 items-start">
@@ -596,41 +802,91 @@ function Benefits() {
   )
 }
 
-// ---------- Brochure CTA ----------
+// ---------- Brochure / Callback CTA ----------
 function BrochureCTA() {
+  // Source: theantiagingcentre.com — "BOOK AN APPOINTMENT" form & callback CTA.
   return (
-    <section className="bg-cream py-20 md:py-28 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto bg-green text-white grid md:grid-cols-[1.1fr_1fr] items-center overflow-hidden">
-        <div className="relative aspect-[5/4] md:aspect-auto md:h-full bg-green-soft">
+    <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
+      <div className="max-w-[1280px] mx-auto bg-white text-ink grid md:grid-cols-[1.05fr_1fr] items-stretch overflow-hidden rounded-[28px] border border-mist shadow-[0_30px_80px_-50px_rgba(27,26,24,0.20)]">
+        {/* Image side — clean, no overlay text */}
+        <div className="relative aspect-[5/4] md:aspect-auto md:h-full bg-mist overflow-hidden md:m-3 md:rounded-[20px]">
           <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1100&q=80"
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=1200&q=85"
+            alt="A specialist conversation at TAC"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-green/60 to-transparent" />
         </div>
-        <div className="p-10 md:p-16">
-          <div className="text-[10px] tracking-[0.3em] uppercase text-rust-soft font-semibold mb-4">
-            The Longevity Brochure
+
+        {/* Content side */}
+        <div className="p-9 md:p-14 lg:p-16 flex flex-col justify-center">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-7 h-px bg-rust" />
+            <span className="text-[11px] tracking-[0.32em] uppercase text-rust font-semibold">
+              Request a Callback
+            </span>
           </div>
-          <h3 className="font-display font-bold text-[30px] md:text-[44px] leading-[1.05] tracking-[-0.02em] mb-6">
-            Learn what we can{' '}
-            <span className="font-script text-rust-soft text-[1.4em] leading-[0.8]">
-              do
-            </span>{' '}
-            for you.
+
+          <h3 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] leading-[1.0] tracking-[-0.025em] text-ink mb-6">
+            Begin with a{' '}
+            <span className="font-script font-normal text-rust text-[1.1em] leading-[0.8] italic">
+              conversation.
+            </span>
           </h3>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/80 max-w-[420px] mb-8">
-            A 32-page guide to our diagnostics, programmes, clinics and outcomes.
-            Free, no commitment.
+
+          <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[460px] mb-10">
+            Speak with our anti-aging, metabolic or dermatology specialists about
+            your goals. No commitment. We'll call you back at a time that suits.
           </p>
-          <a
-            href="#"
-            data-cursor="hover"
-            className="inline-flex items-center gap-3 px-7 py-4 bg-rust text-white text-[11px] tracking-[0.2em] font-semibold uppercase hover:bg-rust-deep transition-colors duration-300"
-          >
-            Download Brochure <span>→</span>
-          </a>
+
+          {/* Trust strip — three pills */}
+          <div className="flex flex-wrap gap-2.5 mb-10">
+            {['30-minute call', 'No commitment', 'Specialist-led'].map((p) => (
+              <span
+                key={p}
+                className="inline-flex items-center text-[10.5px] tracking-[0.22em] uppercase text-graphite font-medium px-3.5 py-2 rounded-full bg-cream border border-mist"
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href="#cta"
+              data-cursor="hover"
+              data-magnetic
+              className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+              </span>
+              Request a Callback
+              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
+            <a
+              href="https://wa.me/918826809123"
+              data-cursor="hover"
+              className="inline-flex items-center gap-2 px-6 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
+            >
+              WhatsApp
+            </a>
+          </div>
+
+          <div className="mt-7 text-[12px] text-stone tracking-tight">
+            Or call directly:{' '}
+            <a
+              href="tel:+918826809123"
+              data-cursor="hover"
+              className="text-ink font-medium hover:text-rust transition-colors duration-300"
+            >
+              +91 88268 09123
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -661,7 +917,7 @@ function Editorial() {
     <section
       id="editorial"
       ref={sectionRef}
-      className="bg-white py-24 md:py-32 px-6 md:px-12"
+      className="bg-white py-16 md:py-24 px-6 md:px-12"
     >
       <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
         <div className="aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-mist">
@@ -718,7 +974,7 @@ function Testimonial() {
     )
 
   return (
-    <section ref={ref} className="bg-white py-28 md:py-40 px-6 md:px-12">
+    <section ref={ref} className="bg-white py-16 md:py-24 px-6 md:px-12">
       <div className="max-w-[1180px] mx-auto">
         <div className="text-center mb-16">
           <div className="text-[11px] tracking-[0.25em] text-rust font-semibold uppercase mb-5">
@@ -864,37 +1120,101 @@ function CtaBand() {
   return (
     <section
       id="cta"
-      className="relative bg-green py-32 md:py-40 px-6 md:px-12 overflow-hidden"
+      className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden"
     >
-      <div className="absolute inset-0 z-0 opacity-70">
-        <Suspense fallback={null}>
-          <ParticleCanvas />
-        </Suspense>
-      </div>
-      <div className="relative z-10 max-w-[900px] mx-auto text-center">
-        <div className="text-[11px] tracking-[0.2em] text-rust font-medium uppercase mb-8">
-          Begin
+      {/* Ambient warm glow + soft grain — premium dark luxury */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
+      />
+
+      <div className="relative z-10 max-w-[1180px] mx-auto">
+        {/* Eyebrow row */}
+        <div className="flex items-center justify-center gap-3 mb-10">
+          <span className="w-7 h-px bg-rust-soft" />
+          <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
+            Begin Your Programme
+          </span>
+          <span className="w-7 h-px bg-rust-soft" />
         </div>
-        <h2 className="font-display font-bold text-[40px] md:text-[64px] leading-[1.1] tracking-[-0.025em] text-white mb-8">
-          Your{' '}
-          <span className="font-script text-rust-soft text-[1.4em] leading-[0.8]">
-            longevity
+
+        {/* Headline — TAC voice */}
+        <h2 className="font-display font-bold text-[40px] md:text-[72px] xl:text-[88px] leading-[0.98] tracking-[-0.035em] text-white text-center mb-8 max-w-[1080px] mx-auto">
+          Age should never{' '}
+          <span className="font-script font-normal text-rust-soft text-[1.05em] leading-[0.8] italic">
+            define
           </span>{' '}
-          starts with one consultation.
+          you.
         </h2>
-        <p className="text-[17px] md:text-[18px] text-pearl/80 max-w-[600px] mx-auto leading-[1.6] mb-12">
-          A 30-minute conversation with our medical team. No commitment. Just
-          clarity.
+
+        {/* Sub */}
+        <p className="text-[16px] md:text-[19px] text-white/70 max-w-[640px] mx-auto leading-[1.7] mb-14 text-center font-light">
+          Speak with our medical team for a 30-minute personalised conversation.
+          No commitment. Just clarity. Available across our five clinics and
+          online in Mumbai, Bangalore and Hyderabad.
         </p>
-        <a
-          href="#"
-          data-cursor="hover"
-          data-magnetic
-          className="inline-flex items-center gap-3 px-9 py-5 bg-rust text-white text-[12px] tracking-[0.2em] font-semibold hover:bg-rust-deep transition-colors duration-300"
-        >
-          BOOK A CONSULTATION
-          <span>→</span>
-        </a>
+
+        {/* CTA — three contact paths in pill form */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-16">
+          <a
+            href="#cta"
+            data-cursor="hover"
+            data-magnetic
+            className="group inline-flex items-center gap-3 pl-6 pr-8 py-5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+            </span>
+            Arrange a Consultation
+            <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+              →
+            </span>
+          </a>
+          <a
+            href="https://wa.me/918826809123"
+            data-cursor="hover"
+            className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+          >
+            WhatsApp
+          </a>
+          <a
+            href="tel:+918826809123"
+            data-cursor="hover"
+            className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+          >
+            +91 88268 09123
+          </a>
+        </div>
+
+        {/* Reassurance row — three trust pills */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/10 max-w-[920px] mx-auto rounded-2xl overflow-hidden border border-white/10">
+          {[
+            { k: '5', l: 'Centres pan-India' },
+            { k: '60+ yrs', l: 'In preventive medicine' },
+            { k: '163', l: 'Biomarkers per patient' },
+          ].map((s) => (
+            <div
+              key={s.l}
+              className="bg-ink px-6 py-7 text-center"
+            >
+              <div className="font-display font-bold text-[26px] md:text-[34px] text-white leading-none mb-2 tabular-nums tracking-[-0.01em]">
+                {s.k}
+              </div>
+              <div className="text-[10.5px] tracking-[0.25em] uppercase text-white/55 font-medium">
+                {s.l}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -903,7 +1223,7 @@ function CtaBand() {
 // ---------- Footer ----------
 function Footer() {
   return (
-    <footer className="bg-green text-white pt-24 pb-10 px-6 md:px-12">
+    <footer className="bg-green text-white pt-16 pb-10 px-6 md:px-12">
       <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-12 md:gap-16">
           <div>
@@ -1042,7 +1362,6 @@ function App() {
       <Editorial />
       <BrochureCTA />
       <Testimonial />
-      <LocationsLarge />
       <CtaBand />
       <Footer />
       {!ready && null}
