@@ -147,12 +147,7 @@ export function Method() {
               </span>
               <br />
               <span className="line-mask">
-                <span>
-                  healthy{' '}
-                  <span className="font-script font-normal text-rust text-[1.05em] leading-[0.8] italic">
-                    years.
-                  </span>
-                </span>
+                <span>healthy years.</span>
               </span>
             </h2>
           </div>
