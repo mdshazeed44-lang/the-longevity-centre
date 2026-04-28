@@ -68,17 +68,17 @@ function Header() {
 // ---------- Clinics band ----------
 function ClinicsBand() {
   const clinics = [
-    { city: 'GURUGRAM', addr: 'Sohna Road, Sector 48' },
-    { city: 'DELHI', addr: 'Greater Kailash-1' },
-    { city: 'PUNE', addr: 'Hadapsar, Kumar Prism' },
-    { city: 'BANGALORE', addr: 'JP Nagar · Sadashivnagar' },
+    { city: 'Gurugram', region: 'NCR', addr: 'Sohna Road, Sector 48' },
+    { city: 'Delhi', region: 'NCR', addr: 'Greater Kailash-1' },
+    { city: 'Pune', region: 'Maharashtra', addr: 'Hadapsar · Kumar Prism' },
+    { city: 'Bangalore', region: 'Karnataka', addr: 'JP Nagar · Sadashivnagar' },
   ]
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (reduceMotion()) return
     const cells = ref.current?.querySelectorAll<HTMLElement>('.clinic-cell')
     if (!cells) return
-    gsap.set(cells, { opacity: 0, y: 18 })
+    gsap.set(cells, { opacity: 0, y: 24 })
     gsap.to(cells, {
       opacity: 1,
       y: 0,
@@ -90,31 +90,89 @@ function ClinicsBand() {
   }, [])
   return (
     <section className="bg-white border-y border-mist">
-      <div
-        ref={ref}
-        className="max-w-[1500px] mx-auto px-6 md:px-12 py-8 grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-6 items-center"
-      >
-        <div className="clinic-cell md:col-span-1">
-          <div className="text-[10px] tracking-[0.25em] text-rust font-semibold uppercase mb-1">
-            Our Centres
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-20 md:py-28">
+        {/* Header */}
+        <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-20 mb-14 md:mb-20 items-end">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-8 h-px bg-rust" />
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                Our Centres
+              </span>
+            </div>
+            <h2 className="font-display font-bold text-[34px] md:text-[52px] leading-[1.0] tracking-[-0.03em] text-ink">
+              Find us where{' '}
+              <span className="font-script font-normal text-rust text-[1.4em] leading-[0.8]">
+                you
+              </span>{' '}
+              live.
+            </h2>
           </div>
-          <div className="text-[13px] text-stone">
-            Now also online — Mumbai, Hyderabad
+          <div className="flex flex-col md:items-end gap-5">
+            <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right">
+              Four flagship centres across India, with online consultations
+              everywhere else — including Mumbai and Hyderabad.
+            </p>
+            <a
+              href="#clinics"
+              data-cursor="hover"
+              className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] text-ink uppercase font-medium hover:text-rust transition-colors group self-start md:self-end"
+            >
+              See all clinics
+              <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
+                →
+              </span>
+            </a>
           </div>
         </div>
-        {clinics.map((c) => (
-          <a
-            key={c.city}
-            href="#clinics"
-            data-cursor="hover"
-            className="clinic-cell group flex flex-col py-2 border-l border-mist pl-5 hover:border-rust transition-colors duration-300"
-          >
-            <span className="text-[10px] tracking-[0.25em] text-ink font-semibold mb-1 group-hover:text-rust transition-colors duration-300">
-              {c.city}
-            </span>
-            <span className="text-[13px] text-graphite">{c.addr}</span>
-          </a>
-        ))}
+
+        {/* City grid */}
+        <div
+          ref={ref}
+          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-mist border border-mist"
+        >
+          {clinics.map((c, i) => (
+            <a
+              key={c.city}
+              href="#clinics"
+              data-cursor="hover"
+              className="clinic-cell group relative bg-white p-7 md:p-10 hover:bg-cream transition-colors duration-500 overflow-hidden"
+            >
+              {/* Left rust rule on hover */}
+              <span className="absolute left-0 top-0 bottom-0 w-px bg-rust origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]" />
+
+              {/* Header row: index + region */}
+              <div className="flex items-center justify-between mb-7">
+                <span className="text-[10px] tracking-[0.3em] text-stone uppercase font-medium tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="text-[10px] tracking-[0.25em] text-stone uppercase">
+                  {c.region}
+                </span>
+              </div>
+
+              {/* City name */}
+              <h3 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.0] tracking-[-0.02em] text-ink mb-4 group-hover:text-rust-deep transition-colors duration-300">
+                {c.city}
+              </h3>
+
+              {/* Address */}
+              <p className="text-[13px] md:text-[14px] text-graphite leading-[1.55] mb-8 min-h-[2.2em]">
+                {c.addr}
+              </p>
+
+              {/* CTA */}
+              <span className="inline-flex items-center gap-2 text-[10px] tracking-[0.25em] text-ink uppercase font-medium">
+                <span className="opacity-60 group-hover:opacity-100 transition-opacity">
+                  View clinic
+                </span>
+                <span className="inline-block group-hover:translate-x-1 transition-transform duration-300 text-rust">
+                  →
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   )
