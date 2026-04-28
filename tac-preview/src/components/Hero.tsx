@@ -63,13 +63,11 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
   const para = useRef<HTMLParagraphElement>(null)
   const ctas = useRef<HTMLDivElement>(null)
   const ticker = useRef<HTMLDivElement>(null)
-  const ornament = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
 
     gsap.set(eyebrow.current, { opacity: 0, y: -10 })
-    gsap.set(ornament.current, { opacity: 0, scaleX: 0 })
     gsap.set(para.current, { opacity: 0, y: 16 })
     gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
     gsap.set(ticker.current?.children ?? [], { opacity: 0, y: 10 })
@@ -82,14 +80,9 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       ease: 'power3.out',
     })
       .to(
-        ornament.current,
-        { opacity: 1, scaleX: 1, duration: 1.4, ease: 'expo.out' },
-        '+=0.25'
-      )
-      .to(
         para.current,
         { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-        '+=0.45'
+        '+=0.7'
       )
       .to(
         ctas.current?.children ?? [],
@@ -125,48 +118,20 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       ref={root}
       className="relative w-full overflow-hidden pt-[80px] min-h-[100vh] bg-white"
     >
-      {/* Vertical decorative index — left edge */}
-      <div className="hidden xl:flex absolute left-10 top-1/2 -translate-y-1/2 flex-col items-center gap-6 z-[3]">
-        <div
-          className="text-[10px] tracking-[0.4em] text-stone uppercase rotate-180"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          The Longevity Centre · Est. 1965
-        </div>
-        <div className="w-px h-24 bg-mist" />
-        <div className="text-[10px] tracking-[0.25em] text-rust font-medium tabular-nums">
-          01 — 09
-        </div>
-      </div>
-
-      {/* Right edge — Volume marker (mirrors left rail) */}
-      <div className="hidden xl:flex absolute right-10 top-1/2 -translate-y-1/2 flex-col items-center gap-6 z-[3]">
-        <div className="text-[10px] tracking-[0.25em] text-stone uppercase tabular-nums">
-          Volume I · 2026
-        </div>
-        <div className="w-px h-24 bg-mist" />
-        <div
-          className="text-[10px] tracking-[0.4em] text-stone uppercase"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          Premium Preventive Medicine
-        </div>
-      </div>
-
-      {/* Centered content */}
       <div
         ref={inner}
-        className="relative z-[5] flex flex-col items-center justify-center text-center min-h-[100vh] md:min-h-[92vh] px-6 md:px-12 max-w-[1100px] mx-auto pt-[80px] pb-[80px]"
+        className="relative z-[5] flex flex-col items-center justify-center text-center min-h-[100vh] md:min-h-[92vh] px-6 md:px-12 max-w-[1100px] mx-auto pt-[60px] pb-[60px]"
       >
-        <div ref={eyebrow} className="flex items-center gap-4 mb-12">
-          <span className="w-10 h-px bg-rust" />
-          <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-            Premium Longevity Medicine — India
-          </span>
-          <span className="w-10 h-px bg-rust" />
+        {/* Simple eyebrow — small caps, no rules */}
+        <div
+          ref={eyebrow}
+          className="text-[11px] tracking-[0.4em] text-rust font-semibold uppercase mb-14"
+        >
+          Premium Longevity Medicine · India
         </div>
 
-        <h1 className="font-display font-bold text-[44px] md:text-[80px] xl:text-[104px] leading-[1.0] tracking-[-0.035em] text-ink mb-8">
+        {/* Headline */}
+        <h1 className="font-display font-bold text-[48px] md:text-[88px] xl:text-[112px] leading-[0.98] tracking-[-0.04em] text-ink mb-12">
           <MaskedReveal text="Age should" delay={0.45} />
           <br />
           <MaskedReveal text="never define" delay={0.6} />
@@ -174,30 +139,25 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <MaskedReveal
             text="your story."
             delay={0.85}
-            className="font-script font-normal text-rust text-[1.4em] leading-[0.85] inline-block translate-y-[0.08em]"
+            className="font-script font-normal text-rust text-[1.35em] leading-[0.85] inline-block translate-y-[0.08em]"
           />
         </h1>
 
-        {/* Editorial ornament — hairline + diamond */}
-        <div ref={ornament} className="flex items-center gap-3 mb-10 origin-center">
-          <span className="w-16 h-px bg-mist" />
-          <span className="w-1.5 h-1.5 rotate-45 border border-rust" />
-          <span className="w-16 h-px bg-mist" />
-        </div>
-
+        {/* Description */}
         <p
           ref={para}
-          className="text-[16px] md:text-[19px] leading-[1.7] text-graphite max-w-[580px] mb-12 font-light"
+          className="text-[17px] md:text-[19px] leading-[1.7] text-graphite max-w-[560px] mb-14 font-light"
         >
           Innovative, personalised preventive medicine to extend the years your
           body feels strong, sharp, and fully alive.
         </p>
 
-        <div ref={ctas} className="flex flex-wrap gap-4 mb-20 justify-center">
+        {/* CTAs */}
+        <div ref={ctas} className="flex flex-wrap gap-4 mb-24 justify-center">
           <a
             href="#cta"
             data-cursor="hover"
-            className="group inline-flex items-center gap-3 px-9 py-[18px] bg-ink text-white text-[12px] tracking-[0.18em] font-medium hover:bg-rust-deep transition-colors duration-300"
+            className="group inline-flex items-center gap-3 px-10 py-[18px] bg-ink text-white text-[12px] tracking-[0.2em] font-medium hover:bg-rust-deep transition-colors duration-300"
           >
             BOOK CONSULTATION
             <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
@@ -207,13 +167,13 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <a
             href="#programs"
             data-cursor="hover"
-            className="inline-flex items-center px-9 py-[18px] border border-ink text-ink text-[12px] tracking-[0.18em] font-medium hover:bg-ink hover:text-white transition-colors duration-300"
+            className="inline-flex items-center px-10 py-[18px] border border-ink text-ink text-[12px] tracking-[0.2em] font-medium hover:bg-ink hover:text-white transition-colors duration-300"
           >
             EXPLORE PROGRAMS
           </a>
         </div>
 
-        {/* Centered biomarker ticker */}
+        {/* Stats ticker */}
         <div
           ref={ticker}
           className="grid grid-cols-3 max-w-[760px] w-full border-y border-mist divide-x divide-mist"
@@ -234,7 +194,6 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           ))}
         </div>
       </div>
-
     </section>
   )
 }
