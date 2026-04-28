@@ -115,35 +115,36 @@ export function Programs() {
       const next = cards[i + 1]
 
       // STACKING PIN — each card pins at top while next slides up over it.
-      // pinSpacing:false lets the next card scroll straight over this one,
-      // creating the deck effect.
+      // Larger pin distance + smoother release = less snap, more glide.
       if (next) {
         const pinST = ScrollTrigger.create({
           trigger: card,
           start: `top top+=${pinTop}`,
           endTrigger: next,
-          end: `top top+=${pinTop + 8}`,
+          end: `top top+=${pinTop + 60}`,
           pin: true,
           pinSpacing: false,
           anticipatePin: 1,
         })
         cleanups.push(() => pinST.kill())
 
-        // Behind-card depth: scale + dim as the next card slides over.
-        // We animate the INNER (not the pinned outer) so transform doesn't fight pin.
+        // Behind-card depth: glide UP smoothly with longer travel + buttery scrub.
+        // We animate the INNER so transform doesn't fight the pin.
         const depthTween = gsap.fromTo(
           inner,
           { scale: 1, opacity: 1, y: 0 },
           {
-            scale: 0.92,
+            scale: 0.94,
             opacity: 0,
-            y: -40,
-            ease: 'power2.inOut',
+            y: -90,
+            ease: 'power3.inOut',
             scrollTrigger: {
               trigger: next,
-              start: 'top bottom-=160',
-              end: `top top+=${pinTop + 60}`,
-              scrub: 0.6,
+              // start the exit much earlier so it feels like a deliberate glide
+              start: 'top bottom-=80',
+              end: `top top+=${pinTop + 20}`,
+              // higher scrub = smoother lerp follow on the scroll position
+              scrub: 1.4,
             },
           }
         )
@@ -153,19 +154,19 @@ export function Programs() {
         })
       }
 
-      // ENTER — soft slide-up + fade-in + tiny scale, expo easing for premium feel
+      // ENTER — gentle slide-up. Longer travel + softer easing = buttery glide.
       const enterTween = gsap.fromTo(
         inner,
-        { y: 110, opacity: 0, scale: 0.96 },
+        { y: 140, opacity: 0, scale: 0.97 },
         {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 1.3,
-          ease: 'expo.out',
+          duration: 1.6,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: card,
-            start: 'top 86%',
+            start: 'top 90%',
             once: true,
           },
         }
@@ -174,6 +175,7 @@ export function Programs() {
         enterTween.scrollTrigger?.kill()
         enterTween.kill()
       })
+
 
       // Image parallax — gentle, slow drift inside the card
       if (img) {
