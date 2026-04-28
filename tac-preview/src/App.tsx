@@ -389,15 +389,15 @@ function ResultsSplit() {
   }, [])
 
   return (
-    <section id="results" className="bg-cream py-28 md:py-40 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-        <div ref={ref}>
-          <div className="text-[11px] tracking-[0.25em] text-rust font-semibold uppercase mb-5">
+    <section id="results" className="bg-cream py-24 md:py-32 px-6 md:px-12">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-stretch">
+        <div ref={ref} className="flex flex-col justify-center">
+          <div className="text-[11px] tracking-[0.3em] text-rust font-semibold uppercase mb-6">
             Outcomes
           </div>
-          <h2 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.025em] text-ink mb-10">
+          <h2 className="font-display font-bold text-[36px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink mb-10">
             You will{' '}
-            <span className="font-script text-rust text-[1.4em] leading-[0.8]">
+            <span className="font-script font-normal text-rust text-[1.4em] leading-[0.8]">
               feel
             </span>{' '}
             the results.
@@ -417,21 +417,22 @@ function ResultsSplit() {
           </ul>
         </div>
 
-        <div className="relative bg-green text-white aspect-[4/5] overflow-hidden">
+        <div className="relative bg-green text-white overflow-hidden md:h-full min-h-[460px] md:min-h-[520px] max-h-[640px]">
           <img
-            src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&q=80"
+            src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1100&q=85"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-luminosity"
+            className="absolute inset-0 w-full h-full object-cover object-[75%_35%] opacity-90 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-green/40" />
-          <div className="relative h-full p-10 md:p-12 flex flex-col">
+          <div className="absolute inset-0 bg-green/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-green/70 via-green/30 to-transparent" />
+          <div className="relative h-full p-9 md:p-11 flex flex-col">
             <div className="text-[10px] tracking-[0.3em] uppercase text-rust-soft font-semibold mb-4">
               Top experts on longevity
             </div>
-            <h3 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-6 max-w-[300px]">
+            <h3 className="font-display font-bold text-[26px] md:text-[32px] leading-[1.1] tracking-[-0.02em] mb-5 max-w-[320px]">
               Led by India's most senior preventive-medicine specialists.
             </h3>
-            <p className="text-[14px] leading-[1.6] text-white/80 max-w-[320px] mb-auto">
+            <p className="text-[14px] leading-[1.6] text-white/80 max-w-[340px] mb-auto">
               Internal medicine, endocrinology, dermatology, gastroenterology —
               coordinated under one programme, one record, one team.
             </p>
