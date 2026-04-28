@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -385,152 +385,7 @@ function ClinicsBand() {
   )
 }
 
-// ---------- Trust counter ----------
-function Counter({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
-  const mv = useMotionValue(0)
-  const spring = useSpring(mv, { duration: 2000, bounce: 0 })
-  const [display, setDisplay] = useState(0)
 
-  useEffect(() => {
-    if (inView) mv.set(value)
-    return spring.on('change', (v) => setDisplay(Math.round(v)))
-  }, [inView, value, mv, spring])
-
-  return (
-    <span ref={ref}>
-      {display}
-      {suffix}
-    </span>
-  )
-}
-
-function TrustStrip() {
-  const ref = useRef<HTMLElement>(null)
-  const heading = useRef<HTMLHeadingElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (reduceMotion()) return
-
-    // Heading line-mask reveal
-    const lines = heading.current?.querySelectorAll<HTMLElement>('.line-mask > span')
-    let headTween: gsap.core.Tween | undefined
-    if (lines?.length) {
-      gsap.set(lines, { yPercent: 110 })
-      headTween = gsap.to(lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'expo.out',
-        stagger: 0.08,
-        scrollTrigger: { trigger: heading.current, start: 'top 85%' },
-      })
-    }
-
-    // Stat cells reveal — fade up + scale in with stagger
-    const stats = statsRef.current?.querySelectorAll<HTMLElement>('.stat-cell')
-    let statTween: gsap.core.Tween | undefined
-    if (stats?.length) {
-      gsap.set(stats, { y: 50, opacity: 0, scale: 0.96 })
-      statTween = gsap.to(stats, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1.0,
-        ease: 'expo.out',
-        stagger: 0.1,
-        scrollTrigger: { trigger: statsRef.current, start: 'top 80%' },
-      })
-    }
-
-    return () => {
-      headTween?.scrollTrigger?.kill()
-      headTween?.kill()
-      statTween?.scrollTrigger?.kill()
-      statTween?.kill()
-    }
-  }, [])
-
-  return (
-    <section ref={ref} className="relative bg-cream/40 py-20 md:py-28 px-6 md:px-12 overflow-hidden">
-      {/* Soft ambient backdrop */}
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-50"
-        style={{
-          background:
-            'radial-gradient(800px 500px at 50% 0%, rgba(148,84,85,0.06), transparent 60%)',
-        }}
-      />
-
-      <div className="relative max-w-[1280px] mx-auto text-center">
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-3 mb-7">
-          <span className="w-7 h-px bg-rust" />
-          <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-            A Medical Practice, Rooted in Nature
-          </span>
-          <span className="w-7 h-px bg-rust" />
-        </div>
-
-        {/* Headline with line-mask reveal */}
-        <h2
-          ref={heading}
-          className="font-display font-bold text-[30px] md:text-[48px] lg:text-[56px] leading-[1.15] tracking-[-0.025em] text-ink max-w-[920px] mx-auto"
-        >
-          <span className="line-mask">
-            <span>We measure what others guess.</span>
-          </span>
-          <br />
-          <span className="line-mask">
-            <span>We change what others manage.</span>
-          </span>
-        </h2>
-
-        {/* Stats — refined card grid */}
-        <div
-          ref={statsRef}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mt-20 md:mt-24"
-        >
-          {[
-            { val: 60, suf: '+', label: 'Years experience in preventive medicine' },
-            { val: 10000, suf: '+', label: 'Lives reformed by our team' },
-            { val: 5, suf: '', label: 'Centres pan-India' },
-            { val: 163, suf: '', label: 'Biomarkers per patient' },
-          ].map((s, i) => (
-            <div
-              key={s.label}
-              className="stat-cell group relative bg-white rounded-2xl border border-mist/70 px-6 py-9 md:px-7 md:py-12 overflow-hidden hover:border-rust/30 transition-colors duration-500"
-              style={{ willChange: 'transform, opacity' }}
-            >
-              {/* Index */}
-              <div className="absolute top-4 right-5 text-[10px] tracking-[0.28em] uppercase text-stone/55 tabular-nums font-medium">
-                0{i + 1}
-              </div>
-
-              {/* Counter */}
-              <div className="font-display font-bold text-[52px] md:text-[68px] lg:text-[76px] text-ink leading-none mb-4 tabular-nums tracking-[-0.025em]">
-                <Counter value={s.val} suffix={s.suf} />
-              </div>
-
-              {/* Accent line */}
-              <span
-                aria-hidden
-                className="block h-px w-9 bg-rust mb-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              />
-
-              {/* Label */}
-              <div className="text-[12.5px] md:text-[13px] text-graphite leading-snug font-light max-w-[200px] mx-auto">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
 
 // ---------- Cutting-edge science ----------
 function ScienceCards() {
@@ -689,7 +544,7 @@ function ResultsSplit() {
     },
   ]
 
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLUListElement>(null)
   const headRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
@@ -1183,90 +1038,6 @@ function Testimonial() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  )
-}
-
-// ---------- Locations ----------
-function LocationsLarge() {
-  const locs = [
-    {
-      city: 'Gurugram',
-      addr: 'DLF Phase 4 · Sohna Road, Sector 48',
-      img: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80',
-    },
-    {
-      city: 'Delhi',
-      addr: 'Greater Kailash-1 · S-79',
-      img: 'https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=900&q=80',
-    },
-    {
-      city: 'Bangalore',
-      addr: 'Sadashivnagar & JP Nagar',
-      img: 'https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=900&q=80',
-    },
-  ]
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (reduceMotion()) return
-    const cards = ref.current?.querySelectorAll<HTMLElement>('.loc-card')
-    if (!cards) return
-    gsap.set(cards, { y: 60, opacity: 0, clipPath: 'inset(0 0 100% 0)' })
-    gsap.to(cards, {
-      y: 0,
-      opacity: 1,
-      clipPath: 'inset(0 0 0% 0)',
-      duration: 1.2,
-      ease: 'expo.out',
-      stagger: 0.12,
-      scrollTrigger: { trigger: ref.current, start: 'top 75%' },
-    })
-  }, [])
-  return (
-    <section id="clinics" className="bg-white py-28 md:py-40 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="text-center mb-16">
-          <div className="text-[11px] tracking-[0.25em] text-rust font-semibold uppercase mb-5">
-            Visit Us
-          </div>
-          <h2 className="font-display font-bold text-[34px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
-            Exceptional care in leading-edge centres.
-          </h2>
-        </div>
-        <div ref={ref} className="grid md:grid-cols-3 gap-6 md:gap-8">
-          {locs.map((l) => (
-            <a
-              key={l.city}
-              href="#"
-              data-cursor="hover"
-              className="loc-card group block"
-            >
-              <div className="aspect-[4/5] overflow-hidden bg-nougat mb-5">
-                <img
-                  src={l.img}
-                  alt={l.city}
-                  className="w-full h-full object-cover group-hover:scale-[1.06] transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-                />
-              </div>
-              <div className="flex items-baseline justify-between gap-3 border-b border-mist pb-4 group-hover:border-ink transition-colors">
-                <div>
-                  <h3 className="font-display text-[22px] md:text-[26px] text-ink mb-1">
-                    {l.city}
-                  </h3>
-                  <p className="text-[13px] text-stone">{l.addr}</p>
-                </div>
-                <span className="text-rust text-xl group-hover:translate-x-2 transition-transform duration-500">
-                  →
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-        <p className="text-center text-[13px] text-stone mt-10">
-          Also in Pune. Online consultations available across India and from Mumbai
-          &amp; Hyderabad.
-        </p>
       </div>
     </section>
   )

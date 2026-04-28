@@ -1,0 +1,32 @@
+# Netlify build configuration for The Anti-Aging Centre site
+# The Vite app lives in tac-preview/ — Netlify needs to be told that.
+
+[build]
+  base    = "tac-preview"
+  command = "npm install && npm run build"
+  publish = "tac-preview/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback — Vite outputs a single index.html, all routes serve it
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# Cache static assets aggressively (videos, images, fonts)
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
