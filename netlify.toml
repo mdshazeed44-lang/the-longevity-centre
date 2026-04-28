@@ -4,7 +4,10 @@
 [build]
   base    = "tac-preview"
   command = "npm install && npm run build"
-  publish = "tac-preview/dist"
+  # publish is RELATIVE to `base`, so just "dist" (Netlify resolves it
+  # to /opt/build/repo/tac-preview/dist) — putting "tac-preview/dist"
+  # would double-nest and fail
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
