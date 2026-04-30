@@ -200,12 +200,34 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* Description */}
         <p
           ref={para}
-          className="text-[16px] md:text-[19px] leading-[1.65] text-white/80 max-w-[560px] mb-12 font-light"
+          className="text-[16px] md:text-[19px] leading-[1.65] text-white/80 max-w-[560px] mb-8 font-light"
         >
           Explore TAC's innovative, personalised preventive medicine for a
           vibrant and fulfilling life — at any stage. Now available online in
           Mumbai, Bangalore and Hyderabad.
         </p>
+
+        {/* Slim spec pills — anchor key facts inline above the CTAs */}
+        <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-12">
+          {[
+            { k: 'Centres', v: '5 Pan-India' },
+            { k: 'Online', v: 'Mumbai · Bangalore · Hyderabad' },
+            { k: 'Experience', v: '20+ Years' },
+          ].map((s) => (
+            <div
+              key={s.k}
+              className="inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
+            >
+              <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
+              <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
+                {s.k}
+              </span>
+              <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap">
+                {s.v}
+              </span>
+            </div>
+          ))}
+        </div>
 
         {/* CTA cards — like reference site */}
         <div ref={ctas} className="flex flex-wrap gap-4">

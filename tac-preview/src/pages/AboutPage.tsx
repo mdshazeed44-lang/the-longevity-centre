@@ -406,8 +406,27 @@ export function AboutPage() {
             team with over twenty years of preventive-medicine experience.
           </p>
 
+          {/* Slim spec pills — inline horizontal row matching Centres + Home heroes */}
+          <div ref={heroChipsRef} className="mt-10 md:mt-12 flex flex-wrap items-center gap-2.5 md:gap-3">
+            {HERO_CHIPS.map((c) => (
+              <div
+                key={c.k}
+                className="spec-chip inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
+                style={{ willChange: 'transform' }}
+              >
+                <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
+                <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
+                  {c.k}
+                </span>
+                <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold tabular-nums whitespace-nowrap">
+                  {c.v}
+                </span>
+              </div>
+            ))}
+          </div>
+
           {/* Inline contact strip */}
-          <div className="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 text-[12.5px] text-white/65">
+          <div className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 text-[12.5px] text-white/65">
             <a
               href="mailto:info@theantiagingcentre.com"
               className="inline-flex items-center gap-2.5 hover:text-white transition-colors"
@@ -441,29 +460,6 @@ export function AboutPage() {
               Gurugram · Delhi · Pune · Bangalore
             </span>
           </div>
-        </div>
-
-        {/* Floating spec chips — top-right cluster */}
-        <div
-          ref={heroChipsRef}
-          aria-hidden
-          className="hidden lg:flex absolute top-32 right-12 xl:right-20 flex-col gap-3 z-10"
-        >
-          {HERO_CHIPS.map((c) => (
-            <div
-              key={c.k}
-              className="spec-chip backdrop-blur-md bg-white/[0.06] border border-white/15 rounded-full pl-4 pr-5 py-2.5 flex items-center gap-3 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
-              style={{ willChange: 'transform' }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-rust-soft" />
-              <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/55 font-semibold">
-                {c.k}
-              </span>
-              <span className="text-[12.5px] tracking-[-0.01em] text-white font-semibold tabular-nums">
-                {c.v}
-              </span>
-            </div>
-          ))}
         </div>
 
         {/* Scroll-down indicator */}
