@@ -603,7 +603,7 @@ export function ResultsSplit() {
         <div className="md:sticky md:top-28 flex flex-col gap-5">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-mist">
             <img
-              src="/tac-photos/gurugram-clinic.jpg"
+              src="/tac-photos/clinic-interior-2.jpg"
               alt="Inside a TAC clinic"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"

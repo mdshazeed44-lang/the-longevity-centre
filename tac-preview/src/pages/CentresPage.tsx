@@ -51,8 +51,8 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sector+48+Gurugram',
-    photo: '/tac-photos/gurugram-clinic.jpg',
-    photoAlt: 'Inside the TAC Gurugram clinic at Sector 48',
+    photo: '/tac-photos/gurugram-exterior.jpg',
+    photoAlt: 'The TAC Gurugram clinic exterior with the neon TAC sign at Block A1, Tikri Sector 48',
     postalCode: '122018',
     verified: true,
   },
@@ -584,7 +584,7 @@ export function CentresPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
             {[
-              { src: '/tac-photos/gurugram-clinic.jpg', label: 'Gurugram' },
+              { src: '/tac-photos/gurugram-exterior.jpg', label: 'Gurugram' },
               { src: '/tac-photos/pune-clinic.jpg', label: 'Pune Hadapsar' },
               { src: '/tac-photos/delhi-bangalore-clinic.jpg', label: 'Delhi · Bangalore' },
             ].map((g) => (
