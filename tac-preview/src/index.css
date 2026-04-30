@@ -254,6 +254,54 @@ html.lenis {
   100% { transform: translateY(200%); }
 }
 
+/* ---------- Multi-clip cross-fade hero (Centres page) ---------- */
+.hero-clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  will-change: opacity, transform;
+  animation-duration: 24s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.hero-clip.clip-1 { animation-name: clipFade1; }
+.hero-clip.clip-2 { animation-name: clipFade2; }
+.hero-clip.clip-3 { animation-name: clipFade3; }
+
+@keyframes clipFade1 {
+  0%   { opacity: 1; }
+  30%  { opacity: 1; }
+  37%  { opacity: 0; }
+  93%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes clipFade2 {
+  0%   { opacity: 0; }
+  30%  { opacity: 0; }
+  37%  { opacity: 1; }
+  63%  { opacity: 1; }
+  70%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes clipFade3 {
+  0%   { opacity: 0; }
+  63%  { opacity: 0; }
+  70%  { opacity: 1; }
+  93%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-clip {
+    animation: none;
+  }
+  .hero-clip.clip-1 { opacity: 1; }
+  .hero-clip.clip-2,
+  .hero-clip.clip-3 { opacity: 0; }
+}
+
 /* ---------- Marquee ---------- */
 .marquee-track {
   display: flex;

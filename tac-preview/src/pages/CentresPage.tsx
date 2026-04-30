@@ -1,12 +1,19 @@
 // CentresPage — five clinics directory + online consultations.
 // Addresses sourced verbatim from theantiagingcentre.com (Gurugram, Pune, Delhi).
 // Bangalore branches kept at city/area level only (no street address verified).
-// Photos are the actual TAC clinic photos pulled from theantiagingcentre.com
-// and assigned per-clinic exactly as TAC themselves use them on their site:
-//   - Gurugram → green-chairs lobby
-//   - Pune    → treatment room with line-art mural
-//   - Delhi + Bangalore JP Nagar + Bangalore Sadashivnagar → TAC reception
-//     (TAC uses this same photo for all three on their own site)
+//
+// Photos: pulled from TAC's official site (theantiagingcentre.com).
+// Four unique TAC clinic photos exist publicly:
+//   - Gurugram exterior with neon "TAC … Block A1, Tikri Sec.48 Gurugram" sign
+//     → only photo that visibly identifies a specific clinic
+//   - Green-chairs lobby (TAC's own site labels this as Gurugram interior)
+//   - Treatment room with line-art mural (TAC labels as Pune)
+//   - Premium TAC-branded reception with archway corridor (TAC reuses this
+//     for Delhi + both Bangalore branches on their own site)
+//
+// Alt text describes what's in each photo without claiming false specificity.
+// TAC does not currently publish per-clinic photos for the Bangalore branches,
+// so visual variety there is limited to architectural language across photos.
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -25,6 +32,8 @@ type Centre = {
   email: string
   mapsUrl: string
   photo: string
+  /** Honest alt text — describes what the photo actually shows, not necessarily this exact clinic. */
+  photoAlt: string
   postalCode?: string
   /** When false, we don't emit MedicalClinic JSON-LD because we lack a verified street address */
   verified: boolean
@@ -43,6 +52,7 @@ const CENTRES: Centre[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sector+48+Gurugram',
     photo: '/tac-photos/gurugram-clinic.jpg',
+    photoAlt: 'Inside the TAC Gurugram clinic at Sector 48',
     postalCode: '122018',
     verified: true,
   },
@@ -57,6 +67,7 @@ const CENTRES: Centre[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Greater+Kailash+Delhi',
     photo: '/tac-photos/delhi-bangalore-clinic.jpg',
+    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
     postalCode: '110048',
     verified: true,
   },
@@ -72,6 +83,7 @@ const CENTRES: Centre[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Hadapsar+Pune',
     photo: '/tac-photos/pune-clinic.jpg',
+    photoAlt: 'A TAC Pune Hadapsar treatment room with line-art mural and aesthetic equipment',
     postalCode: '411028',
     verified: true,
   },
@@ -86,6 +98,7 @@ const CENTRES: Centre[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+JP+Nagar+Bangalore',
     photo: '/tac-photos/delhi-bangalore-clinic.jpg',
+    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
     verified: false,
   },
   {
@@ -99,6 +112,7 @@ const CENTRES: Centre[] = [
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sadashivnagar+Bangalore',
     photo: '/tac-photos/delhi-bangalore-clinic.jpg',
+    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
     verified: false,
   },
 ]
@@ -238,14 +252,53 @@ export function CentresPage() {
 
   return (
     <div id="centres-page">
-      {/* HERO — dark with ambient glow */}
-      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden">
+      {/* HERO — cinematic dark hero with cross-fading anti-aging montage:
+          DNA helix → laboratory equipment → modern clinic corridor.
+          Three short Pexels clips (~7 MB total) cross-fade on a 24s cycle. */}
+      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden min-h-[80vh] flex items-center">
+        {/* Cross-fading clip stack */}
+        <video
+          className="hero-clip clip-1"
+          src="/videos/centres-clips/dna.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
+        />
+        <video
+          className="hero-clip clip-2"
+          src="/videos/centres-clips/lab.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
+        />
+        <video
+          className="hero-clip clip-3"
+          src="/videos/centres-clips/clinic.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
+        />
+
+        {/* Cinematic overlays — dark gradient + warm rust glow + grain */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.18), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.12), transparent 60%)',
+              'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.35) 30%, rgba(10,8,7,0.55) 75%, rgba(10,8,7,0.85) 100%)',
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.45) 45%, rgba(10,8,7,0.0) 70%)',
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.20), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.12), transparent 60%)',
           }}
         />
         <div
@@ -253,7 +306,7 @@ export function CentresPage() {
           className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
         />
 
-        <div className="relative max-w-[1280px] mx-auto">
+        <div className="relative max-w-[1280px] mx-auto w-full">
           <div className="flex items-center gap-3 mb-7">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
@@ -296,8 +349,8 @@ export function CentresPage() {
       </section>
 
       {/* CENTRES — alternating image/content rows */}
-      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
-        <div ref={rowsRef} className="max-w-[1280px] mx-auto space-y-16 md:space-y-24">
+      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
+        <div ref={rowsRef} className="max-w-[1280px] mx-auto space-y-10 md:space-y-14">
           {CENTRES.map((c, idx) => {
             const reverse = idx % 2 === 1
             return (
@@ -307,14 +360,14 @@ export function CentresPage() {
               >
                 {/* Photo — atmosphere, not labelled per-clinic */}
                 <div
-                  className={`centre-img relative aspect-[4/3] md:aspect-[5/4] rounded-[24px] overflow-hidden bg-mist ${
+                  className={`centre-img relative aspect-[16/10] md:aspect-[3/2] md:max-h-[360px] rounded-[20px] overflow-hidden bg-mist ${
                     reverse ? 'md:order-2' : ''
                   }`}
                   style={{ willChange: 'transform, opacity' }}
                 >
                   <img
                     src={c.photo}
-                    alt={`Inside the TAC ${c.city} ${c.area} clinic`}
+                    alt={c.photoAlt}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04]"
                   />
@@ -510,9 +563,9 @@ export function CentresPage() {
       </section>
 
       {/* THE SPACES — parallax photo gallery */}
-      <section ref={galleryRef} className="bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+      <section ref={galleryRef} className="bg-white py-16 md:py-20 px-6 md:px-12 overflow-hidden">
         <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-14 md:mb-20">
+          <div className="text-center mb-10 md:mb-14">
             <div className="inline-flex items-center gap-3 mb-6">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
@@ -533,7 +586,7 @@ export function CentresPage() {
             ].map((g) => (
               <figure
                 key={g.src}
-                className="relative overflow-hidden rounded-[20px] bg-mist aspect-[4/5]"
+                className="relative overflow-hidden rounded-[20px] bg-mist aspect-[4/3] md:aspect-[5/4]"
               >
                 <img
                   src={g.src}
