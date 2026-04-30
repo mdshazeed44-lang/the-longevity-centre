@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -9,14 +8,24 @@ import { Hero } from './components/Hero'
 import { Programs, PROGRAMS } from './components/Programs'
 import { Method } from './components/Method'
 import { Logo } from './components/Logo'
+import { VideoTestimonials } from './components/VideoTestimonials'
 import { reduceMotion } from './lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // ---------- Header ----------
+const NAV_ITEMS = [
+  { label: 'About', href: '#about' },
+  { label: 'Programs', href: '#programs' },
+  { label: 'Method', href: '#method' },
+  { label: 'Centres', href: '#clinics' },
+  { label: 'Contact', href: '#cta' },
+]
+
 function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const lastY = useRef(0)
   const navRef = useRef<HTMLElement>(null)
 
@@ -25,7 +34,6 @@ function Header() {
     const onScroll = () => {
       const y = window.scrollY
       setScrolled(y > 80)
-      // hide on scroll down past 240px, show on scroll up
       if (y > 240 && y > lastY.current + 6) setHidden(true)
       else if (y < lastY.current - 6 || y < 200) setHidden(false)
       lastY.current = y
@@ -50,104 +58,228 @@ function Header() {
     })
   }, [])
 
-  const navItems = [
-    { label: 'About', href: '#about' },
-    { label: 'Programs', href: '#programs' },
-    { label: 'Method', href: '#method' },
-    { label: 'Centres', href: '#clinics' },
-    { label: 'Contact', href: '#cta' },
-  ]
+  // Body scroll lock when mobile menu open
+  useEffect(() => {
+    if (menuOpen) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
+  // Close menu on Escape key
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [menuOpen])
 
   return (
-    <header
-      ref={navRef}
-      className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
-      } ${scrolled ? 'top-3 md:top-4' : 'top-4 md:top-6'}`}
-      style={{ willChange: 'transform' }}
-    >
-      <div
-        className={`flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2.5 md:py-3 rounded-full transition-all duration-500 ${
-          scrolled
-            ? 'bg-ink/85 backdrop-blur-xl border border-white/15 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.5)]'
-            : 'bg-ink/70 backdrop-blur-md border border-white/10'
-        }`}
+    <>
+      <header
+        ref={navRef}
+        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ${
+          hidden ? '-translate-y-full' : 'translate-y-0'
+        } ${scrolled ? 'top-2 md:top-4' : 'top-3 md:top-6'}`}
+        style={{ willChange: 'transform' }}
       >
-        {/* Logo */}
-        <a
-          href="#"
-          data-cursor="hover"
-          className="text-white pl-2 pr-3 md:pr-4 border-r border-white/10 mr-1"
-          aria-label="The Anti-Aging Centre — home"
+        <div
+          className={`flex items-center gap-2 md:gap-3 px-2.5 md:px-4 py-2 md:py-3 rounded-full transition-all duration-500 max-w-[calc(100vw-1rem)] ${
+            scrolled
+              ? 'bg-ink/85 backdrop-blur-xl border border-white/15 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.5)]'
+              : 'bg-ink/70 backdrop-blur-md border border-white/10'
+          }`}
         >
-          <Logo variant="light" />
-        </a>
-
-        {/* Nav — pill links with animated indicator */}
-        <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              data-cursor="hover"
-              className="group relative px-4 py-2 text-[13px] tracking-tight font-medium text-white/75 hover:text-white transition-colors duration-300 rounded-full"
-            >
-              <span className="relative z-10">{item.label}</span>
-              {/* hover bg pill */}
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-colors duration-500"
-              />
-              {/* hover dot */}
-              <span
-                aria-hidden
-                className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-1 h-1 rounded-full bg-rust-soft opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500"
-              />
-            </a>
-          ))}
-        </nav>
-
-        {/* Phone pill — visible on md+ */}
-        <a
-          href="tel:+918826809123"
-          data-cursor="hover"
-          className="hidden lg:inline-flex items-center gap-2 px-4 py-2 ml-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[12px] text-white/90 transition-colors duration-300"
-        >
-          <svg
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-rust-soft"
+          {/* Logo */}
+          <a
+            href="#"
+            data-cursor="hover"
+            className="text-white pl-1.5 md:pl-2 pr-2 md:pr-4 md:border-r border-white/10 mr-0 md:mr-1"
+            aria-label="The Anti-Aging Centre — home"
           >
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
-          </svg>
-          <span className="tabular-nums tracking-tight">+91 88268 09123</span>
-        </a>
+            <Logo variant="light" />
+          </a>
 
-        {/* Primary CTA — magnetic pill with green ping dot */}
-        <a
-          href="#cta"
-          data-cursor="hover"
-          data-magnetic
-          className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 ml-1 rounded-full bg-white text-ink text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-          </span>
-          <span className="hidden sm:inline">Arrange a Consultation</span>
-          <span className="sm:hidden">Book</span>
-          <span className="inline-block transition-transform duration-500 group-hover:translate-x-0.5">
-            →
-          </span>
-        </a>
+          {/* Desktop nav — pill links with animated indicator */}
+          <nav className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                data-cursor="hover"
+                className="group relative px-4 py-2 text-[13px] tracking-tight font-medium text-white/75 hover:text-white transition-colors duration-300 rounded-full"
+              >
+                <span className="relative z-10">{item.label}</span>
+                <span
+                  aria-hidden
+                  className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-colors duration-500"
+                />
+                <span
+                  aria-hidden
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-1 h-1 rounded-full bg-rust-soft opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500"
+                />
+              </a>
+            ))}
+          </nav>
+
+          {/* Phone pill — visible on lg+ only (saves space) */}
+          <a
+            href="tel:+918826809123"
+            data-cursor="hover"
+            className="hidden lg:inline-flex items-center gap-2 px-4 py-2 ml-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[12px] text-white/90 transition-colors duration-300"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            <span className="tabular-nums tracking-tight">+91 88268 09123</span>
+          </a>
+
+          {/* Primary CTA — magnetic pill with green ping dot */}
+          <a
+            href="#cta"
+            data-cursor="hover"
+            data-magnetic
+            className="group inline-flex items-center gap-2 md:gap-2.5 pl-3 md:pl-4 pr-3.5 md:pr-5 py-2 md:py-2.5 ml-0.5 md:ml-1 rounded-full bg-white text-ink text-[11.5px] md:text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
+          >
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+            </span>
+            <span className="hidden lg:inline">Arrange a Consultation</span>
+            <span className="lg:hidden">Book</span>
+            <span className="hidden md:inline-block transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+          </a>
+
+          {/* Hamburger button — mobile only */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open navigation menu"
+            aria-expanded={menuOpen}
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 ml-0.5 rounded-full border border-white/15 text-white hover:bg-white/10 transition-colors duration-300"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="4" y1="13" x2="20" y2="13" />
+              <line x1="4" y1="19" x2="20" y2="19" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      {/* MOBILE MENU OVERLAY */}
+      <div
+        className={`fixed inset-0 z-[60] md:hidden transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+        aria-hidden={!menuOpen}
+      >
+        {/* Background */}
+        <div className="absolute inset-0 bg-ink" />
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            background:
+              'radial-gradient(700px 500px at 80% 100%, rgba(178,122,123,0.18), transparent 60%)',
+          }}
+        />
+
+        {/* Content */}
+        <div className="relative h-full flex flex-col px-6 pt-6 pb-10 text-white overflow-y-auto">
+          {/* Top bar — logo + close */}
+          <div className="flex items-center justify-between mb-12">
+            <Logo variant="light" />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="w-10 h-10 rounded-full border border-white/20 hover:bg-white/10 flex items-center justify-center transition-colors duration-300"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Big nav links — staggered slide-in */}
+          <nav className="flex-1 flex flex-col justify-center -mt-4">
+            {NAV_ITEMS.map((it, i) => (
+              <a
+                key={it.label}
+                href={it.href}
+                onClick={() => setMenuOpen(false)}
+                className="group relative block py-3.5 border-b border-white/10 overflow-hidden"
+                style={{
+                  transition: `transform 700ms cubic-bezier(0.22,1,0.36,1) ${
+                    menuOpen ? 80 + i * 70 : 0
+                  }ms, opacity 600ms ease ${menuOpen ? 80 + i * 70 : 0}ms`,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(28px)',
+                  opacity: menuOpen ? 1 : 0,
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-display font-bold text-[34px] sm:text-[40px] leading-[1.0] tracking-[-0.025em] text-white group-hover:text-rust-soft transition-colors duration-500">
+                    {it.label}
+                  </span>
+                  <span className="text-[11px] tracking-[0.3em] uppercase text-white/40 tabular-nums font-medium">
+                    0{i + 1}
+                  </span>
+                </div>
+              </a>
+            ))}
+          </nav>
+
+          {/* Footer — CTA + contacts */}
+          <div
+            className="mt-10 space-y-4"
+            style={{
+              transition: `transform 700ms cubic-bezier(0.22,1,0.36,1) ${
+                menuOpen ? 500 : 0
+              }ms, opacity 600ms ease ${menuOpen ? 500 : 0}ms`,
+              transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+              opacity: menuOpen ? 1 : 0,
+            }}
+          >
+            <a
+              href="#cta"
+              onClick={() => setMenuOpen(false)}
+              className="group flex items-center justify-between w-full pl-5 pr-2 py-3 bg-white text-ink rounded-full font-semibold text-[12px] tracking-[0.18em] uppercase"
+            >
+              <span className="flex items-center gap-2.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+                </span>
+                Arrange a Consultation
+              </span>
+              <span className="w-9 h-9 rounded-full bg-ink text-white flex items-center justify-center">
+                →
+              </span>
+            </a>
+
+            <div className="flex items-center justify-between text-[12.5px] text-white/65 pt-3 border-t border-white/10">
+              <a href="tel:+918826809123" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                +91 88268 09123
+              </a>
+              <a href="https://wa.me/918826809123" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-rust-soft">
+                  <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.71.3 1.262.48 1.694.629.712.227 1.36.195 1.871.121.571-.091 1.758-.721 2.006-1.413.255-.69.255-1.29.18-1.414-.074-.124-.27-.21-.57-.345m-5.446 7.443h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
+                </svg>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
+    </>
   )
 }
 
@@ -293,7 +425,7 @@ function ClinicsBand() {
                 key={c.city + c.area}
                 href={isFeatured ? '#cta' : '#cta'}
                 data-cursor="hover"
-                className={`clinic-row group relative grid grid-cols-[40px_1fr_1.1fr_1fr_auto] md:grid-cols-[60px_1fr_1.4fr_1fr_140px] gap-3 md:gap-6 items-center px-2 md:px-4 py-5 md:py-6 border-b border-mist transition-colors duration-500 ${
+                className={`clinic-row group relative grid grid-cols-[36px_1fr_auto] md:grid-cols-[60px_1fr_1.4fr_1fr_140px] gap-3 md:gap-6 items-center px-2 md:px-4 py-4 md:py-6 border-b border-mist transition-colors duration-500 ${
                   isFeatured ? 'bg-ink/95 text-white -mx-2 md:-mx-4 px-4 md:px-8 rounded-xl' : 'hover:bg-cream/50'
                 }`}
               >
@@ -306,15 +438,23 @@ function ClinicsBand() {
                   {String(i + 1).padStart(2, '0')}
                 </span>
 
-                {/* city */}
-                <div className="flex items-center gap-3 min-w-0">
+                {/* city — on mobile shows area+region inline since other cells are hidden */}
+                <div className="min-w-0">
                   <h3
-                    className={`font-display font-bold text-[20px] md:text-[28px] leading-[1.0] tracking-[-0.02em] truncate transition-colors duration-500 ${
+                    className={`font-display font-bold text-[19px] md:text-[28px] leading-[1.0] tracking-[-0.02em] truncate transition-colors duration-500 ${
                       isFeatured ? 'text-white' : 'text-ink group-hover:text-rust-deep'
                     }`}
                   >
                     {c.city}
                   </h3>
+                  {/* area shown under city on mobile only */}
+                  <div
+                    className={`md:hidden text-[10px] tracking-[0.22em] uppercase font-medium mt-1 truncate ${
+                      isFeatured ? 'text-white/70' : 'text-stone'
+                    }`}
+                  >
+                    {c.area}
+                  </div>
                 </div>
 
                 {/* area */}
@@ -1074,66 +1214,6 @@ function Editorial() {
   )
 }
 
-// ---------- Testimonial ----------
-function Testimonial() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
-  const words =
-    "Their personalised recommendations have significantly improved my mental clarity and physical health. The depth of testing was unlike anything I've experienced before.".split(
-      ' '
-    )
-
-  return (
-    <section ref={ref} className="bg-white py-16 md:py-24 px-6 md:px-12">
-      <div className="max-w-[1180px] mx-auto">
-        <div className="text-center mb-16">
-          <div className="text-[11px] tracking-[0.25em] text-rust font-semibold uppercase mb-5">
-            Patient Stories
-          </div>
-          <h2 className="font-display font-bold text-[30px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink max-w-[820px] mx-auto">
-            Here's what our patients experienced after visiting our longevity
-            clinic.
-          </h2>
-        </div>
-
-        <div className="grid md:grid-cols-[260px_1fr] gap-10 md:gap-16 items-center max-w-[920px] mx-auto">
-          <div className="aspect-[4/5] overflow-hidden bg-nougat">
-            <img
-              src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80"
-              alt="Vikas — Longevity Plus patient"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div>
-            <blockquote className="font-editorial font-medium text-[22px] md:text-[28px] leading-[1.4] text-ink">
-              "
-              {words.map((w, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="inline"
-                >
-                  {w}{' '}
-                </motion.span>
-              ))}
-              "
-            </blockquote>
-            <div className="w-[60px] h-px bg-rust mt-8 mb-4" />
-            <div className="text-[13px] tracking-[0.2em] text-ink font-semibold uppercase">
-              Vikas Mehra
-            </div>
-            <div className="text-[13px] text-stone mt-1">
-              Longevity Plus · 12-month patient
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // ---------- CTA Band ----------
 function CtaBand() {
   return (
@@ -1507,14 +1587,14 @@ function App() {
       <Cursor />
       <Header />
       <Hero />
+      <Programs />
       <PressStrip />
       <ScienceCards />
-      <Programs />
       <Method />
       <ResultsSplit />
       <Editorial />
       <Benefits />
-      <Testimonial />
+      <VideoTestimonials />
       <ClinicsBand />
       <BrochureCTA />
       <CtaBand />

@@ -5,76 +5,47 @@ import { reduceMotion } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Source: theantiagingcentre.com — TAC's 5 official programmes (verbatim).
 export const PROGRAMS = [
   {
     cat: '01',
-    title: '360° Optimisation',
-    tag: 'Flagship Programme',
-    desc: 'A complete medical longevity protocol — biomarkers, hormones, body composition, and biological age — reset over twelve months under one coordinated team.',
+    title: 'Longevity Plus Program',
+    tag: 'Flagship · 12 mo',
+    desc:
+      'A 12-month medical longevity protocol — comprehensive blood panels, body composition, DNA-based genetic testing and gut microbiome mapping, with personalised interventions and ongoing follow-ups under one coordinated team.',
     img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1400&q=85',
   },
   {
     cat: '02',
-    title: 'Weight Loss',
+    title: 'Metabolic & Diabetes Clinic',
     tag: 'Metabolic Health',
-    desc: 'Doctor-supervised, body-composition-based fat loss using metabolic testing, continuous glucose data, and personalised nutrition.',
-    img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=85',
+    desc:
+      'Dedicated clinic for diabetes, prediabetes, insulin resistance, PCOD, thyroid disorders and fatty liver — using continuous monitoring, advanced blood tests and body composition analysis to reverse metabolic risk.',
+    img: 'https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=1400&q=85',
   },
   {
     cat: '03',
-    title: 'Hormone Balance',
-    tag: 'Endocrine',
-    desc: 'Restore thyroid, adrenal, sex-hormone, and insulin balance — the hidden foundation of long-term vitality and resilience.',
-    img: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1400&q=85',
-  },
-  {
-    cat: '04',
-    title: 'Regenerative Medicine',
-    tag: 'Cellular Health',
-    desc: 'Peptide therapy, NAD⁺ infusions, and cellular protocols designed to slow biological ageing at the systems level.',
-    img: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=1400&q=85',
-  },
-  {
-    cat: '05',
-    title: 'Heart Health',
-    tag: 'Cardiovascular',
-    desc: 'Vascular function, EndoPAT, lipid sub-fractionation and cardiac risk stratification — far beyond a routine ECG.',
-    img: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1400&q=85',
-  },
-  {
-    cat: '06',
-    title: 'Brain Health',
-    tag: 'Neuro-cognitive',
-    desc: 'Cognitive performance, mood, sleep architecture, and neuro-protective protocols built on imaging and biomarker data.',
-    img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1400&q=85',
-  },
-  {
-    cat: '07',
-    title: 'Gut & Microbiome',
-    tag: 'Digestive',
-    desc: 'Microbiome sequencing, gut-correction protocols, and food-sensitivity mapping — the root of immunity and energy.',
+    title: 'Gut Correction Program',
+    tag: 'Digestive · Microbiome',
+    desc:
+      'Comprehensive gut health and microbiome testing to uncover causes of bloating, IBS-like symptoms and food sensitivities — followed by targeted nutrition, probiotics and lifestyle interventions.',
     img: 'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=1400&q=85',
   },
   {
-    cat: '08',
+    cat: '04',
+    title: 'Medical Weight Loss & Body Composition',
+    tag: 'Weight & Composition',
+    desc:
+      'Doctor-supervised weight loss using body composition analysis (BCA), metabolic markers and hormonal testing to target fat loss — not just the number on the scale. Ideal for obesity, diabetes and PCOD-related weight gain.',
+    img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=85',
+  },
+  {
+    cat: '05',
     title: 'Skin & Aesthetics',
     tag: 'Dermatology',
-    desc: 'Dermatologist-led anti-ageing aesthetics rooted in collagen, micronutrient and hormonal health — not just topical fixes.',
+    desc:
+      'Dermatologist-led anti-ageing aesthetics rooted in collagen, micronutrient and hormonal health — not just topical fixes. Includes laser hair reduction, hair-loss treatment and skin rejuvenation protocols.',
     img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1400&q=85',
-  },
-  {
-    cat: '09',
-    title: 'Sexual Health',
-    tag: 'Hormonal',
-    desc: 'Discreet, evidence-based protocols for libido, function and intimacy across both sexes — handled with care.',
-    img: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1400&q=85',
-  },
-  {
-    cat: '10',
-    title: 'Sleep Improvement',
-    tag: 'Recovery',
-    desc: 'Polysomnography-grade sleep diagnostics, circadian re-alignment and recovery protocols for deep, restorative sleep.',
-    img: 'https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=1400&q=85',
   },
 ]
 
@@ -239,7 +210,7 @@ export function Programs() {
               className="font-display font-bold text-[36px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
-                <span>Ten medical specialities.</span>
+                <span>Five flagship programmes.</span>
               </span>
               <br />
               <span className="line-mask">
@@ -259,6 +230,7 @@ export function Programs() {
         {PROGRAMS.map((p, i) => (
           <div
             key={p.title}
+            id={`program-${i}`}
             ref={(el) => {
               cardsRef.current[i] = el
             }}

@@ -120,7 +120,9 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       ref={root}
       className="relative w-full overflow-hidden min-h-[100vh] bg-ink text-white"
     >
-      {/* Background video — full bleed, anti-aging woman in nature */}
+      {/* Background video — full bleed cinematic, plays muted on loop.
+          preload="metadata" lets the browser show the poster instantly while
+          the video streams in progressively, improving LCP. */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
@@ -129,8 +131,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         loop
         muted
         playsInline
-        preload="auto"
-        poster=""
+        preload="metadata"
       />
 
       {/* Cinematic overlays — vignette + bottom gradient + left text gradient */}
