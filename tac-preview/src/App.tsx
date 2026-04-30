@@ -1,28 +1,25 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
 import { Preloader } from './components/Preloader'
 import { Cursor } from './components/Cursor'
-import { Hero } from './components/Hero'
-import { Programs, PROGRAMS } from './components/Programs'
-import { Method } from './components/Method'
 import { Logo } from './components/Logo'
-import { VideoTestimonials } from './components/VideoTestimonials'
+import { PROGRAMS } from './components/Programs'
 import { reduceMotion } from './lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 // ---------- Header ----------
 const NAV_ITEMS = [
-  { label: 'About', href: '#about' },
-  { label: 'Programs', href: '#programs' },
-  { label: 'Method', href: '#method' },
-  { label: 'Centres', href: '#clinics' },
-  { label: 'Contact', href: '#cta' },
+  { label: 'About', href: '/about' },
+  { label: 'Programs', href: '/#programs' },
+  { label: 'Method', href: '/#method' },
+  { label: 'Centres', href: '/#clinics' },
+  { label: 'Contact', href: '/#cta' },
 ]
 
-function Header() {
+export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -284,7 +281,7 @@ function Header() {
 }
 
 // ---------- Clinics band ----------
-function ClinicsBand() {
+export function ClinicsBand() {
   // Source: theantiagingcentre.com — the five physical centres, verbatim.
   const clinics = [
     {
@@ -527,7 +524,7 @@ function ClinicsBand() {
 
 
 // ---------- Cutting-edge science ----------
-function ScienceCards() {
+export function ScienceCards() {
   // Source-aligned: TAC's positioning around longevity, prevention & performance.
   const cards = [
     {
@@ -709,7 +706,7 @@ function ScienceCards() {
 }
 
 // ---------- Press marquee ----------
-function PressStrip() {
+export function PressStrip() {
   const press = [
     'Forbes India',
     'Vogue',
@@ -746,7 +743,7 @@ function PressStrip() {
 }
 
 // ---------- Results split ----------
-function ResultsSplit() {
+export function ResultsSplit() {
   // Source: theantiagingcentre.com — "Way to a New Reformed Life" + Intervention copy.
   const outcomes = [
     {
@@ -876,8 +873,8 @@ function ResultsSplit() {
         <div className="md:sticky md:top-28 flex flex-col gap-6">
           <div className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-[24px] bg-mist">
             <img
-              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1200&q=85"
-              alt="A patient in restored health"
+              src="/tac-photos/tac_about.jpg"
+              alt="The Anti-Aging Centre — our practice"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -910,7 +907,7 @@ function ResultsSplit() {
 }
 
 // ---------- Benefits ----------
-function Benefits() {
+export function Benefits() {
   const items = [
     {
       title: 'Relieving stress',
@@ -1056,7 +1053,7 @@ function Benefits() {
 }
 
 // ---------- Brochure / Callback CTA ----------
-function BrochureCTA() {
+export function BrochureCTA() {
   // Source: theantiagingcentre.com — "BOOK AN APPOINTMENT" form & callback CTA.
   return (
     <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
@@ -1064,8 +1061,8 @@ function BrochureCTA() {
         {/* Image side — clean, no overlay text */}
         <div className="relative aspect-[5/4] md:aspect-auto md:h-full bg-mist overflow-hidden md:m-3 md:rounded-[20px]">
           <img
-            src="https://images.unsplash.com/photo-1614935151651-0bea6508db6b?w=1200&q=85"
-            alt="A specialist conversation at TAC"
+            src="/tac-photos/clinic-interior-1.jpg"
+            alt="Inside a TAC clinic"
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -1144,7 +1141,7 @@ function BrochureCTA() {
 }
 
 // ---------- Editorial parallax ----------
-function Editorial() {
+export function Editorial() {
   const imgRef = useRef<HTMLImageElement>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -1173,8 +1170,8 @@ function Editorial() {
         <div className="aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-mist">
           <img
             ref={imgRef}
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=85"
-            alt=""
+            src="/tac-photos/clinic-interior-2.jpg"
+            alt="Diagnostics at TAC"
             className="w-full h-[110%] object-cover"
           />
         </div>
@@ -1215,7 +1212,7 @@ function Editorial() {
 }
 
 // ---------- CTA Band ----------
-function CtaBand() {
+export function CtaBand() {
   return (
     <section
       id="cta"
@@ -1316,7 +1313,7 @@ function CtaBand() {
 }
 
 // ---------- Footer ----------
-function Footer() {
+export function Footer() {
   return (
     <footer className="relative bg-ink text-white overflow-hidden">
       {/* Ambient backdrop glow */}
@@ -1556,7 +1553,9 @@ function Footer() {
 }
 
 // ---------- App ----------
-function App() {
+// App is the chrome shell — Preloader · Cursor · Header · {children} · Footer
+// + Lenis smooth-scroll lifecycle. Pages are passed in as children from main.tsx.
+function App({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -1586,18 +1585,7 @@ function App() {
       <Preloader onDone={() => setReady(true)} />
       <Cursor />
       <Header />
-      <Hero />
-      <Programs />
-      <PressStrip />
-      <ScienceCards />
-      <Method />
-      <ResultsSplit />
-      <Editorial />
-      <Benefits />
-      <VideoTestimonials />
-      <ClinicsBand />
-      <BrochureCTA />
-      <CtaBand />
+      {children}
       <Footer />
       {!ready && null}
     </div>

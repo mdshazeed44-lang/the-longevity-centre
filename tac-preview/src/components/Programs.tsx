@@ -21,7 +21,7 @@ export const PROGRAMS = [
     tag: 'Metabolic Health',
     desc:
       'Dedicated clinic for diabetes, prediabetes, insulin resistance, PCOD, thyroid disorders and fatty liver — using continuous monitoring, advanced blood tests and body composition analysis to reverse metabolic risk.',
-    img: 'https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=1400&q=85',
+    img: '/tac-photos/metabolic-diabetes.webp',
   },
   {
     cat: '03',
@@ -29,7 +29,7 @@ export const PROGRAMS = [
     tag: 'Digestive · Microbiome',
     desc:
       'Comprehensive gut health and microbiome testing to uncover causes of bloating, IBS-like symptoms and food sensitivities — followed by targeted nutrition, probiotics and lifestyle interventions.',
-    img: 'https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=1400&q=85',
+    img: '/tac-photos/gut-health.webp',
   },
   {
     cat: '04',
@@ -37,7 +37,7 @@ export const PROGRAMS = [
     tag: 'Weight & Composition',
     desc:
       'Doctor-supervised weight loss using body composition analysis (BCA), metabolic markers and hormonal testing to target fat loss — not just the number on the scale. Ideal for obesity, diabetes and PCOD-related weight gain.',
-    img: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1400&q=85',
+    img: '/tac-photos/medical-weight-loss.webp',
   },
   {
     cat: '05',
