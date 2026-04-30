@@ -1,8 +1,12 @@
 // CentresPage — five clinics directory + online consultations.
 // Addresses sourced verbatim from theantiagingcentre.com (Gurugram, Pune, Delhi).
 // Bangalore branches kept at city/area level only (no street address verified).
-// Photos are real TAC interior/facility shots used as atmosphere — not labelled
-// per-clinic since the source images are not location-specific.
+// Photos are the actual TAC clinic photos pulled from theantiagingcentre.com
+// and assigned per-clinic exactly as TAC themselves use them on their site:
+//   - Gurugram → green-chairs lobby
+//   - Pune    → treatment room with line-art mural
+//   - Delhi + Bangalore JP Nagar + Bangalore Sadashivnagar → TAC reception
+//     (TAC uses this same photo for all three on their own site)
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -38,7 +42,7 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sector+48+Gurugram',
-    photo: '/tac-photos/clinic-interior-1.jpg',
+    photo: '/tac-photos/gurugram-clinic.jpg',
     postalCode: '122018',
     verified: true,
   },
@@ -52,7 +56,7 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Greater+Kailash+Delhi',
-    photo: '/tac-photos/clinic-interior-2.jpg',
+    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
     postalCode: '110048',
     verified: true,
   },
@@ -67,7 +71,7 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Hadapsar+Pune',
-    photo: '/tac-photos/tac_about.jpg',
+    photo: '/tac-photos/pune-clinic.jpg',
     postalCode: '411028',
     verified: true,
   },
@@ -81,7 +85,7 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+JP+Nagar+Bangalore',
-    photo: '/tac-photos/clinic-team.jpg',
+    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
     verified: false,
   },
   {
@@ -94,7 +98,7 @@ const CENTRES: Centre[] = [
     email: 'info@theantiagingcentre.com',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sadashivnagar+Bangalore',
-    photo: '/tac-photos/longevity-banner.webp',
+    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
     verified: false,
   },
 ]
@@ -310,8 +314,7 @@ export function CentresPage() {
                 >
                   <img
                     src={c.photo}
-                    alt=""
-                    aria-hidden="true"
+                    alt={`Inside the TAC ${c.city} ${c.area} clinic`}
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04]"
                   />
@@ -522,30 +525,40 @@ export function CentresPage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
             {[
-              '/tac-photos/clinic-interior-1.jpg',
-              '/tac-photos/clinic-interior-2.jpg',
-              '/tac-photos/tac_about.jpg',
-              '/tac-photos/clinic-team.jpg',
-              '/tac-photos/longevity-banner.webp',
-              '/tac-photos/contact-image.png',
-            ].map((src, i) => (
-              <div
-                key={src}
-                className={`relative overflow-hidden rounded-[20px] bg-mist ${
-                  i === 0 || i === 4 ? 'aspect-[4/5]' : 'aspect-[5/4]'
-                }`}
+              { src: '/tac-photos/gurugram-clinic.jpg', label: 'Gurugram' },
+              { src: '/tac-photos/pune-clinic.jpg', label: 'Pune Hadapsar' },
+              { src: '/tac-photos/delhi-bangalore-clinic.jpg', label: 'Delhi · Bangalore' },
+            ].map((g) => (
+              <figure
+                key={g.src}
+                className="relative overflow-hidden rounded-[20px] bg-mist aspect-[4/5]"
               >
                 <img
-                  src={src}
-                  alt=""
-                  aria-hidden="true"
+                  src={g.src}
+                  alt={`Inside the TAC ${g.label} clinic`}
                   loading="lazy"
                   className="gallery-img absolute inset-0 w-full h-[112%] object-cover"
                   style={{ willChange: 'transform' }}
                 />
-              </div>
+                <div
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%)',
+                  }}
+                />
+                <figcaption className="absolute bottom-5 left-5 right-5 text-white">
+                  <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-1">
+                    Inside
+                  </div>
+                  <div className="font-display font-bold text-[18px] md:text-[22px] leading-[1.1] tracking-[-0.02em]">
+                    {g.label}
+                  </div>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>
