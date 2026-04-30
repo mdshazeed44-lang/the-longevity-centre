@@ -1,11 +1,69 @@
 // AboutPage — content sourced verbatim from theantiagingcentre.com/about
-// Sections: Hero · Mission · Founders · Trust strip · Final CTA
+// Sections: Hero · Marquee · Mission · Founders · Specialist Team · Clinics band · Stats · Final CTA
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
+import { useDocumentMeta } from '../lib/seo'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const ABOUT_META = {
+  title: 'About TAC — Leaders in Preventive & Anti-Aging Medicine, India',
+  description:
+    'Meet the founders of The Anti-Aging Centre — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 7,500+ procedures). Twenty-plus years of preventive medicine experience. Five centres pan-India.',
+  path: '/about',
+  jsonLd: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      '@id': 'https://theantiagingcentre.com/about#webpage',
+      url: 'https://theantiagingcentre.com/about',
+      name: 'About TAC — Leaders in Preventive & Anti-Aging Medicine, India',
+      isPartOf: { '@id': 'https://theantiagingcentre.com/#organization' },
+      about: { '@id': 'https://theantiagingcentre.com/#organization' },
+      inLanguage: 'en-IN',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      '@id': 'https://theantiagingcentre.com/about#dr-abhinav-sharma',
+      name: 'Dr. Abhinav Sharma',
+      honorificPrefix: 'Dr.',
+      honorificSuffix: 'MBBS, MS',
+      jobTitle: 'Co-Founder · Anti-Aging & Preventive Medicine',
+      description:
+        'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness.',
+      image: 'https://theantiagingcentre.com/team/dr-abhinav.webp',
+      worksFor: { '@id': 'https://theantiagingcentre.com/#organization' },
+      knowsAbout: [
+        'Anti-Aging Medicine',
+        'Preventive Medicine',
+        'Minimally Invasive Surgery',
+        'Wellness',
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      '@id': 'https://theantiagingcentre.com/about#dr-bhavna-sharma',
+      name: 'Dr. Bhavna Sharma',
+      honorificPrefix: 'Dr.',
+      jobTitle: 'Co-Founder · Reproductive & Sexual Anti-Aging',
+      description:
+        "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT.",
+      image: 'https://theantiagingcentre.com/team/dr-bhavna.jpg',
+      worksFor: { '@id': 'https://theantiagingcentre.com/#organization' },
+      knowsAbout: [
+        'IVF',
+        "Women's Health",
+        'Oocyte Preservation',
+        'Hormone Replacement Therapy',
+        'Reproductive Anti-Aging',
+      ],
+    },
+  ],
+}
 
 const FOUNDERS = [
   {
@@ -28,17 +86,66 @@ const FOUNDERS = [
   },
 ]
 
+// Specialist team — sourced verbatim from theantiagingcentre.com
+// Verified as the 4 specialities TAC explicitly lists beyond the founders.
+const SPECIALITIES = [
+  {
+    n: '01',
+    title: 'Dermatologists',
+    tag: 'Skin & Aesthetics',
+    body: 'Elegant anti-aging aesthetics — clinical-grade dermatology under the longevity programme.',
+  },
+  {
+    n: '02',
+    title: 'Nutritionists',
+    tag: 'Diet & Microbiome',
+    body: 'Personalised nutrition aligned with biomarkers, body composition and gut health.',
+  },
+  {
+    n: '03',
+    title: 'Anti-Aging Specialists',
+    tag: 'Preventive Medicine',
+    body: 'Twenty-plus years of preventive-medicine experience — longevity protocols and biomarker tracking.',
+  },
+  {
+    n: '04',
+    title: 'Metabolic Specialists',
+    tag: 'Diabetes · Thyroid · Gut',
+    body: 'Diabetes, prediabetes, PCOD, thyroid, fatty liver — the metabolic side of healthspan.',
+  },
+]
+
+const HERO_CHIPS = [
+  { k: 'Experience', v: '20+ Years' },
+  { k: 'Centres', v: '5 Pan-India' },
+  { k: 'Procedures', v: '18,500+' },
+]
+
+const MARQUEE_LINES = [
+  'Measure what others guess.',
+  'Change what others manage.',
+  'Medicine, not marketing.',
+  'Real outcomes. Real data.',
+  'Twenty years of preventive medicine.',
+  'Five centres pan-India.',
+]
+
 const STATS = [
-  { val: '20+', label: 'Years in Preventive Medicine' },
-  { val: '18,500+', label: 'Successful Procedures' },
-  { val: '5', label: 'Centres Pan-India' },
-  { val: '4', label: 'Specialities, One Team' },
+  { val: 20, suffix: '+', label: 'Years in Preventive Medicine' },
+  { val: 18500, suffix: '+', label: 'Successful Procedures' },
+  { val: 5, suffix: '', label: 'Centres Pan-India' },
+  { val: 4, suffix: '', label: 'Specialities, One Team' },
 ]
 
 export function AboutPage() {
+  useDocumentMeta(ABOUT_META)
   const heroRef = useRef<HTMLHeadingElement>(null)
+  const heroChipsRef = useRef<HTMLDivElement>(null)
   const missionRef = useRef<HTMLHeadingElement>(null)
+  const teamHeadingRef = useRef<HTMLHeadingElement>(null)
+  const teamRef = useRef<HTMLDivElement>(null)
   const foundersRef = useRef<HTMLDivElement>(null)
+  const interiorsRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -65,6 +172,51 @@ export function AboutPage() {
     }
     reveal(heroRef.current)
     reveal(missionRef.current)
+    reveal(teamHeadingRef.current)
+
+    // Hero spec chips — entrance + perpetual subtle Y bob
+    const chips = heroChipsRef.current?.querySelectorAll<HTMLElement>('.spec-chip')
+    if (chips?.length) {
+      gsap.set(chips, { y: 24, opacity: 0 })
+      const t = gsap.to(chips, {
+        y: 0,
+        opacity: 1,
+        duration: 1.0,
+        ease: 'expo.out',
+        stagger: 0.12,
+        delay: 0.6,
+      })
+      cleanups.push(() => t.kill())
+      chips.forEach((chip, i) => {
+        const bob = gsap.to(chip, {
+          y: '-=6',
+          duration: 2.6 + i * 0.3,
+          ease: 'sine.inOut',
+          repeat: -1,
+          yoyo: true,
+          delay: 1.4 + i * 0.2,
+        })
+        cleanups.push(() => bob.kill())
+      })
+    }
+
+    // Specialist team cards — staggered fade-up
+    const teamCards = teamRef.current?.querySelectorAll<HTMLElement>('.team-card')
+    if (teamCards?.length) {
+      gsap.set(teamCards, { y: 50, opacity: 0 })
+      const t = gsap.to(teamCards, {
+        y: 0,
+        opacity: 1,
+        duration: 1.0,
+        ease: 'expo.out',
+        stagger: 0.08,
+        scrollTrigger: { trigger: teamRef.current, start: 'top 82%' },
+      })
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    }
 
     // Founder cards stagger
     const cards = foundersRef.current?.querySelectorAll<HTMLElement>('.founder-card')
@@ -83,9 +235,65 @@ export function AboutPage() {
         t.scrollTrigger?.kill()
         t.kill()
       })
+
+      // 3D tilt-on-hover for founder cards
+      cards.forEach((card) => {
+        const onMove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect()
+          const x = (e.clientX - rect.left) / rect.width - 0.5
+          const y = (e.clientY - rect.top) / rect.height - 0.5
+          gsap.to(card, {
+            rotateY: x * 6,
+            rotateX: -y * 6,
+            duration: 0.6,
+            ease: 'power3.out',
+            transformPerspective: 1000,
+            transformOrigin: 'center',
+          })
+        }
+        const onLeave = () => {
+          gsap.to(card, {
+            rotateY: 0,
+            rotateX: 0,
+            duration: 0.9,
+            ease: 'expo.out',
+          })
+        }
+        card.addEventListener('mousemove', onMove)
+        card.addEventListener('mouseleave', onLeave)
+        cleanups.push(() => {
+          card.removeEventListener('mousemove', onMove)
+          card.removeEventListener('mouseleave', onLeave)
+        })
+      })
     }
 
-    // Stats fade-up
+    // Clinic interiors band — parallax shift
+    const interiorImgs = interiorsRef.current?.querySelectorAll<HTMLElement>('.interior-img')
+    interiorImgs?.forEach((img, i) => {
+      const t = gsap.fromTo(
+        img,
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: interiorsRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.2,
+          },
+        }
+      )
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+      // also offset second image's stagger entrance
+      void i
+    })
+
+    // Stats — count-up + cell fade-up
     const cells = statsRef.current?.querySelectorAll<HTMLElement>('.stat-cell')
     if (cells?.length) {
       gsap.set(cells, { y: 40, opacity: 0 })
@@ -102,6 +310,26 @@ export function AboutPage() {
         t.kill()
       })
     }
+    const nums = statsRef.current?.querySelectorAll<HTMLElement>('.stat-num')
+    nums?.forEach((n) => {
+      const target = Number(n.dataset.target || 0)
+      const suffix = n.dataset.suffix || ''
+      const obj = { v: 0 }
+      const t = gsap.to(obj, {
+        v: target,
+        duration: 1.8,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: n, start: 'top 85%' },
+        onUpdate: () => {
+          const rounded = Math.round(obj.v)
+          n.textContent = rounded.toLocaleString('en-IN') + suffix
+        },
+      })
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    })
 
     return () => cleanups.forEach((fn) => fn())
   }, [])
@@ -109,7 +337,7 @@ export function AboutPage() {
   return (
     <div id="about">
       {/* HERO — page header with cinematic lab video background */}
-      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden min-h-[88vh] flex items-center">
+      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden min-h-[92vh] flex items-center">
         {/* Background video — full bleed cinematic lab/science footage */}
         <video
           className="absolute inset-0 w-full h-full object-cover hero-video"
@@ -121,7 +349,7 @@ export function AboutPage() {
           preload="metadata"
         />
 
-        {/* Cinematic overlays — dark gradient + warm glow + grain */}
+        {/* Cinematic overlays */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
@@ -151,7 +379,7 @@ export function AboutPage() {
           className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
         />
 
-        <div className="relative max-w-[1280px] mx-auto">
+        <div className="relative max-w-[1280px] mx-auto w-full">
           <div className="flex items-center gap-3 mb-7">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
@@ -214,6 +442,57 @@ export function AboutPage() {
             </span>
           </div>
         </div>
+
+        {/* Floating spec chips — top-right cluster */}
+        <div
+          ref={heroChipsRef}
+          aria-hidden
+          className="hidden lg:flex absolute top-32 right-12 xl:right-20 flex-col gap-3 z-10"
+        >
+          {HERO_CHIPS.map((c) => (
+            <div
+              key={c.k}
+              className="spec-chip backdrop-blur-md bg-white/[0.06] border border-white/15 rounded-full pl-4 pr-5 py-2.5 flex items-center gap-3 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
+              style={{ willChange: 'transform' }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-rust-soft" />
+              <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/55 font-semibold">
+                {c.k}
+              </span>
+              <span className="text-[12.5px] tracking-[-0.01em] text-white font-semibold tabular-nums">
+                {c.v}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Scroll-down indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3 text-white/55">
+          <span className="text-[9.5px] tracking-[0.32em] uppercase font-semibold">Scroll</span>
+          <span className="relative w-px h-10 bg-white/20 overflow-hidden">
+            <span
+              className="absolute left-0 top-0 w-full h-1/3 bg-rust-soft"
+              style={{ animation: 'scrollDot 2.6s cubic-bezier(0.65,0,0.35,1) infinite' }}
+            />
+          </span>
+        </div>
+      </section>
+
+      {/* MARQUEE — editorial brand-line ribbon */}
+      <section
+        aria-hidden
+        className="relative bg-cream border-y border-mist/60 py-7 md:py-9 overflow-hidden marquee"
+      >
+        <div className="marquee-track items-center text-ink">
+          {[...MARQUEE_LINES, ...MARQUEE_LINES].map((line, i) => (
+            <span key={i} className="flex items-center gap-16 shrink-0">
+              <span className="font-display text-[24px] md:text-[34px] tracking-[-0.02em] font-semibold whitespace-nowrap">
+                {line}
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-rust shrink-0" />
+            </span>
+          ))}
+        </div>
       </section>
 
       {/* MISSION — editorial intro */}
@@ -260,66 +539,143 @@ export function AboutPage() {
       {/* FOUNDERS */}
       <section className="bg-white py-20 md:py-28 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
+          {/* Magazine-style pull quote header */}
+          <div className="mb-14 md:mb-20 grid md:grid-cols-[auto_1fr] gap-8 md:gap-14 items-end max-w-[1080px]">
+            <div>
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="w-7 h-px bg-rust" />
+                <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                  Meet the Founders
+                </span>
+              </div>
+              <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[420px]">
+                The doctors behind the science.
+              </h2>
+            </div>
+            <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite/80 font-light md:max-w-[460px] md:pb-2">
+              Two decades of clinical practice. Eighteen-thousand procedures
+              between them. One conviction — that ageing should be measured,
+              not managed.
+            </p>
+          </div>
+
+          <div ref={foundersRef} className="grid gap-5 md:gap-6 max-w-[1180px] mx-auto" style={{ perspective: '1200px' }}>
+            {FOUNDERS.map((f, idx) => {
+              const reverse = idx % 2 === 1
+              return (
+                <article
+                  key={f.name}
+                  className="founder-card group bg-white hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 grid md:grid-cols-[5fr_7fr] items-stretch"
+                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+                >
+                  {/* Portrait */}
+                  <div
+                    className={`relative aspect-[4/5] md:aspect-auto md:min-h-[420px] overflow-hidden bg-mist ${reverse ? 'md:order-2' : ''}`}
+                  >
+                    <img
+                      src={f.img}
+                      alt={f.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
+                      }}
+                    />
+                    {/* Stat badge */}
+                    <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-2 transition-transform duration-700 group-hover:-translate-y-0.5">
+                      <div className="font-display font-bold text-[15px] text-white tabular-nums tracking-tight leading-none">
+                        {f.stat}
+                      </div>
+                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
+                        {f.statLabel}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div
+                    className={`p-7 md:p-10 lg:p-12 flex flex-col justify-center ${reverse ? 'md:order-1' : ''}`}
+                  >
+                    <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
+                      {f.role}
+                    </div>
+                    <h3 className="font-display font-bold text-[28px] md:text-[36px] lg:text-[42px] leading-[1.0] tracking-[-0.025em] text-ink mb-2">
+                      {f.name}
+                    </h3>
+                    <div className="text-[12px] tracking-[0.22em] uppercase text-stone font-medium mb-5">
+                      {f.creds}
+                    </div>
+                    <p className="text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light max-w-[520px]">
+                      {f.bio}
+                    </p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SPECIALIST TEAM — beyond the founders. Sourced verbatim from theantiagingcentre.com */}
+      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
+        <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-14 md:mb-20">
             <div className="inline-flex items-center gap-3 mb-6">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                Meet the Founders
+                Our Team
               </span>
               <span className="w-7 h-px bg-rust" />
             </div>
-            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
-              The doctors behind the science.
+            <h2
+              ref={teamHeadingRef}
+              className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto"
+            >
+              <span className="line-mask">
+                <span>Four specialities.</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span>One coordinated team.</span>
+              </span>
             </h2>
+            <p className="mt-7 text-[15.5px] md:text-[17px] leading-[1.7] text-graphite/80 font-light max-w-[640px] mx-auto">
+              The founders are joined by a wider team of specialists — every
+              protocol coordinated under one shared medical record.
+            </p>
           </div>
 
-          <div ref={foundersRef} className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {FOUNDERS.map((f) => (
+          <div ref={teamRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+            {SPECIALITIES.map((s) => (
               <article
-                key={f.name}
-                className="founder-card group bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500"
+                key={s.title}
+                className="team-card group relative bg-white hover:bg-cream rounded-[20px] border border-mist/70 hover:border-rust/30 p-6 md:p-7 lg:p-8 overflow-hidden transition-colors duration-500"
                 style={{ willChange: 'transform, opacity' }}
               >
-                {/* Portrait — aspect-square fits the source headshots from TAC */}
-                <div className="relative aspect-square overflow-hidden bg-mist">
-                  <img
-                    src={f.img}
-                    alt={f.name}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                  />
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%)',
-                    }}
-                  />
-                  {/* Stat badge */}
-                  <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-2">
-                    <div className="font-display font-bold text-[15px] text-white tabular-nums tracking-tight leading-none">
-                      {f.stat}
-                    </div>
-                    <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
-                      {f.statLabel}
-                    </div>
+                {/* Soft ghost numeral */}
+                <span
+                  aria-hidden
+                  className="absolute -right-1 -bottom-3 font-display font-bold text-[110px] md:text-[140px] leading-none text-ink/[0.04] tabular-nums tracking-[-0.04em] pointer-events-none select-none transition-all duration-700 group-hover:text-rust/[0.08]"
+                >
+                  {s.n}
+                </span>
+                <div className="relative">
+                  <div className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium mb-4 tabular-nums">
+                    0{s.n.replace(/^0/, '')}
                   </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-7 md:p-9">
-                  <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
-                    {f.role}
-                  </div>
-                  <h3 className="font-display font-bold text-[26px] md:text-[32px] leading-[1.0] tracking-[-0.025em] text-ink mb-2">
-                    {f.name}
+                  <h3 className="font-display font-bold text-[20px] md:text-[24px] leading-[1.05] tracking-[-0.02em] text-ink mb-2">
+                    {s.title}
                   </h3>
-                  <div className="text-[12px] tracking-[0.22em] uppercase text-stone font-medium mb-5">
-                    {f.creds}
+                  <div className="text-[10.5px] tracking-[0.28em] uppercase text-rust font-semibold mb-4">
+                    {s.tag}
                   </div>
-                  <p className="text-[14.5px] md:text-[15px] leading-[1.65] text-graphite font-light">
-                    {f.bio}
+                  <p className="text-[13.5px] leading-[1.65] text-graphite font-light">
+                    {s.body}
                   </p>
                 </div>
               </article>
@@ -328,8 +684,95 @@ export function AboutPage() {
         </div>
       </section>
 
+      {/* CLINIC INTERIORS — parallax duo band with editorial caption */}
+      <section ref={interiorsRef} className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center mb-14 md:mb-20">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="w-7 h-px bg-rust" />
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                Our Clinics
+              </span>
+              <span className="w-7 h-px bg-rust" />
+            </div>
+            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
+              Premium spaces, pan-India.
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-[1fr_1fr] gap-5 md:gap-6 items-stretch">
+            <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-[24px] overflow-hidden bg-mist">
+              <img
+                src="/tac-photos/clinic-interior-1.jpg"
+                alt="TAC clinic interior"
+                loading="lazy"
+                className="interior-img absolute inset-0 w-full h-[120%] object-cover"
+                style={{ willChange: 'transform' }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%)',
+                }}
+              />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <div className="text-[10px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-2">
+                  The Space
+                </div>
+                <div className="font-display font-bold text-[20px] md:text-[26px] leading-[1.1] tracking-[-0.02em]">
+                  Clinical precision, hotel-quality calm.
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-5 md:gap-6">
+              <div className="relative aspect-[4/3] rounded-[24px] overflow-hidden bg-mist">
+                <img
+                  src="/tac-photos/clinic-interior-2.jpg"
+                  alt="TAC consultation room"
+                  loading="lazy"
+                  className="interior-img absolute inset-0 w-full h-[120%] object-cover"
+                  style={{ willChange: 'transform' }}
+                />
+              </div>
+              <div className="relative bg-cream rounded-[24px] border border-mist/70 p-7 md:p-9 flex-1 flex flex-col justify-between min-h-[180px]">
+                <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-4">
+                  Where We Practise
+                </div>
+                <div className="font-display font-bold text-[22px] md:text-[26px] leading-[1.15] tracking-[-0.02em] text-ink mb-5">
+                  Five centres designed around the patient — not the protocol.
+                </div>
+                <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[13px] text-graphite font-light">
+                  <li>Gurugram</li>
+                  <li>Pune Hadapsar</li>
+                  <li>Delhi GK-1</li>
+                  <li>Bangalore JP Nagar</li>
+                  <li>Bangalore Sadashivnagar</li>
+                  <li className="text-stone">Online · Pan-India</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* STATS strip */}
-      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
+      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center mb-14 md:mb-20">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <span className="w-7 h-px bg-rust" />
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                By the Numbers
+              </span>
+              <span className="w-7 h-px bg-rust" />
+            </div>
+            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
+              Two decades of measured care.
+            </h2>
+          </div>
+        </div>
         <div
           ref={statsRef}
           className="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
@@ -342,8 +785,12 @@ export function AboutPage() {
               <div className="absolute top-3 right-4 text-[10px] tracking-[0.28em] uppercase text-stone/55 tabular-nums font-medium">
                 0{i + 1}
               </div>
-              <div className="font-display font-bold text-[42px] md:text-[60px] lg:text-[68px] text-ink leading-none mb-3 tabular-nums tracking-[-0.025em]">
-                {s.val}
+              <div
+                className="stat-num font-display font-bold text-[42px] md:text-[60px] lg:text-[68px] text-ink leading-none mb-3 tabular-nums tracking-[-0.025em]"
+                data-target={s.val}
+                data-suffix={s.suffix}
+              >
+                0{s.suffix}
               </div>
               <span
                 aria-hidden
@@ -357,34 +804,49 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="relative bg-ink py-24 md:py-32 px-6 md:px-12 overflow-hidden">
+      {/* FINAL CTA — matches site's signature CtaBand pattern (dark ink + ambient rust glow + grain) */}
+      <section className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden">
+        {/* Ambient warm glow + soft grain — premium dark luxury */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(900px 600px at 50% 50%, rgba(148,84,85,0.20), transparent 60%)',
+              'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)',
           }}
         />
-        <div className="relative max-w-[900px] mx-auto text-center">
-          <div className="inline-flex items-center gap-3 mb-7">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
+        />
+
+        <div className="relative z-10 max-w-[1180px] mx-auto">
+          {/* Eyebrow row */}
+          <div className="flex items-center justify-center gap-3 mb-10">
             <span className="w-7 h-px bg-rust-soft" />
-            <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
+            <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
               Begin Your Journey
             </span>
             <span className="w-7 h-px bg-rust-soft" />
           </div>
-          <h2 className="font-display font-bold text-[36px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-white mb-8">
+
+          {/* Headline */}
+          <h2 className="font-display font-bold text-[40px] md:text-[72px] xl:text-[84px] leading-[0.98] tracking-[-0.035em] text-white text-center mb-8 max-w-[980px] mx-auto">
             Speak with our team.
           </h2>
-          <p className="text-[15px] md:text-[17px] text-white/65 leading-[1.7] max-w-[560px] mx-auto mb-12 font-light">
+
+          {/* Sub */}
+          <p className="text-[16px] md:text-[19px] text-white/70 max-w-[600px] mx-auto leading-[1.7] mb-14 text-center font-light">
             A 30-minute conversation with our specialists. No commitment. Just
             clarity on which programme suits your goals.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+
+          {/* CTA — three contact paths in pill form */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-16">
             <a
               href="/#cta"
+              data-cursor="hover"
+              data-magnetic
               className="group inline-flex items-center gap-3 pl-6 pr-8 py-5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
             >
               <span className="relative flex h-2 w-2">
@@ -398,10 +860,36 @@ export function AboutPage() {
             </a>
             <a
               href="https://wa.me/918826809123"
+              data-cursor="hover"
               className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
             >
               WhatsApp
             </a>
+            <a
+              href="tel:+918826809123"
+              data-cursor="hover"
+              className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+            >
+              +91 88268 09123
+            </a>
+          </div>
+
+          {/* Reassurance row — three trust pills */}
+          <div className="grid grid-cols-3 gap-px bg-white/10 max-w-[920px] mx-auto rounded-2xl overflow-hidden border border-white/10">
+            {[
+              { k: '30 min', l: 'Specialist conversation' },
+              { k: 'No fee', l: 'No commitment, no charge' },
+              { k: '5 clinics', l: 'Or online, pan-India' },
+            ].map((s) => (
+              <div key={s.l} className="bg-ink px-4 md:px-6 py-7 text-center">
+                <div className="font-display font-bold text-[20px] md:text-[28px] lg:text-[32px] text-white leading-none mb-2 tabular-nums tracking-[-0.01em]">
+                  {s.k}
+                </div>
+                <div className="text-[9.5px] md:text-[10.5px] tracking-[0.25em] uppercase text-white/55 font-medium">
+                  {s.l}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

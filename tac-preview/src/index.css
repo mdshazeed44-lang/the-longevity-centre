@@ -2,6 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Accessibility ---------- */
+
+/* Skip-to-content link — visually hidden until focused */
+.skip-to-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 12px 20px;
+  background: #1B1A18;
+  color: #FFFFFF;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  transform: translateY(-110%);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.skip-to-content:focus,
+.skip-to-content:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid #B27A7B;
+  outline-offset: 2px;
+}
+
+/* Visible focus rings — high contrast on both light and dark backgrounds */
+:where(a, button, [role="button"], input, select, textarea, [tabindex]):focus {
+  outline: none;
+}
+:where(a, button, [role="button"], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #B27A7B;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* On dark backgrounds use a lighter ring */
+.bg-ink :where(a, button, [role="button"], [tabindex]):focus-visible,
+[class*="bg-ink"] :where(a, button, [role="button"], [tabindex]):focus-visible {
+  outline-color: #FFFFFF;
+}
+
+/* Honour reduced motion globally for our custom animations */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .hero-video {
+    animation: none !important;
+  }
+}
+
 html, body {
   margin: 0;
   padding: 0;
