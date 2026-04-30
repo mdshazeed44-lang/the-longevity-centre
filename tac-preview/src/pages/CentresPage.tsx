@@ -255,7 +255,7 @@ export function CentresPage() {
       {/* HERO — cinematic dark hero with cross-fading anti-aging montage:
           DNA helix → laboratory equipment → modern clinic corridor.
           Three short Pexels clips (~7 MB total) cross-fade on a 24s cycle. */}
-      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden min-h-[80vh] flex items-center">
+      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
         {/* Cross-fading clip stack */}
         <video
           className="hero-clip clip-1"

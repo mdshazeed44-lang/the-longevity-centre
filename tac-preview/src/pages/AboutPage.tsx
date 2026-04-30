@@ -337,7 +337,7 @@ export function AboutPage() {
   return (
     <div id="about">
       {/* HERO — page header with cinematic lab video background */}
-      <section className="relative bg-ink text-white pt-32 md:pt-40 pb-20 md:pb-28 px-6 md:px-12 overflow-hidden min-h-[92vh] flex items-center">
+      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
         {/* Background video — full bleed cinematic lab/science footage */}
         <video
           className="absolute inset-0 w-full h-full object-cover hero-video"
@@ -380,7 +380,7 @@ export function AboutPage() {
         />
 
         <div className="relative max-w-[1280px] mx-auto w-full">
-          <div className="flex items-center gap-3 mb-7">
+          <div className="flex items-center gap-3 mb-5">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
               About TAC
@@ -388,7 +388,7 @@ export function AboutPage() {
           </div>
           <h1
             ref={heroRef}
-            className="font-display font-bold text-[44px] md:text-[80px] xl:text-[100px] leading-[0.98] tracking-[-0.04em] text-white max-w-[1080px]"
+            className="font-display font-bold text-[38px] md:text-[64px] xl:text-[84px] leading-[0.98] tracking-[-0.04em] text-white max-w-[1080px]"
           >
             <span className="line-mask">
               <span>Leaders in preventive</span>
@@ -399,7 +399,7 @@ export function AboutPage() {
             </span>
           </h1>
 
-          <p className="mt-10 text-[16px] md:text-[19px] leading-[1.7] text-white/70 max-w-[640px] font-light">
+          <p className="mt-6 text-[15px] md:text-[17px] leading-[1.65] text-white/75 max-w-[640px] font-light">
             Where serenity, aesthetics and sophistication meet — TAC is built
             around personalised care for longevity, metabolic health, gut
             balance, weight loss and elegant anti-aging treatments. Led by a
@@ -407,7 +407,7 @@ export function AboutPage() {
           </p>
 
           {/* Slim spec pills — inline horizontal row matching Centres + Home heroes */}
-          <div ref={heroChipsRef} className="mt-10 md:mt-12 flex flex-wrap items-center gap-2.5 md:gap-3">
+          <div ref={heroChipsRef} className="mt-7 flex flex-wrap items-center gap-2.5 md:gap-3">
             {HERO_CHIPS.map((c) => (
               <div
                 key={c.k}
@@ -426,7 +426,7 @@ export function AboutPage() {
           </div>
 
           {/* Inline contact strip */}
-          <div className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-10 gap-y-4 text-[12.5px] text-white/65">
+          <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[12.5px] text-white/70">
             <a
               href="mailto:info@theantiagingcentre.com"
               className="inline-flex items-center gap-2.5 hover:text-white transition-colors"

@@ -162,9 +162,9 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       />
 
       {/* Content — left aligned, premium hero layout */}
-      <div className="relative z-10 min-h-[100vh] flex flex-col justify-end pt-32 pb-20 md:pb-28 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
+      <div className="relative z-10 min-h-[100vh] flex flex-col justify-end pt-28 pb-12 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
         {/* Eyebrow + phone pill row */}
-        <div ref={eyebrow} className="flex flex-wrap items-center gap-4 mb-8">
+        <div ref={eyebrow} className="flex flex-wrap items-center gap-4 mb-5">
           <span className="text-[11px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">
             Premium Longevity Clinics · India
           </span>
@@ -191,7 +191,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         </div>
 
         {/* Headline */}
-        <h1 className="font-display font-bold text-[44px] sm:text-[64px] md:text-[88px] xl:text-[120px] leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-8">
+        <h1 className="font-display font-bold text-[38px] sm:text-[54px] md:text-[68px] xl:text-[92px] leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-6">
           <MaskedReveal text="Age should" delay={0.55} charClassName="text-white/95" />
           <br />
           <MaskedReveal text="never define you." delay={0.7} charClassName="text-white" />
@@ -200,7 +200,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* Description */}
         <p
           ref={para}
-          className="text-[16px] md:text-[19px] leading-[1.65] text-white/80 max-w-[560px] mb-8 font-light"
+          className="text-[15px] md:text-[17px] leading-[1.6] text-white/80 max-w-[560px] mb-6 font-light"
         >
           Explore TAC's innovative, personalised preventive medicine for a
           vibrant and fulfilling life — at any stage. Now available online in
@@ -208,7 +208,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         </p>
 
         {/* Slim spec pills — anchor key facts inline above the CTAs */}
-        <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-12">
+        <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-7">
           {[
             { k: 'Centres', v: '5 Pan-India' },
             { k: 'Online', v: 'Mumbai · Bangalore · Hyderabad' },
@@ -235,7 +235,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
             href="#cta"
             data-cursor="hover"
             data-magnetic
-            className="group inline-flex items-center gap-4 pl-7 pr-5 py-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[260px]"
+            className="group inline-flex items-center gap-4 pl-6 pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[240px]"
           >
             <div className="text-left">
               <div className="text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-1">
@@ -245,7 +245,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
                 Arrange a Consultation
               </div>
             </div>
-            <span className="ml-auto w-10 h-10 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
+            <span className="ml-auto w-9 h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
               →
             </span>
           </a>
@@ -253,7 +253,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <a
             href="#clinics"
             data-cursor="hover"
-            className="group inline-flex items-center gap-4 pl-7 pr-5 py-5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[260px]"
+            className="group inline-flex items-center gap-4 pl-6 pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[240px]"
           >
             <div className="text-left">
               <div className="text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-1">
@@ -263,14 +263,14 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
                 Our Five Centres
               </div>
             </div>
-            <span className="ml-auto w-10 h-10 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
+            <span className="ml-auto w-9 h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
               →
             </span>
           </a>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute left-6 md:left-14 lg:left-20 bottom-6 md:bottom-8 flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase text-white/55">
+        <div className="absolute left-6 md:left-14 lg:left-20 bottom-4 md:bottom-5 flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase text-white/55">
           <span className="inline-block w-5 h-8 rounded-full border border-white/40 relative">
             <span className="absolute left-1/2 -translate-x-1/2 top-1.5 w-1 h-1.5 rounded-full bg-white/80 animate-bounce" />
           </span>
