@@ -1,0 +1,930 @@
+================================================================================
+THE ANTI-AGING CENTRE (TAC) — CLAUDE CODE HANDOFF DOCUMENT
+================================================================================
+
+Last updated: 2026-04-30
+Repo:         https://github.com/mdshazeed44-lang/the-longevity-centre
+Branch:       main
+Live preview: deployed via Netlify (drag-drop OR GitHub auto-deploy)
+
+This document is a complete A-Z handoff so any new Claude Code instance (or
+human developer) on a different machine can continue the project without
+losing context. Read it top-to-bottom on first pickup.
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+
+  1. PROJECT OVERVIEW
+  2. CONTENT SOURCE & BRAND
+  3. TECH STACK
+  4. PROJECT STRUCTURE
+  5. DESIGN SYSTEM (colours, type, spacing, shadows, radius)
+  6. ANIMATION PATTERNS (GSAP, Lenis, easings, timings)
+  7. SECTION-BY-SECTION BREAKDOWN
+  8. ROUTING & PAGES
+  9. ASSETS — images & videos (where, what, how compressed)
+ 10. DEPLOYMENT (Netlify)
+ 11. CONVERSATION TIMELINE — what was tried, decided, rejected
+ 12. THINGS REJECTED — DO NOT REDO
+ 13. KNOWN ISSUES / TODOs
+ 14. HOW TO CONTINUE WITH CLAUDE CODE
+
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+
+What:    Premium marketing website for The Anti-Aging Centre (TAC) — India's
+         leading preventive medicine + anti-aging clinic with 5 centres
+         pan-India and online consultations.
+Brand:   "Practising medicine, not marketing." Calm, editorial, medical-luxury.
+Pages:   2 right now — Home (/) and About (/about).
+Type:    Single-page React/Vite app, deployed as static site on Netlify with
+         SPA fallback for client-side routing.
+Mood:    Premium editorial. Comparable references — Loro Piana, Vogue,
+         Forward Health, Apple AirPods Pro pages, Healthy Longevity Clinic.
+
+The user wanted (and got) a polished, motion-rich, content-authentic site
+that genuinely impresses on first scroll. No fake doctor photos. All copy
+sourced from theantiagingcentre.com.
+
+
+================================================================================
+2. CONTENT SOURCE & BRAND
+================================================================================
+
+PRIMARY SOURCE: https://theantiagingcentre.com (live client site)
+
+Verbatim copy used across the site:
+- Hero headline:    "Age should never define you."
+- Hero sub-copy:    "Explore TAC's innovative, personalised preventive
+                     medicine for a vibrant and fulfilling life — at any
+                     stage. Now available online in Mumbai, Bangalore and
+                     Hyderabad."
+- About headline:   "Leaders in preventive and anti-aging medicine."
+- 5 programmes:     Longevity Plus Program, Metabolic & Diabetes Clinic,
+                     Gut Correction Program, Medical Weight Loss & Body
+                     Composition, Skin & Aesthetics
+- 5 centres:        Gurugram (Sector 48), Delhi (Greater Kailash-1),
+                     Pune (Hadapsar), Bangalore JP Nagar,
+                     Bangalore Sadashivnagar
+- 5-step Method:    Assessment & Analysis → Personalised Intervention →
+                     9-Month Recalibration → 12-Month Nourishment →
+                     A Reformed Life
+- Founders:         Dr. Abhinav Sharma (MBBS · MS, 11,000+ surgeries)
+                     Dr. Bhavna Sharma (IVF Specialist, 7,500+ procedures)
+- Patient videos:   Mr. Abhinav Saxena, Mr. Bhushan Kamble, Mr. Shaun Gomez,
+                     Mrs. Sadhna Gupta (downloaded + compressed locally)
+- Phone:            +91 88268 09123
+- Email:            info@theantiagingcentre.com
+- WhatsApp:         https://wa.me/918826809123
+
+CRITICAL RULE: never invent content. If TAC website doesn't say it, don't
+write it. Re-fetch the source via WebFetch when in doubt. Earlier in the
+conversation we got called out for fabricated stats/headlines and removed
+them all — keep that discipline.
+
+
+================================================================================
+3. TECH STACK
+================================================================================
+
+Framework      React 19 + Vite 7
+Language       TypeScript 5 (strict mode)
+Styling        Tailwind CSS 3 (custom palette)
+Animations     GSAP 3 + ScrollTrigger
+Smooth scroll  Lenis (@studio-freight/lenis) — duration 1.8s, expo.in easing
+Icons          Inline SVG (zero icon-library dependency)
+Fonts          Cabinet Grotesk (Fontshare) for everything
+                + Alex Brush (Google Fonts) — kept as legacy script class only,
+                  not actively used after editorial polish removed cursive
+Hosting        Netlify (SPA + edge cache headers)
+Build time     ~5–10 s
+JS bundle      ~410 KB (~129 KB gzipped)
+CSS            ~36 KB
+
+Packages NOT installed (intentionally — were uninstalled after cleanup):
+- framer-motion    (was used in old Testimonial; removed when replaced)
+- three / @react-three/fiber / drei / postprocessing
+                    (were used in DNA preview lab; lab deleted)
+- react-router-dom (path routing handled in main.tsx via window.pathname)
+
+
+================================================================================
+4. PROJECT STRUCTURE
+================================================================================
+
+repo root
+├── README.md                       comprehensive GitHub README with badges
+├── LICENSE                         MIT
+├── netlify.toml                    Netlify build + cache headers config
+├── claudeconversation.txt          ← THIS FILE — handoff doc
+├── .gitignore
+└── tac-preview/                    the actual Vite app
+    ├── README.md                   brief pointer to root README
+    ├── index.html                  entry HTML, font preconnects
+    ├── package.json
+    ├── tailwind.config.js
+    ├── vite.config.ts
+    ├── tsconfig.{json,app,node}
+    ├── postcss.config.js
+    ├── eslint.config.js
+    ├── public/
+    │   ├── favicon.svg
+    │   ├── icons.svg
+    │   ├── new-logo-white.webp     official TAC logo (white-on-transparent)
+    │   ├── team/
+    │   │   ├── dr-abhinav.webp     Dr. Abhinav Sharma — real TAC photo
+    │   │   └── dr-bhavna.jpg       Dr. Bhavna Sharma — real TAC photo
+    │   ├── tac-photos/             real photos fetched from TAC website
+    │   │   ├── tac_about.jpg
+    │   │   ├── clinic-interior-1.jpg
+    │   │   ├── clinic-interior-2.jpg
+    │   │   ├── clinic-team.jpg
+    │   │   ├── gut-health.webp
+    │   │   ├── medical-weight-loss.webp
+    │   │   ├── metabolic-diabetes.webp
+    │   │   ├── longevity-banner.webp
+    │   │   └── contact-image.png
+    │   └── videos/
+    │       ├── hero.mp4            13 MB cinematic hero bg (Pexels woman in
+    │       │                       nature, compressed)
+    │       ├── about-candidates/
+    │       │   └── lab-pipette.mp4 ~660 KB lab/pipette footage used as
+    │       │                       AboutPage hero background
+    │       └── testimonials/
+    │           ├── abhinav.mp4     Mr. Abhinav Saxena (24.5 MB)
+    │           ├── bhushan.mp4     Mr. Bhushan Kamble (11.2 MB)
+    │           ├── gomez.mp4       Mr. Shaun Gomez (13.2 MB)
+    │           ├── sadhna.mp4      Mrs. Sadhna Gupta (11.8 MB)
+    │           └── posters/        custom thumbnails for each
+    └── src/
+        ├── App.tsx                 chrome shell + ALL section components
+        ├── main.tsx                React root + path-based router
+        ├── index.css               Tailwind directives + global type rules
+        ├── lib/
+        │   └── motion.ts           reduceMotion() helper
+        ├── components/
+        │   ├── Cursor.tsx          3-layer custom cursor (dot + ring + glow)
+        │   ├── Hero.tsx            cinematic video hero with masked-text
+        │   ├── Logo.tsx            renders /new-logo-white.webp
+        │   ├── Method.tsx          5-step sticky cross-fade timeline
+        │   ├── Preloader.tsx       branded curtain loader
+        │   ├── Programs.tsx        5-card stacking-deck animation
+        │   └── VideoTestimonials.tsx  Infinite Cinema Marquee
+        └── pages/
+            ├── HomePage.tsx        composes all home sections
+            └── AboutPage.tsx       /about page (lab video hero + founders)
+
+Important architectural decision: section components like ScienceCards,
+PressStrip, ResultsSplit, Editorial, Benefits, ClinicsBand, BrochureCTA,
+CtaBand, Header, Footer all live INSIDE App.tsx as named exports. This is
+a deliberate compromise — they would be cleaner as separate files but
+splitting them is on the TODO list. They're imported by HomePage.tsx via
+`import { ... } from '../App'`.
+
+App.tsx is a thin chrome shell now:
+  function App({ children }: { children: ReactNode }) {
+    // Lenis lifecycle + Preloader + Cursor + Header + {children} + Footer
+  }
+
+main.tsx routes:
+  /about  → <AboutPage />
+  /       → <HomePage /> (default)
+
+
+================================================================================
+5. DESIGN SYSTEM
+================================================================================
+
+5.1 COLOUR PALETTE  (defined in tailwind.config.js as named tokens)
+--------------------------------------------------------------------------------
+
+Token         Hex        Used for
+ink           #1B1A18    primary text on light bg · dark backgrounds
+graphite      #3A3833    body text on light bg
+stone         #7C7569    secondary text · captions · meta labels
+mist          #E0DAD0    borders · dividers · subtle accents
+cream         #FAF6EF    warm light background (hero · sections · cards)
+nougat        #EEE6DB    warm off-white (legacy alias of cream)
+pearl         #EEE6DB    legacy alias
+white         #FFFFFF    pure backgrounds, badges
+rust          #945455    PRIMARY ACCENT — CTAs · active states · brand
+rust-deep     #7A4344    hover/pressed states for rust
+rust-soft     #B27A7B    ambient glows · dark-bg accent text · ping dot
+green         #323C31    legacy (used to be brand colour, now barely used)
+green-soft   #4A5648    "live" indicator dot in CTAs (ping animation)
+
+Use guideline:
+- Almost everything is INK on CREAM, or WHITE on INK (dark sections)
+- Rust is ONLY for accent: tiny dashes, eyebrow text, CTA pill BG, hover shifts
+- Avoid green except for the live-status dot inside Arrange-a-Consultation pills
+
+
+5.2 TYPOGRAPHY
+--------------------------------------------------------------------------------
+
+ONE FAMILY: Cabinet Grotesk (Fontshare) — display + body + UI.
+Loaded once via <link rel="preconnect"> in index.html.
+Weights available: 100, 200, 300, 400, 500, 600, 700, 800, 900.
+
+Usage conventions:
+- font-display class  → Cabinet Grotesk 700/800 — for headings
+- body / paragraph    → Cabinet Grotesk 300 (light) — premium editorial feel
+- buttons / CTAs      → Cabinet Grotesk 600
+- eyebrows / tags     → Cabinet Grotesk 600/700, uppercase, tracking-[0.32em]
+- labels / meta       → Cabinet Grotesk 500, uppercase, tracking-[0.22em–0.28em]
+
+Heading scale (typical):
+- h1 hero             clamp ~44px → 100px,  tracking -0.04em, leading 0.98
+- h2 section headline 36px → 64px,          tracking -0.03em
+- h3 card titles      24px → 34px
+- h4 sub-block        18px → 22px
+- body                15.5px – 17px,        leading 1.65–1.7
+
+DO NOT add font-script (Alex Brush) accent words. The user explicitly
+rejected the rust-pink italic accents (e.g. "feel" inside "you will feel
+the results") — they look "ajeeb" and unprofessional. Removed across the
+whole site. Class is still in tailwind config for legacy but unused.
+
+
+5.3 SPACING & SIZE TOKENS (Tailwind defaults + custom)
+--------------------------------------------------------------------------------
+
+- Section padding:        py-16 md:py-24  (smaller sections)
+                          py-20 md:py-28  (medium)
+                          py-24 md:py-32  (large CTA bands · Hero)
+- Container max-width:    max-w-[1280px] for content, max-w-[1400px] for chrome
+- Side padding:           px-6 md:px-12
+
+Border radius scale:
+- pills / circles         rounded-full
+- cards (small)           rounded-[20px]
+- cards (default)         rounded-[24px]
+- cards (premium)         rounded-[28px]
+- cards (hero)            rounded-[36px]
+
+Custom letter-spacing:
+- tightest                -0.02em  (display)
+- widest2                 0.2em    (uppercase eyebrows)
+
+
+5.4 SHADOWS
+--------------------------------------------------------------------------------
+
+- Card lift               shadow-[0_30px_80px_-50px_rgba(27,26,24,0.20)]
+- Card subtle             shadow-[0_18px_40px_-25px_rgba(27,26,24,0.4)]
+- Floating header (scrolled)  shadow-[0_18px_40px_-20px_rgba(0,0,0,0.5)]
+- Cursor dot glow         box-shadow: 0 0 8px rgba(148,84,85,0.6),
+                                       0 0 16px rgba(148,84,85,0.3)
+- Cursor ring             box-shadow: 0 0 24px rgba(255,255,255,0.12),
+                                       inset 0 0 12px rgba(255,255,255,0.08)
+
+
+5.5 BACKGROUNDS / OVERLAYS
+--------------------------------------------------------------------------------
+
+Common ambient overlays used across dark sections:
+  background:
+    'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.18), transparent 60%),
+     radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.10), transparent 60%)'
+
+Film grain (premium texture) — class .hero-grain in index.css uses an
+inline SVG turbulence noise filter.
+
+
+================================================================================
+6. ANIMATION PATTERNS
+================================================================================
+
+ALL animations use GSAP + ScrollTrigger. Lenis (@studio-freight/lenis)
+provides the buttery smooth scroll that scrub animations couple to.
+
+6.1 Lenis configuration (in App.tsx)
+--------------------------------------------------------------------------------
+  duration:       1.8        // longer = more cinematic glide
+  easing:         t => Math.min(1, 1.001 - Math.pow(2, -12 * t))
+                             // expo-out, deeper exponent than default
+  smoothWheel:    true
+  wheelMultiplier:0.95       // slightly slower wheel = more deliberate
+
+  lenis.on('scroll', () => ScrollTrigger.update())
+  gsap.ticker.add(time => lenis.raf(time * 1000))
+  gsap.ticker.lagSmoothing(0)
+
+  Cleanup: lenis.destroy() in useEffect return.
+
+6.2 Standard easings used
+--------------------------------------------------------------------------------
+  expo.out          for ENTRANCES — fast in, smooth out (1.0–1.4 s typical)
+  power3.out        softer entrances (often for cards)
+  power3.inOut      for depth/exit transitions (e.g. previous-card scale-down)
+  power3.in         for quick exits (preloader curtain peel-up)
+  cubic-bezier(0.22, 1, 0.36, 1)   — inline CSS transitions (700–1200 ms)
+
+6.3 Standard durations
+--------------------------------------------------------------------------------
+  Heading line-mask reveal     1.0–1.3 s, stagger 0.06–0.08 s
+  Card stagger fade-up         0.9–1.1 s, stagger 0.08–0.12 s
+  Image hover scale            900–1200 ms (cubic 0.22,1,0.36,1)
+  Hover micro-interactions     300–500 ms
+
+6.4 The "line-mask" reveal pattern (used everywhere for h1/h2)
+--------------------------------------------------------------------------------
+  HTML:
+    <h2>
+      <span class="line-mask"><span>First line</span></span>
+      <br/>
+      <span class="line-mask"><span>Second line</span></span>
+    </h2>
+
+  CSS:
+    .line-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+    .line-mask > * { display: inline-block; will-change: transform; }
+
+  GSAP:
+    gsap.set(lines, { yPercent: 110 })
+    gsap.to(lines, {
+      yPercent: 0,
+      duration: 1.1,
+      ease: 'expo.out',
+      stagger: 0.08,
+      scrollTrigger: { trigger: heading, start: 'top 85%' },
+    })
+
+6.5 Programs stacking-deck pattern (signature animation)
+--------------------------------------------------------------------------------
+  Each card pins at top (pinSpacing:false). The next card scrolls UP and
+  overlays it. Previous card's INNER (not the pinned outer) fades + scales
+  + lifts up on scrub.
+
+  pinTop = window.innerWidth >= 768 ? 110 : 90
+
+  ScrollTrigger.create({
+    trigger: card, start: `top top+=${pinTop}`,
+    endTrigger: next, end: `top top+=${pinTop + 60}`,
+    pin: true, pinSpacing: false, anticipatePin: 1,
+  })
+
+  gsap.fromTo(inner,
+    { scale: 1, opacity: 1, y: 0 },
+    { scale: 0.94, opacity: 0, y: -90,
+      ease: 'power3.inOut',
+      scrollTrigger: { trigger: next, start: 'top bottom-=80',
+                       end: `top top+=${pinTop + 20}`, scrub: 1.4 },
+    })
+
+  Each card's enter: y 140 → 0, opacity 0 → 1, scale 0.97 → 1, 1.6 s power3.out
+
+6.6 Method sticky cross-fade timeline (left list + right sticky image)
+--------------------------------------------------------------------------------
+  Left column: scroll-revealing step rows with active-state highlight
+  Right column: <div className="md:sticky md:top-28"> with stacked images,
+                 active one has opacity:1, others opacity:0 + scale 1.04
+  Active step is detected via IntersectionObserver on each row.
+
+6.7 Cursor (3-layer custom cursor)
+--------------------------------------------------------------------------------
+  Dot:    fast lerp (0.08 s), rust colour with double drop shadow
+  Ring:   medium lerp (0.32 s), mix-blend-difference white border
+  Glow:   slow lerp (0.55 s), large radial rust gradient, screen blend
+
+  Hover [data-cursor="hover"] elements → ring scales 2.4x, dot disappears,
+                                         glow brightens
+  Press → ring scales 0.78
+  Disabled on coarse pointer (touch) and prefers-reduced-motion
+
+6.8 VideoTestimonials marquee
+--------------------------------------------------------------------------------
+  CSS keyframes infinite scroll, cards duplicated 2x for seamless loop:
+    @keyframes tac-marquee-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    animation: tac-marquee-scroll 40s linear infinite;
+    .tac-cinema-wrap:hover .tac-cinema-track {
+      animation-play-state: paused;
+    }
+  Hover any card → marquee pauses + that video plays muted in place
+  Click → fullscreen <video controls autoplay> in modal lightbox
+
+
+================================================================================
+7. SECTION-BY-SECTION BREAKDOWN
+================================================================================
+
+HOMEPAGE FLOW (defined in src/pages/HomePage.tsx):
+
+  Hero
+    ↓
+  Programs (5-card stacking deck)
+    ↓
+  PressStrip ("AS FEATURED IN" marquee)
+    ↓
+  ScienceCards (3 cards: Vitality / Prevention / Performance)
+    ↓
+  Method (sticky cross-fade 5-step timeline)
+    ↓
+  ResultsSplit ("A new, reformed life" — outcomes list + sticky image)
+    ↓
+  Editorial ("Measurement is medicine" — text + parallax image)
+    ↓
+  Benefits (8-cell grid with line icons)
+    ↓
+  VideoTestimonials (Infinite Cinema Marquee — 4 patient videos)
+    ↓
+  ClinicsBand (compact 6-row directory: 5 centres + Online)
+    ↓
+  BrochureCTA ("Begin with a conversation" — callback request card)
+    ↓
+  CtaBand ("Age should never define you" — final dark conversion)
+
+
+ABOUTPAGE FLOW (src/pages/AboutPage.tsx):
+
+  Hero
+    ├─ video bg: /videos/about-candidates/lab-pipette.mp4
+    └─ "Leaders in preventive and anti-aging medicine."
+    ↓
+  Mission ("A medical practice, rooted in nature")
+    ↓
+  Founders (Dr. Abhinav + Dr. Bhavna with REAL portraits)
+    ↓
+  Stats strip (20+ years · 18,500+ procedures · 5 centres · 4 specialities)
+    ↓
+  Final CTA ("Speak with our team")
+
+
+SHARED ACROSS BOTH PAGES (in App.tsx):
+  Preloader → Cursor → Header (floating glassmorphic pill) → {page} → Footer
+
+
+================================================================================
+8. ROUTING & PAGES
+================================================================================
+
+8.1 Tiny path-based router in main.tsx — NO react-router needed
+--------------------------------------------------------------------------------
+  function getPage() {
+    const path = window.location.pathname.replace(/\/$/, '')
+    if (path === '/about') return <AboutPage />
+    return <HomePage />
+  }
+
+8.2 Header navigation
+--------------------------------------------------------------------------------
+  NAV_ITEMS = [
+    { label: 'About',    href: '/about'      },  ← real route
+    { label: 'Programs', href: '/#programs'  },  ← anchor on home
+    { label: 'Method',   href: '/#method'    },
+    { label: 'Centres',  href: '/#clinics'   },
+    { label: 'Contact',  href: '/#cta'       },
+  ]
+
+8.3 Adding a new page
+--------------------------------------------------------------------------------
+  1. Create src/pages/MyNewPage.tsx — return JSX (NO need to add Header/Footer,
+     they're provided by App shell)
+  2. Add route check in main.tsx getPage()
+  3. Add nav link to NAV_ITEMS in App.tsx Header
+  4. Netlify SPA fallback already configured in netlify.toml — direct URL works
+
+
+================================================================================
+9. ASSETS — IMAGES & VIDEOS
+================================================================================
+
+9.1 IMAGES (all real TAC photos or carefully chosen activity stock)
+--------------------------------------------------------------------------------
+
+Real TAC photos (downloaded from theantiagingcentre.com):
+  /team/dr-abhinav.webp         300×300  Dr. Abhinav portrait (TAC's max res)
+  /team/dr-bhavna.jpg           1024×1024 Dr. Bhavna portrait
+  /tac-photos/tac_about.jpg     853×1280  About-us official photo
+  /tac-photos/clinic-interior-1.jpg 1600×1067 Clinic interior 1
+  /tac-photos/clinic-interior-2.jpg 1600×1067 Clinic interior 2
+  /tac-photos/gut-health.webp   1480×830  Gut Correction programme
+  /tac-photos/medical-weight-loss.webp 2560×1709 Weight Loss programme
+  /tac-photos/metabolic-diabetes.webp  2560×1440 Metabolic & Diabetes clinic
+  /tac-photos/longevity-banner.webp 1920×650 TAC's hero banner
+  /new-logo-white.webp          official TAC logo (white-on-transparent)
+
+Stock images still on the site (acceptable — generic/conceptual, no fake
+people identification):
+  - Programs Card 01 (gym) — Unsplash, conceptual lifestyle
+  - Programs Card 05 (skin facial) — Unsplash, conceptual
+  - Method timeline 5 step images — Unsplash, conceptual workflow
+  - ScienceCards 3 lifestyle images — Unsplash, conceptual
+
+CRITICAL RULE: never use stock that LOOKS like a real TAC doctor or patient.
+The user specifically called out the old "patient in restored health" stock
+woman as misleading. All such images have been replaced with real TAC photos.
+
+9.2 VIDEOS (all compressed via Intel QSV ffmpeg)
+--------------------------------------------------------------------------------
+
+Hero homepage:
+  /videos/hero.mp4              13 MB, 720p, woman in nature (Pexels stock)
+
+Hero AboutPage:
+  /videos/about-candidates/lab-pipette.mp4
+                                660 KB, 720p, lab pipette/test tubes
+                                Premium science vibe — user picked this from
+                                8 candidates we showed in a preview page.
+
+Patient testimonials (real TAC patients, downloaded + compressed):
+  /videos/testimonials/abhinav.mp4  24.5 MB (was 445 MB)
+  /videos/testimonials/bhushan.mp4  11.2 MB (was 100 MB)
+  /videos/testimonials/gomez.mp4    13.2 MB (was 152 MB)
+  /videos/testimonials/sadhna.mp4   11.8 MB (kept raw — already small)
+  /videos/testimonials/posters/*    custom thumbnails
+
+Compression command used:
+  ffmpeg -y -loglevel error -i input.mp4 \
+    -vf "scale=720:-2" \
+    -c:v h264_qsv -preset slower -global_quality 24 \
+    -maxrate 1400k -bufsize 2800k \
+    -c:a aac -b:a 96k -ac 1 \
+    -movflags +faststart \
+    output.mp4
+
+  Premium quality preserved with bitrate cap. ~75–95% size reduction.
+  Raw uncompressed source files are .gitignored (*_raw.mp4) — never commit.
+
+
+================================================================================
+10. DEPLOYMENT — NETLIFY
+================================================================================
+
+netlify.toml at repo root configures everything:
+
+  [build]
+    base    = "tac-preview"
+    command = "npm install && npm run build"
+    publish = "dist"        # RELATIVE to base — DO NOT add tac-preview/ prefix
+
+  [build.environment]
+    NODE_VERSION = "20"
+
+  [[redirects]]
+    from   = "/*"
+    to     = "/index.html"
+    status = 200
+    # SPA fallback — /about, /anything client-routed all serve index.html
+
+  Cache headers for /videos, /assets, /*.webp — 1y immutable
+
+Two ways to deploy:
+
+A. GitHub auto-deploy (recommended):
+   1. Sign in at app.netlify.com
+   2. Add new site → Import from GitHub
+   3. Pick this repo — settings auto-fill from netlify.toml
+   4. Click Deploy. Live in ~3 min.
+   5. Future pushes to main auto-trigger a rebuild.
+
+B. Drag-drop (no GitHub link):
+   1. Run `cd tac-preview && npm run build` locally
+   2. Drag the resulting tac-preview/dist/ folder onto app.netlify.com/drop
+
+KNOWN GOTCHA: in netlify.toml, `publish` is RELATIVE to `base`. Earlier we
+had `publish = "tac-preview/dist"` which Netlify resolved as
+`/opt/build/repo/tac-preview/tac-preview/dist` (double-nested = 404). Fix
+was to change to just `"dist"`. Already correct in repo.
+
+
+================================================================================
+11. CONVERSATION TIMELINE — what was tried, decided, rejected
+================================================================================
+
+This is the story of how we arrived at the current state. Reading this
+prevents redoing the same exploration.
+
+CHRONOLOGICAL DECISIONS:
+
+11.1 BRAND RENAME
+  - Site originally said "The Longevity Centre" (TLC). User shared the
+    actual brand "The Anti-Aging Centre" (TAC) and provided the official
+    logo file (white-on-transparent webp).
+  - Updated logo asset, page <title>, footer copyright everywhere.
+  - "TLC METHOD" → "TAC METHOD", etc.
+
+11.2 HEADER REDESIGN ITERATIONS
+  - V1: Full-width black strip with logo + 6 nav links + CTA.
+        User said it looked "boring".
+  - V2: Floating dark glass pill at top-center.
+        User said it looked like a copy of healthylongevity.clinic.
+  - V3 (CURRENT): Magazine-masthead two-tier — top thin strip with brand
+        statement + contact icons, main bar with logo + nav with sliding
+        underline + circular rust CTA + scroll-progress bar at bottom of
+        header. Hides on scroll-down past hero, reveals on scroll-up.
+
+11.3 HERO ITERATIONS
+  - V1: Solid cream BG with big black text + stats ticker (163/12mo/5).
+        User wanted cinematic.
+  - V2: Tried 3D DNA helix with mouse parallax via Three.js + R3F. Built
+        a /?dna=1 preview with 8 different helix variants (frosted glass,
+        particle cloud, liquid metal, scroll-driven unwind, horizontal
+        drift, particle wave, tunnel, liquid wave). User rejected ALL of
+        them — "boring", "not premium feel for medical".
+  - V3 (CURRENT): Cinematic full-bleed Pexels video bg (woman in nature,
+        13 MB compressed) with dark gradient overlay, brand pill +
+        glassmorphic dual CTAs. Matches user's reference site
+        (healthylongevity.clinic).
+  - All Three.js / R3F dependencies were removed when DNA lab was deleted.
+
+11.4 SECTION ORDER
+  - Multiple reorders happened. Final order optimised for narrative arc:
+    Hero → Programs → Press → Science → Method → Results → Editorial →
+    Benefits → Testimonials → Clinics → Brochure → CtaBand → Footer
+  - TrustStrip section ("60+/10000+/5/163") was DELETED — user said it
+    duplicated CtaBand stats AND used fabricated numbers.
+
+11.5 PROGRAMS — TAC's REAL 5 (was 10 invented)
+  - V1: 10 invented programmes (360° Optimisation, Hormone Balance,
+        Regenerative Medicine, etc.). User pointed out TAC actually has
+        only 5 — re-fetched the source site to confirm.
+  - V2 (CURRENT): TAC's 5 official programmes, verbatim:
+        1. Longevity Plus Program        (12-month flagship)
+        2. Metabolic & Diabetes Clinic   (diabetes/PCOD/thyroid)
+        3. Gut Correction Program        (microbiome)
+        4. Medical Weight Loss & Body Composition
+        5. Skin & Aesthetics             (dermatology)
+  - Stacking deck animation kept. Programs Card 02/03/04 use real TAC
+    programme imagery downloaded from theantiagingcentre.com.
+
+11.6 TESTIMONIALS — VIDEO MARQUEE
+  - V1: Static text quote from "Vikas Mehra" (invented). Deleted.
+  - V2: Built a /?testimonials=1 preview page with 5 patterns:
+        A. Phone Reels Spotlight   (rejected — too tech-startup-y)
+        B. Cinematic Spotlight     (rejected — generic)
+        C. Stacking Stories        (rejected — too documentary-heavy)
+        D. 3D Polaroid Wall        (rejected)
+        E. Infinite Cinema Marquee (PICKED ✓)
+        F. Editorial Magazine Spread (later option, rejected)
+        G. Holographic Tilt Cards    (later option, rejected)
+  - V3 (CURRENT): Option E integrated as VideoTestimonials.tsx using 4
+        real TAC patient videos (Mr. Abhinav Saxena, Mr. Bhushan Kamble,
+        Mr. Shaun Gomez, Mrs. Sadhna Gupta) downloaded from TAC website
+        and compressed locally.
+  - The /?testimonials=1 preview folder was deleted after pick.
+
+11.7 SCRIPT-ITALIC ACCENT REMOVAL
+  - V1: Headlines used Alex Brush cursive accents on key words —
+        "We will [feel] the results", "We [change] what others manage",
+        "Find us where you [live]", etc., all in pink rust italic.
+  - User reaction: "yeh bada he unprofessional lag raha hai ajeeb sa
+        pink acha nahi lag raha". Removed across the entire site.
+  - Class .font-script remains in tailwind config but no JSX uses it.
+
+11.8 MOBILE RESPONSIVE
+  - Was broken on mobile — nav just disappeared with no hamburger.
+  - Built fullscreen overlay menu with 5 staggered nav links + numbered
+    badges + "Arrange a Consultation" pill + phone & WhatsApp.
+  - Body scroll lock when open. Esc to close. CTA pill text degrades:
+    full "Arrange a Consultation" only at lg+, just "Book" at smaller
+    screens (whitespace-nowrap).
+  - ClinicsBand mobile fix: was 5-col grid with 2 empty cells (area+phone
+    hidden on mobile), now 3-col grid with area shown inline under city.
+
+11.9 THEME CUSTOMIZER (BUILT THEN DELETED)
+  - User wanted 6–7 colour palettes + 4 fonts that visitors could swap at
+    runtime. Built a full theme system using CSS variables (RGB triplets
+    so Tailwind /alpha modifiers still worked), ThemeContext, drawer UI.
+  - User reaction: "font ka color toh change he nahi ho raha hai" —
+    palettes were too subtle to perceive (all ink shades looked similar).
+  - Then user said "delete kar do" — the entire theme system was deleted.
+  - DO NOT REBUILD this unless explicitly asked again. Keep tailwind config
+    using direct hex tokens, NOT CSS vars.
+
+11.10 ABOUT PAGE
+  - Built as a separate route at /about. Content sourced verbatim from
+    theantiagingcentre.com/about — "Leaders in preventive and anti-aging
+    medicine" headline, founder bios for Dr. Abhinav Sharma + Dr. Bhavna
+    Sharma, etc.
+  - Showed user 8 hero-video options in a /about-hero-preview page.
+  - User picked Option A (lab-pipette close-up). Integrated as the hero
+    background. Preview page deleted afterward.
+
+11.11 GITHUB / DEPLOYMENT POLISH
+  - Added README.md (7.9 KB comprehensive), LICENSE (MIT), netlify.toml.
+  - Repo root tidy. tac-preview/README.md is brief pointer to root.
+  - Netlify deploy verified — both GitHub auto-deploy and drag-drop tested.
+
+
+================================================================================
+12. THINGS REJECTED — DO NOT REDO
+================================================================================
+
+1. ANY 3D DNA helix or particle effect in the hero.
+   User rejected ALL 8 variants (Three.js / R3F based).
+   → Hero is video bg, period.
+
+2. Theme customizer (palette + font picker drawer).
+   Built and deleted. Don't rebuild.
+
+3. Script-italic rust-pink accent words in headlines.
+   "ajeeb" — never bring back. Class still in tailwind for legacy only.
+
+4. Stock photos that LOOK like real TAC doctors/patients.
+   "fake doctor images nahi honi chaiye" — only real TAC photos for
+   anything implying identity. Generic activity/lifestyle stock OK.
+
+5. Fabricated stats or testimonial copy.
+   "content apne aap nahi banana" — re-fetch TAC source if unsure.
+
+6. The TrustStrip section (We measure / 60+ / 10000+ / 5 / 163).
+   Duplicated CtaBand stats AND had fabricated numbers. Removed.
+
+7. The 10 invented programmes.
+   TAC actually has 5. Stick to those 5.
+
+8. TLC branding ("The Longevity Centre").
+   Brand is TAC = The Anti-Aging Centre. Logo, title, copyright all updated.
+
+9. ProgramTiles cards near the top of homepage.
+   User wanted the stacking-deck Programs (which already does the job).
+
+10. Right-side ScrollProgress rail (vertical tick-marks of section names).
+    Removed early. The header has its own progress bar at the bottom.
+
+11. The blockquote italic style on testimonials.
+    Italic body type was rejected too. Use normal weight.
+
+12. framer-motion + three.js + R3F dependencies.
+    Uninstalled. Re-installing them is a regression unless user
+    specifically asks for an animation that genuinely needs them.
+
+13. Auto-generated Vite boilerplate README in tac-preview/.
+    Replaced with brief pointer to root README.
+
+14. *_raw.mp4 / *_raw.webp uncompressed source files in repo.
+    .gitignore excludes them. Always compress before committing.
+
+
+================================================================================
+13. KNOWN ISSUES / TODOs
+================================================================================
+
+Honest pro-developer assessment of what's still imperfect:
+
+PERFORMANCE  (current Lighthouse mobile likely 60–70)
+  - Hero video 13 MB — could be compressed further to ~5 MB
+  - Total bundle dist/ = 72 MB, 98% videos
+  - Could lazy-load testimonial videos with IntersectionObserver
+  - Could split the JS bundle if it grows further
+
+ACCESSIBILITY
+  - Custom cursor disables system cursor — annoying for keyboard users.
+    The cursor only kicks in for hover+fine pointer media, but still
+    bad for accessibility tools.
+  - Focus rings invisible on dark sections — needs explicit focus-visible
+    styles
+  - Some text contrast (white/55 on ink) may fail WCAG AA
+  - prefers-reduced-motion respected by GSAP timelines but not all CSS
+    animations
+
+FORMS
+  - "Arrange a Consultation" everywhere just anchors to #cta or opens
+    WhatsApp. NO actual contact form with validation + backend submission.
+    For production, should integrate Calendly embed OR a Netlify Forms
+    submission.
+
+SEO
+  - Title set, but no meta description
+  - No Open Graph tags / Twitter cards
+  - No JSON-LD LocalBusiness schema (CRITICAL for medical brand)
+  - No sitemap.xml / robots.txt
+
+CONTENT GAPS
+  - Hero video is generic Pexels stock (woman in nature). Could be
+    replaced with a real TAC clinic film when client provides one.
+  - Programs Card 01 (Longevity Plus) and Card 05 (Skin & Aesthetics)
+    use generic stock — TAC doesn't have alternatives publicly.
+
+CODE ORG
+  - App.tsx is ~1500 lines. The section components (Header, Footer,
+    ClinicsBand, ScienceCards, PressStrip, ResultsSplit, Editorial,
+    Benefits, BrochureCTA, CtaBand) should be split into separate files
+    in src/components/. Pages currently import them via `from '../App'`.
+
+OTHER PAGES NOT YET BUILT
+  - /programs/[slug] — individual programme detail pages
+  - /diagnostics — diagnostic services
+  - /blog — blog index + posts
+  - /press — press mentions
+  - /careers
+  - /privacy + /terms (linked in footer but unstyled)
+
+MOBILE TESTING
+  - Verified at 375 / 768 / 1280 viewports. Real iPhone/Android device
+    testing not done — sticky pin animations may flicker on iOS Safari.
+
+
+================================================================================
+14. HOW TO CONTINUE WITH CLAUDE CODE
+================================================================================
+
+If you're a new Claude Code instance picking up this project:
+
+14.1 First commands to run
+--------------------------------------------------------------------------------
+  # 1. Inspect the repo
+  git log --oneline -20            # see recent history
+  git status                        # check for uncommitted changes
+  cat README.md                     # project overview
+  cat claudeconversation.txt        # this file
+
+  # 2. Set up the dev environment
+  cd tac-preview
+  npm install
+  npm run dev                       # → http://localhost:5180
+
+  # 3. Verify build works
+  npm run build                     # should be ~5 s, ~410 KB JS bundle
+
+14.2 First read these key files
+--------------------------------------------------------------------------------
+  - tailwind.config.js              palette + font tokens
+  - src/index.css                   global type rules + custom keyframes
+  - src/App.tsx                     chrome shell + ALL section components
+  - src/main.tsx                    routing entry
+  - src/pages/HomePage.tsx          home composition
+  - src/pages/AboutPage.tsx         about page
+  - src/components/Hero.tsx         video hero pattern
+  - src/components/Programs.tsx     stacking-deck pattern (signature)
+
+14.3 When the user asks for a new section or page
+--------------------------------------------------------------------------------
+  1. Re-fetch theantiagingcentre.com to get verbatim copy. NEVER invent.
+  2. Use the design tokens from §5 (cream/ink/rust palette, Cabinet
+     Grotesk, rounded-[24px] cards, line-mask reveals).
+  3. Use the animation patterns from §6 (expo.out 1.0–1.4 s, GSAP +
+     ScrollTrigger, always cleanup in useEffect return).
+  4. If adding a new page, follow §8.3 — create in src/pages/, route
+     in main.tsx, add nav link in App.tsx Header.
+  5. After every change: `npm run build` to verify TS strict passes.
+
+14.4 When the user asks for animation
+--------------------------------------------------------------------------------
+  - Use GSAP + ScrollTrigger (already installed).
+  - Easing default: expo.out for entrances, power3.inOut for transitions.
+  - Always couple scroll-driven animations to Lenis (it auto-updates
+    ScrollTrigger via the scroll listener already wired in App.tsx).
+  - ALWAYS cleanup ScrollTrigger.kill() in useEffect return.
+  - Respect reduceMotion() helper from src/lib/motion.ts.
+
+14.5 When the user asks for a "preview"
+--------------------------------------------------------------------------------
+  Pattern used twice in this conversation (Theme Customizer was rejected,
+  Testimonials Option E was picked):
+
+  1. Create src/pages/MyPreviewPage.tsx with multiple options stacked
+  2. Add a route check in main.tsx (e.g. ?preview=foo or /preview-foo)
+  3. Show user the URL — they hover/click to test interactively
+  4. After they pick, integrate the chosen option into the main site
+  5. DELETE the preview page + any rejected option files
+
+  Don't leave preview pages around — they bloat the bundle.
+
+14.6 When committing
+--------------------------------------------------------------------------------
+  - Always group related changes into ONE commit with a comprehensive
+    message (not one commit per file).
+  - Use the commit style established in git log (descriptive subject +
+    bulleted body explaining what changed and WHY).
+  - Push to BOTH the feature branch AND main:
+      git push origin claude/elastic-grothendieck-1da038:main
+      git push origin claude/elastic-grothendieck-1da038
+  - Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+    (already used in every prior commit)
+
+14.7 Things the user values most (calibrate for these)
+--------------------------------------------------------------------------------
+  1. Premium feel above all else — luxury editorial, not tech-startup
+  2. Real content from TAC source — never invent
+  3. Smooth animations — but tasteful, not flashy
+  4. Mobile responsive — every change must work on phone too
+  5. Clean code — no dead files, no unused deps, lean bundle
+  6. Speed of iteration — user is impatient, ship fast then refine
+
+14.8 Things to avoid
+--------------------------------------------------------------------------------
+  1. Don't re-suggest 3D DNA hero or theme customizer (already rejected)
+  2. Don't add fake doctor/patient stock images (use real TAC photos)
+  3. Don't use script italic accents in headlines
+  4. Don't fabricate stats, testimonials, programme names
+  5. Don't bloat the bundle with libraries for one-off features
+  6. Don't commit raw uncompressed video files (.gitignore handles it)
+
+
+================================================================================
+END OF DOCUMENT
+================================================================================
+
+Final notes:
+- Keep this file updated as the project evolves.
+- When a major decision is made, add it to §11 with date.
+- When something is rejected, add it to §12 so future Claude doesn't redo.
+- This file is your context across sessions and machines.
