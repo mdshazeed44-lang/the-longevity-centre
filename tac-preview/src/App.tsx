@@ -379,7 +379,7 @@ export function ScienceCards() {
               style={{ willChange: 'transform, opacity' }}
             >
               {/* Image */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-mist">
+              <div className="relative aspect-[16/10] overflow-hidden bg-mist">
                 <img
                   src={c.img}
                   alt={c.title}
