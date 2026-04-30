@@ -126,13 +126,13 @@ export function Method() {
     <section
       id="method"
       ref={root}
-      className="bg-cream/40 py-16 md:py-24 px-6 md:px-12"
+      className="bg-cream/40 py-12 md:py-16 px-6 md:px-12"
     >
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-20 mb-16 md:mb-24 items-end">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 mb-10 md:mb-14 items-end">
           <div>
-            <div className="flex items-center gap-3 mb-7">
+            <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] uppercase text-rust font-semibold">
                 The TAC Method
@@ -140,7 +140,7 @@ export function Method() {
             </div>
             <h2
               ref={heading}
-              className="font-display font-bold text-[36px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink"
+              className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
                 <span>How we extend</span>
@@ -158,7 +158,7 @@ export function Method() {
         </div>
 
         {/* Two-column layout: steps left, sticky image right */}
-        <div className="grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-20 items-start">
+        <div className="grid md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-start">
           {/* LEFT — vertical step list with progress line */}
           <div className="relative" ref={stepsRef}>
             {/* Progress line track */}
@@ -179,11 +179,11 @@ export function Method() {
               return (
                 <div
                   key={s.n}
-                  className="method-row relative pl-12 md:pl-16 pb-16 md:pb-20 last:pb-0"
+                  className="method-row relative pl-12 md:pl-14 pb-10 md:pb-12 last:pb-0"
                 >
                   {/* Numbered dot */}
                   <span
-                    className={`absolute left-0 top-1 w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center font-display font-semibold text-[11.5px] md:text-[12.5px] tabular-nums tracking-tight transition-all duration-500 ${
+                    className={`absolute left-0 top-1 w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center font-display font-semibold text-[11.5px] md:text-[12px] tabular-nums tracking-tight transition-all duration-500 ${
                       isActive
                         ? 'bg-ink text-white scale-100'
                         : 'bg-white text-stone border border-mist scale-95'
@@ -193,14 +193,14 @@ export function Method() {
                   </span>
 
                   <h3
-                    className={`font-display font-bold text-[24px] md:text-[34px] leading-[1.1] tracking-[-0.025em] mb-4 transition-colors duration-500 ${
+                    className={`font-display font-bold text-[22px] md:text-[28px] leading-[1.1] tracking-[-0.025em] mb-3 transition-colors duration-500 ${
                       isActive ? 'text-ink' : 'text-ink/60'
                     }`}
                   >
                     {s.title}
                   </h3>
                   <p
-                    className={`text-[14.5px] md:text-[16px] leading-[1.7] font-light max-w-[480px] transition-colors duration-500 ${
+                    className={`text-[14px] md:text-[15px] leading-[1.65] font-light max-w-[480px] transition-colors duration-500 ${
                       isActive ? 'text-graphite' : 'text-graphite/55'
                     }`}
                   >
@@ -210,19 +210,22 @@ export function Method() {
                   {/* Active accent line under step */}
                   <span
                     aria-hidden
-                    className={`block h-px bg-rust mt-6 origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`block h-px bg-rust mt-4 origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       isActive ? 'scale-x-100' : 'scale-x-0'
                     }`}
-                    style={{ width: '90px' }}
+                    style={{ width: '80px' }}
                   />
                 </div>
               )
             })}
           </div>
 
-          {/* RIGHT — sticky image with smooth cross-fade per active step */}
-          <div className="hidden md:block sticky top-32">
-            <div className="relative aspect-[4/5] rounded-[24px] overflow-hidden bg-mist border border-mist/60 shadow-[0_30px_80px_-50px_rgba(27,26,24,0.18)]">
+          {/* RIGHT — sticky image with smooth cross-fade per active step.
+              Aspect 4/5 (tall portrait) was making the image dominate the
+              entire viewport on desktop; 4/3 keeps it comfortably below the
+              fold while preserving the cross-fade feel. */}
+          <div className="hidden md:block sticky top-32 max-h-[calc(100vh-9rem)]">
+            <div className="relative aspect-[4/3] rounded-[20px] overflow-hidden bg-mist border border-mist/60 shadow-[0_30px_80px_-50px_rgba(27,26,24,0.18)]">
               {STEPS.map((s, i) => (
                 <img
                   key={s.n}
@@ -250,18 +253,18 @@ export function Method() {
               />
 
               {/* Phase + active title caption */}
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <div className="text-[10px] tracking-[0.3em] uppercase text-white/70 font-semibold mb-2">
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <div className="text-[10px] tracking-[0.3em] uppercase text-white/70 font-semibold mb-1.5">
                   Phase {STEPS[active].n}
                 </div>
-                <div className="font-display font-bold text-[20px] md:text-[24px] leading-[1.15] tracking-[-0.015em]">
+                <div className="font-display font-bold text-[18px] md:text-[22px] leading-[1.15] tracking-[-0.015em]">
                   {STEPS[active].title}
                 </div>
               </div>
             </div>
 
             {/* Counter strip below image */}
-            <div className="mt-6 flex items-center justify-between text-[10.5px] tracking-[0.28em] uppercase text-stone">
+            <div className="mt-4 flex items-center justify-between text-[10.5px] tracking-[0.28em] uppercase text-stone">
               <span>
                 <span className="text-ink font-semibold tabular-nums">
                   {String(active + 1).padStart(2, '0')}
