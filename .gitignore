@@ -26,3 +26,8 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Raw uncompressed source assets (compressed versions are committed instead)
+*_raw.mp4
+*_raw.webm
+*_raw.mov
