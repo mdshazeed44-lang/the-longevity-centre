@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { label: 'About', href: '/about' },
   { label: 'Programs', href: '/#programs' },
   { label: 'Method', href: '/#method' },
-  { label: 'Centres', href: '/#clinics' },
+  { label: 'Centres', href: '/centres' },
   { label: 'Contact', href: '/#cta' },
 ]
 
