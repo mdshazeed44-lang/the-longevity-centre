@@ -332,16 +332,20 @@ export function CentresPage() {
             every centre — your care continues wherever you go.
           </p>
 
-          {/* Stat chips strip */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 max-w-[820px] rounded-2xl overflow-hidden border border-white/10">
+          {/* Slim spec pills — backdrop-blur chips matching About hero language */}
+          <div className="mt-10 md:mt-12 flex flex-wrap items-center gap-2.5 md:gap-3">
             {HERO_STATS.map((s) => (
-              <div key={s.k} className="bg-ink px-5 py-6 md:px-7 md:py-8">
-                <div className="text-[10.5px] tracking-[0.28em] uppercase text-white/55 font-medium mb-2">
+              <div
+                key={s.k}
+                className="inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
+              >
+                <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
+                <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
                   {s.k}
-                </div>
-                <div className="font-display font-bold text-[18px] md:text-[22px] leading-[1.1] tracking-[-0.015em] text-white">
+                </span>
+                <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap">
                   {s.v}
-                </div>
+                </span>
               </div>
             ))}
           </div>
