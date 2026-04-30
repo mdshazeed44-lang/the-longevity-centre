@@ -72,7 +72,7 @@ export function VideoTestimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-24 md:py-32 overflow-hidden"
+      className="relative py-16 md:py-20 overflow-hidden"
       style={{
         background:
           'radial-gradient(circle at 50% 0%, #1d1614 0%, #0d0908 70%)',
@@ -110,18 +110,18 @@ export function VideoTestimonials() {
       `}</style>
 
       {/* Header */}
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-12 md:mb-16 text-center">
-        <div className="inline-flex items-center gap-3 mb-6">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-10 md:mb-12 text-center">
+        <div className="inline-flex items-center gap-3 mb-5">
           <span className="w-7 h-px bg-rust-soft" />
           <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
             Patient Stories
           </span>
           <span className="w-7 h-px bg-rust-soft" />
         </div>
-        <h2 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.0] tracking-[-0.03em] text-white">
+        <h2 className="font-display font-bold text-[30px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-white">
           Here's what our patients say.
         </h2>
-        <p className="mt-5 text-[14px] md:text-[15px] text-white/55 font-light max-w-[460px] mx-auto">
+        <p className="mt-4 text-[14px] md:text-[15px] text-white/65 font-light max-w-[460px] mx-auto">
           Hover any card to preview · click to watch the full story.
         </p>
       </div>

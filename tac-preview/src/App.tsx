@@ -115,11 +115,11 @@ export function ClinicsBand() {
 
   return (
     <section id="clinics" ref={ref} className="bg-white">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-14 md:py-20">
+      <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-12 md:py-16">
         {/* Compact header — 2 col */}
-        <div className="grid md:grid-cols-[1.3fr_1fr] gap-10 md:gap-16 items-end mb-10 md:mb-14">
+        <div className="grid md:grid-cols-[1.3fr_1fr] gap-8 md:gap-12 items-end mb-8 md:mb-10">
           <div>
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-4">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
                 Our Centres
@@ -127,7 +127,7 @@ export function ClinicsBand() {
             </div>
             <h2
               ref={headRef}
-              className="font-display font-bold text-[34px] md:text-[52px] leading-[1.0] tracking-[-0.03em] text-ink"
+              className="font-display font-bold text-[28px] md:text-[42px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
                 <span>Find us where</span>
@@ -152,7 +152,7 @@ export function ClinicsBand() {
                 key={c.city + c.area}
                 href={isFeatured ? '#cta' : '#cta'}
                 data-cursor="hover"
-                className={`clinic-row group relative grid grid-cols-[36px_1fr_auto] md:grid-cols-[60px_1fr_1.4fr_1fr_140px] gap-3 md:gap-6 items-center px-2 md:px-4 py-4 md:py-6 border-b border-mist transition-colors duration-500 ${
+                className={`clinic-row group relative grid grid-cols-[36px_1fr_auto] md:grid-cols-[60px_1fr_1.4fr_1fr_140px] gap-3 md:gap-6 items-center px-2 md:px-4 py-3.5 md:py-4 border-b border-mist transition-colors duration-500 ${
                   isFeatured ? 'bg-ink/95 text-white -mx-2 md:-mx-4 px-4 md:px-8 rounded-xl' : 'hover:bg-cream/50'
                 }`}
               >
@@ -329,7 +329,7 @@ export function ScienceCards() {
   return (
     <section
       id="science"
-      className="relative bg-white py-16 md:py-24 px-6 md:px-12 overflow-hidden"
+      className="relative bg-white py-12 md:py-16 px-6 md:px-12 overflow-hidden"
     >
       {/* Soft ambient backdrop */}
       <div
@@ -343,9 +343,9 @@ export function ScienceCards() {
 
       <div className="relative max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 mb-14 md:mb-20 items-end">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 md:gap-14 mb-10 md:mb-14 items-end">
           <div>
-            <div className="flex items-center gap-3 mb-7">
+            <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
                 Longevity Science
@@ -353,7 +353,7 @@ export function ScienceCards() {
             </div>
             <h2
               ref={headRef}
-              className="font-display font-bold text-[36px] md:text-[56px] leading-[1.0] tracking-[-0.03em] text-ink"
+              className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
                 <span>Cutting-edge science</span>
@@ -379,7 +379,7 @@ export function ScienceCards() {
               style={{ willChange: 'transform, opacity' }}
             >
               {/* Image */}
-              <div className="relative aspect-[5/4] overflow-hidden bg-mist">
+              <div className="relative aspect-[4/3] overflow-hidden bg-mist">
                 <img
                   src={c.img}
                   alt={c.title}
@@ -414,17 +414,17 @@ export function ScienceCards() {
               </div>
 
               {/* Content */}
-              <div className="px-7 py-7 md:px-8 md:py-9">
-                <h3 className="font-display font-bold text-[22px] md:text-[24px] leading-[1.2] tracking-[-0.015em] text-ink mb-3 group-hover:text-rust-deep transition-colors duration-500">
+              <div className="px-6 py-5 md:px-7 md:py-6">
+                <h3 className="font-display font-bold text-[20px] md:text-[22px] leading-[1.2] tracking-[-0.015em] text-ink mb-2 group-hover:text-rust-deep transition-colors duration-500">
                   {c.title}
                 </h3>
-                <p className="text-[14.5px] md:text-[15px] text-graphite leading-[1.65] font-light">
+                <p className="text-[14px] md:text-[14.5px] text-graphite leading-[1.6] font-light">
                   {c.desc}
                 </p>
                 {/* Animated bottom rust line on hover */}
                 <span
                   aria-hidden
-                  className="block h-px w-10 bg-rust mt-7 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  className="block h-px w-10 bg-rust mt-5 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
               </div>
             </article>
@@ -546,8 +546,8 @@ export function ResultsSplit() {
   }, [])
 
   return (
-    <section id="results" className="bg-cream/50 py-16 md:py-24 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.05fr_1fr] gap-12 md:gap-20 items-start">
+    <section id="results" className="bg-cream/50 py-12 md:py-16 px-6 md:px-12">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.05fr_1fr] gap-10 md:gap-16 items-start">
         {/* LEFT — outcomes list */}
         <div className="md:pt-2">
           <div className="flex items-center gap-3 mb-7">
@@ -558,7 +558,7 @@ export function ResultsSplit() {
           </div>
           <h2
             ref={headRef}
-            className="font-display font-bold text-[40px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink mb-8"
+            className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink mb-5"
           >
             <span className="line-mask">
               <span>A new,</span>
@@ -568,7 +568,7 @@ export function ResultsSplit() {
               <span>reformed life.</span>
             </span>
           </h2>
-          <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite font-light max-w-[520px] mb-12">
+          <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[520px] mb-8">
             After the thorough 12-month programme, our patients describe a
             reformed life — restored vitality, measurably better health, and a
             sense of well-being that wasn't there before.
@@ -599,19 +599,19 @@ export function ResultsSplit() {
           </ul>
         </div>
 
-        {/* RIGHT — clean image, no text overlay */}
-        <div className="md:sticky md:top-28 flex flex-col gap-6">
-          <div className="relative aspect-[4/5] md:aspect-[5/6] overflow-hidden rounded-[24px] bg-mist">
+        {/* RIGHT — clean image, no text overlay. Real TAC clinic interior. */}
+        <div className="md:sticky md:top-28 flex flex-col gap-5">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-mist">
             <img
-              src="/tac-photos/tac_about.jpg"
-              alt="The Anti-Aging Centre — our practice"
+              src="/tac-photos/gurugram-clinic.jpg"
+              alt="Inside a TAC clinic"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
 
           {/* Caption block — separate from image, not overlaid */}
-          <div className="bg-white rounded-[20px] border border-mist p-7 md:p-8">
+          <div className="bg-white rounded-[20px] border border-mist p-6 md:p-7">
             <div className="text-[10px] tracking-[0.3em] uppercase text-rust font-semibold mb-3">
               One Coordinated Team
             </div>
@@ -737,10 +737,10 @@ export function Benefits() {
     }
   }, [])
   return (
-    <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
+    <section className="bg-cream/40 py-12 md:py-16 px-6 md:px-12">
       <div className="max-w-[1280px] mx-auto">
         {/* Header */}
-        <div className="grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 mb-16 md:mb-20 items-start">
+        <div className="grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-14 mb-12 md:mb-16 items-start">
           <div>
             <div className="text-[11px] tracking-[0.3em] text-stone uppercase font-medium mb-6">
               Programs
@@ -786,7 +786,7 @@ export function Benefits() {
 export function BrochureCTA() {
   // Source: theantiagingcentre.com — "BOOK AN APPOINTMENT" form & callback CTA.
   return (
-    <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
+    <section className="bg-cream/40 py-12 md:py-16 px-6 md:px-12">
       <div className="max-w-[1280px] mx-auto bg-white text-ink grid md:grid-cols-[1.05fr_1fr] items-stretch overflow-hidden rounded-[28px] border border-mist shadow-[0_30px_80px_-50px_rgba(27,26,24,0.20)]">
         {/* Image side — clean, no overlay text */}
         <div className="relative aspect-[5/4] md:aspect-auto md:h-full bg-mist overflow-hidden md:m-3 md:rounded-[20px]">
@@ -894,10 +894,10 @@ export function Editorial() {
     <section
       id="editorial"
       ref={sectionRef}
-      className="bg-white py-16 md:py-24 px-6 md:px-12"
+      className="bg-white py-12 md:py-16 px-6 md:px-12"
     >
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-        <div className="aspect-[4/5] md:aspect-[5/6] overflow-hidden bg-mist">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <div className="aspect-[4/3] md:aspect-[5/4] overflow-hidden rounded-[20px] bg-mist">
           <img
             ref={imgRef}
             src="/tac-photos/clinic-interior-2.jpg"
@@ -906,13 +906,13 @@ export function Editorial() {
           />
         </div>
         <div className="md:max-w-[480px]">
-          <div className="text-[11px] tracking-[0.3em] text-stone uppercase font-medium mb-6">
+          <div className="text-[11px] tracking-[0.3em] text-stone uppercase font-medium mb-5">
             Diagnostics
           </div>
-          <h2 className="font-display font-bold text-[36px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink mb-8">
+          <h2 className="font-display font-bold text-[30px] md:text-[42px] leading-[1.05] tracking-[-0.025em] text-ink mb-6">
             Measurement is medicine.
           </h2>
-          <div className="space-y-5 text-[15px] md:text-[16px] leading-[1.7] text-graphite">
+          <div className="space-y-4 text-[14.5px] md:text-[15.5px] leading-[1.65] text-graphite">
             <p>Most clinics treat symptoms. We treat the systems behind them.</p>
             <p>
               Our diagnostic stack — 163 blood parameters, full-genome analysis,
@@ -946,7 +946,7 @@ export function CtaBand() {
   return (
     <section
       id="cta"
-      className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden"
+      className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden"
     >
       {/* Ambient warm glow + soft grain — premium dark luxury */}
       <div
