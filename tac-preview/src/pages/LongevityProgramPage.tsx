@@ -247,16 +247,28 @@ export function LongevityProgramPage() {
 
   return (
     <div id="longevity-program">
-      {/* HERO — cinematic dark, lab video bg */}
+      {/* HERO — cinematic dark with same cross-fading anti-aging montage as Centres:
+          DNA helix → laboratory equipment → modern clinic corridor.
+          Three short Pexels clips (~7 MB total, already cached if user
+          visited /centres) cross-fade on a 24s cycle. */}
       <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
         <video
-          className="absolute inset-0 w-full h-full object-cover hero-video"
-          src="/videos/about-candidates/lab-pipette.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
+          className="hero-clip clip-1"
+          src="/videos/centres-clips/dna.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
+        />
+        <video
+          className="hero-clip clip-2"
+          src="/videos/centres-clips/lab.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
+        />
+        <video
+          className="hero-clip clip-3"
+          src="/videos/centres-clips/clinic.mp4"
+          autoPlay loop muted playsInline preload="metadata"
+          aria-hidden="true"
         />
         <div
           aria-hidden
