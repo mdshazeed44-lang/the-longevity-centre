@@ -19,6 +19,8 @@ yarn-error.log*
 
 # Claude Code (local-only)
 .claude/settings.local.json
+.claude/launch.json
+**/.claude/launch.json
 
 # OS / editor
 .DS_Store

@@ -475,10 +475,10 @@ export function LongevityProgramPage() {
       </section>
 
       {/* BIOLOGICAL AGE — dramatic stat band */}
-      <section ref={ageRef} className="relative bg-ink text-white py-16 md:py-24 px-6 md:px-12 overflow-hidden border-t border-white/5">
-        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(800px 500px at 50% 50%, rgba(148,84,85,0.20), transparent 60%)' }} />
+      <section ref={ageRef} className="relative bg-ink text-white py-20 md:py-28 px-6 md:px-12 overflow-hidden border-t border-white/5">
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 560px at 50% 50%, rgba(148,84,85,0.22), transparent 60%)' }} />
         <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay hero-grain" />
-        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
+        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.05fr] gap-12 md:gap-16 items-center">
           <div>
             <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust-soft" />
@@ -496,12 +496,20 @@ export function LongevityProgramPage() {
             </p>
           </div>
           <div className="text-center md:text-left">
-            <div className="font-display font-bold text-[120px] md:text-[200px] xl:text-[240px] leading-[0.85] tracking-[-0.06em] text-white tabular-nums">
-              <span className="age-num bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #B27A7B 100%)' }}>5–15</span>
-              <span className="text-rust-soft text-[40px] md:text-[60px] align-top ml-2">yrs</span>
+            <div className="inline-flex items-baseline gap-3 md:gap-4 max-w-full">
+              <span
+                className="age-num font-display font-bold text-[88px] sm:text-[104px] md:text-[148px] xl:text-[180px] leading-[0.88] tracking-[-0.05em] tabular-nums bg-clip-text text-transparent"
+                style={{ backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #B27A7B 100%)' }}
+              >
+                5–15
+              </span>
+              <span className="font-display font-medium text-rust-soft text-[22px] md:text-[34px] xl:text-[42px] leading-none tracking-[-0.02em]">
+                years
+              </span>
             </div>
-            <div className="mt-3 text-[12px] md:text-[13px] tracking-[0.28em] uppercase text-white/55 font-medium">
-              Younger biological age, evidence-based
+            <div className="mt-5 md:mt-6 inline-flex items-center gap-3 text-[11px] md:text-[12px] tracking-[0.28em] uppercase text-white/60 font-medium">
+              <span className="w-7 h-px bg-rust-soft/70" />
+              Younger biological age · Evidence-based
             </div>
           </div>
         </div>
