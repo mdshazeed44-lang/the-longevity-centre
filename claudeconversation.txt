@@ -11,12 +11,14 @@ This document is a complete A-Z handoff so any new Claude Code instance (or
 human developer) on a different machine can continue the project without
 losing context. Read it top-to-bottom on first pickup.
 
-NEW PICKUPS — read SECTION 15 (SESSION LOG 2026-05-01) FIRST. It captures
-everything that changed in the second working session: two new pages
-(/centres, /longevity-program), full SEO foundation, accessibility upgrades,
-header/footer extracted from App.tsx, official TLC brand-guide assets and
-real per-clinic photos. Sections 1–14 below describe the original baseline;
-section 15 supersedes anything that has moved since.
+NEW PICKUPS — read SECTION 16 (SESSION LOG 2026-05-01 · third session)
+FIRST, then SECTION 15. Section 16 is the latest pass: Longevity page
+polish (Biological Age stat fix, Lifestyle Programmes redesigned twice
+into the home stacking-deck, Pull-Quote image scaled), bottom-of-page
+trim (Footer, Final CTA, CtaBand, VideoTestimonials all shortened), and
+cursor hover pulled back. Section 15 captures the second session (new
+pages, SEO foundation, brand-guide assets). Sections 1–14 describe the
+original baseline; later sections supersede anything that has moved.
 
 --------------------------------------------------------------------------------
 TABLE OF CONTENTS
@@ -1306,5 +1308,207 @@ Per page (via useDocumentMeta in src/lib/seo.ts):
 
 
 ================================================================================
-END OF SECTION 15 — END OF DOCUMENT
+END OF SECTION 15
+================================================================================
+
+
+================================================================================
+16. SESSION LOG — 2026-05-01 (third working session)
+================================================================================
+
+Polish + tighten pass. No new pages. Focus on the Longevity flagship
+page (4 fixes) and a site-wide bottom-of-page trim. Anything in §15 that
+contradicts this section is OUT OF DATE — trust §16.
+
+5 commits pushed to main this session:
+  e7f88cc  Longevity: fix Biological Age "yrs" clipping + clean composition
+  96a85ab  Longevity: Lifestyle Programmes — compact 2x2 magazine grid
+  d428d81  Longevity: Lifestyle Programmes — stacking-deck (matches home)
+  e2fbc39  Longevity: Pull-Quote section — image scaled to fit one viewport
+  2730c36  Tighten dark sections + cursor hover — bottom no longer heavy
+
+16.1 LONGEVITY · BIOLOGICAL AGE STAT BAND  (commit e7f88cc)
+--------------------------------------------------------------------------------
+The huge "5–15" at xl:240 px with negative tracking (-0.06em) was wider
+than the right column, and the "yrs" suffix sat with align-top + ml-2
+hanging off the edge — clipped by the section's overflow-hidden.
+
+CHANGES
+- Number + suffix wrapped in inline-flex items-baseline so "years" sits
+  cleanly on the same baseline as "5–15".
+- Number scale capped: xl 240 → 180, md 200 → 148, base 120 → 88
+  (still dramatic, no longer overflowing the 1180-px container).
+- "yrs" → "years" in font-display medium, properly sized
+  (xl 60 → 42, md 60 → 34) and tracked, no align-top hack.
+- Bottom label gets a rust accent line and a · separator: "— Younger
+  biological age · Evidence-based".
+- Section padding bumped (py-16/24 → py-20/28) and grid ratio
+  rebalanced (1fr_1.2fr → 1fr_1.05fr) so left + right columns balance.
+
+The .age-num class + count-up GSAP animation are preserved.
+
+16.2 LONGEVITY · LIFESTYLE PROGRAMMES — STACKING DECK  (96a85ab → d428d81)
+--------------------------------------------------------------------------------
+Was: 4 alternating image/content rows with portrait aspect-[4/5] images
+on a 5fr column. Each card was ~700-900 px tall and dominated the entire
+viewport on 1366×768.
+
+Iteration 1 (96a85ab): 2x2 magazine grid with landscape aspect-[5/4]
+images, image-on-top + title/body/CTA beneath. Section ~3000 → 1780 px.
+Replaced alternating slide-in animation with fade-up grid stagger.
+
+Iteration 2 (d428d81 — current): User said the grid still felt plain.
+Switched to the SAME stacking-deck pattern as the home Programs section.
+
+CURRENT STRUCTURE (matches src/components/Programs.tsx verbatim)
+- Section header upgraded to the home Programs 2-col layout (eyebrow +
+  56-px headline left, supporting paragraph right).
+- Each card: white, rounded-[28px]/[36px], soft shadow + inset highlight,
+  1.05fr_1fr grid (content left, image right).
+- Top row: number + rust tag pill + "NN / 04" page counter.
+- 44–52 px title, 17 px body, dark "Explore this path" pill CTA with
+  pulsing green-soft dot.
+- Image with parallax (.card-img absolute, h-112%) + 135-deg vignette.
+- Per-card refs (lifestyleCardsRef) for ScrollTrigger pinning.
+
+ANIMATION (mirrors Programs.tsx)
+- ScrollTrigger pin per card, pinSpacing:false, anticipatePin:1.
+- Behind-card depth: scale 1→0.94, opacity 1→0, y 0→-90, power3.inOut,
+  scrub 1.4, keyed off the next card.
+- Enter: y 140→0, opacity 0→1, scale 0.97→1, 1.6s power3.out.
+- Image parallax: yPercent -7→7 scrubbed against card scroll.
+
+DATA — added a `tag` field to LIFESTYLES so each card has a meaningful
+rust eyebrow:
+  01  Leadership Elite             — Executive · Burnout
+  02  Fitness Enthusiasts          — Athletic · Performance
+  03  Health Conditions            — Chronic · Root Cause
+  04  Wellness-Centred Families    — Family · Longevity
+
+16.3 LONGEVITY · PULL-QUOTE SECTION  (commit e2fbc39)
+--------------------------------------------------------------------------------
+The forest-light brand image was bigger than the viewport (aspect-[5/6]
+portrait + 1.2fr column = ~640 × 768 on 1366×768).
+
+CHANGES
+- Image aspect: portrait 5/6 (md) → landscape 5/4. New size at 1366
+  viewport: 535 × 428 (was ~640 × 768).
+- Grid bias flipped: image col 1.2fr → 1fr (text col 1fr → 1.1fr) so
+  the type takes the lead and the image is supporting, not dominating.
+- Section padding pulled back: py-20/28 → py-16/20.
+- Headline ramp trimmed: 32/48/56 → 28/40/48 px.
+- Caption + Brand DNA badge sized down proportionally.
+- Right column gets max-w-[460px] on mobile so the portrait image
+  doesn't blow out small screens.
+
+Section total height on 1366×768: ~588 px (was ~900+).
+
+16.4 BOTTOM-OF-PAGE DARK SLAB TRIM  (commit 2730c36)
+--------------------------------------------------------------------------------
+User feedback: the bottom of every page was a 1500-1800 px slab of black
+(Final CTA + Footer top + Footer body). Several sections demanded scroll
+just to see the whole thing in one viewport.
+
+5 files touched in one commit:
+
+FOOTER (src/components/Footer.tsx — shared by all 4 pages)
+  • Top padding: pt-20/24 → pt-12/16
+  • Headline: 32/52/60 → 26/34/40 px
+  • Top strip pb 16/20 → 10/12, mid directory py 14/16 → 10/12
+  • Eyebrow margin mb-6 → mb-4, list spacing 4/3 → 2.5
+  • MERGED social row + copyright row into one bottom row (saves ~80 px)
+  • Social icons 40 → 36 px
+  • Total footer height: ~870 → ~649 px (−25%)
+
+LONGEVITY FINAL CTA (src/pages/LongevityProgramPage.tsx #program-cta)
+  • Padding py-16/24 → py-12/16
+  • Headline 32/60 → 28/44 px, body 15/17 → 14/15
+  • Margins mb-8/6/10/10 → mb-5/4/7/7
+  • Health-concern chips px-4 py-2 → px-3 py-1.5
+  • Section height: ~525 → ~407 px (−22%)
+
+HOME CTABAND (src/App.tsx)
+  • Padding py-16/24 → py-14/18
+  • Headline 40/72/88 → 34/56/68 px, sub 16/19 → 15/17
+  • Margins pulled back proportionally (mb-10/8/14/16 → 6/5/9/10)
+  • Reassurance pills 26/34 → 22/28 px, py-7 → py-5
+  • Section height: ~770 → ~543 px (−29%)
+
+VIDEO TESTIMONIALS (src/components/VideoTestimonials.tsx)
+  • Section padding py-16/20 → py-12/14
+  • Header mb-10/12 → mb-7/9, eyebrow mb-5 → mb-4
+  • Headline 30/44 → 26/36 px, sub 14/15 → 13/14 px
+  • Card width 280 → 230 px, aspect 9/14 → 9/13
+  • Marquee gap 6/8 → 5/6, play icon 14 → 12 px, radius 20 → 18 px
+  • Section height: ~770 → ~592 px (−23%) — entire section now fits
+    in one 1366×768 viewport without scrolling
+
+CUSTOM CURSOR (src/components/Cursor.tsx)
+  • Hover ring scale 2.4 → 1.5 (96 → 60 px diameter)
+  • Hover glow scale 1.3 → 1.1, opacity 0.6 → 0.4
+  • Default cursor untouched (40 px ring + 5 px rust dot)
+
+Combined dark-slab heights at the bottom of each page:
+  /longevity-program:  ~1400 → ~1056 px (−24%)
+  /                  : ~1640 → ~1192 px (−27%)
+
+16.5 NEW THINGS REJECTED — DO NOT REDO  (additions to §12 / §15.12)
+--------------------------------------------------------------------------------
+19. Lifestyle Programmes as alternating image/content rows OR as a 2x2
+    magazine grid. Both felt plain or viewport-eating. Stacking-deck
+    (mirroring home Programs) is the locked-in pattern.
+20. "yrs" with align-top + ml-2 floating off a huge negative-tracked
+    numeral. Use inline-flex items-baseline + a properly-sized suffix.
+21. Cursor ring scale 2.4 on hover. 1.5 is the new ceiling. The
+    bloom-up was eating thumbnails on cards.
+22. Two-row footer bottom (social row above, copyright row below).
+    One bottom row with social on the right is the pattern now.
+
+16.6 NEW THINGS DONE / VERIFIED  (additions to §11 / §15.13)
+--------------------------------------------------------------------------------
+2026-05-01 (third session):
+  - Biological Age stat: clean baseline-aligned "5–15 years" with rust
+    accent line below, no clipping at any breakpoint.
+  - Lifestyle Programmes: home stacking-deck pattern reused, 4-card
+    deck with rust tag pills + "NN / 04" page counter.
+  - Pull-Quote section: forest-light image landscape 5/4, 535×428 on
+    desktop, fits one viewport.
+  - Footer + every page's final CTA + home CtaBand + Testimonials all
+    pulled back. Bottom-of-page no longer feels like a 2-viewport slab.
+  - Custom cursor hover ring reduced 2.4× → 1.5×.
+
+16.7 OPEN TODOs (still applies — see §13 and §15.14)
+--------------------------------------------------------------------------------
+Unchanged from §15.14. Worth restating the high-leverage ones:
+- Real contact form on page (Calendly embed or Netlify Forms) — every
+  CTA still anchors or opens WhatsApp.
+- Compress homepage hero.mp4 (still ~13 MB) → ~5 MB.
+- Lazy-load testimonial videos with IntersectionObserver.
+- Continue extracting the 8 inline section components from App.tsx
+  (ClinicsBand, ScienceCards, PressStrip, ResultsSplit, Editorial,
+  Benefits, BrochureCTA, CtaBand).
+- Add /diagnostics, /privacy, /terms.
+- Real iOS Safari device test for sticky-pin animations (now used in
+  TWO sections — home Programs and Longevity Lifestyles — so flicker
+  risk is doubled).
+- Repetition watch: stacking-deck is now used twice (home Programs +
+  Longevity Lifestyles). If a third page wants it, consider varying
+  the pattern instead of tripling down.
+
+16.8 FILES TOUCHED THIS SESSION
+--------------------------------------------------------------------------------
+src/App.tsx                              CtaBand trimmed
+src/components/Cursor.tsx                hover ring/glow pulled back
+src/components/Footer.tsx                full trim + bottom row merge
+src/components/VideoTestimonials.tsx     all dimensions reduced
+src/pages/LongevityProgramPage.tsx       Biological Age + Lifestyle
+                                         Programmes + Pull-Quote +
+                                         Final CTA all updated
+.gitignore                               .claude/launch.json added (e7f88cc)
+
+No new files added, no files deleted, no new dependencies.
+
+
+================================================================================
+END OF SECTION 16 — END OF DOCUMENT
 ================================================================================
