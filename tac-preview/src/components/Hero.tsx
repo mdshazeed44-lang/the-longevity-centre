@@ -203,16 +203,15 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           className="text-[15px] md:text-[17px] leading-[1.6] text-white/80 max-w-[560px] mb-6 font-light"
         >
           Explore TAC's innovative, personalised preventive medicine for a
-          vibrant and fulfilling life — at any stage. Now available online in
-          Mumbai, Bangalore and Hyderabad.
+          vibrant and fulfilling life — at any stage.
         </p>
 
         {/* Slim spec pills — anchor key facts inline above the CTAs */}
         <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-7">
           {[
             { k: 'Centres', v: '5 Pan-India' },
-            { k: 'Online', v: 'Mumbai · Bangalore · Hyderabad' },
             { k: 'Experience', v: '20+ Years' },
+            { k: 'Specialities', v: 'Longevity · Metabolic · Gut · Skin' },
           ].map((s) => (
             <div
               key={s.k}

@@ -1,4 +1,4 @@
-// CentresPage — five clinics directory + online consultations.
+// CentresPage — five clinics directory.
 // Addresses sourced verbatim from theantiagingcentre.com (Gurugram, Pune, Delhi).
 // Bangalore branches kept at city/area level only (no street address verified).
 //
@@ -120,7 +120,7 @@ const CENTRES: Centre[] = [
 const HERO_STATS = [
   { k: 'Centres', v: '5' },
   { k: 'Reach', v: 'Pan-India' },
-  { k: 'Online', v: 'Mumbai · Bangalore · Hyderabad' },
+  { k: 'Cities', v: 'Gurugram · Delhi · Pune · Bangalore' },
 ]
 
 // Per-centre JSON-LD — only for centres with verified street addresses.
@@ -147,7 +147,7 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 const CENTRES_META = {
   title: 'Our Centres — TAC Clinics in Gurugram, Delhi, Pune & Bangalore',
   description:
-    'The Anti-Aging Centre operates five flagship clinics across India — Gurugram (Sector 48), Delhi (Greater Kailash-1), Pune (Hadapsar) and Bangalore (JP Nagar, Sadashivnagar) — plus online consultations in Mumbai, Bangalore and Hyderabad.',
+    'The Anti-Aging Centre operates five flagship clinics across India — Gurugram (Sector 48), Delhi (Greater Kailash-1), Pune (Hadapsar) and Bangalore (JP Nagar, Sadashivnagar).',
   path: '/centres',
   jsonLd: [
     {
@@ -327,9 +327,9 @@ export function CentresPage() {
           </h1>
 
           <p className="mt-10 text-[16px] md:text-[19px] leading-[1.7] text-white/75 max-w-[640px] font-light">
-            Five flagship clinics across India, plus online consultations in
-            Mumbai, Bangalore and Hyderabad. One shared medical record across
-            every centre — your care continues wherever you go.
+            Five flagship clinics across India — Gurugram, Delhi, Pune and two
+            in Bangalore. One shared medical record across every centre — your
+            care continues wherever you go.
           </p>
 
           {/* Slim spec pills — backdrop-blur chips matching About hero language */}
@@ -488,81 +488,6 @@ export function CentresPage() {
               </article>
             )
           })}
-        </div>
-      </section>
-
-      {/* ONLINE — emphasised callout for the sixth "centre" */}
-      <section className="bg-ink text-white py-20 md:py-28 px-6 md:px-12 relative overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(900px 600px at 50% 50%, rgba(148,84,85,0.18), transparent 60%)',
-          }}
-        />
-        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1fr] gap-10 md:gap-16 items-center">
-          <div>
-            <div className="flex items-center gap-3 mb-6">
-              <span className="w-7 h-px bg-rust-soft" />
-              <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
-                06 · Online · Pan-India
-              </span>
-            </div>
-            <h2 className="font-display font-bold text-[34px] md:text-[52px] leading-[1.0] tracking-[-0.03em] text-white mb-6">
-              Care that travels with you.
-            </h2>
-            <p className="text-[15px] md:text-[17px] text-white/70 leading-[1.7] font-light max-w-[480px] mb-8">
-              Online consultations available in Mumbai, Bangalore and Hyderabad
-              — with diagnostics dispatched to your home and follow-ups by
-              video. The same coordinated team, no matter where you log in
-              from.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="/#cta"
-                data-cursor="hover"
-                className="group inline-flex items-center gap-2.5 pl-5 pr-7 py-3.5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
-              >
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                </span>
-                Book Online
-                <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
-              <a
-                href="https://wa.me/918826809123"
-                data-cursor="hover"
-                className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
-              >
-                WhatsApp
-              </a>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3 md:gap-4">
-            {['Mumbai', 'Bangalore', 'Hyderabad'].map((c, i) => (
-              <div
-                key={c}
-                className="aspect-[4/5] rounded-[20px] border border-white/10 bg-white/[0.04] backdrop-blur-md p-5 md:p-6 flex flex-col justify-between"
-              >
-                <div className="text-[10px] tracking-[0.32em] uppercase text-white/45 font-semibold tabular-nums">
-                  0{i + 4}
-                </div>
-                <div>
-                  <div className="font-display font-bold text-[18px] md:text-[22px] leading-[1.05] tracking-[-0.02em] text-white mb-1">
-                    {c}
-                  </div>
-                  <div className="text-[10px] tracking-[0.28em] uppercase text-white/55 font-medium">
-                    Online
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

@@ -745,7 +745,6 @@ export function AboutPage() {
                   <li>Delhi GK-1</li>
                   <li>Bangalore JP Nagar</li>
                   <li>Bangalore Sadashivnagar</li>
-                  <li className="text-stone">Online · Pan-India</li>
                 </ul>
               </div>
             </div>
@@ -875,7 +874,7 @@ export function AboutPage() {
             {[
               { k: '30 min', l: 'Specialist conversation' },
               { k: 'No fee', l: 'No commitment, no charge' },
-              { k: '5 clinics', l: 'Or online, pan-India' },
+              { k: '5 clinics', l: 'Across India' },
             ].map((s) => (
               <div key={s.l} className="bg-ink px-4 md:px-6 py-7 text-center">
                 <div className="font-display font-bold text-[20px] md:text-[28px] lg:text-[32px] text-white leading-none mb-2 tabular-nums tracking-[-0.01em]">

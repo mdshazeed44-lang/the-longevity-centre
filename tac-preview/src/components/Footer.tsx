@@ -32,7 +32,6 @@ const CLINICS = [
   'Pune Hadapsar',
   'Bangalore JP Nagar',
   'Bangalore Sadashivnagar',
-  'Online · Pan-India',
 ]
 
 const COMPANY_LINKS = ['About', 'Method', 'Diagnostics', 'Blog', 'Careers', 'Privacy']
@@ -86,8 +85,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Mid — 4-col directory */}
-        <div className="grid grid-cols-2 md:grid-cols-[1.25fr_1fr_1fr_1fr] gap-8 md:gap-12 py-10 md:py-12">
+        {/* Mid — directory: 1col phone, 2col tablet, 4col desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.25fr_1fr_1fr_1fr] gap-8 md:gap-12 py-10 md:py-12">
           {/* Contact column */}
           <div>
             <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-4">

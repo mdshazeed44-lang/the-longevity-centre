@@ -44,13 +44,6 @@ export function ClinicsBand() {
       area: 'Sadashivnagar',
       phone: '+91 80767 19637',
     },
-    {
-      city: 'Online',
-      region: 'Pan-India',
-      area: 'Mumbai · Bangalore · Hyderabad',
-      phone: '+91 88268 09123',
-      featured: true,
-    },
   ]
 
   const ref = useRef<HTMLDivElement>(null)
@@ -138,8 +131,8 @@ export function ClinicsBand() {
             </h2>
           </div>
           <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right md:pb-2">
-            Five flagship centres across India + online consultations in Mumbai,
-            Bangalore and Hyderabad.
+            Five flagship centres across India — Gurugram, Delhi, Pune and two
+            in Bangalore.
           </p>
         </div>
 
@@ -980,8 +973,8 @@ export function CtaBand() {
         {/* Sub */}
         <p className="text-[15px] md:text-[17px] text-white/70 max-w-[600px] mx-auto leading-[1.65] mb-9 text-center font-light">
           Speak with our medical team for a 30-minute personalised conversation.
-          No commitment. Just clarity. Available across our five clinics and
-          online in Mumbai, Bangalore and Hyderabad.
+          No commitment. Just clarity. Available across our five flagship
+          clinics in Gurugram, Delhi, Pune and Bangalore.
         </p>
 
         {/* CTA — three contact paths in pill form */}
@@ -1018,7 +1011,7 @@ export function CtaBand() {
         </div>
 
         {/* Reassurance row — three trust pills */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-white/10">
+        <div className="grid grid-cols-3 gap-px bg-white/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-white/10">
           {[
             { k: '5', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },
