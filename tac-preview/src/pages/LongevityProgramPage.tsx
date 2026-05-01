@@ -49,24 +49,28 @@ const DIAGNOSTICS = [
 const LIFESTYLES = [
   {
     n: '01',
+    tag: 'Executive · Burnout',
     title: 'Leadership Elite',
     body: 'Struggling with burnout, demanding schedules, and maintaining energy and focus? Long-term health optimisation strategies and biomarker reversal programmes for peak performance — without compromising on health.',
     img: '/longevity/leadership.png',
   },
   {
     n: '02',
+    tag: 'Athletic · Performance',
     title: 'Fitness Enthusiasts',
     body: "Concerned about performance optimisation, injury prevention and recovery times? Precision diagnostics and tailored recommendations reduce injury risk and enhance athletic performance.",
     img: '/longevity/fitness.png',
   },
   {
     n: '03',
+    tag: 'Chronic · Root Cause',
     title: 'Individuals with Health Conditions',
     body: "Facing persistent health issues that are difficult to manage? Comprehensive diagnostics uncover root causes and offer targeted solutions for chronic conditions, with customised plans focused on long-term recovery.",
     img: '/longevity/health-conditions.png',
   },
   {
     n: '04',
+    tag: 'Family · Longevity',
     title: 'Wellness-Centred Families',
     body: "Balancing the health and wellness needs of every family member? TAC supports your family's journey with sustainable healthy habits and long-term wellness strategies.",
     img: '/longevity/wellness-families.png',
@@ -196,6 +200,7 @@ export function LongevityProgramPage() {
   const stepLineRef = useRef<HTMLDivElement>(null)
   const diagnosticsRef = useRef<HTMLDivElement>(null)
   const lifestyleRef = useRef<HTMLDivElement>(null)
+  const lifestyleCardsRef = useRef<(HTMLDivElement | null)[]>([])
   const trustRef = useRef<HTMLDivElement>(null)
   const moodRef = useRef<HTMLDivElement>(null)
   const quoteRef = useRef<HTMLElement>(null)
@@ -314,22 +319,89 @@ export function LongevityProgramPage() {
       })
     }
 
-    // Lifestyle cards — fade-up + subtle scale stagger (suits 2x2 grid)
-    const lifestyleCards = lifestyleRef.current?.querySelectorAll<HTMLElement>('.lifestyle-card')
-    if (lifestyleCards?.length) {
-      gsap.set(lifestyleCards, { y: 40, opacity: 0, scale: 0.97 })
-      const t = gsap.to(lifestyleCards, {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: 'expo.out',
-        stagger: { each: 0.1, from: 'start' },
-        scrollTrigger: { trigger: lifestyleRef.current, start: 'top 80%' },
-      })
-      cleanups.push(() => {
-        t.scrollTrigger?.kill()
-        t.kill()
+    // Lifestyle cards — stacking-deck (mirrors home Programs section)
+    const lifestyleCards = lifestyleCardsRef.current.filter(Boolean) as HTMLDivElement[]
+    if (lifestyleCards.length) {
+      const pinTop = window.innerWidth >= 768 ? 110 : 90
+      lifestyleCards.forEach((card, i) => {
+        const inner = card.querySelector<HTMLElement>('.card-inner')
+        const img = card.querySelector<HTMLElement>('.card-img')
+        if (!inner) return
+        const next = lifestyleCards[i + 1]
+
+        if (next) {
+          const pinST = ScrollTrigger.create({
+            trigger: card,
+            start: `top top+=${pinTop}`,
+            endTrigger: next,
+            end: `top top+=${pinTop + 60}`,
+            pin: true,
+            pinSpacing: false,
+            anticipatePin: 1,
+          })
+          cleanups.push(() => pinST.kill())
+
+          const depthTween = gsap.fromTo(
+            inner,
+            { scale: 1, opacity: 1, y: 0 },
+            {
+              scale: 0.94,
+              opacity: 0,
+              y: -90,
+              ease: 'power3.inOut',
+              scrollTrigger: {
+                trigger: next,
+                start: 'top bottom-=80',
+                end: `top top+=${pinTop + 20}`,
+                scrub: 1.4,
+              },
+            }
+          )
+          cleanups.push(() => {
+            depthTween.scrollTrigger?.kill()
+            depthTween.kill()
+          })
+        }
+
+        // ENTER — gentle slide-up
+        const enterTween = gsap.fromTo(
+          inner,
+          { y: 140, opacity: 0, scale: 0.97 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.6,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 90%', once: true },
+          }
+        )
+        cleanups.push(() => {
+          enterTween.scrollTrigger?.kill()
+          enterTween.kill()
+        })
+
+        // Image parallax
+        if (img) {
+          const imgTween = gsap.fromTo(
+            img,
+            { yPercent: -7 },
+            {
+              yPercent: 7,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.2,
+              },
+            }
+          )
+          cleanups.push(() => {
+            imgTween.scrollTrigger?.kill()
+            imgTween.kill()
+          })
+        }
       })
     }
 
@@ -713,65 +785,126 @@ export function LongevityProgramPage() {
         </div>
       </section>
 
-      {/* LIFESTYLE PROGRAMS — alternating image/content rows */}
-      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-flex items-center gap-3 mb-5">
-              <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Tailored to You</span>
-              <span className="w-7 h-px bg-rust" />
+      {/* LIFESTYLE PROGRAMS — stacking deck (matches home Programs section) */}
+      <section className="relative bg-cream/40 py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+        {/* ambient backdrop */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            background:
+              'radial-gradient(900px 600px at 80% 0%, rgba(167,75,42,0.05), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(54,73,68,0.04), transparent 60%)',
+          }}
+        />
+
+        {/* Header */}
+        <div className="relative max-w-[1280px] mx-auto mb-16 md:mb-24">
+          <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end">
+            <div>
+              <div className="flex items-center gap-3 mb-7">
+                <span className="w-8 h-px bg-rust" />
+                <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                  Tailored to You
+                </span>
+              </div>
+              <h2 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.0] tracking-[-0.03em] text-ink">
+                Personalised longevity solutions for every lifestyle.
+              </h2>
             </div>
-            <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
-              Personalised longevity solutions for every lifestyle.
-            </h2>
+            <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite md:pb-4 max-w-[440px] font-light">
+              Whichever season of life you're in, we'll meet you there — with a
+              programme shaped around your goals, biology and routine.
+            </p>
           </div>
+        </div>
 
-          <div ref={lifestyleRef} className="grid sm:grid-cols-2 gap-6 md:gap-8">
-            {LIFESTYLES.map((l) => (
-              <article
-                key={l.n}
-                className="lifestyle-card group relative flex flex-col"
-                style={{ willChange: 'transform, opacity' }}
+        {/* Stacking deck */}
+        <div ref={lifestyleRef} className="relative max-w-[1240px] mx-auto">
+          {LIFESTYLES.map((l, i) => (
+            <div
+              key={l.n}
+              ref={(el) => {
+                lifestyleCardsRef.current[i] = el
+              }}
+              className="lifestyle-card relative mb-[18vh] md:mb-[26vh] last:mb-0"
+              style={{
+                transformOrigin: 'center top',
+                willChange: 'transform, opacity',
+              }}
+            >
+              <div
+                className="card-inner relative bg-white rounded-[28px] md:rounded-[36px] border border-mist/70 overflow-hidden"
+                style={{
+                  boxShadow:
+                    '0 1px 0 rgba(255,255,255,0.7) inset, 0 40px 80px -50px rgba(27,26,24,0.22), 0 12px 30px -20px rgba(27,26,24,0.10)',
+                  willChange: 'transform, opacity',
+                }}
               >
-                {/* Image — compact landscape film-still */}
-                <div className="relative aspect-[5/4] rounded-[18px] overflow-hidden bg-mist">
-                  <img
-                    src={l.img}
-                    alt={l.title}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                  />
-                  <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%)' }} />
-                  {/* Number badge */}
-                  <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3 py-1">
-                    <span className="font-display font-bold text-[12px] text-white tabular-nums tracking-tight">{l.n}</span>
-                  </div>
-                </div>
+                <div className="grid md:grid-cols-[1.05fr_1fr] min-h-[480px] md:min-h-[560px]">
+                  {/* Content */}
+                  <div className="relative px-9 py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 flex flex-col justify-between">
+                    {/* top row — number + tag */}
+                    <div className="flex items-center justify-between gap-6">
+                      <div className="flex items-center gap-4">
+                        <span className="font-display text-[20px] md:text-[22px] text-rust font-semibold tabular-nums tracking-tight">
+                          {l.n}
+                        </span>
+                        <span className="h-px w-10 bg-rust/40" />
+                        <span className="text-[10.5px] tracking-[0.3em] uppercase text-stone font-medium">
+                          {l.tag}
+                        </span>
+                      </div>
+                      <span className="text-[10.5px] tracking-[0.28em] uppercase text-stone/70 hidden md:inline">
+                        {l.n} / {String(LIFESTYLES.length).padStart(2, '0')}
+                      </span>
+                    </div>
 
-                {/* Content — beneath the image, magazine-card style */}
-                <div className="pt-5 md:pt-6">
-                  <div className="text-[10px] md:text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-2.5 tabular-nums">
-                    For
+                    <div className="mt-12 md:mt-0">
+                      <h3 className="font-display font-bold text-[34px] md:text-[44px] lg:text-[52px] leading-[1.02] tracking-[-0.03em] text-ink mb-7">
+                        {l.title}
+                      </h3>
+                      <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite max-w-[480px] mb-12 font-light">
+                        {l.body}
+                      </p>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <a
+                          href="#program-cta"
+                          data-cursor="hover"
+                          data-magnetic
+                          className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+                        >
+                          <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+                          </span>
+                          Explore this path
+                          <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-display font-bold text-[22px] md:text-[26px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
-                    {l.title}
-                  </h3>
-                  <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-5">
-                    {l.body}
-                  </p>
-                  <a
-                    href="#program-cta"
-                    data-cursor="hover"
-                    className="inline-flex items-center gap-2 text-[10.5px] md:text-[11px] tracking-[0.28em] uppercase font-semibold text-ink hover:text-rust transition-colors"
-                  >
-                    Explore this path
-                    <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">→</span>
-                  </a>
+
+                  {/* Image */}
+                  <div className="relative overflow-hidden bg-mist min-h-[300px] md:min-h-full md:m-3 md:rounded-[24px]">
+                    <img
+                      src={l.img}
+                      alt={l.title}
+                      loading="lazy"
+                      className="card-img absolute inset-0 w-full h-[112%] -top-[6%] object-cover"
+                    />
+                    {/* soft top-left vignette to anchor against text */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          'linear-gradient(135deg, rgba(255,255,255,0.0) 50%, rgba(27,26,24,0.18) 100%)',
+                      }}
+                    />
+                  </div>
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
