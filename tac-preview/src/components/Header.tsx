@@ -11,7 +11,7 @@ import { reduceMotion } from '../lib/motion'
 
 const NAV_ITEMS = [
   { label: 'About', href: '/about' },
-  { label: 'Programs', href: '/#programs' },
+  { label: 'Longevity', href: '/longevity-program' },
   { label: 'Method', href: '/#method' },
   { label: 'Centres', href: '/centres' },
   { label: 'Contact', href: '/#cta' },
