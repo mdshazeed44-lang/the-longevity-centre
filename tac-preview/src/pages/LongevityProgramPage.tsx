@@ -909,12 +909,12 @@ export function LongevityProgramPage() {
       </section>
 
       {/* PULL QUOTE — magazine-style editorial spread with brand image */}
-      <section ref={quoteRef} className="relative bg-cream/60 py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+      <section ref={quoteRef} className="relative bg-cream/60 py-16 md:py-20 px-6 md:px-12 overflow-hidden">
         {/* Decorative ambient blobs */}
         <div aria-hidden className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(148,84,85,0.18), transparent 70%)' }} />
         <div aria-hidden className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(171,84,46,0.15), transparent 70%)' }} />
 
-        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
+        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1.1fr_1fr] gap-10 md:gap-14 items-center">
           {/* Left — pull quote */}
           <div>
             <div className="flex items-center gap-3 mb-6">
@@ -923,7 +923,7 @@ export function LongevityProgramPage() {
                 Our Conviction
               </span>
             </div>
-            <blockquote className="font-display font-bold text-[32px] md:text-[48px] xl:text-[56px] leading-[1.05] tracking-[-0.035em] text-ink">
+            <blockquote className="font-display font-bold text-[28px] md:text-[40px] xl:text-[48px] leading-[1.05] tracking-[-0.035em] text-ink">
               <span className="line-mask">
                 <span>Longevity isn't</span>
               </span>
@@ -936,35 +936,35 @@ export function LongevityProgramPage() {
                 <span><span className="text-rust">it's a priority.</span></span>
               </span>
             </blockquote>
-            <div className="mt-8 flex items-center gap-3 text-[12px] tracking-[0.28em] uppercase text-stone font-medium">
+            <div className="mt-7 flex items-center gap-3 text-[12px] tracking-[0.28em] uppercase text-stone font-medium">
               <span className="w-9 h-px bg-rust" />
               The Longevity Centre
             </div>
           </div>
 
           {/* Right — featured brand image with floating caption card */}
-          <div className="relative">
-            <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-[24px] overflow-hidden bg-mist shadow-[0_40px_100px_-50px_rgba(27,26,24,0.35)]">
-              <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under a tree with morning light" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="relative max-w-[460px] md:max-w-none mx-auto md:mx-0 w-full">
+            <div className="relative aspect-[4/5] md:aspect-[5/4] rounded-[24px] overflow-hidden bg-mist shadow-[0_40px_100px_-50px_rgba(27,26,24,0.35)]">
+              <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under a tree with morning light" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%)' }} />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <div className="text-[10px] tracking-[0.32em] uppercase text-white/75 font-semibold mb-2">
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <div className="text-[10px] tracking-[0.32em] uppercase text-white/75 font-semibold mb-1.5">
                   Inner vitality
                 </div>
-                <div className="font-display font-semibold text-[18px] md:text-[22px] leading-[1.2] tracking-[-0.015em]">
+                <div className="font-display font-semibold text-[16px] md:text-[18px] leading-[1.2] tracking-[-0.015em]">
                   Where stillness meets science.
                 </div>
               </div>
             </div>
             {/* Floating accent badge */}
-            <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 backdrop-blur-md bg-white/90 border border-mist rounded-[18px] px-5 py-4 shadow-[0_30px_60px_-30px_rgba(27,26,24,0.3)] hidden sm:block">
+            <div className="absolute -bottom-5 -left-5 md:-bottom-6 md:-left-6 backdrop-blur-md bg-white/90 border border-mist rounded-[18px] px-4 py-3 shadow-[0_30px_60px_-30px_rgba(27,26,24,0.3)] hidden sm:block">
               <div className="flex items-center gap-3">
-                <span className="w-10 h-10 rounded-full bg-ink flex items-center justify-center">
-                  <img src="/longevity/dna-icon.svg" alt="" className="w-5 h-5" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
+                <span className="w-9 h-9 rounded-full bg-ink flex items-center justify-center">
+                  <img src="/longevity/dna-icon.svg" alt="" className="w-4 h-4" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
                 </span>
                 <div>
                   <div className="text-[9px] tracking-[0.32em] uppercase text-stone font-semibold mb-0.5">Brand DNA</div>
-                  <div className="font-display font-bold text-[13px] tracking-[-0.005em] text-ink">Calm · Human · Rooted</div>
+                  <div className="font-display font-bold text-[12px] tracking-[-0.005em] text-ink">Calm · Human · Rooted</div>
                 </div>
               </div>
             </div>
