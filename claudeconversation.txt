@@ -2,7 +2,7 @@
 THE ANTI-AGING CENTRE (TAC) — CLAUDE CODE HANDOFF DOCUMENT
 ================================================================================
 
-Last updated: 2026-04-30
+Last updated: 2026-05-01
 Repo:         https://github.com/mdshazeed44-lang/the-longevity-centre
 Branch:       main
 Live preview: deployed via Netlify (drag-drop OR GitHub auto-deploy)
@@ -10,6 +10,13 @@ Live preview: deployed via Netlify (drag-drop OR GitHub auto-deploy)
 This document is a complete A-Z handoff so any new Claude Code instance (or
 human developer) on a different machine can continue the project without
 losing context. Read it top-to-bottom on first pickup.
+
+NEW PICKUPS — read SECTION 15 (SESSION LOG 2026-05-01) FIRST. It captures
+everything that changed in the second working session: two new pages
+(/centres, /longevity-program), full SEO foundation, accessibility upgrades,
+header/footer extracted from App.tsx, official TLC brand-guide assets and
+real per-clinic photos. Sections 1–14 below describe the original baseline;
+section 15 supersedes anything that has moved since.
 
 --------------------------------------------------------------------------------
 TABLE OF CONTENTS
@@ -39,7 +46,8 @@ What:    Premium marketing website for The Anti-Aging Centre (TAC) — India's
          leading preventive medicine + anti-aging clinic with 5 centres
          pan-India and online consultations.
 Brand:   "Practising medicine, not marketing." Calm, editorial, medical-luxury.
-Pages:   2 right now — Home (/) and About (/about).
+Pages:   4 — Home (/), About (/about), Centres (/centres),
+         Longevity Program (/longevity-program). See section 15.
 Type:    Single-page React/Vite app, deployed as static site on Netlify with
          SPA fallback for client-side routing.
 Mood:    Premium editorial. Comparable references — Loro Piana, Vogue,
@@ -928,3 +936,375 @@ Final notes:
 - When a major decision is made, add it to §11 with date.
 - When something is rejected, add it to §12 so future Claude doesn't redo.
 - This file is your context across sessions and machines.
+
+
+================================================================================
+15. SESSION LOG — 2026-05-01 (second working session)
+================================================================================
+
+Big working day. Two new pages, full SEO + a11y foundation, real per-clinic
+photos, official brand-guide visual assets. Anything in §1-14 that contradicts
+this section is OUT OF DATE — trust §15.
+
+15.1 NEW BRAND CONTEXT — official Brand Guide PDF was provided
+--------------------------------------------------------------------------------
+The user dropped "The Longevity Centre Brand Guide Final.pdf" into /docs
+(gitignored — too large). Extracted text + 91 embedded images.
+
+Brand transition confirmed: TAC ("The Anti-Aging Centre") is rebranding to
+TLC ("The Longevity Centre"). The site still uses TAC branding everywhere
+because that's what the live site theantiagingcentre.com still shows, but
+we now have the full TLC visual language to draw from.
+
+OFFICIAL PRIMARY COLOURS (verbatim from guide, page 9-10):
+  Casual Rust   #945455  RGB 147,84,85   ← matches our `rust` token
+  White         #FFFFFF
+  Nougat        #EEE6DB  RGB 238,230,219 ← matches our `nougat`
+SECONDARY (NEW for us — added as accent options on Longevity page):
+  Tropical Green #323C31 RGB 50,60,49   ← matches our `green`
+  Paarl          #AB542E RGB 171,84,46  ← NEW (terracotta)
+  Iguana         #A19B7B RGB 161,155,123 ← NEW (olive)
+
+OFFICIAL TYPOGRAPHY: brand uses Calibre (we still use Cabinet Grotesk
+across the site — Calibre is paid). Don't switch unless explicitly asked.
+Accent typeface in the guide: Alex Brush — DON'T use it (still rejected
+per §11.7). Keep .font-script class as legacy only.
+
+OFFICIAL VISUAL DIRECTION (verbatim):
+  "Calm, human-centered and sensory approach to wellness. Inspired by
+  nature, skin textures, natural light and organic materials, the mood
+  emphasises warmth, softness and authenticity. The overall aesthetic
+  balances clinical precision with a more emotional and lifestyle-oriented
+  experience. This direction supports the transition from anti-aging to
+  longevity, focusing on long-term wellbeing, balance and inner vitality."
+
+15.2 NEW PAGE — /centres
+--------------------------------------------------------------------------------
+src/pages/CentresPage.tsx (~600 lines).
+
+Sections:
+  Hero (cinematic dark, slim spec pills "5 / Pan-India / Online")
+  → 5 alternating-layout centre rows (image left/right, content opposite)
+  → "Care that travels with you" online consultations callout
+  → "The Spaces" parallax gallery (3 figures with figcaptions)
+  → Final CTA matching site signature
+
+Centre data — verified addresses for Gurugram, Delhi GK-1, Pune Hadapsar
+(full street + postal). Bangalore JP Nagar + Sadashivnagar are city/area
+only (TAC's own site doesn't surface street addresses for them).
+
+PHOTOS — 4 real TAC clinic images now live:
+  /tac-photos/gurugram-exterior.jpg     (TAC neon sign at Sec.48 — unique)
+  /tac-photos/clinic-interior-2.jpg     (green-chairs lobby — Gurugram interior)
+  /tac-photos/pune-clinic.jpg           (treatment room with line-art mural)
+  /tac-photos/delhi-bangalore-clinic.jpg (TAC reception with archway corridor —
+                                          TAC reuses for Delhi + both Bangalore)
+Sourced by browsing TAC's WordPress uploads and Bing image search. Old
+gurugram-clinic.jpg (user-supplied, blurry) was deleted in a later commit.
+
+ALSO REMOVED from active use after this page (Milind Soman brand-ambassador
+shots, not clinic photos):
+  tac_about.jpg          (deleted in cleanup commit 4fc5dff)
+  longevity-banner.webp  (deleted)
+  contact-image.png      (deleted)
+
+CINEMATIC MONTAGE HERO — three-clip cross-fading montage:
+  /videos/centres-clips/dna.mp4     ~3 MB  (Pexels DNA helix)
+  /videos/centres-clips/lab.mp4     ~1.5 MB (Pexels lab equipment)
+  /videos/centres-clips/clinic.mp4  ~2.6 MB (Pexels hospital corridor)
+24-second cross-fade cycle via CSS keyframes (.hero-clip.clip-1/2/3 in
+index.css). Reused on /longevity-program too.
+
+SEO: 3 MedicalClinic JSON-LD entries (only verified addresses) +
+CollectionPage WebPage. /centres added to sitemap.xml priority 0.9.
+
+15.3 NEW PAGE — /longevity-program  (FLAGSHIP — most beautiful page on site)
+--------------------------------------------------------------------------------
+src/pages/LongevityProgramPage.tsx (~700 lines).
+Source: theantiagingcentre.com/landing/ "Your Anti-Aging Blueprint" plus the
+official TLC Brand Guide PDF.
+
+Sections (10 total, in order):
+  1.  Hero — same cross-fade montage as /centres + floating DNA-glyph
+      orb top-right (multi-ring ambient: outer glow + 2 pulsing rings +
+      glass disc + 50s rotating DNA SVG icon).
+  2.  Biological Age stat band — "Reverse the clock, measurably."
+      Huge "5–15 yrs" with rust-fading gradient text, count-up animation
+      from 0 → 15. Real TAC stat (verbatim "improve biological age by
+      5 to 15 years" from the Cutting-Edge Science homepage section).
+  3.  NEW Visual Direction — TLC brand-guide spread.
+      Two-column: brand-voice copy verbatim + 5 colour-swatch dots
+      (Casual Rust / Nougat / Tropical Green / Paarl / Iguana) on left,
+      9-image masonry on right (.mood-tile cards with stagger reveal).
+  4.  Three-Step Process — Deep Diagnostics / Precision Analytics /
+      Personalised Solutions. Cards have an ink icon-disc + ghost
+      numeral, hover lift, animated connecting horizontal line below
+      header on desktop.
+  5.  Diagnostics — 9-tech grid (Cell Scan / Genetic / Blood / Gut
+      Microbiota / Face Scan / BCA / BMD / EndoPAT / Biological Clock).
+      Per-chip DNA-icon disc that rotates 180° on hover, rust radial
+      glow, growing accent line. Verbatim from TAC's nav.
+  6.  Lifestyle Programmes — 4 alternating image/content rows
+      (Leadership Elite / Fitness Enthusiasts / Health Conditions /
+      Wellness Families). Real TAC photos for all four:
+      /longevity/leadership.png /fitness.png /health-conditions.png
+      /wellness-families.png. Slide-in from alternating sides on scroll.
+  7.  NEW Pull Quote — magazine spread.
+      Big masked-line headline "Longevity isn't a luxury — it's a
+      priority." (priority in rust). Right column: featured forest-light
+      brand image with floating "Brand DNA · Calm · Human · Rooted" badge.
+  8.  NEW Brand Voice marquee — 7 official TLC campaign tiles
+      cross-scrolling on dark ink. Edge-fade gradients.
+      Tiles: We Take Care of Mind/Body/Soul, Empower Your Mind Body
+      Spirit, 3-3-3 Rule, 5 Habits for a Quality Life, Longevity Guide,
+      Name What You Feel, Body Aesthetics Refined.
+  9.  Trust & Credibility — 4 cards with icon discs (Certified Expertise /
+      AI Insight / Regular Check-ins / Backed by Studies). Rust pulsing
+      ring around icon on hover, gradient backdrop, drawing accent line.
+  10. FAQ accordion — 8 Q&A verbatim from TAC's landing page.
+      First item open by default, native disclosure pattern with
+      aria-expanded + aria-controls + grid-template-rows transition.
+  11. Final CTA — "Ready to Age Backwards? Let's begin." with 7
+      health-concern chips (Pre-diabetes / Fatty Liver / Fatigue / Gut /
+      Metabolism / Cholesterol / Anti-Aging) + CTA + WhatsApp.
+
+ASSETS added under /tac-preview/public/longevity/:
+  dna-icon.svg (TAC's own DNA glyph, pulled from their wp uploads)
+  step-diagnostics.png, step-solutions.png  (TAC step icons)
+  trust-expertise.png, trust-ai.png, trust-checkin.png, trust-clinical.png
+  leadership.png, fitness.png, health-conditions.png, wellness-families.png
+
+ASSETS under /tac-preview/public/longevity/brand/  (from Brand Guide PDF):
+  9 mood-* images (feet-moss, zen-sand, hands-pose, leaf-skeleton, water-
+  ripple, yoga-duo, terracotta, forest-light, body-mind-soul)
+  + iflow, feet-roots, rust-towels (extras, not all rendered)
+  7 campaign-* images (mind-body-soul, body-aesthetics, longevity-guide,
+  5-habits, name-feel, spirit, 3-3-3) — used in the marquee.
+
+SEO: 3 JSON-LD blocks — WebPage + MedicalProcedure (12-month protocol
+description) + FAQPage (all 8 Q&A → eligible for Google rich-result
+snippets). /longevity-program added to sitemap.xml priority 0.95.
+
+15.4 ABOUT PAGE REDESIGN
+--------------------------------------------------------------------------------
+Removed the previous "Pillars" section (was duplicating the homepage Method
+section's content). Added a Specialist Team section after Founders showing
+TAC's four official speciality categories — verbatim from TAC home:
+Dermatologists / Nutritionists / Anti-Aging Specialists / Metabolic
+Specialists.
+
+Founder cards: switched from 2-col aspect-square portraits (which made each
+card ~1000 px tall) to horizontal-split cards (5fr image / 7fr content).
+Now both founders fit in one viewport. 3D tilt-on-hover preserved.
+
+Marquee strip (TAC brand-voice ribbon) added above Mission. Clinic-
+interiors parallax band added before Stats. Stats now count-up from 0
+on scroll.
+
+FIXED FABRICATION: hero spec-chip "EST. 2005" was NOT in TAC source.
+Replaced with verified "20+ Years" (verbatim from TAC's About page).
+
+Final CTA reworked to match the homepage CtaBand pattern (clean dark
+ink + rust radial glow + grain + 3-cell reassurance row "30 min /
+No fee / 5 clinics") instead of the off-theme clinic-photo backdrop
+that was there before.
+
+Per-page JSON-LD: AboutPage + 2 Person schemas (founders) with knowsAbout,
+worksFor link, image, honorific suffix.
+
+15.5 SEO FOUNDATION (applies to entire site)
+--------------------------------------------------------------------------------
+NEW src/lib/seo.ts:
+  • SITE_URL constant
+  • useDocumentMeta(meta) hook — updates <title>, meta description,
+    canonical, OG, Twitter, og:image; injects per-page JSON-LD blocks
+    and removes them on cleanup.
+
+index.html upgraded:
+  • Comprehensive meta description, robots, theme-color, format-detection
+  • Full Open Graph (title/description/url/image/site_name/locale en_IN)
+  • Twitter Card (summary_large_image)
+  • SITE-WIDE JSON-LD MedicalBusiness with 2 founders (Person), 3
+    verified clinic locations (Gurugram/Pune/Delhi GK-1) with full
+    PostalAddress, medicalSpecialty, knowsAbout, telephone, email.
+  • Skip-to-content link in <body> (visible on focus only).
+
+public/sitemap.xml — 4 URLs (Home p1.0 / Longevity p0.95 / Centres p0.9 /
+About p0.8) + lastmod-friendly changefreq.
+public/robots.txt — Allow all + sitemap reference.
+
+15.6 ACCESSIBILITY UPGRADES
+--------------------------------------------------------------------------------
+- <main id="main" tabIndex={-1}> wrapper around children in App.tsx
+  (skip-link target).
+- index.css: skip-to-content button styles + global :focus-visible rings
+  (rust on light, white on dark) + global prefers-reduced-motion gates.
+- Header.tsx: role="banner", aria-label on nav landmarks, role="dialog" /
+  aria-modal / aria-controls / aria-expanded on mobile menu, descriptive
+  aria-label on icon-only buttons (Open menu, Close menu, Call ..., etc.).
+- Footer.tsx: role="contentinfo", aria-label per social link
+  ("The Anti-Aging Centre on Instagram"), focusable=false on decorative SVGs.
+- Bumped low-contrast text white/55 → white/70-85 across header & footer
+  to meet WCAG AA reliably.
+- Header logo: clicking goes to home from any page; smooth-scrolls to top
+  via Lenis when already on home (no reload).
+
+15.7 CODE QUALITY REFACTOR
+--------------------------------------------------------------------------------
+Header (~270 lines) and Footer (~240 lines) extracted from the 1500-line
+App.tsx into:
+  src/components/Header.tsx
+  src/components/Footer.tsx
+
+App.tsx is now ~1040 lines — chrome shell + the remaining inline section
+components (ClinicsBand, ScienceCards, PressStrip, ResultsSplit, Editorial,
+Benefits, BrochureCTA, CtaBand). These are still inside App.tsx; HomePage
+imports them via `from '../App'`. Remaining App.tsx split is on the TODO list.
+
+15.8 LAYOUT TIGHTENING — heroes + sections all fit one viewport
+--------------------------------------------------------------------------------
+Audit at 1366×768 found many sections were overflowing past the fold.
+Pulled type ramps and spacings back so each section comfortably fits
+within or just under viewport height (Programs and Method intentionally
+remain tall — they're sticky/pinned scroll designs).
+
+Heroes (Home, About, Centres, Longevity) — all now exactly 768 px on
+1366×768, with min-h-[100vh] flex items-center, pt-28/32 pb-12/16,
+headline ramps capped (xl:84-92 px instead of 100-120 px).
+
+Other sections trimmed: ScienceCards (942 → 718), ResultsSplit (1108 →
+977 with sticky right col), Editorial (897 → 608), VideoTestimonials
+(903 → 771), ClinicsBand (849 → 691), CtaBand (855 → 759).
+
+Method sticky image: aspect-[4/5] portrait (660 px tall, dominated viewport)
+→ aspect-[4/3] + max-h-[calc(100vh-9rem)] cap. Now 457 px tall.
+
+15.9 HERO PILLS UNIFIED ACROSS ALL HEROES
+--------------------------------------------------------------------------------
+All four heroes (Home, About, Centres, Longevity) now share the same
+slim spec-pill pattern:
+  inline-flex backdrop-blur-md bg-white/[0.06] border-white/15 rounded-full
+  pl-3.5 pr-4 py-2 (md py-2.5)
+  rust-soft dot · uppercase eyebrow · value · whitespace-nowrap
+  flex-wrap parent for graceful mobile wrapping.
+
+Replaced the old tall 3-cell stat box (Centres) and the floating right-side
+column (About) with the inline pill pattern.
+
+15.10 NEW MENU LABEL
+--------------------------------------------------------------------------------
+Header NAV_ITEMS now: About · Longevity · Method · Centres · Contact.
+"Longevity" replaces the old "Programs" anchor (which jumped to the
+homepage stacking-deck). "Centres" now points to /centres (was /#clinics).
+
+15.11 REPO HOUSEKEEPING
+--------------------------------------------------------------------------------
+- Stale remote branch claude/elastic-grothendieck-1da038 deleted from
+  origin (was 13 commits behind main, 0 ahead).
+- README refreshed to list all 4 pages, the SEO/a11y baseline and the
+  cross-fade montage.
+- 3 orphan brand-ambassador images deleted (tac_about.jpg, longevity-
+  banner.webp, contact-image.png — Milind Soman shots, no longer used).
+- Added docs/*.pdf to .gitignore (brand guide PDF too large for git).
+
+15.12 NEW THINGS REJECTED — DO NOT REDO  (additions to §12)
+--------------------------------------------------------------------------------
+15. The user-supplied gurugram-clinic.jpg (TAC reception with arched
+    alcove) — read as blurry once placed in card layouts. Replaced
+    everywhere with the sharp TAC neon-sign exterior or
+    delhi-bangalore-clinic.jpg.
+16. Single boxy 3-cell stat box in heroes — looks heavy and competes
+    with video bgs. Use the slim inline pill chips instead.
+17. Page-full sticky images (Method aspect-[4/5]) — dominate viewport.
+    Cap at aspect-[4/3] + max-h:[calc(100vh-9rem)].
+18. PDFs in /tac-preview/public — ship to production bundle. Move to
+    /docs and gitignore.
+
+15.13 NEW THINGS DONE / VERIFIED  (additions to §11)
+--------------------------------------------------------------------------------
+2026-05-01:
+  - Added /centres (verified addresses + per-clinic real photos +
+    cross-fade montage hero).
+  - Added /longevity-program (full TAC landing-page content + Brand
+    Guide visual assets, the brand's flagship page).
+  - SEO foundation (per-page useDocumentMeta + JSON-LD MedicalBusiness,
+    Person, MedicalClinic, MedicalProcedure, FAQPage + sitemap +
+    robots.txt).
+  - Accessibility baseline (skip-link, focus rings, ARIA labels,
+    prefers-reduced-motion).
+  - Header + Footer extracted from App.tsx.
+  - All 4 heroes hit 1-viewport at 1366×768.
+  - Hero spec-pill pattern unified across all pages.
+  - About page: Pillars removed (was homepage Method duplicate),
+    Specialist Team added, founder cards horizontal-split,
+    fabricated EST.2005 fixed.
+  - Brand Guide PDF (TLC) integrated — official mood imagery and
+    campaign tiles featured on /longevity-program.
+
+15.14 OPEN TODOs (still applies — see §13 too)
+--------------------------------------------------------------------------------
+- Continue extracting remaining 8 components from App.tsx (ClinicsBand,
+  ScienceCards, PressStrip, ResultsSplit, Editorial, Benefits,
+  BrochureCTA, CtaBand). Currently they live inline in App.tsx and
+  HomePage imports them via `from '../App'`.
+- Real contact form (Calendly embed or Netlify Forms).
+- Hero video compression (homepage hero.mp4 still ~13 MB).
+- Lazy-load testimonial videos with IntersectionObserver.
+- Add /diagnostics dedicated page (TAC has 9 tests — currently shown
+  as compact grid on /longevity-program).
+- Add /privacy + /terms (footer links unstyled).
+- Real iOS Safari device test for sticky-pin animations.
+
+15.15 FILES THAT EXIST NOW (post-session inventory)
+--------------------------------------------------------------------------------
+src/pages/
+  HomePage.tsx               (composition + useDocumentMeta home meta)
+  AboutPage.tsx              (~700 lines — full redesign)
+  CentresPage.tsx            (~620 lines — NEW)
+  LongevityProgramPage.tsx   (~720 lines — NEW, flagship)
+src/components/
+  Cursor.tsx
+  Footer.tsx                 (NEW — extracted from App.tsx)
+  Header.tsx                 (NEW — extracted, has logo→home behaviour)
+  Hero.tsx
+  Logo.tsx
+  Method.tsx
+  Preloader.tsx
+  Programs.tsx
+  VideoTestimonials.tsx
+src/lib/
+  motion.ts
+  seo.ts                     (NEW — useDocumentMeta hook)
+src/
+  App.tsx (~1040 lines — chrome shell + remaining 8 sections)
+  main.tsx (router)
+  index.css (+ skip-link, focus-visible, .hero-clip cross-fade,
+             prefers-reduced-motion globals)
+public/
+  sitemap.xml, robots.txt
+  longevity/                 (NEW — 11 step/trust/lifestyle PNGs + dna SVG)
+  longevity/brand/           (NEW — 19 brand-guide images, mood + campaign)
+  videos/centres-clips/      (NEW — dna.mp4, lab.mp4, clinic.mp4)
+  tac-photos/                (cleaned: 9 real TAC photos, no Milind shots)
+
+15.16 CURRENT JSON-LD INVENTORY
+--------------------------------------------------------------------------------
+Site-wide (in index.html):
+  • MedicalBusiness "@id" #organization with founders, 3 clinics,
+    medicalSpecialty, knowsAbout.
+
+Per page (via useDocumentMeta in src/lib/seo.ts):
+  / (Home)
+    • WebPage linked to organisation
+  /about
+    • AboutPage + 2 Person schemas (founders)
+  /centres
+    • CollectionPage + 3 MedicalClinic entries (only verified addresses)
+  /longevity-program
+    • WebPage + MedicalProcedure (12-month protocol)
+    • FAQPage with all 8 Q&A (Google rich-result eligible)
+
+
+================================================================================
+END OF SECTION 15 — END OF DOCUMENT
+================================================================================
