@@ -1146,26 +1146,26 @@ export function LongevityProgramPage() {
       </section>
 
       {/* FINAL CTA — health-concern chips + free assessment */}
-      <section id="program-cta" className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+      <section id="program-cta" className="relative bg-ink py-12 md:py-16 px-6 md:px-12 overflow-hidden">
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)' }} />
         <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain" />
         <div className="relative z-10 max-w-[1180px] mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-8">
+          <div className="flex items-center justify-center gap-3 mb-5">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">Ready to Age Backwards?</span>
             <span className="w-7 h-px bg-rust-soft" />
           </div>
-          <h2 className="font-display font-bold text-[32px] md:text-[60px] leading-[0.98] tracking-[-0.035em] text-white text-center mb-6">
+          <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.035em] text-white text-center mb-4">
             Let's begin.
           </h2>
-          <p className="text-[15px] md:text-[17px] text-white/70 max-w-[600px] mx-auto leading-[1.65] mb-10 text-center font-light">
+          <p className="text-[14px] md:text-[15px] text-white/70 max-w-[560px] mx-auto leading-[1.6] mb-7 text-center font-light">
             Free 30-minute assessment with a senior doctor. Choose what brings
             you here — we'll guide you to the right protocol.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-2.5 md:gap-3 mb-10 max-w-[820px] mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-7 max-w-[760px] mx-auto">
             {HEALTH_CONCERNS.map((c) => (
-              <span key={c} className="inline-flex items-center gap-2 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.12] hover:scale-105 transition-all duration-500 border border-white/15 rounded-full px-4 py-2 text-[12px] tracking-[-0.005em] text-white/85 font-medium cursor-default">
+              <span key={c} className="inline-flex items-center gap-1.5 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.12] hover:scale-105 transition-all duration-500 border border-white/15 rounded-full px-3 py-1.5 text-[11.5px] tracking-[-0.005em] text-white/85 font-medium cursor-default">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft" />
                 {c}
               </span>
@@ -1173,7 +1173,7 @@ export function LongevityProgramPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="/#cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
+            <a href="/#cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
@@ -1181,7 +1181,7 @@ export function LongevityProgramPage() {
               Book Free Assessment
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
-            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
+            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
           </div>
         </div>
       </section>

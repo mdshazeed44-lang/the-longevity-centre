@@ -31,13 +31,13 @@ export function Cursor() {
 
     const grow = () => {
       gsap.to(ring.current, {
-        scale: 2.4,
+        scale: 1.5,
         borderColor: 'rgba(255,255,255,0.85)',
         duration: 0.45,
         ease: 'power3.out',
       })
       gsap.to(dot.current, { scale: 0, duration: 0.3, ease: 'power3.out' })
-      gsap.to(glow.current, { opacity: 0.6, scale: 1.3, duration: 0.45, ease: 'power3.out' })
+      gsap.to(glow.current, { opacity: 0.4, scale: 1.1, duration: 0.45, ease: 'power3.out' })
     }
     const shrink = () => {
       gsap.to(ring.current, {

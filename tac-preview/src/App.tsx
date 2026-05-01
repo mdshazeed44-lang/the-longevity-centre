@@ -946,7 +946,7 @@ export function CtaBand() {
   return (
     <section
       id="cta"
-      className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden"
+      className="relative bg-ink py-14 md:py-18 px-6 md:px-12 overflow-hidden"
     >
       {/* Ambient warm glow + soft grain — premium dark luxury */}
       <div
@@ -964,7 +964,7 @@ export function CtaBand() {
 
       <div className="relative z-10 max-w-[1180px] mx-auto">
         {/* Eyebrow row */}
-        <div className="flex items-center justify-center gap-3 mb-10">
+        <div className="flex items-center justify-center gap-3 mb-6">
           <span className="w-7 h-px bg-rust-soft" />
           <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
             Begin Your Programme
@@ -973,24 +973,24 @@ export function CtaBand() {
         </div>
 
         {/* Headline — TAC voice */}
-        <h2 className="font-display font-bold text-[40px] md:text-[72px] xl:text-[88px] leading-[0.98] tracking-[-0.035em] text-white text-center mb-8 max-w-[1080px] mx-auto">
+        <h2 className="font-display font-bold text-[34px] md:text-[56px] xl:text-[68px] leading-[1.0] tracking-[-0.035em] text-white text-center mb-5 max-w-[1080px] mx-auto">
           Age should never define you.
         </h2>
 
         {/* Sub */}
-        <p className="text-[16px] md:text-[19px] text-white/70 max-w-[640px] mx-auto leading-[1.7] mb-14 text-center font-light">
+        <p className="text-[15px] md:text-[17px] text-white/70 max-w-[600px] mx-auto leading-[1.65] mb-9 text-center font-light">
           Speak with our medical team for a 30-minute personalised conversation.
           No commitment. Just clarity. Available across our five clinics and
           online in Mumbai, Bangalore and Hyderabad.
         </p>
 
         {/* CTA — three contact paths in pill form */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-16">
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
           <a
             href="#cta"
             data-cursor="hover"
             data-magnetic
-            className="group inline-flex items-center gap-3 pl-6 pr-8 py-5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
+            className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
           >
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
@@ -1004,21 +1004,21 @@ export function CtaBand() {
           <a
             href="https://wa.me/918826809123"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+            className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
           >
             WhatsApp
           </a>
           <a
             href="tel:+918826809123"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+            className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
           >
             +91 88268 09123
           </a>
         </div>
 
         {/* Reassurance row — three trust pills */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/10 max-w-[920px] mx-auto rounded-2xl overflow-hidden border border-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-px bg-white/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-white/10">
           {[
             { k: '5', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },
@@ -1026,12 +1026,12 @@ export function CtaBand() {
           ].map((s) => (
             <div
               key={s.l}
-              className="bg-ink px-6 py-7 text-center"
+              className="bg-ink px-5 py-5 text-center"
             >
-              <div className="font-display font-bold text-[26px] md:text-[34px] text-white leading-none mb-2 tabular-nums tracking-[-0.01em]">
+              <div className="font-display font-bold text-[22px] md:text-[28px] text-white leading-none mb-1.5 tabular-nums tracking-[-0.01em]">
                 {s.k}
               </div>
-              <div className="text-[10.5px] tracking-[0.25em] uppercase text-white/55 font-medium">
+              <div className="text-[10px] tracking-[0.25em] uppercase text-white/55 font-medium">
                 {s.l}
               </div>
             </div>

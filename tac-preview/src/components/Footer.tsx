@@ -49,23 +49,23 @@ export function Footer() {
         }}
       />
 
-      <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-20 md:pt-24 pb-10">
-        {/* Top — big brand statement + CTA */}
-        <div className="grid md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 items-end pb-16 md:pb-20 border-b border-white/10">
+      <div className="relative max-w-[1400px] mx-auto px-6 md:px-12 pt-12 md:pt-16 pb-8">
+        {/* Top — brand statement + CTA */}
+        <div className="grid md:grid-cols-[1.5fr_1fr] gap-8 md:gap-14 items-end pb-10 md:pb-12 border-b border-white/10">
           <div>
-            <div className="mb-7">
+            <div className="mb-5">
               <Logo variant="light" showTagline={false} />
             </div>
-            <h3 className="font-display font-bold text-[32px] md:text-[52px] lg:text-[60px] leading-[1.0] tracking-[-0.03em] text-white max-w-[760px]">
+            <h3 className="font-display font-bold text-[26px] md:text-[34px] lg:text-[40px] leading-[1.05] tracking-[-0.025em] text-white max-w-[640px]">
               Premium preventive medicine for the long view.
             </h3>
           </div>
-          <div className="flex flex-col md:items-end gap-4">
+          <div className="flex flex-col md:items-end gap-3">
             <a
               href="#cta"
               data-cursor="hover"
               data-magnetic
-              className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
+              className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
             >
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
@@ -87,13 +87,13 @@ export function Footer() {
         </div>
 
         {/* Mid — 4-col directory */}
-        <div className="grid grid-cols-2 md:grid-cols-[1.25fr_1fr_1fr_1fr] gap-10 md:gap-14 py-14 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-[1.25fr_1fr_1fr_1fr] gap-8 md:gap-12 py-10 md:py-12">
           {/* Contact column */}
           <div>
-            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-6">
+            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-4">
               Get in Touch
             </div>
-            <ul className="space-y-4 text-[14px]">
+            <ul className="space-y-3 text-[13.5px]">
               <li>
                 <a
                   href="tel:+918826809123"
@@ -145,10 +145,10 @@ export function Footer() {
 
           {/* Programmes */}
           <div>
-            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-6">
+            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-4">
               Programmes
             </div>
-            <ul className="space-y-3 text-[14px]">
+            <ul className="space-y-2.5 text-[13.5px]">
               {PROGRAMS.slice(0, 6).map((p) => (
                 <li key={p.title}>
                   <a
@@ -165,10 +165,10 @@ export function Footer() {
 
           {/* Clinics */}
           <div>
-            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-6">
+            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-4">
               Clinics
             </div>
-            <ul className="space-y-3 text-[14px]">
+            <ul className="space-y-2.5 text-[13.5px]">
               {CLINICS.map((c) => (
                 <li key={c}>
                   <a
@@ -185,10 +185,10 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-6">
+            <div className="text-[10.5px] tracking-[0.32em] text-rust-soft font-semibold uppercase mb-4">
               Company
             </div>
-            <ul className="space-y-3 text-[14px]">
+            <ul className="space-y-2.5 text-[13.5px]">
               {COMPANY_LINKS.map((c) => (
                 <li key={c}>
                   <a
@@ -204,12 +204,21 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Social row */}
-        <div className="flex flex-wrap items-center justify-between gap-6 py-6 border-t border-white/10">
-          <div className="text-[10.5px] tracking-[0.32em] text-white/60 uppercase font-medium">
-            Follow Us
+        {/* Bottom — social + copyright + designed-by, all in one row */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 pt-5 border-t border-white/10">
+          {/* Left — copyright + legal links */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-white/60 tracking-tight">
+            <p>© {new Date().getFullYear()} TAC — The Anti-Aging Centre.</p>
+            <a href="#" data-cursor="hover" className="hover:text-white/85 transition-colors">
+              Privacy
+            </a>
+            <a href="#" data-cursor="hover" className="hover:text-white/85 transition-colors">
+              Terms
+            </a>
+            <span className="text-white/45 hidden md:inline">Practising medicine, not marketing.</span>
           </div>
-          <div className="flex items-center gap-3">
+          {/* Right — social icons */}
+          <div className="flex items-center gap-2.5">
             {SOCIALS.map((s) => (
               <a
                 key={s.label}
@@ -218,29 +227,13 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={`The Anti-Aging Centre on ${s.label}`}
                 data-cursor="hover"
-                className="group w-10 h-10 rounded-full border border-white/15 hover:border-rust-soft flex items-center justify-center text-white/75 hover:text-rust-soft hover:bg-white/5 transition-all duration-500"
+                className="group w-9 h-9 rounded-full border border-white/15 hover:border-rust-soft flex items-center justify-center text-white/75 hover:text-rust-soft hover:bg-white/5 transition-all duration-500"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                   <path d={s.d} />
                 </svg>
               </a>
             ))}
-          </div>
-        </div>
-
-        {/* Bottom — copyright + designed by */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 pt-6 border-t border-white/10">
-          <p className="text-[12px] text-white/60 tracking-tight">
-            © {new Date().getFullYear()} TAC — The Anti-Aging Centre. All rights reserved.
-          </p>
-          <div className="flex items-center gap-5 text-[11.5px] text-white/55 tracking-tight">
-            <a href="#" data-cursor="hover" className="hover:text-white/85 transition-colors">
-              Privacy
-            </a>
-            <a href="#" data-cursor="hover" className="hover:text-white/85 transition-colors">
-              Terms
-            </a>
-            <span>Designed in India · Practising medicine, not marketing.</span>
           </div>
         </div>
       </div>

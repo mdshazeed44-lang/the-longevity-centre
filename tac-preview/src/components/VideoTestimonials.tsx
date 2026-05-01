@@ -72,7 +72,7 @@ export function VideoTestimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-16 md:py-20 overflow-hidden"
+      className="relative py-12 md:py-14 overflow-hidden"
       style={{
         background:
           'radial-gradient(circle at 50% 0%, #1d1614 0%, #0d0908 70%)',
@@ -110,18 +110,18 @@ export function VideoTestimonials() {
       `}</style>
 
       {/* Header */}
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-10 md:mb-12 text-center">
-        <div className="inline-flex items-center gap-3 mb-5">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-7 md:mb-9 text-center">
+        <div className="inline-flex items-center gap-3 mb-4">
           <span className="w-7 h-px bg-rust-soft" />
           <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
             Patient Stories
           </span>
           <span className="w-7 h-px bg-rust-soft" />
         </div>
-        <h2 className="font-display font-bold text-[30px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-white">
+        <h2 className="font-display font-bold text-[26px] md:text-[36px] leading-[1.05] tracking-[-0.03em] text-white">
           Here's what our patients say.
         </h2>
-        <p className="mt-4 text-[14px] md:text-[15px] text-white/65 font-light max-w-[460px] mx-auto">
+        <p className="mt-3 text-[13px] md:text-[14px] text-white/65 font-light max-w-[440px] mx-auto">
           Hover any card to preview · click to watch the full story.
         </p>
       </div>
@@ -148,7 +148,7 @@ export function VideoTestimonials() {
 
         {/* The scrolling track */}
         <div
-          className="tac-cinema-track flex items-center gap-6 md:gap-8 will-change-transform"
+          className="tac-cinema-track flex items-center gap-5 md:gap-6 will-change-transform"
           style={{ width: 'max-content' }}
         >
           {items.map((t, idx) => {
@@ -157,7 +157,7 @@ export function VideoTestimonials() {
               <div
                 key={`${t.id}-${idx}`}
                 className="group relative shrink-0 cursor-pointer transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.06]"
-                style={{ width: '280px' }}
+                style={{ width: '230px' }}
                 onMouseEnter={() => {
                   const v = cardRefs.current[idx]
                   if (v) {
@@ -173,8 +173,8 @@ export function VideoTestimonials() {
                 onClick={() => setOpenIdx(realIdx)}
               >
                 <div
-                  className="relative rounded-[20px] overflow-hidden bg-black border border-white/10 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.7)]"
-                  style={{ aspectRatio: '9/14' }}
+                  className="relative rounded-[18px] overflow-hidden bg-black border border-white/10 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.7)]"
+                  style={{ aspectRatio: '9/13' }}
                 >
                   <video
                     ref={(el) => {
@@ -201,8 +201,8 @@ export function VideoTestimonials() {
 
                   {/* Play icon overlay */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-110">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+                    <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-110">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="white">
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
