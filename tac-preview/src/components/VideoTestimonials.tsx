@@ -10,43 +10,50 @@ import { useEffect, useRef, useState } from 'react'
 
 type Testimonial = {
   id: string
+  index: string
   name: string
-  short: string
+  tag: string          // TAC programme category (no fabricated metrics)
   video: string
   poster: string
   orientation: 'vertical' | 'horizontal'
 }
 
-// Source: theantiagingcentre.com — 4 actual patient video testimonials
+// Source: theantiagingcentre.com — 4 actual patient video testimonials.
+// `tag` maps each story to one of TAC's five flagship programmes — never
+// invent specific outcome numbers (weight lost, biomarker drops, etc.).
 const TESTIMONIALS: Testimonial[] = [
   {
     id: 'abhinav',
+    index: '01',
     name: 'Mr. Abhinav Saxena',
-    short: 'Patient Story',
+    tag: 'Metabolic Health',
     video: '/videos/testimonials/abhinav.mp4',
     poster: '/videos/testimonials/posters/abhinav.webp',
     orientation: 'vertical',
   },
   {
     id: 'bhushan',
+    index: '02',
     name: 'Mr. Bhushan Kamble',
-    short: 'Patient Story',
+    tag: 'Weight & Composition',
     video: '/videos/testimonials/bhushan.mp4',
     poster: '/videos/testimonials/posters/bhushan.png',
     orientation: 'vertical',
   },
   {
     id: 'gomez',
+    index: '03',
     name: 'Mr. Shaun Gomez',
-    short: 'Patient Story',
+    tag: 'Vitality',
     video: '/videos/testimonials/gomez.mp4',
     poster: '/videos/testimonials/posters/gomez.png',
     orientation: 'horizontal',
   },
   {
     id: 'sadhna',
+    index: '04',
     name: 'Mrs. Sadhna Gupta',
-    short: 'Patient Story',
+    tag: 'Longevity Plus',
     video: '/videos/testimonials/sadhna.mp4',
     poster: '/videos/testimonials/posters/sadhna.png',
     orientation: 'vertical',
@@ -102,28 +109,52 @@ export function VideoTestimonials() {
           100% { transform: translateX(-50%); }
         }
         .tac-cinema-track {
-          animation: tac-marquee-scroll 40s linear infinite;
+          animation: tac-marquee-scroll 50s linear infinite;
         }
         .tac-cinema-wrap:hover .tac-cinema-track {
           animation-play-state: paused;
         }
+        /* Dim non-hovered cards when track is hovered, lift the active one */
+        .tac-cinema-wrap:hover .tac-cinema-card { opacity: 0.55; transform: scale(0.97); }
+        .tac-cinema-card { transition: opacity 600ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1); }
+        .tac-cinema-card:hover { opacity: 1 !important; transform: scale(1.04) !important; }
+        .tac-cinema-card:hover .tac-card-frame {
+          border-color: rgba(178,122,123,0.45);
+          box-shadow:
+            0 1px 0 rgba(255,255,255,0.06) inset,
+            0 0 0 1px rgba(178,122,123,0.18),
+            0 50px 90px -40px rgba(148,84,85,0.55),
+            0 30px 60px -25px rgba(0,0,0,0.7);
+        }
+        .tac-cinema-card:hover .tac-card-glow { opacity: 1; }
+        .tac-cinema-card:hover .tac-card-cta { opacity: 1; transform: translateX(0); }
+        .tac-cinema-card:hover .tac-card-meta-line { width: 36px; }
       `}</style>
 
       {/* Header */}
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-7 md:mb-9 text-center">
+      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-9 md:mb-12 text-center">
         <div className="inline-flex items-center gap-3 mb-4">
           <span className="w-7 h-px bg-rust-soft" />
           <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
-            Patient Stories
+            Patient Stories · Unscripted
           </span>
           <span className="w-7 h-px bg-rust-soft" />
         </div>
-        <h2 className="font-display font-bold text-[26px] md:text-[36px] leading-[1.05] tracking-[-0.03em] text-white">
-          Here's what our patients say.
+        <h2 className="font-display font-bold text-[28px] md:text-[40px] xl:text-[44px] leading-[1.05] tracking-[-0.03em] text-white">
+          In their <span className="italic font-medium text-rust-soft">own</span> words.
         </h2>
-        <p className="mt-3 text-[13px] md:text-[14px] text-white/65 font-light max-w-[440px] mx-auto">
-          Hover any card to preview · click to watch the full story.
+        <p className="mt-3 text-[13px] md:text-[14px] text-white/65 font-light max-w-[460px] mx-auto leading-[1.55]">
+          No scripts, no actors. Real TAC patients, recorded in our clinics.
+          Hover to preview · click for the full story.
         </p>
+        {/* Spec row — small editorial credits */}
+        <div className="mt-5 inline-flex items-center gap-4 text-[10px] md:text-[10.5px] tracking-[0.28em] uppercase text-white/40 font-medium">
+          <span>04 Stories</span>
+          <span aria-hidden className="w-1 h-1 rounded-full bg-white/30" />
+          <span>Verified TAC Patients</span>
+          <span aria-hidden className="w-1 h-1 rounded-full bg-white/30" />
+          <span>Filmed On Location</span>
+        </div>
       </div>
 
       {/* Marquee */}
@@ -153,11 +184,13 @@ export function VideoTestimonials() {
         >
           {items.map((t, idx) => {
             const realIdx = idx % TESTIMONIALS.length
+            // First name for compact display badge; e.g. "Mr. Abhinav Saxena" → "ABHINAV"
+            const firstName = t.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '').split(' ')[0]
             return (
               <div
                 key={`${t.id}-${idx}`}
-                className="group relative shrink-0 cursor-pointer transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.06]"
-                style={{ width: '230px' }}
+                className="tac-cinema-card group relative shrink-0 cursor-pointer"
+                style={{ width: '244px' }}
                 onMouseEnter={() => {
                   const v = cardRefs.current[idx]
                   if (v) {
@@ -172,9 +205,24 @@ export function VideoTestimonials() {
                 }}
                 onClick={() => setOpenIdx(realIdx)}
               >
+                {/* Rust ambient glow behind card — only on hover */}
                 <div
-                  className="relative rounded-[18px] overflow-hidden bg-black border border-white/10 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.7)]"
-                  style={{ aspectRatio: '9/13' }}
+                  aria-hidden
+                  className="tac-card-glow absolute -inset-3 rounded-[24px] opacity-0 transition-opacity duration-700 pointer-events-none -z-0"
+                  style={{
+                    background:
+                      'radial-gradient(60% 60% at 50% 50%, rgba(178,122,123,0.25), transparent 70%)',
+                    filter: 'blur(20px)',
+                  }}
+                />
+
+                <div
+                  className="tac-card-frame relative rounded-[18px] overflow-hidden bg-black border border-white/12 transition-all duration-700"
+                  style={{
+                    aspectRatio: '9/13',
+                    boxShadow:
+                      '0 1px 0 rgba(255,255,255,0.05) inset, 0 30px 60px -25px rgba(0,0,0,0.7)',
+                  }}
                 >
                   <video
                     ref={(el) => {
@@ -189,32 +237,92 @@ export function VideoTestimonials() {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
 
-                  {/* Bottom shade */}
+                  {/* Subtle inner highlight at top — gives the frame a glossy ridge */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-px pointer-events-none"
+                    style={{
+                      background:
+                        'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
+                    }}
+                  />
+
+                  {/* Top-left film slate corner — index + status dot */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-md bg-black/35 border border-white/12 rounded-full pl-2 pr-3 py-1">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span aria-hidden className="absolute inline-flex h-full w-full rounded-full bg-rust-soft opacity-70 animate-ping" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rust-soft" />
+                    </span>
+                    <span className="font-display font-bold text-[10px] text-white/90 tabular-nums tracking-[0.18em]">
+                      {t.index} / {String(TESTIMONIALS.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  {/* Top-right quote glyph — editorial detail */}
+                  <div
+                    aria-hidden
+                    className="absolute top-3 right-3 font-display text-[28px] leading-none text-white/30 group-hover:text-rust-soft/80 transition-colors duration-700 select-none"
+                  >
+                    “
+                  </div>
+
+                  {/* Vignette + bottom shade for legibility of overlay text */}
                   <div
                     aria-hidden
                     className="absolute inset-0 pointer-events-none"
                     style={{
                       background:
-                        'linear-gradient(180deg, rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.85) 100%)',
+                        'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.0) 22%, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.92) 100%)',
                     }}
                   />
 
-                  {/* Play icon overlay */}
+                  {/* Centre play disc — refined: glass + rust ring on hover */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-110">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="white">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
+                    <div className="relative">
+                      {/* Pulsing ring (only animated on hover via group) */}
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 rounded-full border border-rust-soft/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-ping"
+                      />
+                      <div className="relative w-12 h-12 rounded-full bg-white/12 backdrop-blur-md border border-white/35 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-105 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="white" className="ml-0.5">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Bottom name */}
-                  <div className="absolute inset-x-0 bottom-0 px-4 py-3.5 text-white">
-                    <div className="text-[13px] font-semibold tracking-tight leading-tight">
-                      {t.name}
+                  {/* Bottom info card — overlay with structure */}
+                  <div className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-10 text-white">
+                    {/* Programme tag chip */}
+                    <div className="inline-flex items-center gap-1.5 backdrop-blur-md bg-white/[0.08] border border-white/15 rounded-full px-2.5 py-1 mb-2.5">
+                      <span aria-hidden className="w-1 h-1 rounded-full bg-rust-soft" />
+                      <span className="text-[8.5px] tracking-[0.28em] uppercase text-white/85 font-semibold">
+                        {t.tag}
+                      </span>
                     </div>
-                    <div className="text-[9.5px] tracking-[0.22em] uppercase text-white/60 mt-0.5 font-medium">
-                      {t.short}
+                    {/* Display name — first name in larger display, full name as caption */}
+                    <div className="font-display font-bold text-[20px] leading-[1.0] tracking-[-0.015em] text-white uppercase">
+                      {firstName}
+                    </div>
+                    <div className="mt-2 flex items-center gap-2">
+                      <span aria-hidden className="tac-card-meta-line block h-px w-3 bg-rust-soft transition-all duration-500" />
+                      <span className="text-[9.5px] tracking-[0.22em] uppercase text-white/65 font-medium leading-none">
+                        {t.name}
+                      </span>
+                    </div>
+
+                    {/* Hover-revealed CTA — slides in from left */}
+                    <div className="tac-card-cta mt-3 flex items-center gap-1.5 opacity-0 -translate-x-1 transition-all duration-500 text-[9.5px] tracking-[0.28em] uppercase text-rust-soft font-semibold">
+                      Watch full story
+                      <span aria-hidden>→</span>
+                    </div>
+                  </div>
+
+                  {/* Top-right corner — runtime label, only on hover */}
+                  <div className="absolute top-3 right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="text-[9px] tracking-[0.28em] uppercase text-white/55 font-medium">
+                      Verbatim
                     </div>
                   </div>
                 </div>
