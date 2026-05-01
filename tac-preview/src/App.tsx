@@ -13,7 +13,14 @@ gsap.registerPlugin(ScrollTrigger)
 // ---------- Clinics band ----------
 export function ClinicsBand() {
   // Source: theantiagingcentre.com — the five physical centres, verbatim.
-  const clinics = [
+  type Clinic = {
+    city: string
+    region: string
+    area: string
+    phone: string
+    featured?: boolean
+  }
+  const clinics: Clinic[] = [
     {
       city: 'Gurugram',
       region: 'NCR',
