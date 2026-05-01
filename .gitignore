@@ -31,3 +31,6 @@ Thumbs.db
 *_raw.mp4
 *_raw.webm
 *_raw.mov
+
+# Reference PDFs (brand guides) — too large for git, kept locally in /docs only
+docs/*.pdf

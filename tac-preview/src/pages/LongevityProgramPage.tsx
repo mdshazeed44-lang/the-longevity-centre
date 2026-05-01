@@ -1,8 +1,9 @@
 // LongevityProgramPage — content sourced verbatim from
 // theantiagingcentre.com/landing/ ("Your Anti-Aging Blueprint").
 //
-// Sections: Hero · 3-Step Process · Lifestyle Programs · Trust & Credibility ·
-//           FAQ · Final CTA with health-concern chips.
+// This is the brand's flagship page — built to impress.
+// Sections: Hero · Biological-Age stat · 3-Step Process · Diagnostics grid ·
+//           Lifestyle Programs · Trust & Credibility · FAQ · Final CTA.
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -16,17 +17,33 @@ const STEPS = [
     n: '01',
     title: 'Deep Diagnostics',
     body: 'We start with advanced metabolic, DNA, and gut microbiome tests, giving us an accurate snapshot of your health and existing biomarkers.',
+    icon: '/longevity/step-diagnostics.png',
   },
   {
     n: '02',
     title: 'Precision Analytics',
     body: 'Our experienced doctors, while leveraging AI tech, analyze your data in-depth, uncovering insights at a cellular level.',
+    icon: '/longevity/dna-icon.svg',
   },
   {
     n: '03',
     title: 'Personalised Solutions',
     body: 'Get tailored protocols designed by experienced doctors to support your optimal health based on your diagnostics and reports.',
+    icon: '/longevity/step-solutions.png',
   },
+]
+
+// Verified from TAC nav: 9 diagnostic technologies offered
+const DIAGNOSTICS = [
+  { n: '01', name: 'Cell Scan Test', tag: 'Cellular Function' },
+  { n: '02', name: 'Genetic Test', tag: 'DNA Analysis' },
+  { n: '03', name: 'Blood Tests', tag: '163+ Biomarkers' },
+  { n: '04', name: 'Gut Microbiota', tag: 'Microbiome Mapping' },
+  { n: '05', name: 'Face Scan', tag: 'Skin & Aesthetic' },
+  { n: '06', name: 'BCA', tag: 'Body Composition' },
+  { n: '07', name: 'BMD', tag: 'Bone Mineral Density' },
+  { n: '08', name: 'EndoPAT', tag: 'Vascular Function' },
+  { n: '09', name: 'Biological Clock', tag: 'Epigenetic Age' },
 ]
 
 const LIFESTYLES = [
@@ -34,21 +51,25 @@ const LIFESTYLES = [
     n: '01',
     title: 'Leadership Elite',
     body: 'Struggling with burnout, demanding schedules, and maintaining energy and focus? Long-term health optimisation strategies and biomarker reversal programmes for peak performance — without compromising on health.',
+    img: '/longevity/leadership.png',
   },
   {
     n: '02',
     title: 'Fitness Enthusiasts',
     body: "Concerned about performance optimisation, injury prevention and recovery times? Precision diagnostics and tailored recommendations reduce injury risk and enhance athletic performance.",
+    img: '/longevity/fitness.png',
   },
   {
     n: '03',
     title: 'Individuals with Health Conditions',
     body: "Facing persistent health issues that are difficult to manage? Comprehensive diagnostics uncover root causes and offer targeted solutions for chronic conditions, with customised plans focused on long-term recovery.",
+    img: '/longevity/health-conditions.png',
   },
   {
     n: '04',
     title: 'Wellness-Centred Families',
     body: "Balancing the health and wellness needs of every family member? TAC supports your family's journey with sustainable healthy habits and long-term wellness strategies.",
+    img: '/longevity/wellness-families.png',
   },
 ]
 
@@ -56,18 +77,22 @@ const TRUST = [
   {
     title: 'Certified Medical Expertise',
     body: 'Our doctors, specialists and longevity experts come from top-tier institutions, with decades of experience in preventive, regenerative and precision medicine.',
+    icon: '/longevity/trust-expertise.png',
   },
   {
     title: 'AI-Enhanced Human Insight',
     body: 'Our AI platforms analyse thousands of biomarkers across genetics, microbiome, metabolism and inflammation — delivering insights no traditional check-up can match.',
+    icon: '/longevity/trust-ai.png',
   },
   {
     title: 'Regular Expert Check-ins',
     body: "Nutritionists check in weekly and senior doctors monthly — so you never feel alone in your longevity journey.",
+    icon: '/longevity/trust-checkin.png',
   },
   {
     title: 'Backed by Clinical Studies',
     body: "TAC's approach is grounded in scientific research and clinical evidence. From genetic testing to gut-health optimisation, our methods have been refined through rigorous clinical trials.",
+    icon: '/longevity/trust-clinical.png',
   },
 ]
 
@@ -165,7 +190,11 @@ const PROGRAM_META = {
 export function LongevityProgramPage() {
   useDocumentMeta(PROGRAM_META)
   const heroRef = useRef<HTMLHeadingElement>(null)
+  const dnaRef = useRef<HTMLDivElement>(null)
+  const ageRef = useRef<HTMLDivElement>(null)
   const stepsRef = useRef<HTMLDivElement>(null)
+  const stepLineRef = useRef<HTMLDivElement>(null)
+  const diagnosticsRef = useRef<HTMLDivElement>(null)
   const lifestyleRef = useRef<HTMLDivElement>(null)
   const trustRef = useRef<HTMLDivElement>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
@@ -188,16 +217,57 @@ export function LongevityProgramPage() {
       cleanups.push(() => t.kill())
     }
 
-    // Step cards stagger
+    // DNA helix floating animation — gentle Y bob + slow rotation
+    if (dnaRef.current) {
+      const bob = gsap.to(dnaRef.current, {
+        y: '-=20',
+        duration: 4,
+        ease: 'sine.inOut',
+        repeat: -1,
+        yoyo: true,
+      })
+      const spin = gsap.to(dnaRef.current, {
+        rotation: 360,
+        duration: 60,
+        ease: 'none',
+        repeat: -1,
+      })
+      cleanups.push(() => {
+        bob.kill()
+        spin.kill()
+      })
+    }
+
+    // Biological age count-up — animate "5" → "15"
+    const ageNum = ageRef.current?.querySelector<HTMLElement>('.age-num')
+    if (ageNum) {
+      const obj = { v: 0 }
+      const t = gsap.to(obj, {
+        v: 15,
+        duration: 2.4,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: ageRef.current, start: 'top 75%' },
+        onUpdate: () => {
+          ageNum.textContent = `5–${Math.round(obj.v)}`
+        },
+      })
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    }
+
+    // Step cards stagger + animated connecting line draw
     const stepCards = stepsRef.current?.querySelectorAll<HTMLElement>('.step-card')
     if (stepCards?.length) {
-      gsap.set(stepCards, { y: 50, opacity: 0 })
+      gsap.set(stepCards, { y: 60, opacity: 0, scale: 0.96 })
       const t = gsap.to(stepCards, {
         y: 0,
         opacity: 1,
+        scale: 1,
         duration: 1.0,
         ease: 'expo.out',
-        stagger: 0.12,
+        stagger: 0.15,
         scrollTrigger: { trigger: stepsRef.current, start: 'top 80%' },
       })
       cleanups.push(() => {
@@ -206,23 +276,59 @@ export function LongevityProgramPage() {
       })
     }
 
-    // Lifestyle cards stagger
-    const lifestyleCards = lifestyleRef.current?.querySelectorAll<HTMLElement>('.lifestyle-card')
-    if (lifestyleCards?.length) {
-      gsap.set(lifestyleCards, { y: 50, opacity: 0 })
-      const t = gsap.to(lifestyleCards, {
+    if (stepLineRef.current) {
+      const t = gsap.fromTo(
+        stepLineRef.current,
+        { scaleX: 0 },
+        {
+          scaleX: 1,
+          duration: 1.6,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: stepsRef.current, start: 'top 70%' },
+        }
+      )
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    }
+
+    // Diagnostics chips — staggered reveal with subtle scale
+    const diagChips = diagnosticsRef.current?.querySelectorAll<HTMLElement>('.diag-chip')
+    if (diagChips?.length) {
+      gsap.set(diagChips, { y: 30, opacity: 0, scale: 0.9 })
+      const t = gsap.to(diagChips, {
         y: 0,
         opacity: 1,
-        duration: 1.0,
+        scale: 1,
+        duration: 0.7,
         ease: 'expo.out',
-        stagger: 0.1,
-        scrollTrigger: { trigger: lifestyleRef.current, start: 'top 80%' },
+        stagger: { each: 0.05, from: 'random' },
+        scrollTrigger: { trigger: diagnosticsRef.current, start: 'top 80%' },
       })
       cleanups.push(() => {
         t.scrollTrigger?.kill()
         t.kill()
       })
     }
+
+    // Lifestyle cards — alternating slide in from left/right
+    const lifestyleCards = lifestyleRef.current?.querySelectorAll<HTMLElement>('.lifestyle-card')
+    lifestyleCards?.forEach((card, i) => {
+      const fromX = i % 2 === 0 ? -50 : 50
+      gsap.set(card, { x: fromX, opacity: 0 })
+      const t = gsap.to(card, {
+        x: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: card, start: 'top 82%' },
+      })
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    })
 
     // Trust cards stagger
     const trustCards = trustRef.current?.querySelectorAll<HTMLElement>('.trust-card')
@@ -247,63 +353,33 @@ export function LongevityProgramPage() {
 
   return (
     <div id="longevity-program">
-      {/* HERO — cinematic dark with same cross-fading anti-aging montage as Centres:
-          DNA helix → laboratory equipment → modern clinic corridor.
-          Three short Pexels clips (~7 MB total, already cached if user
-          visited /centres) cross-fade on a 24s cycle. */}
+      {/* HERO — cinematic dark with cross-fading montage + floating DNA glyph */}
       <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
-        <video
-          className="hero-clip clip-1"
-          src="/videos/centres-clips/dna.mp4"
-          autoPlay loop muted playsInline preload="metadata"
-          aria-hidden="true"
-        />
-        <video
-          className="hero-clip clip-2"
-          src="/videos/centres-clips/lab.mp4"
-          autoPlay loop muted playsInline preload="metadata"
-          aria-hidden="true"
-        />
-        <video
-          className="hero-clip clip-3"
-          src="/videos/centres-clips/clinic.mp4"
-          autoPlay loop muted playsInline preload="metadata"
-          aria-hidden="true"
-        />
+        <video className="hero-clip clip-1" src="/videos/centres-clips/dna.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+        <video className="hero-clip clip-2" src="/videos/centres-clips/lab.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+        <video className="hero-clip clip-3" src="/videos/centres-clips/clinic.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.35) 30%, rgba(10,8,7,0.55) 75%, rgba(10,8,7,0.85) 100%)' }} />
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.45) 45%, rgba(10,8,7,0.0) 70%)' }} />
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.20), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.12), transparent 60%)' }} />
+        <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain" />
+
+        {/* Floating DNA glyph — top right, slow rotation + bob */}
         <div
+          ref={dnaRef}
           aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.35) 30%, rgba(10,8,7,0.55) 75%, rgba(10,8,7,0.85) 100%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.45) 45%, rgba(10,8,7,0.0) 70%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.20), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.12), transparent 60%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
-        />
+          className="hidden lg:block absolute top-32 right-12 xl:right-24 w-[140px] h-[140px] rounded-full backdrop-blur-md bg-white/[0.06] border border-white/15 flex items-center justify-center pointer-events-none shadow-[0_30px_80px_-30px_rgba(178,122,123,0.55)]"
+          style={{ willChange: 'transform' }}
+        >
+          <img src="/longevity/dna-icon.svg" alt="" className="w-14 h-14 opacity-90" style={{ animation: 'spin 60s linear infinite' }} />
+          <span aria-hidden className="absolute inset-0 rounded-full border border-rust-soft/30 animate-[ping_4s_ease-in-out_infinite]" />
+        </div>
 
         <div className="relative max-w-[1280px] mx-auto w-full">
           <div className="flex items-center gap-3 mb-5">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
-              Longevity Program
+              Longevity Program · Flagship
             </span>
           </div>
           <h1
@@ -327,56 +403,157 @@ export function LongevityProgramPage() {
 
           <div className="mt-7 flex flex-wrap items-center gap-2.5 md:gap-3">
             {HERO_PILLS.map((p) => (
-              <div
-                key={p.k}
-                className="inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
-              >
+              <div key={p.k} className="inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
-                <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
-                  {p.k}
-                </span>
-                <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap tabular-nums">
-                  {p.v}
-                </span>
+                <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">{p.k}</span>
+                <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap tabular-nums">{p.v}</span>
               </div>
             ))}
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="#program-cta"
-              data-cursor="hover"
-              className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
-            >
+            <a href="#program-cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
               </span>
               Free Longevity Assessment
-              <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                →
-              </span>
+              <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
-            <a
-              href="https://wa.me/918826809123"
-              data-cursor="hover"
-              className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
-            >
-              WhatsApp
-            </a>
+            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
           </div>
         </div>
       </section>
 
-      {/* THREE-STEP PROCESS */}
+      {/* BIOLOGICAL AGE — dramatic stat band */}
+      <section ref={ageRef} className="relative bg-ink text-white py-16 md:py-24 px-6 md:px-12 overflow-hidden border-t border-white/5">
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(800px 500px at 50% 50%, rgba(148,84,85,0.20), transparent 60%)' }} />
+        <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay hero-grain" />
+        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-7 h-px bg-rust-soft" />
+              <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
+                Biological Age
+              </span>
+            </div>
+            <h2 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.03em] text-white mb-5">
+              Reverse the clock, measurably.
+            </h2>
+            <p className="text-[15px] md:text-[16px] text-white/70 leading-[1.65] font-light max-w-[460px]">
+              With evidence-based protocols our patients improve their biological
+              age by years and meaningfully slow their rate of ageing —
+              verified by repeat diagnostics.
+            </p>
+          </div>
+          <div className="text-center md:text-left">
+            <div className="font-display font-bold text-[120px] md:text-[200px] xl:text-[240px] leading-[0.85] tracking-[-0.06em] text-white tabular-nums">
+              <span className="age-num bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #B27A7B 100%)' }}>5–15</span>
+              <span className="text-rust-soft text-[40px] md:text-[60px] align-top ml-2">yrs</span>
+            </div>
+            <div className="mt-3 text-[12px] md:text-[13px] tracking-[0.28em] uppercase text-white/55 font-medium">
+              Younger biological age, evidence-based
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VISUAL DIRECTION — official TLC brand-guide mood imagery + voice */}
+      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12 overflow-hidden">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="grid md:grid-cols-[5fr_7fr] gap-10 md:gap-14 items-center">
+            {/* Left — brand-voice copy verbatim from the brand guide */}
+            <div>
+              <div className="flex items-center gap-3 mb-5">
+                <span className="w-7 h-px bg-rust" />
+                <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                  The Longevity Centre · Visual Direction
+                </span>
+              </div>
+              <h2 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.03em] text-ink mb-6">
+                Calm. Human-centered. Rooted in nature.
+              </h2>
+              <div className="space-y-4 text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light max-w-[480px]">
+                <p>
+                  Inspired by nature, skin textures, natural light and organic
+                  materials — the mood emphasises warmth, softness and
+                  authenticity.
+                </p>
+                <p>
+                  The overall aesthetic balances clinical precision with a more
+                  emotional, lifestyle-oriented experience. This direction
+                  supports our transition from anti-aging to longevity —
+                  focusing on long-term wellbeing, balance and inner vitality.
+                </p>
+              </div>
+              <div className="mt-7 flex items-center gap-2.5">
+                {/* Brand swatch row — official Casual Rust + Nougat + secondary trio */}
+                {[
+                  { hex: '#945455', name: 'Casual Rust' },
+                  { hex: '#EEE6DB', name: 'Nougat' },
+                  { hex: '#323C31', name: 'Tropical Green' },
+                  { hex: '#AB542E', name: 'Paarl' },
+                  { hex: '#A19B7B', name: 'Iguana' },
+                ].map((c) => (
+                  <div key={c.hex} className="group relative">
+                    <span
+                      className="block w-7 h-7 rounded-full border border-mist/60 shadow-[0_4px_10px_-4px_rgba(0,0,0,0.2)]"
+                      style={{ background: c.hex }}
+                      title={`${c.name} ${c.hex}`}
+                    />
+                    <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-[9px] tracking-[0.18em] uppercase text-stone whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      {c.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right — dense masonry of brand-guide mood imagery */}
+            <div className="grid grid-cols-3 gap-2 md:gap-3 auto-rows-[110px] md:auto-rows-[120px]">
+              {/* Row 1 */}
+              <div className="row-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-feet-moss.jpg" alt="Bare feet on moss" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-zen-sand.jpg" alt="Zen sand garden" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              <div className="row-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-hands-pose.jpg" alt="Elegant hand pose" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              {/* Row 2 (col 2 only — col 1 + 3 spanned) */}
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-leaf-skeleton.jpg" alt="Skeleton leaf detail" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              {/* Row 3 */}
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-water-ripple.jpg" alt="Water ripple" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-yoga-duo.jpg" alt="Yoga movement" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-terracotta.jpg" alt="Terracotta texture" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              {/* Row 4 — wide */}
+              <div className="col-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under tree with light beams" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+                <img src="/longevity/brand/mood-body-mind-soul.jpg" alt="Stone with body mind soul text" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* THREE-STEP PROCESS — with icons + animated connecting line */}
       <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                How It Works
-              </span>
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">How It Works</span>
               <span className="w-7 h-px bg-rust" />
             </div>
             <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
@@ -384,48 +561,92 @@ export function LongevityProgramPage() {
             </h2>
           </div>
 
-          <div ref={stepsRef} className="grid md:grid-cols-3 gap-5 md:gap-6">
-            {STEPS.map((s) => (
-              <article
-                key={s.n}
-                className="step-card group relative bg-white hover:bg-cream rounded-[20px] border border-mist/70 hover:border-rust/30 p-7 md:p-8 overflow-hidden transition-colors duration-500"
+          <div ref={stepsRef} className="relative">
+            {/* Animated connecting line — desktop only */}
+            <div
+              ref={stepLineRef}
+              aria-hidden
+              className="hidden md:block absolute top-[58px] left-[16%] right-[16%] h-px bg-rust/40 origin-left"
+              style={{ transform: 'scaleX(0)' }}
+            />
+            <div className="grid md:grid-cols-3 gap-5 md:gap-6 relative">
+              {STEPS.map((s) => (
+                <article
+                  key={s.n}
+                  className="step-card group relative bg-white hover:bg-cream rounded-[22px] border border-mist/70 hover:border-rust/30 p-7 md:p-8 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_80px_-50px_rgba(27,26,24,0.30)]"
+                  style={{ willChange: 'transform, opacity' }}
+                >
+                  <span aria-hidden className="absolute -right-2 -bottom-4 font-display font-bold text-[140px] md:text-[180px] leading-none text-ink/[0.04] tabular-nums tracking-[-0.04em] pointer-events-none select-none transition-all duration-700 group-hover:text-rust/[0.10] group-hover:scale-110">
+                    {s.n}
+                  </span>
+                  <div className="relative">
+                    {/* Icon disc */}
+                    <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full bg-ink flex items-center justify-center mb-5 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-3 shadow-[0_18px_40px_-15px_rgba(27,26,24,0.4)]">
+                      <img src={s.icon} alt="" loading="lazy" className="w-7 h-7 md:w-8 md:h-8 object-contain" style={s.icon.endsWith('.svg') ? { filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' } : undefined} />
+                      <span aria-hidden className="absolute inset-0 rounded-full border border-rust-soft/0 group-hover:border-rust-soft/40 transition-all duration-700 scale-110 group-hover:scale-125" />
+                    </div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="font-display font-bold text-[14px] tracking-[-0.01em] text-rust tabular-nums">{s.n}</span>
+                      <span className="w-7 h-px bg-rust" />
+                    </div>
+                    <h3 className="font-display font-bold text-[22px] md:text-[26px] leading-[1.05] tracking-[-0.025em] text-ink mb-3">{s.title}</h3>
+                    <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light">{s.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DIAGNOSTICS — 9 technology grid */}
+      <section className="bg-white py-16 md:py-20 px-6 md:px-12">
+        <div className="max-w-[1280px] mx-auto">
+          <div className="text-center mb-12 md:mb-14">
+            <div className="inline-flex items-center gap-3 mb-5">
+              <span className="w-7 h-px bg-rust" />
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Our Diagnostics</span>
+              <span className="w-7 h-px bg-rust" />
+            </div>
+            <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
+              Nine technologies. One clear picture.
+            </h2>
+            <p className="mt-5 text-[14.5px] md:text-[15.5px] text-graphite/80 font-light max-w-[600px] mx-auto leading-[1.65]">
+              From cellular scans to epigenetic age — every signal mapped, every
+              variable measured.
+            </p>
+          </div>
+
+          <div ref={diagnosticsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+            {DIAGNOSTICS.map((d) => (
+              <div
+                key={d.name}
+                className="diag-chip group relative bg-cream/40 hover:bg-cream rounded-2xl border border-mist/70 hover:border-rust/30 p-5 md:p-6 transition-all duration-500 hover:-translate-y-0.5 cursor-default overflow-hidden"
                 style={{ willChange: 'transform, opacity' }}
               >
-                <span
-                  aria-hidden
-                  className="absolute -right-2 -bottom-4 font-display font-bold text-[140px] md:text-[180px] leading-none text-ink/[0.04] tabular-nums tracking-[-0.04em] pointer-events-none select-none transition-all duration-700 group-hover:text-rust/[0.08]"
-                >
-                  {s.n}
-                </span>
-                <div className="relative">
-                  <div className="flex items-center gap-3 mb-5">
-                    <span className="font-display font-bold text-[14px] tracking-[-0.01em] text-rust tabular-nums">
-                      {s.n}
-                    </span>
-                    <span className="w-7 h-px bg-rust" />
-                  </div>
-                  <h3 className="font-display font-bold text-[22px] md:text-[26px] leading-[1.05] tracking-[-0.025em] text-ink mb-3">
-                    {s.title}
-                  </h3>
-                  <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light">
-                    {s.body}
-                  </p>
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="font-display font-bold text-[12px] tracking-[-0.005em] text-rust tabular-nums">{d.n}</span>
+                  <span className="w-10 h-px bg-rust/40 group-hover:bg-rust group-hover:w-14 transition-all duration-500" />
                 </div>
-              </article>
+                <h3 className="font-display font-semibold text-[17px] md:text-[18px] tracking-[-0.015em] text-ink mb-1">
+                  {d.name}
+                </h3>
+                <div className="text-[10.5px] tracking-[0.28em] uppercase text-stone font-medium">
+                  {d.tag}
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* LIFESTYLE PROGRAMS */}
-      <section className="bg-white py-16 md:py-20 px-6 md:px-12">
+      {/* LIFESTYLE PROGRAMS — alternating image/content rows */}
+      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                Tailored to You
-              </span>
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Tailored to You</span>
               <span className="w-7 h-px bg-rust" />
             </div>
             <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
@@ -433,45 +654,132 @@ export function LongevityProgramPage() {
             </h2>
           </div>
 
-          <div ref={lifestyleRef} className="grid md:grid-cols-2 gap-5 md:gap-6">
-            {LIFESTYLES.map((l) => (
-              <article
-                key={l.n}
-                className="lifestyle-card group relative bg-cream/40 hover:bg-cream rounded-[20px] border border-mist/70 hover:border-rust/30 p-7 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500"
-                style={{ willChange: 'transform, opacity' }}
-              >
-                <span
-                  aria-hidden
-                  className="absolute -right-2 -bottom-4 font-display font-bold text-[160px] md:text-[200px] leading-none text-ink/[0.04] tabular-nums tracking-[-0.04em] pointer-events-none select-none transition-all duration-700 group-hover:text-rust/[0.08]"
+          <div ref={lifestyleRef} className="space-y-10 md:space-y-14">
+            {LIFESTYLES.map((l, idx) => {
+              const reverse = idx % 2 === 1
+              return (
+                <article
+                  key={l.n}
+                  className="lifestyle-card grid md:grid-cols-[5fr_7fr] gap-6 md:gap-10 lg:gap-14 items-center"
+                  style={{ willChange: 'transform, opacity' }}
                 >
-                  {l.n}
-                </span>
-                <div className="relative">
-                  <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-4 tabular-nums">
-                    {l.n} · For
+                  {/* Image */}
+                  <div className={`relative aspect-square md:aspect-[4/5] rounded-[20px] overflow-hidden bg-mist group ${reverse ? 'md:order-2' : ''}`}>
+                    <img
+                      src={l.img}
+                      alt={l.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                    />
+                    <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)' }} />
+                    {/* Number badge */}
+                    <div className="absolute top-5 left-5 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
+                      <span className="font-display font-bold text-[13px] text-white tabular-nums tracking-tight">{l.n}</span>
+                    </div>
+                    <div className="absolute bottom-5 left-5 right-5 text-white">
+                      <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/70 font-semibold">For</div>
+                    </div>
                   </div>
-                  <h3 className="font-display font-bold text-[22px] md:text-[28px] leading-[1.05] tracking-[-0.025em] text-ink mb-4">
-                    {l.title}
-                  </h3>
-                  <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light max-w-[520px]">
-                    {l.body}
-                  </p>
-                </div>
-              </article>
-            ))}
+
+                  {/* Content */}
+                  <div className={reverse ? 'md:order-1' : ''}>
+                    <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3 tabular-nums">
+                      {l.n} · For
+                    </div>
+                    <h3 className="font-display font-bold text-[26px] md:text-[36px] lg:text-[42px] leading-[1.0] tracking-[-0.025em] text-ink mb-5">
+                      {l.title}
+                    </h3>
+                    <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[520px] mb-6">
+                      {l.body}
+                    </p>
+                    <a
+                      href="#program-cta"
+                      data-cursor="hover"
+                      className="inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-semibold text-ink hover:text-rust transition-colors group"
+                    >
+                      Explore this path
+                      <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">→</span>
+                    </a>
+                  </div>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* TRUST & CREDIBILITY */}
-      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
+      {/* BRAND VOICE — editorial campaign tiles, infinite scrolling marquee */}
+      <section
+        aria-label="Brand campaigns"
+        className="relative bg-ink text-white py-16 md:py-20 overflow-hidden border-y border-white/5"
+      >
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(800px 500px at 50% 50%, rgba(148,84,85,0.15), transparent 70%)' }} />
+        <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-10 md:mb-12 text-center">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="w-7 h-px bg-rust-soft" />
+            <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
+              Editorial · Brand Voice
+            </span>
+            <span className="w-7 h-px bg-rust-soft" />
+          </div>
+          <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-white max-w-[760px] mx-auto">
+            Longevity, said out loud.
+          </h2>
+          <p className="mt-5 text-[14.5px] md:text-[15.5px] text-white/65 font-light max-w-[600px] mx-auto leading-[1.65]">
+            From our editorial campaigns — the questions, habits and ideas that
+            shape a longer, calmer, healthier life.
+          </p>
+        </div>
+
+        {/* Marquee track — duplicated for seamless loop */}
+        <div className="relative w-full overflow-hidden marquee">
+          <div className="marquee-track items-stretch">
+            {[...Array(2)].flatMap((_, dup) => [
+              { src: '/longevity/brand/campaign-mind-body-soul.jpg', label: 'We Take Care of Mind, Body & Soul', dup },
+              { src: '/longevity/brand/campaign-spirit.jpg', label: 'Empower Your Mind, Body & Spirit', dup },
+              { src: '/longevity/brand/campaign-3-3-3.jpg', label: 'The 3-3-3 Rule for Longevity', dup },
+              { src: '/longevity/brand/campaign-5-habits.jpg', label: '5 Habits for a Quality Life', dup },
+              { src: '/longevity/brand/campaign-longevity-guide.jpg', label: 'The Longevity Guide', dup },
+              { src: '/longevity/brand/campaign-name-feel.jpg', label: 'Name What You Feel', dup },
+              { src: '/longevity/brand/campaign-body-aesthetics.jpg', label: 'Body Aesthetics, Refined', dup },
+            ]).map((c, i) => (
+              <a
+                key={`${c.dup}-${i}`}
+                href="#program-cta"
+                data-cursor="hover"
+                className="group relative w-[260px] md:w-[300px] aspect-[4/5] shrink-0 overflow-hidden rounded-[18px] bg-white/5 border border-white/10 hover:border-rust-soft/50 transition-colors duration-500"
+              >
+                <img
+                  src={c.src}
+                  alt={c.label}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                />
+                <div aria-hidden className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(148,84,85,0.55) 100%)' }} />
+                <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-2 group-hover:translate-y-0">
+                  <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-1">
+                    Campaign
+                  </div>
+                  <div className="font-display font-semibold text-[14px] leading-[1.2] tracking-[-0.01em]">
+                    {c.label}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+          {/* Edge fades */}
+          <div aria-hidden className="absolute inset-y-0 left-0 w-24 md:w-40 pointer-events-none" style={{ background: 'linear-gradient(90deg, #1B1A18, transparent)' }} />
+          <div aria-hidden className="absolute inset-y-0 right-0 w-24 md:w-40 pointer-events-none" style={{ background: 'linear-gradient(270deg, #1B1A18, transparent)' }} />
+        </div>
+      </section>
+
+      {/* TRUST & CREDIBILITY — with icons */}
+      <section className="bg-white py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                Why TAC
-              </span>
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Why TAC</span>
               <span className="w-7 h-px bg-rust" />
             </div>
             <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
@@ -483,13 +791,18 @@ export function LongevityProgramPage() {
             {TRUST.map((t, i) => (
               <article
                 key={t.title}
-                className="trust-card group relative bg-white hover:bg-cream rounded-[20px] border border-mist/70 hover:border-rust/30 p-6 md:p-7 overflow-hidden transition-colors duration-500"
+                className="trust-card group relative bg-cream/40 hover:bg-white rounded-[20px] border border-mist/70 hover:border-rust/30 p-6 md:p-7 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_80px_-50px_rgba(27,26,24,0.25)]"
                 style={{ willChange: 'transform, opacity' }}
               >
-                <div className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium mb-4 tabular-nums">
-                  0{i + 1}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-full bg-white border border-mist flex items-center justify-center group-hover:bg-rust/5 group-hover:border-rust/30 transition-colors duration-500">
+                    <img src={t.icon} alt="" loading="lazy" className="w-6 h-6 object-contain transition-transform duration-700 group-hover:scale-110" />
+                  </div>
+                  <span className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium tabular-nums">
+                    0{i + 1}
+                  </span>
                 </div>
-                <h3 className="font-display font-bold text-[18px] md:text-[20px] leading-[1.15] tracking-[-0.02em] text-ink mb-3">
+                <h3 className="font-display font-bold text-[17px] md:text-[19px] leading-[1.15] tracking-[-0.02em] text-ink mb-3">
                   {t.title}
                 </h3>
                 <p className="text-[13.5px] leading-[1.65] text-graphite font-light">
@@ -502,14 +815,12 @@ export function LongevityProgramPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-white py-16 md:py-20 px-6 md:px-12">
+      <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
         <div className="max-w-[920px] mx-auto">
           <div className="text-center mb-12 md:mb-14">
             <div className="inline-flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                FAQ
-              </span>
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">FAQ</span>
               <span className="w-7 h-px bg-rust" />
             </div>
             <h2 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.0] tracking-[-0.03em] text-ink">
@@ -536,12 +847,7 @@ export function LongevityProgramPage() {
                     <span className="flex-1 font-display font-semibold text-[16px] md:text-[18px] leading-[1.35] tracking-[-0.01em] text-ink group-hover:text-rust-deep transition-colors duration-300">
                       {f.q}
                     </span>
-                    <span
-                      aria-hidden
-                      className={`shrink-0 w-8 h-8 rounded-full border border-mist flex items-center justify-center text-ink transition-all duration-500 ${
-                        open ? 'bg-ink text-white rotate-45' : 'group-hover:border-rust/60'
-                      }`}
-                    >
+                    <span aria-hidden className={`shrink-0 w-8 h-8 rounded-full border border-mist flex items-center justify-center text-ink transition-all duration-500 ${open ? 'bg-ink text-white rotate-45' : 'group-hover:border-rust/60'}`}>
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" focusable="false">
                         <line x1="12" y1="5" x2="12" y2="19" />
                         <line x1="5" y1="12" x2="19" y2="12" />
@@ -567,28 +873,13 @@ export function LongevityProgramPage() {
       </section>
 
       {/* FINAL CTA — health-concern chips + free assessment */}
-      <section
-        id="program-cta"
-        className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden"
-      >
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
-        />
+      <section id="program-cta" className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+        <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)' }} />
+        <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain" />
         <div className="relative z-10 max-w-[1180px] mx-auto">
           <div className="flex items-center justify-center gap-3 mb-8">
             <span className="w-7 h-px bg-rust-soft" />
-            <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
-              Ready to Age Backwards?
-            </span>
+            <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">Ready to Age Backwards?</span>
             <span className="w-7 h-px bg-rust-soft" />
           </div>
           <h2 className="font-display font-bold text-[32px] md:text-[60px] leading-[0.98] tracking-[-0.035em] text-white text-center mb-6">
@@ -599,13 +890,9 @@ export function LongevityProgramPage() {
             you here — we'll guide you to the right protocol.
           </p>
 
-          {/* Health concern chips */}
           <div className="flex flex-wrap items-center justify-center gap-2.5 md:gap-3 mb-10 max-w-[820px] mx-auto">
             {HEALTH_CONCERNS.map((c) => (
-              <span
-                key={c}
-                className="inline-flex items-center gap-2 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.12] transition-colors duration-500 border border-white/15 rounded-full px-4 py-2 text-[12px] tracking-[-0.005em] text-white/85 font-medium cursor-default"
-              >
+              <span key={c} className="inline-flex items-center gap-2 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.12] hover:scale-105 transition-all duration-500 border border-white/15 rounded-full px-4 py-2 text-[12px] tracking-[-0.005em] text-white/85 font-medium cursor-default">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft" />
                 {c}
               </span>
@@ -613,27 +900,15 @@ export function LongevityProgramPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="/#cta"
-              data-cursor="hover"
-              className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
-            >
+            <a href="/#cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
               </span>
               Book Free Assessment
-              <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                →
-              </span>
+              <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
-            <a
-              href="https://wa.me/918826809123"
-              data-cursor="hover"
-              className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
-            >
-              WhatsApp
-            </a>
+            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
           </div>
         </div>
       </section>
