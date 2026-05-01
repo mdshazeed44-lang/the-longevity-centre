@@ -197,6 +197,8 @@ export function LongevityProgramPage() {
   const diagnosticsRef = useRef<HTMLDivElement>(null)
   const lifestyleRef = useRef<HTMLDivElement>(null)
   const trustRef = useRef<HTMLDivElement>(null)
+  const moodRef = useRef<HTMLDivElement>(null)
+  const quoteRef = useRef<HTMLElement>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   useEffect(() => {
@@ -330,6 +332,44 @@ export function LongevityProgramPage() {
       })
     })
 
+    // Mood images — staggered scale-in reveal
+    const moodTiles = moodRef.current?.querySelectorAll<HTMLElement>('.mood-tile')
+    if (moodTiles?.length) {
+      gsap.set(moodTiles, { opacity: 0, scale: 0.9, y: 20 })
+      const t = gsap.to(moodTiles, {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'expo.out',
+        stagger: { each: 0.06, from: 'start' },
+        scrollTrigger: { trigger: moodRef.current, start: 'top 75%' },
+      })
+      cleanups.push(() => {
+        t.scrollTrigger?.kill()
+        t.kill()
+      })
+    }
+
+    // Pull-quote — masked-line reveal
+    if (quoteRef.current) {
+      const lines = quoteRef.current.querySelectorAll<HTMLElement>('.line-mask > span')
+      if (lines.length) {
+        gsap.set(lines, { yPercent: 110 })
+        const t = gsap.to(lines, {
+          yPercent: 0,
+          duration: 1.4,
+          ease: 'expo.out',
+          stagger: 0.1,
+          scrollTrigger: { trigger: quoteRef.current, start: 'top 75%' },
+        })
+        cleanups.push(() => {
+          t.scrollTrigger?.kill()
+          t.kill()
+        })
+      }
+    }
+
     // Trust cards stagger
     const trustCards = trustRef.current?.querySelectorAll<HTMLElement>('.trust-card')
     if (trustCards?.length) {
@@ -364,15 +404,24 @@ export function LongevityProgramPage() {
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 80% 20%, rgba(178,122,123,0.20), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(148,84,85,0.12), transparent 60%)' }} />
         <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain" />
 
-        {/* Floating DNA glyph — top right, slow rotation + bob */}
+        {/* Floating DNA glyph — top right, multi-ring ambient + slow rotation + bob */}
         <div
           ref={dnaRef}
           aria-hidden
-          className="hidden lg:block absolute top-32 right-12 xl:right-24 w-[140px] h-[140px] rounded-full backdrop-blur-md bg-white/[0.06] border border-white/15 flex items-center justify-center pointer-events-none shadow-[0_30px_80px_-30px_rgba(178,122,123,0.55)]"
+          className="hidden lg:block absolute top-32 right-12 xl:right-24 w-[160px] h-[160px] flex items-center justify-center pointer-events-none"
           style={{ willChange: 'transform' }}
         >
-          <img src="/longevity/dna-icon.svg" alt="" className="w-14 h-14 opacity-90" style={{ animation: 'spin 60s linear infinite' }} />
-          <span aria-hidden className="absolute inset-0 rounded-full border border-rust-soft/30 animate-[ping_4s_ease-in-out_infinite]" />
+          {/* Outermost glow */}
+          <span className="absolute inset-[-40px] rounded-full opacity-50" style={{ background: 'radial-gradient(circle, rgba(178,122,123,0.45), transparent 65%)' }} />
+          {/* Pulsing rings */}
+          <span className="absolute inset-0 rounded-full border border-rust-soft/40 animate-[ping_4s_ease-in-out_infinite]" />
+          <span className="absolute inset-3 rounded-full border border-rust-soft/25 animate-[ping_5s_ease-in-out_infinite]" style={{ animationDelay: '0.8s' }} />
+          {/* Inner disc */}
+          <div className="relative w-[120px] h-[120px] rounded-full backdrop-blur-md bg-white/[0.08] border border-white/20 flex items-center justify-center shadow-[0_30px_80px_-25px_rgba(178,122,123,0.65)]">
+            <img src="/longevity/dna-icon.svg" alt="" className="w-12 h-12 opacity-95" style={{ animation: 'spin 50s linear infinite' }} />
+            {/* Inner highlight */}
+            <span className="absolute inset-2 rounded-full" style={{ background: 'radial-gradient(circle at 30% 25%, rgba(255,255,255,0.18), transparent 55%)' }} />
+          </div>
         </div>
 
         <div className="relative max-w-[1280px] mx-auto w-full">
@@ -510,37 +559,42 @@ export function LongevityProgramPage() {
             </div>
 
             {/* Right — dense masonry of brand-guide mood imagery */}
-            <div className="grid grid-cols-3 gap-2 md:gap-3 auto-rows-[110px] md:auto-rows-[120px]">
-              {/* Row 1 */}
-              <div className="row-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+            <div ref={moodRef} className="grid grid-cols-3 gap-2 md:gap-3 auto-rows-[110px] md:auto-rows-[120px]">
+              <div className="mood-tile row-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-feet-moss.jpg" alt="Bare feet on moss" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-zen-sand.jpg" alt="Zen sand garden" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              <div className="row-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile row-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-hands-pose.jpg" alt="Elegant hand pose" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              {/* Row 2 (col 2 only — col 1 + 3 spanned) */}
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-leaf-skeleton.jpg" alt="Skeleton leaf detail" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              {/* Row 3 */}
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-water-ripple.jpg" alt="Water ripple" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-yoga-duo.jpg" alt="Yoga movement" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-terracotta.jpg" alt="Terracotta texture" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              {/* Row 4 — wide */}
-              <div className="col-span-2 relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile col-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under tree with light beams" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
-              <div className="relative overflow-hidden rounded-[16px] bg-mist group">
+              <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-body-mind-soul.jpg" alt="Stone with body mind soul text" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
             </div>
           </div>
@@ -621,18 +675,28 @@ export function LongevityProgramPage() {
             {DIAGNOSTICS.map((d) => (
               <div
                 key={d.name}
-                className="diag-chip group relative bg-cream/40 hover:bg-cream rounded-2xl border border-mist/70 hover:border-rust/30 p-5 md:p-6 transition-all duration-500 hover:-translate-y-0.5 cursor-default overflow-hidden"
+                className="diag-chip group relative bg-cream/40 hover:bg-white rounded-2xl border border-mist/70 hover:border-rust/40 p-5 md:p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgba(148,84,85,0.25)] cursor-default overflow-hidden"
                 style={{ willChange: 'transform, opacity' }}
               >
-                <div className="flex items-baseline justify-between mb-2">
-                  <span className="font-display font-bold text-[12px] tracking-[-0.005em] text-rust tabular-nums">{d.n}</span>
-                  <span className="w-10 h-px bg-rust/40 group-hover:bg-rust group-hover:w-14 transition-all duration-500" />
-                </div>
-                <h3 className="font-display font-semibold text-[17px] md:text-[18px] tracking-[-0.015em] text-ink mb-1">
-                  {d.name}
-                </h3>
-                <div className="text-[10.5px] tracking-[0.28em] uppercase text-stone font-medium">
-                  {d.tag}
+                {/* Subtle radial glow on hover */}
+                <span aria-hidden className="absolute -top-12 -right-12 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(148,84,85,0.18), transparent 70%)' }} />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-3">
+                    {/* DNA icon disc */}
+                    <span className="w-9 h-9 rounded-full bg-ink/[0.04] group-hover:bg-rust/10 border border-mist group-hover:border-rust/30 flex items-center justify-center transition-all duration-500">
+                      <img src="/longevity/dna-icon.svg" alt="" className="w-4 h-4 transition-transform duration-700 group-hover:rotate-180" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
+                    </span>
+                    <span className="font-display font-bold text-[12px] tracking-[-0.005em] text-rust tabular-nums">{d.n}</span>
+                  </div>
+                  <h3 className="font-display font-semibold text-[17px] md:text-[18px] tracking-[-0.015em] text-ink mb-1.5">
+                    {d.name}
+                  </h3>
+                  <div className="text-[10.5px] tracking-[0.28em] uppercase text-stone font-medium mb-3">
+                    {d.tag}
+                  </div>
+                  {/* Animated underline */}
+                  <span aria-hidden className="block h-px w-8 bg-rust origin-left scale-x-100 group-hover:scale-x-[6] group-hover:opacity-60 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 </div>
               </div>
             ))}
@@ -704,6 +768,70 @@ export function LongevityProgramPage() {
                 </article>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* PULL QUOTE — magazine-style editorial spread with brand image */}
+      <section ref={quoteRef} className="relative bg-cream/60 py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+        {/* Decorative ambient blobs */}
+        <div aria-hidden className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(148,84,85,0.18), transparent 70%)' }} />
+        <div aria-hidden className="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full opacity-30 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(171,84,46,0.15), transparent 70%)' }} />
+
+        <div className="relative max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
+          {/* Left — pull quote */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-7 h-px bg-rust" />
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+                Our Conviction
+              </span>
+            </div>
+            <blockquote className="font-display font-bold text-[32px] md:text-[48px] xl:text-[56px] leading-[1.05] tracking-[-0.035em] text-ink">
+              <span className="line-mask">
+                <span>Longevity isn't</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span>a luxury —</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span><span className="text-rust">it's a priority.</span></span>
+              </span>
+            </blockquote>
+            <div className="mt-8 flex items-center gap-3 text-[12px] tracking-[0.28em] uppercase text-stone font-medium">
+              <span className="w-9 h-px bg-rust" />
+              The Longevity Centre
+            </div>
+          </div>
+
+          {/* Right — featured brand image with floating caption card */}
+          <div className="relative">
+            <div className="relative aspect-[4/5] md:aspect-[5/6] rounded-[24px] overflow-hidden bg-mist shadow-[0_40px_100px_-50px_rgba(27,26,24,0.35)]">
+              <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under a tree with morning light" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+              <div aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%)' }} />
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <div className="text-[10px] tracking-[0.32em] uppercase text-white/75 font-semibold mb-2">
+                  Inner vitality
+                </div>
+                <div className="font-display font-semibold text-[18px] md:text-[22px] leading-[1.2] tracking-[-0.015em]">
+                  Where stillness meets science.
+                </div>
+              </div>
+            </div>
+            {/* Floating accent badge */}
+            <div className="absolute -bottom-6 -left-6 md:-bottom-8 md:-left-8 backdrop-blur-md bg-white/90 border border-mist rounded-[18px] px-5 py-4 shadow-[0_30px_60px_-30px_rgba(27,26,24,0.3)] hidden sm:block">
+              <div className="flex items-center gap-3">
+                <span className="w-10 h-10 rounded-full bg-ink flex items-center justify-center">
+                  <img src="/longevity/dna-icon.svg" alt="" className="w-5 h-5" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
+                </span>
+                <div>
+                  <div className="text-[9px] tracking-[0.32em] uppercase text-stone font-semibold mb-0.5">Brand DNA</div>
+                  <div className="font-display font-bold text-[13px] tracking-[-0.005em] text-ink">Calm · Human · Rooted</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -791,23 +919,32 @@ export function LongevityProgramPage() {
             {TRUST.map((t, i) => (
               <article
                 key={t.title}
-                className="trust-card group relative bg-cream/40 hover:bg-white rounded-[20px] border border-mist/70 hover:border-rust/30 p-6 md:p-7 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_30px_80px_-50px_rgba(27,26,24,0.25)]"
+                className="trust-card group relative bg-cream/40 hover:bg-white rounded-[20px] border border-mist/70 hover:border-rust/40 p-6 md:p-7 overflow-hidden transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_30px_80px_-30px_rgba(148,84,85,0.30)]"
                 style={{ willChange: 'transform, opacity' }}
               >
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-full bg-white border border-mist flex items-center justify-center group-hover:bg-rust/5 group-hover:border-rust/30 transition-colors duration-500">
-                    <img src={t.icon} alt="" loading="lazy" className="w-6 h-6 object-contain transition-transform duration-700 group-hover:scale-110" />
+                {/* Soft radial accent on hover */}
+                <span aria-hidden className="absolute -top-16 -right-16 w-40 h-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(148,84,85,0.18), transparent 70%)' }} />
+
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="relative w-14 h-14 rounded-full bg-white border border-mist flex items-center justify-center group-hover:bg-rust/[0.06] group-hover:border-rust/40 transition-all duration-500">
+                      <img src={t.icon} alt="" loading="lazy" className="w-7 h-7 object-contain transition-all duration-700 group-hover:scale-110" />
+                      {/* Pulsing ring */}
+                      <span aria-hidden className="absolute inset-0 rounded-full border border-rust/0 group-hover:border-rust/30 scale-100 group-hover:scale-125 transition-all duration-700" />
+                    </div>
+                    <span className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium tabular-nums">
+                      0{i + 1}
+                    </span>
                   </div>
-                  <span className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium tabular-nums">
-                    0{i + 1}
-                  </span>
+                  <h3 className="font-display font-bold text-[17px] md:text-[19px] leading-[1.15] tracking-[-0.02em] text-ink mb-3">
+                    {t.title}
+                  </h3>
+                  <p className="text-[13.5px] leading-[1.65] text-graphite font-light">
+                    {t.body}
+                  </p>
+                  {/* Bottom accent line draws on hover */}
+                  <span aria-hidden className="block h-px w-8 bg-rust mt-5 origin-left scale-x-100 group-hover:scale-x-[5] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]" />
                 </div>
-                <h3 className="font-display font-bold text-[17px] md:text-[19px] leading-[1.15] tracking-[-0.02em] text-ink mb-3">
-                  {t.title}
-                </h3>
-                <p className="text-[13.5px] leading-[1.65] text-graphite font-light">
-                  {t.body}
-                </p>
               </article>
             ))}
           </div>
