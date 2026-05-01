@@ -18,18 +18,31 @@ preventive medicine and anti-aging clinic with five centres nationwide.
 
 ## ✨ What's inside
 
-A premium single-page marketing site featuring:
+A premium multi-page marketing site featuring:
 
-- **Cinematic full-bleed hero** with autoplay video background, custom scroll indicator and floating contact pill
-- **Magazine-masthead floating header** with two-tier scroll behaviour, real-time scroll-progress bar, animated active-section indicator and a fullscreen mobile menu
-- **5 flagship programmes** (Longevity Plus · Metabolic & Diabetes · Gut Correction · Medical Weight Loss · Skin & Aesthetics) showcased as a smooth-glide stacking deck
-- **5-step "TAC Method" timeline** with a sticky cross-fading image and progress rail
-- **Real patient video testimonials** in an Infinite Cinema Marquee with sweeping projector lights and a fullscreen lightbox modal
-- **Compact 5-clinic directory** with featured Online card for pan-India consultations
-- **Premium dark footer** with social links and a big brand statement
+### Pages
+- **`/`** — Hero · Programs (stacking deck) · Press · Science Cards · Method timeline · Results · Editorial · Benefits · Video Testimonials · Clinics · Brochure CTA · Final CTA
+- **`/about`** — Founders, mission, specialist team, clinic interiors, by-the-numbers stats
+- **`/centres`** — Directory of 5 clinics with real per-clinic photos, online consultations, parallax gallery
+- **`/longevity-program`** — Anti-Aging Blueprint: 3-step process, lifestyle programmes, trust signals, FAQ, free-assessment CTA
+
+### UX & Motion
+- **Cinematic full-bleed hero videos** — single-clip on `/` and `/about`, three-clip cross-fading montage on `/centres` and `/longevity-program` (DNA → lab → clinic)
+- **Magazine-masthead floating header** — two-tier scroll behaviour, scroll-progress bar, animated active indicator, fullscreen mobile menu
+- **5 flagship programmes** showcased as a smooth-glide stacking deck (signature animation)
+- **5-step "TAC Method" timeline** with sticky cross-fading image and progress rail
+- **Real patient video testimonials** in an Infinite Cinema Marquee with sweeping projector lights and fullscreen lightbox
+- **Slim spec-pill chips** unified across all hero sections
 - **3-layer animated cursor** with shadow glow, lerp trail and hover scaling
 - **Lenis smooth scroll** + GSAP scroll-triggered reveals throughout
-- **Fully responsive** — mobile, tablet, and desktop verified
+- **Fully responsive** — mobile, tablet, desktop verified
+
+### SEO & accessibility
+- Per-page `<title>`, meta description, canonical URL via `useDocumentMeta()` hook
+- Site-wide JSON-LD `MedicalBusiness` with founders, services and 3 verified clinic locations
+- Per-page JSON-LD: `WebPage`, `AboutPage` + `Person` for founders, `MedicalClinic` per centre, `MedicalProcedure` for the longevity programme, **`FAQPage`** for rich-result snippets
+- `sitemap.xml` + `robots.txt`
+- Skip-to-content link, `<main>` landmark, focus-visible rings, ARIA labels on icon-only buttons, `prefers-reduced-motion` respected globally
 
 ---
 
