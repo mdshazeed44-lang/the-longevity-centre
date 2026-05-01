@@ -314,23 +314,24 @@ export function LongevityProgramPage() {
       })
     }
 
-    // Lifestyle cards — alternating slide in from left/right
+    // Lifestyle cards — fade-up + subtle scale stagger (suits 2x2 grid)
     const lifestyleCards = lifestyleRef.current?.querySelectorAll<HTMLElement>('.lifestyle-card')
-    lifestyleCards?.forEach((card, i) => {
-      const fromX = i % 2 === 0 ? -50 : 50
-      gsap.set(card, { x: fromX, opacity: 0 })
-      const t = gsap.to(card, {
-        x: 0,
+    if (lifestyleCards?.length) {
+      gsap.set(lifestyleCards, { y: 40, opacity: 0, scale: 0.97 })
+      const t = gsap.to(lifestyleCards, {
+        y: 0,
         opacity: 1,
-        duration: 1.1,
+        scale: 1,
+        duration: 1,
         ease: 'expo.out',
-        scrollTrigger: { trigger: card, start: 'top 82%' },
+        stagger: { each: 0.1, from: 'start' },
+        scrollTrigger: { trigger: lifestyleRef.current, start: 'top 80%' },
       })
       cleanups.push(() => {
         t.scrollTrigger?.kill()
         t.kill()
       })
-    })
+    }
 
     // Mood images — staggered scale-in reveal
     const moodTiles = moodRef.current?.querySelectorAll<HTMLElement>('.mood-tile')
@@ -726,56 +727,50 @@ export function LongevityProgramPage() {
             </h2>
           </div>
 
-          <div ref={lifestyleRef} className="space-y-10 md:space-y-14">
-            {LIFESTYLES.map((l, idx) => {
-              const reverse = idx % 2 === 1
-              return (
-                <article
-                  key={l.n}
-                  className="lifestyle-card grid md:grid-cols-[5fr_7fr] gap-6 md:gap-10 lg:gap-14 items-center"
-                  style={{ willChange: 'transform, opacity' }}
-                >
-                  {/* Image */}
-                  <div className={`relative aspect-square md:aspect-[4/5] rounded-[20px] overflow-hidden bg-mist group ${reverse ? 'md:order-2' : ''}`}>
-                    <img
-                      src={l.img}
-                      alt={l.title}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
-                    />
-                    <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)' }} />
-                    {/* Number badge */}
-                    <div className="absolute top-5 left-5 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
-                      <span className="font-display font-bold text-[13px] text-white tabular-nums tracking-tight">{l.n}</span>
-                    </div>
-                    <div className="absolute bottom-5 left-5 right-5 text-white">
-                      <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/70 font-semibold">For</div>
-                    </div>
+          <div ref={lifestyleRef} className="grid sm:grid-cols-2 gap-6 md:gap-8">
+            {LIFESTYLES.map((l) => (
+              <article
+                key={l.n}
+                className="lifestyle-card group relative flex flex-col"
+                style={{ willChange: 'transform, opacity' }}
+              >
+                {/* Image — compact landscape film-still */}
+                <div className="relative aspect-[5/4] rounded-[18px] overflow-hidden bg-mist">
+                  <img
+                    src={l.img}
+                    alt={l.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                  />
+                  <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%)' }} />
+                  {/* Number badge */}
+                  <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3 py-1">
+                    <span className="font-display font-bold text-[12px] text-white tabular-nums tracking-tight">{l.n}</span>
                   </div>
+                </div>
 
-                  {/* Content */}
-                  <div className={reverse ? 'md:order-1' : ''}>
-                    <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3 tabular-nums">
-                      {l.n} · For
-                    </div>
-                    <h3 className="font-display font-bold text-[26px] md:text-[36px] lg:text-[42px] leading-[1.0] tracking-[-0.025em] text-ink mb-5">
-                      {l.title}
-                    </h3>
-                    <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[520px] mb-6">
-                      {l.body}
-                    </p>
-                    <a
-                      href="#program-cta"
-                      data-cursor="hover"
-                      className="inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase font-semibold text-ink hover:text-rust transition-colors group"
-                    >
-                      Explore this path
-                      <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">→</span>
-                    </a>
+                {/* Content — beneath the image, magazine-card style */}
+                <div className="pt-5 md:pt-6">
+                  <div className="text-[10px] md:text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-2.5 tabular-nums">
+                    For
                   </div>
-                </article>
-              )
-            })}
+                  <h3 className="font-display font-bold text-[22px] md:text-[26px] leading-[1.1] tracking-[-0.02em] text-ink mb-3">
+                    {l.title}
+                  </h3>
+                  <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-5">
+                    {l.body}
+                  </p>
+                  <a
+                    href="#program-cta"
+                    data-cursor="hover"
+                    className="inline-flex items-center gap-2 text-[10.5px] md:text-[11px] tracking-[0.28em] uppercase font-semibold text-ink hover:text-rust transition-colors"
+                  >
+                    Explore this path
+                    <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">→</span>
+                  </a>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
