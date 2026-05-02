@@ -34,5 +34,6 @@ Thumbs.db
 *_raw.webm
 *_raw.mov
 
-# Reference PDFs (brand guides) — too large for git, kept locally in /docs only
-docs/*.pdf
+# Reference material — brand guides, brochures, extracted page renders.
+# All dev-only; never commit to repo. /docs is the local-only reference folder.
+docs/
