@@ -83,11 +83,17 @@ export function Header() {
         style={{ willChange: 'transform' }}
       >
         <div
-          className={`flex items-center gap-2 md:gap-3 px-2.5 md:px-4 py-2 md:py-3 rounded-full transition-all duration-500 max-w-[calc(100vw-1rem)] ${
+          className={`flex items-center gap-3 md:gap-5 px-3 md:px-5 py-2.5 md:py-3.5 rounded-full transition-all duration-500 max-w-[calc(100vw-1rem)] bg-ink ${
             scrolled
-              ? 'bg-ink/85 backdrop-blur-xl border border-white/15 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.5)]'
-              : 'bg-ink/70 backdrop-blur-md border border-white/10'
+              ? 'border border-white/12 shadow-[0_18px_40px_-20px_rgba(0,0,0,0.55)]'
+              : 'border border-white/8'
           }`}
+          style={{
+            // Etched bottom hairline — subtle architectural detail (no glass shine)
+            boxShadow: scrolled
+              ? '0 18px 40px -20px rgba(0,0,0,0.55), inset 0 -1px 0 rgba(255,255,255,0.04)'
+              : 'inset 0 -1px 0 rgba(255,255,255,0.04)',
+          }}
         >
           {/* Logo — clicks go to home from any page; smooth-scroll to top if already home */}
           <a
@@ -104,40 +110,36 @@ export function Header() {
               }
               // Otherwise let the browser navigate to "/" naturally
             }}
-            className="text-white pl-1.5 md:pl-2 pr-2 md:pr-4 md:border-r border-white/10 mr-0 md:mr-1"
+            className="text-white pl-1.5 md:pl-2 pr-2 md:pr-3"
             aria-label="The Anti-Aging Centre — home"
           >
             <Logo variant="light" />
           </a>
 
-          {/* Desktop nav — pill links with animated indicator */}
-          <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
+          {/* Desktop nav — minimal text-only with rust underline on hover */}
+          <nav className="hidden md:flex items-center gap-5 lg:gap-7" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 data-cursor="hover"
-                className="group relative px-4 py-2 text-[13px] tracking-tight font-medium text-white/80 hover:text-white transition-colors duration-300 rounded-full"
+                className="group relative py-1 text-[13px] tracking-[-0.005em] font-medium text-white/80 hover:text-white transition-colors duration-300"
               >
-                <span className="relative z-10">{item.label}</span>
+                <span className="relative">{item.label}</span>
                 <span
                   aria-hidden
-                  className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/10 transition-colors duration-500"
-                />
-                <span
-                  aria-hidden
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-1 h-1 rounded-full bg-rust-soft opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500"
+                  className="absolute left-0 right-0 -bottom-0.5 mx-auto h-px w-0 bg-rust-soft group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                 />
               </a>
             ))}
           </nav>
 
-          {/* Phone pill — visible on lg+ only (saves space) */}
+          {/* Phone — always visible from md+, plain link with phone icon */}
           <a
             href="tel:+918826809123"
             data-cursor="hover"
             aria-label="Call +91 88268 09123"
-            className="hidden lg:inline-flex items-center gap-2 px-4 py-2 ml-1 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-[12px] text-white/90 transition-colors duration-300"
+            className="hidden md:inline-flex items-center gap-2 ml-1 text-[12.5px] text-white/85 hover:text-white transition-colors duration-300 whitespace-nowrap"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft" aria-hidden="true" focusable="false">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -150,7 +152,7 @@ export function Header() {
             href="#cta"
             data-cursor="hover"
             data-magnetic
-            className="group inline-flex items-center gap-2 md:gap-2.5 pl-3 md:pl-4 pr-3.5 md:pr-5 py-2 md:py-2.5 ml-0.5 md:ml-1 rounded-full bg-white text-ink text-[11.5px] md:text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
+            className="group inline-flex items-center gap-2 md:gap-2.5 pl-3 md:pl-4 pr-3.5 md:pr-5 py-2 md:py-2.5 rounded-full bg-white text-ink text-[11.5px] md:text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
           >
             <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
