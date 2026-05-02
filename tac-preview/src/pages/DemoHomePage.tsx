@@ -1,31 +1,26 @@
-// DemoHomePage — TLC brand exact replica per the official brochure.
-// Route: /demo. Original homepage at / is untouched.
+// DemoHomePage — TLC web-native homepage at /demo.
+// Original / homepage untouched.
 //
-// Section order mirrors the 20-page brochure (TLC_Brochure_1.pdf):
-//   1  Hero (Cover)
-//   2  Who We Are
-//   3  The Science of Cellular Aging
-//   4  Why Longevity Medicine
-//   5  A Word From Our Founders
-//   6  Our Mission · Our Philosophy
-//   7  Our Team — 4-quadrant layout, 9 doctors
-//   8  Why Our Diagnostics Are Different — 6 categories (expandable)
-//   9  How Old Is Your Biology — 3 clocks
-//  10  Our European Partnership (Netherlands lab)
-//  11  The TLC App
-//  12  Testimonials — 6 cards, colour-coded by programme
-//  13  Brand Ambassador — Milind Soman
-//  14  Our Programmes — 6 cards
-//  15  Final CTA / Contact
+// Brief: capture the BRAND LANGUAGE of the official TLC brochure
+// (palette, typography, mood, photography) but design WEB-NATIVE sections.
+// Brochure pages are print magazine layouts; one-to-one translation
+// produces clutter. This version takes only the language and arranges
+// it into a confident editorial flow.
 //
-// Brand palette pulled directly from brochure:
-//   - cream / nougat (warm beige)
-//   - rust (#945455) — primary accent
-//   - green (#323C31) — Tropical Green panels
-//   - iguana (#A19B7B) — olive panels
+// References: Loro Piana, Aesop, Hermès, Forward Health.
 //
-// Code follows existing site patterns (Cabinet Grotesk, line-mask reveals,
-// GSAP entrance animations, reduceMotion respect).
+// Section flow (story arc):
+//   01  HERO          — Single bold provocation
+//   02  MANIFESTO     — Full-bleed dark conviction band
+//   03  CLOCKS        — Three biological age clocks, type-led stat moment
+//   04  DIAGNOSTICS   — Large interactive accordion explorer
+//   05  PROGRAMS      — Six programs as a horizontal editorial deck
+//   06  METHOD        — Three principles, sticky reveal
+//   07  THE TLC APP   — Full-bleed dark moment with phone
+//   08  TESTIMONIALS  — Six patient stories with verified outcomes
+//   09  TEAM          — Nine doctors as an elegant grid
+//   10  AMBASSADOR    — Single cinematic Milind Soman moment
+//   11  FINAL CTA     — Minimal closing invitation
 
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
@@ -35,118 +30,167 @@ import { useDocumentMeta } from '../lib/seo'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ----- Section 1 — HERO (Cover) ----------------------------------------------
-function HeroCover() {
+// =============================================================================
+// SECTION 01 — HERO
+// =============================================================================
+// One image. One thin oversized headline. One eyebrow. One locations strip.
+// Letterspacing-opening tagline reveal (Loro Piana signature).
+// =============================================================================
+
+function Hero() {
   const root = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
     const el = root.current
     if (!el) return
-    const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
-    gsap.set(lines, { yPercent: 110 })
-    const tl = gsap.timeline({ delay: 0.3 })
-    tl.to(lines, { yPercent: 0, duration: 1.3, ease: 'expo.out', stagger: 0.08 })
-    gsap.fromTo(
-      el.querySelectorAll('.hero-fade'),
-      { opacity: 0, y: 12 },
-      { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out', stagger: 0.12, delay: 0.6 }
-    )
+
+    gsap.set(el.querySelectorAll('.hero-fade'), { opacity: 0, y: 16 })
+    gsap.set(el.querySelectorAll('.hero-letter'), {
+      opacity: 0,
+      letterSpacing: '0.08em',
+    })
+    gsap.set(el.querySelectorAll('.hero-line > span'), { yPercent: 110 })
+
+    const tl = gsap.timeline({ delay: 0.45 })
+    tl.to(el.querySelectorAll('.hero-fade.eyebrow'), {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+    })
+      .to(
+        el.querySelectorAll('.hero-line > span'),
+        { yPercent: 0, duration: 1.4, ease: 'expo.out', stagger: 0.1 },
+        '-=0.4'
+      )
+      .to(
+        el.querySelectorAll('.hero-letter'),
+        {
+          opacity: 1,
+          letterSpacing: '0.46em',
+          duration: 1.6,
+          ease: 'expo.out',
+          stagger: 0.018,
+        },
+        '-=0.6'
+      )
+      .to(
+        el.querySelectorAll('.hero-fade.locations'),
+        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+        '-=0.9'
+      )
+      .to(
+        el.querySelectorAll('.hero-fade.cta'),
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.1,
+        },
+        '-=0.7'
+      )
   }, [])
+
+  const TAGLINE = 'PRECISION LONGEVITY MEDICINE'
 
   return (
     <section
       ref={root}
-      className="relative min-h-[100vh] overflow-hidden flex items-center"
-      style={{ backgroundColor: '#EDE5D6' }}
+      className="relative min-h-[100vh] w-full overflow-hidden flex items-center justify-center text-ink"
+      style={{ backgroundColor: '#EAE0CC' }}
     >
-      {/* Cream sculpture background — fills the hero */}
+      {/* Cinematic cover sculpture — full bleed, no overlay clutter */}
       <img
         src="/tlc-demo/page-cover.jpg"
         alt=""
         aria-hidden
-        className="absolute inset-0 w-full h-full object-cover opacity-95"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: 'center' }}
       />
-      {/* Subtle warm overlay so text reads cleanly */}
+      {/* Soft warm vignette + bottom fade so type rests on imagery */}
       <div
         aria-hidden
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(237,229,214,0.0) 30%, rgba(237,229,214,0.55) 75%, rgba(237,229,214,0.85) 100%)',
+            'radial-gradient(circle at 50% 40%, rgba(234,224,204,0) 30%, rgba(234,224,204,0.45) 100%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-1/3"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(234,224,204,0) 0%, rgba(234,224,204,0.85) 100%)',
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 md:px-12 lg:px-20 pt-28 pb-12 md:pt-32 md:pb-16">
-        {/* Eyebrow — Precision Longevity Medicine */}
-        <div className="hero-fade mb-8 md:mb-12 text-center">
-          <span className="text-[11px] md:text-[13px] tracking-[0.5em] uppercase text-graphite font-medium">
-            Precision Longevity Medicine
-          </span>
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 py-32 md:py-36 flex flex-col items-center text-center">
+        {/* Tiny eyebrow — Loro-Piana letter-tracked */}
+        <div className="hero-fade eyebrow mb-12 md:mb-16 flex justify-center overflow-hidden">
+          {Array.from(TAGLINE).map((c, i) => (
+            <span
+              key={i}
+              className="hero-letter inline-block text-[10px] md:text-[11px] uppercase text-graphite font-medium"
+              style={{ willChange: 'opacity, letter-spacing' }}
+            >
+              {c === ' ' ? ' ' : c}
+            </span>
+          ))}
         </div>
 
-        {/* Wordmark — TLC THE LONGEVITY CENTRE */}
-        <div className="hero-fade mb-10 md:mb-14 text-center">
-          <div className="inline-flex flex-col items-center gap-1.5">
-            <div className="font-display font-bold text-[26px] md:text-[34px] leading-none tracking-[0.2em] text-ink">
-              TLC
-            </div>
-            <div className="text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-graphite font-medium">
-              The Longevity Centre
-            </div>
-          </div>
-        </div>
-
-        {/* Headline — masked-line reveal */}
-        <h1 className="font-display font-bold text-center leading-[1.05] tracking-[-0.025em] text-ink mb-12 md:mb-14">
-          <span className="block text-[40px] sm:text-[58px] md:text-[78px] xl:text-[96px]">
-            <span className="line-mask">
-              <span>Age Is A Number.</span>
+        {/* MASSIVE THIN HEADLINE — confident, restrained */}
+        <h1 className="font-display text-ink mb-12 md:mb-14 leading-[0.96] tracking-[-0.04em]">
+          <span className="block text-[44px] sm:text-[68px] md:text-[92px] xl:text-[120px] font-light">
+            <span className="hero-line inline-block overflow-hidden align-bottom">
+              <span className="inline-block">Age Is A Number.</span>
             </span>
           </span>
-          <span className="block text-[28px] sm:text-[36px] md:text-[48px] xl:text-[56px] mt-2 md:mt-3 font-medium text-graphite">
-            <span className="line-mask">
-              <span>Your Biology Doesn't Have To Match It.</span>
+          <span className="block text-[28px] sm:text-[40px] md:text-[56px] xl:text-[72px] font-bold mt-2 md:mt-4 text-rust">
+            <span className="hero-line inline-block overflow-hidden align-bottom">
+              <span className="inline-block">Your biology doesn't have to be.</span>
             </span>
           </span>
         </h1>
 
         {/* Sub eyebrow */}
-        <div className="hero-fade text-center mb-10 md:mb-14">
-          <span className="text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase text-rust font-semibold">
-            India's First Doctor-Led Personalised Longevity Program
+        <div className="hero-fade locations text-center mb-10 md:mb-14">
+          <span className="text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-graphite/85 font-medium">
+            India's First Doctor-Led Personalised Longevity Programme
           </span>
         </div>
 
-        {/* Locations strip */}
-        <div className="hero-fade text-center">
-          <div className="text-[12px] md:text-[14px] tracking-[0.18em] uppercase text-graphite font-medium">
-            Delhi <span className="text-rust mx-2">·</span> Gurugram{' '}
-            <span className="text-rust mx-2">·</span> Pune{' '}
-            <span className="text-rust mx-2">·</span> Mumbai{' '}
-            <span className="text-rust mx-2">·</span> Goa{' '}
-            <span className="text-rust mx-2">·</span> Bengaluru
+        {/* Locations as a thin elegant strip */}
+        <div className="hero-fade locations text-center mb-14 md:mb-16">
+          <div className="text-[11px] md:text-[12px] tracking-[0.4em] uppercase text-graphite/70 font-medium">
+            Delhi <span className="mx-2 text-rust">·</span> Gurugram{' '}
+            <span className="mx-2 text-rust">·</span> Pune{' '}
+            <span className="mx-2 text-rust">·</span> Mumbai{' '}
+            <span className="mx-2 text-rust">·</span> Goa{' '}
+            <span className="mx-2 text-rust">·</span> Bengaluru
           </div>
         </div>
 
-        {/* CTA pills */}
-        <div className="hero-fade mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-3">
+        {/* CTAs — minimal pair */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <a
             href="#contact"
             data-cursor="hover"
-            className="group inline-flex items-center gap-2.5 pl-5 pr-6 py-3.5 bg-ink text-white rounded-full text-[12px] tracking-[0.2em] uppercase font-semibold hover:bg-rust transition-colors duration-500"
+            className="hero-fade cta group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-ink text-white rounded-full text-[11.5px] tracking-[0.22em] uppercase font-semibold hover:bg-rust transition-colors duration-700"
           >
-            <span className="relative flex h-2 w-2" aria-hidden>
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+            <span className="relative flex h-1.5 w-1.5" aria-hidden>
+              <span className="absolute inline-flex h-full w-full rounded-full bg-rust-soft opacity-70 animate-ping" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rust-soft" />
             </span>
-            Book Initial Consultation
+            Begin Your Journey
             <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-0.5">→</span>
           </a>
           <a
-            href="#programmes"
+            href="#programs"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-5 py-3.5 border border-ink/25 text-ink rounded-full text-[12px] tracking-[0.2em] uppercase font-semibold hover:bg-ink hover:text-white transition-colors duration-500"
+            className="hero-fade cta inline-flex items-center gap-2 px-6 py-4 text-ink rounded-full text-[11.5px] tracking-[0.22em] uppercase font-semibold border border-ink/15 hover:bg-ink hover:text-white transition-colors duration-700"
           >
             Explore Programmes
           </a>
@@ -156,8 +200,13 @@ function HeroCover() {
   )
 }
 
-// ----- Section 2 — WHO WE ARE ------------------------------------------------
-function WhoWeAre() {
+// =============================================================================
+// SECTION 02 — MANIFESTO
+// =============================================================================
+// Single dark band. One conviction. No images. Pure type.
+// =============================================================================
+
+function Manifesto() {
   const root = useRef<HTMLElement>(null)
   useEffect(() => {
     if (reduceMotion()) return
@@ -167,230 +216,350 @@ function WhoWeAre() {
     gsap.set(lines, { yPercent: 110 })
     gsap.to(lines, {
       yPercent: 0,
-      duration: 1.1,
-      ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 80%' },
-    })
-    const stats = el.querySelectorAll<HTMLElement>('.stat-circle')
-    gsap.set(stats, { scale: 0.8, opacity: 0 })
-    gsap.to(stats, {
-      scale: 1,
-      opacity: 1,
-      duration: 0.9,
+      duration: 1.4,
       ease: 'expo.out',
       stagger: 0.1,
-      scrollTrigger: { trigger: stats[0], start: 'top 85%' },
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 16 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 70%' },
     })
   }, [])
 
-  const STATS = [
-    { v: '20+', l: 'Years Experience', bg: 'bg-rust', text: 'text-white' },
-    { v: '1000+', l: 'Biomarkers', bg: 'bg-iguana', text: 'text-ink' },
-    { v: '06', l: 'Programmes', bg: 'bg-rust', text: 'text-white' },
-    { v: '06', l: 'Centres', bg: 'bg-iguana', text: 'text-ink' },
+  return (
+    <section
+      ref={root}
+      className="relative bg-green text-white py-32 md:py-44 px-6 md:px-12 overflow-hidden"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background:
+            'radial-gradient(800px 600px at 80% 20%, rgba(178,122,123,0.12), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(161,155,123,0.08), transparent 60%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1180px] mx-auto">
+        <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-10 md:mb-12 text-center">
+          — Our Conviction —
+        </div>
+
+        <h2 className="font-display font-light text-center leading-[1.05] tracking-[-0.03em] mb-14 md:mb-20">
+          <span className="block text-[40px] sm:text-[58px] md:text-[78px] xl:text-[92px]">
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block">Treat the biology.</span>
+            </span>
+          </span>
+          <span className="block text-[40px] sm:text-[58px] md:text-[78px] xl:text-[92px] font-bold text-rust-soft">
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block">Not the symptom.</span>
+            </span>
+          </span>
+        </h2>
+
+        <div className="fade-up max-w-[640px] mx-auto text-center">
+          <p className="text-[15px] md:text-[17px] leading-[1.75] text-white/80 font-light">
+            Modern medicine waits for disease to declare itself. The biology of illness, however, begins years — sometimes decades — earlier. We meet you in those years, before the diagnosis, when the trajectory can still be read, understood, and changed.
+          </p>
+          <div className="h-px w-16 bg-rust-soft mx-auto mt-12" />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// SECTION 03 — THE THREE BIOLOGICAL AGE CLOCKS
+// =============================================================================
+// Type-led stat moment. Three big numerals + small descriptions.
+// Counter animation on scroll.
+// =============================================================================
+
+function Clocks() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 24 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.1,
+      ease: 'expo.out',
+      stagger: 0.12,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+    const numbers = el.querySelectorAll<HTMLElement>('.clock-num')
+    numbers.forEach((n) => {
+      const target = parseInt(n.dataset.target || '0', 10)
+      const obj = { v: 0 }
+      gsap.to(obj, {
+        v: target,
+        duration: 1.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 70%' },
+        onUpdate: () => {
+          n.textContent = String(Math.round(obj.v))
+        },
+      })
+    })
+  }, [])
+
+  const CLOCKS = [
+    {
+      tag: 'Blood Biological Age',
+      n: 160,
+      suffix: '+',
+      label: 'biomarkers',
+      body: 'Comprehensive metabolic, hormonal, inflammatory, and organ-function blood panel — the functional age of your systemic health.',
+    },
+    {
+      tag: 'Epigenetic Age',
+      n: 9,
+      suffix: 'M',
+      label: 'base pairs',
+      body: 'GrimAge + PhenoAge methylation analysis — the most validated predictor of healthspan and lifespan in clinical medicine.',
+    },
+    {
+      tag: 'Gut Age',
+      n: 38,
+      suffix: 'T',
+      label: 'microbes',
+      body: 'Whole-genomic sequencing of every microbial species — gut age is an independent predictor of systemic inflammation and immunity.',
+    },
   ]
 
   return (
-    <section ref={root} className="grid md:grid-cols-2 min-h-[80vh]">
-      {/* LEFT — DNA imagery + brand voice quote */}
-      <div className="relative bg-ink text-white px-6 md:px-12 lg:px-16 py-16 md:py-24 flex items-center overflow-hidden">
-        <img
-          src="/tlc-demo/page-who-we-are.jpg"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-          style={{ objectPosition: 'left center' }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(20,15,12,0.7) 0%, rgba(20,15,12,0.35) 100%)' }}
-        />
-        <div className="relative z-10 max-w-[480px]">
-          <h2 className="font-display font-bold text-[34px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.025em]">
-            <span className="line-mask"><span>A sanctuary where</span></span>
+    <section
+      ref={root}
+      className="py-24 md:py-36 px-6 md:px-12"
+      style={{ backgroundColor: '#EAE0CC' }}
+    >
+      <div className="max-w-[1280px] mx-auto">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            Three Biological Age Clocks
+          </div>
+          <h2 className="fade-up font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
+            Chronological age is fixed.
             <br />
-            <span className="line-mask"><span>science meets serenity.</span></span>
+            <span className="font-bold text-rust">Biological age is not.</span>
           </h2>
         </div>
+
+        <div className="grid md:grid-cols-3 gap-12 md:gap-8 mt-20">
+          {CLOCKS.map((c, i) => (
+            <div key={c.tag} className="fade-up text-center md:text-left">
+              <div className="text-[10px] tracking-[0.32em] uppercase text-rust/70 font-semibold tabular-nums mb-4">
+                0{i + 1}
+              </div>
+              <div className="font-display font-light text-[80px] md:text-[100px] xl:text-[120px] leading-[0.9] tracking-[-0.05em] text-ink tabular-nums">
+                <span className="clock-num" data-target={c.n}>0</span>
+                <span className="text-rust">{c.suffix}</span>
+              </div>
+              <div className="text-[11px] tracking-[0.32em] uppercase text-graphite/70 font-medium mt-1 mb-6">
+                {c.label}
+              </div>
+              <div className="font-display font-bold text-[18px] md:text-[20px] tracking-tight text-ink mb-3">
+                {c.tag}
+              </div>
+              <p className="text-[14px] md:text-[14.5px] leading-[1.65] text-graphite font-light max-w-[320px] mx-auto md:mx-0">
+                {c.body}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
+    </section>
+  )
+}
 
-      {/* RIGHT — cream content panel */}
-      <div className="relative px-6 md:px-12 lg:px-16 py-16 md:py-24 flex flex-col justify-center" style={{ backgroundColor: '#EDE5D6' }}>
-        <div className="max-w-[520px]">
-          <h3 className="font-display font-bold text-[32px] md:text-[40px] tracking-[-0.025em] text-rust mb-6">
-            Who We Are
-          </h3>
-          <p className="text-[15px] md:text-[16px] leading-[1.65] text-graphite font-light mb-5">
-            TLC is India's premier longevity and metabolic medicine clinic — a precision medicine center where every protocol begins with diagnostics and every program is built around one patient: you.
+// =============================================================================
+// SECTION 04 — DIAGNOSTICS EXPLORER
+// =============================================================================
+// Elegant accordion. Hidden by default, opens on click (per client brief).
+// Cream BG, single moment per row, generous spacing.
+// =============================================================================
+
+function Diagnostics() {
+  const [open, setOpen] = useState<number | null>(0)
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 20 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'expo.out',
+      stagger: 0.05,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+  }, [])
+
+  const D = [
+    {
+      n: '01',
+      title: 'Blood Biomarkers',
+      tag: '160+ Markers · Home Collection',
+      body: 'A comprehensive panel spanning metabolic health, hormonal balance, inflammation, cardiovascular risk, and organ function. The most complete baseline picture of your internal biology.',
+    },
+    {
+      n: '02',
+      title: 'Body Composition Analysis',
+      tag: 'BCA · Segmental Mapping',
+      body: 'Fat mass, lean muscle, visceral fat, and hydration measured at the segmental level. Tracked progressively across your programme — your body\'s true composition, mapped over time.',
+    },
+    {
+      n: '03',
+      title: 'Oligoscan — Cell Scan',
+      tag: 'Spectrophotometric · No Needle',
+      body: 'A non-invasive scan measuring intracellular mineral concentrations and heavy metal burden in real time. Reveals cellular-level deficiencies and toxicities that standard panels miss entirely.',
+    },
+    {
+      n: '04',
+      title: 'Epigenetic Age',
+      tag: 'GrimAge + PhenoAge',
+      body: 'DNA methylation analysed across 9 million base pairs using the gold-standard GrimAge clock — the most accurate predictor of biological age and mortality risk in clinical medicine.',
+    },
+    {
+      n: '05',
+      title: 'Genetic Testing',
+      tag: '323 Genes & SNPs',
+      body: 'Your permanent genetic blueprint — 323 genes governing metabolism, hormonal pathways, cardiovascular risk, and longevity. Most clinics test fewer than 99. We test the full picture.',
+    },
+    {
+      n: '06',
+      title: 'Gut Microbiome',
+      tag: 'Whole Genomic Sequencing',
+      body: 'Every microbial species mapped — diversity index, compromised pathways, imbalanced species, inflammation markers. Most clinics use partial 16S rRNA. We do the complete genomic read.',
+    },
+  ]
+
+  return (
+    <section
+      ref={root}
+      id="diagnostics"
+      className="py-24 md:py-36 px-6 md:px-12"
+      style={{ backgroundColor: '#EAE0CC' }}
+    >
+      <div className="max-w-[1180px] mx-auto">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            — Our Diagnostics —
+          </div>
+          <h2 className="fade-up font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
+            We don't just test.
+            <br />
+            <span className="font-bold text-rust">We decode your biology.</span>
+          </h2>
+          <p className="fade-up text-[14px] md:text-[15px] text-graphite font-light leading-[1.7] max-w-[540px] mx-auto mt-8">
+            Six diagnostic domains, used together — to give you a picture of your health that standard medicine cannot access.
           </p>
-          <p className="text-[15px] md:text-[16px] leading-[1.65] text-graphite font-light mb-10">
-            Our physicians bring together expertise in endocrinology, metabolic medicine, gut health, regenerative science, and anti-aging — each with more than 20 years of clinical experience.
-          </p>
+        </div>
 
-          <div className="h-px w-full bg-iguana/60 mb-8" />
-
-          {/* Stats — alternating rust/iguana circles */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-5">
-            {STATS.map((s) => (
-              <div key={s.l} className="stat-circle flex flex-col items-center text-center">
-                <div className={`${s.bg} ${s.text} w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center font-display font-bold text-[18px] md:text-[22px] tracking-tight tabular-nums shadow-[0_18px_30px_-15px_rgba(27,26,24,0.25)]`}>
-                  {s.v}
-                </div>
-                <div className="mt-3 text-[9px] md:text-[10px] tracking-[0.28em] uppercase text-rust font-semibold">
-                  {s.l}
+        {/* Elegant accordion list */}
+        <div className="border-t border-ink/12">
+          {D.map((d, i) => {
+            const isOpen = open === i
+            return (
+              <div key={d.n} className="fade-up border-b border-ink/12">
+                <button
+                  type="button"
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="group w-full flex items-baseline justify-between gap-6 py-7 md:py-9 text-left hover:opacity-80 transition-opacity duration-500"
+                >
+                  <div className="flex items-baseline gap-6 md:gap-10 flex-1 min-w-0">
+                    <span className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust font-semibold tabular-nums shrink-0">
+                      {d.n}
+                    </span>
+                    <h3 className="font-display font-light text-[24px] sm:text-[32px] md:text-[42px] tracking-[-0.025em] text-ink leading-none">
+                      {d.title}
+                    </h3>
+                  </div>
+                  <span
+                    aria-hidden
+                    className={`text-[24px] md:text-[28px] leading-none text-rust transition-transform duration-700 shrink-0 ${
+                      isOpen ? 'rotate-45' : 'rotate-0'
+                    }`}
+                  >
+                    +
+                  </span>
+                </button>
+                <div
+                  className="grid transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-9 md:pb-12 pl-[60px] md:pl-[120px] pr-12 max-w-[840px]">
+                      <div className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust/70 font-semibold mb-4">
+                        {d.tag}
+                      </div>
+                      <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite font-light">
+                        {d.body}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            ))}
+            )
+          })}
+        </div>
+
+        {/* Lab partnership callout */}
+        <div className="fade-up mt-20 md:mt-24 max-w-[680px] mx-auto text-center">
+          <div className="text-[10px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
+            European Partnership
           </div>
+          <p className="font-display font-light text-[20px] md:text-[26px] leading-[1.4] tracking-[-0.015em] text-ink">
+            Our most advanced diagnostics are processed at a specialist laboratory in <span className="font-bold">the Netherlands</span> — gold-standard testing delivered from one of Europe's foremost centres for genomic and epigenomic science.
+          </p>
         </div>
       </div>
     </section>
   )
 }
 
-// ----- Section 3 — THE SCIENCE OF CELLULAR AGING -----------------------------
-function CellularAging() {
+// =============================================================================
+// SECTION 05 — PROGRAMMES (six)
+// =============================================================================
+// Editorial cards in a 2x3 grid. Generous breathing room. Each card big.
+// Pricing visible.
+// =============================================================================
+
+function Programmes() {
   const root = useRef<HTMLElement>(null)
+
   useEffect(() => {
     if (reduceMotion()) return
     const el = root.current
     if (!el) return
-    const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
-    gsap.set(lines, { yPercent: 110 })
-    gsap.to(lines, {
-      yPercent: 0,
-      duration: 1.1,
+    const cards = el.querySelectorAll<HTMLElement>('.prog-card')
+    gsap.set(cards, { opacity: 0, y: 30 })
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
       ease: 'expo.out',
       stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 80%' },
+      scrollTrigger: { trigger: el, start: 'top 75%' },
     })
-  }, [])
-
-  return (
-    <section ref={root} className="grid md:grid-cols-2 min-h-[70vh]">
-      {/* LEFT — forest green content */}
-      <div className="bg-green text-white px-6 md:px-12 lg:px-16 py-16 md:py-20 flex items-center">
-        <div className="max-w-[480px]">
-          <div className="h-px w-16 bg-iguana/70 mb-8" />
-          <h2 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-6">
-            <span className="line-mask"><span>The Science of</span></span>
-            <br />
-            <span className="line-mask"><span>Cellular Aging</span></span>
-          </h2>
-          <p className="text-[14.5px] md:text-[15px] leading-[1.65] text-white/85 font-light">
-            Aging begins at the cellular level, where molecular damage accumulates over time. Key processes include telomere shortening with each cell division, genomic instability, loss of protein quality control, and mitochondrial dysfunction. These changes trigger cellular senescence — when cells stop dividing and release inflammatory signals that accelerate aging.
-          </p>
-          <div className="h-px w-16 bg-iguana/70 mt-10" />
-        </div>
-      </div>
-
-      {/* RIGHT — bubbles imagery + overlay quote */}
-      <div className="relative overflow-hidden bg-graphite">
-        <img
-          src="/tlc-demo/page-cellular-aging.jpg"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'right center' }}
-        />
-        <div className="relative z-10 px-6 md:px-12 lg:px-14 py-16 md:py-20 flex items-center min-h-[70vh]">
-          <div className="max-w-[480px]">
-            <p className="font-display font-bold text-[24px] md:text-[32px] lg:text-[38px] leading-[1.15] tracking-[-0.02em] text-white">
-              At TLC, we measure and target these cellular mechanisms — using advanced diagnostics and interventions to restore cellular health and extend your healthspan.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 4 — WHY LONGEVITY MEDICINE ------------------------------------
-function WhyLongevityMedicine() {
-  const root = useRef<HTMLElement>(null)
-  useEffect(() => {
-    if (reduceMotion()) return
-    const el = root.current
-    if (!el) return
-    const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
-    gsap.set(lines, { yPercent: 110 })
-    gsap.to(lines, {
-      yPercent: 0,
-      duration: 1.1,
-      ease: 'expo.out',
-      stagger: 0.08,
-      scrollTrigger: { trigger: el, start: 'top 80%' },
-    })
-  }, [])
-
-  return (
-    <section ref={root} className="grid md:grid-cols-2 min-h-[70vh]" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — circular text overlaid on imagery grid (per page 7) */}
-      <div className="relative overflow-hidden bg-ink min-h-[400px] md:min-h-[600px]">
-        <img
-          src="/tlc-demo/page-why-longevity.jpg"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'left center' }}
-        />
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div
-            className="font-display font-bold text-white text-[14px] md:text-[18px] tracking-[0.18em] uppercase"
-            style={{
-              animation: 'tac-spin-slow 50s linear infinite',
-            }}
-          >
-            <svg viewBox="0 0 400 400" className="w-[280px] md:w-[340px] h-[280px] md:h-[340px]">
-              <defs>
-                <path id="circular-path" d="M 200,200 m -160,0 a 160,160 0 1,1 320,0 a 160,160 0 1,1 -320,0" />
-              </defs>
-              <text fill="currentColor" fontSize="22" fontWeight="700" letterSpacing="3">
-                <textPath href="#circular-path" startOffset="0">
-                  AGING IS A PROCESS · WE CAN REWRITE IT · AGING IS A PROCESS · WE CAN REWRITE IT ·
-                </textPath>
-              </text>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT — content */}
-      <div className="px-6 md:px-12 lg:px-16 py-16 md:py-20 flex items-center">
-        <div className="max-w-[520px]">
-          <h2 className="font-display font-bold text-[32px] md:text-[40px] tracking-[-0.025em] text-rust mb-7">
-            Why Longevity Medicine
-          </h2>
-          <p className="text-[15px] md:text-[16px] leading-[1.65] text-graphite font-light mb-6">
-            <strong className="font-semibold text-ink">Your biological age</strong> — how old your cells and metabolism actually are — can differ significantly from your chronological age. And unlike your birth year, it can be changed.
-          </p>
-          <p className="text-[15px] md:text-[16px] leading-[1.65] text-graphite font-light mb-8">
-            At TLC, we measure biological age across three validated clocks, identify what is accelerating your aging, and intervene with precision medicine to reverse it.
-          </p>
-          <div className="h-px w-full bg-iguana/60 mb-6" />
-          <div className="space-y-2 text-[14px] md:text-[15px] text-ink">
-            <div><strong className="text-rust font-semibold">Chronological Age:</strong> <span className="text-graphite">Fixed.</span></div>
-            <div><strong className="text-rust font-semibold">Biological Age:</strong> <span className="text-graphite">Measurable, Modifiable, Reducible.</span></div>
-          </div>
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes tac-spin-slow { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
-      `}</style>
-    </section>
-  )
-}
-
-// ----- Section 5 — A WORD FROM OUR FOUNDERS ----------------------------------
-function FoundersWord() {
-  const root = useRef<HTMLElement>(null)
-  useEffect(() => {
-    if (reduceMotion()) return
-    const el = root.current
-    if (!el) return
     const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
     gsap.set(lines, { yPercent: 110 })
     gsap.to(lines, {
@@ -402,582 +571,521 @@ function FoundersWord() {
     })
   }, [])
 
-  return (
-    <section ref={root} className="grid md:grid-cols-2" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — quote */}
-      <div className="px-6 md:px-12 lg:px-16 py-16 md:py-24 flex items-center">
-        <div className="max-w-[520px]">
-          <h2 className="font-display font-bold text-[32px] md:text-[40px] tracking-[-0.025em] text-rust mb-8">
-            A Word From Our Founders
-          </h2>
-          <p className="font-semibold text-[15px] md:text-[16px] text-ink mb-5 leading-[1.55]">
-            We founded TLC with one conviction: that modern medicine arrives too late.
-          </p>
-          <p className="text-[14.5px] md:text-[15px] leading-[1.65] text-graphite font-light mb-4">
-            We wait for disease to declare itself — and then we treat it. But the biology of illness begins years, sometimes decades, before any symptom appears. By then, precious time has already been lost.
-          </p>
-          <p className="text-[14.5px] md:text-[15px] leading-[1.65] text-graphite font-light mb-4">
-            We wanted to build something different. A place where science meets you before disease does. Where your biology is read in full — at the genetic, cellular, and microbial level — and where the finest tools of longevity medicine are used not to manage decline, but to prevent it entirely.
-          </p>
-          <p className="font-semibold text-[14.5px] md:text-[15px] text-ink leading-[1.6]">
-            At TLC, we do not treat patients. We partner with individuals who have decided that aging on their own terms is not a luxury — it is a right. That conviction is the foundation of everything we do.
-          </p>
-          <div className="h-px w-20 bg-iguana mt-10 mb-5" />
-          <div className="text-[13px] md:text-[14px] text-rust font-semibold tracking-tight">
-            Dr. Abhinav Sharma <span className="text-graphite/70 mx-2">&</span> Dr. Bhavna Sharma
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT — founders photo + headline */}
-      <div className="relative bg-graphite overflow-hidden min-h-[400px] md:min-h-full">
-        <img
-          src="/tlc-demo/page-founders.jpg"
-          alt="Dr. Abhinav Sharma and Dr. Bhavna Sharma"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'right center' }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.85) 100%)' }}
-        />
-        <div className="relative z-10 h-full min-h-[400px] md:min-h-full flex items-end px-6 md:px-12 lg:px-14 py-12">
-          <h3 className="font-display font-bold text-[28px] md:text-[40px] lg:text-[48px] leading-[1.1] tracking-[-0.025em] text-white">
-            <span className="line-mask"><span>The Best Years of Your Life</span></span>
-            <br />
-            <span className="line-mask"><span>Should Still Be Ahead of You.</span></span>
-          </h3>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 6 — OUR MISSION + OUR PHILOSOPHY ------------------------------
-function MissionPhilosophy() {
-  return (
-    <section className="grid md:grid-cols-2 min-h-[70vh]">
-      {/* LEFT — Mission with rust overlay */}
-      <div className="relative overflow-hidden bg-rust">
-        <div
-          aria-hidden
-          className="absolute inset-0 mix-blend-multiply opacity-90"
-          style={{ background: '#945455' }}
-        />
-        <div className="relative z-10 px-6 md:px-12 lg:px-14 py-16 md:py-20 text-white min-h-[70vh] flex flex-col justify-center">
-          <div className="text-[10.5px] tracking-[0.32em] uppercase text-white/80 font-semibold mb-3">
-            Our Mission
-          </div>
-          <div className="h-px w-20 bg-white/40 mb-8" />
-          <h2 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-7">
-            To Help You Live Well — All The Way To One Hundred.
-          </h2>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/85 font-light mb-4">
-            In some parts of the world, living to one hundred isn't exceptional. It's ordinary.
-          </p>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/85 font-light mb-4">
-            The Blue Zones — Sardinia, Okinawa, Ikaria, Loma Linda, Nicoya — have the highest concentrations of centenarians. They don't get there by chance, but through ways of living that keep their biology young.
-          </p>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/95 font-medium mb-3">
-            At TLC, our mission is to bring that possibility to you — through science, not luck.
-          </p>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/95 font-semibold">
-            Not just more years. A well-lived hundred.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT — Philosophy with iguana/olive overlay */}
-      <div className="relative overflow-hidden bg-iguana">
-        <div className="relative z-10 px-6 md:px-12 lg:px-14 py-16 md:py-20 text-white min-h-[70vh] flex flex-col justify-center">
-          <div className="text-[10.5px] tracking-[0.32em] uppercase text-white/80 font-semibold mb-3">
-            Our Philosophy
-          </div>
-          <div className="h-px w-20 bg-white/40 mb-8" />
-          <h2 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] mb-7">
-            Treat the Biology. Not the Symptom.
-          </h2>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/85 font-light mb-6">
-            We don't believe in waiting. At TLC, the most powerful moment in medicine isn't the diagnosis — it's the years before, when disease can still be read, understood, and changed at its source.
-          </p>
-
-          <div className="space-y-4">
-            <div>
-              <div className="font-semibold text-[14px] md:text-[15px] text-white mb-1">Measure first</div>
-              <div className="text-[13.5px] text-white/80 leading-[1.55] font-light">Nothing is assumed. Everything is tested — across genetic, epigenetic, cellular, gut, and metabolic levels.</div>
-            </div>
-            <div>
-              <div className="font-semibold text-[14px] md:text-[15px] text-white mb-1">Personalise completely</div>
-              <div className="text-[13.5px] text-white/80 leading-[1.55] font-light">Your biology is unique. Your program — diagnostics, protocol, nutrition, tracking — is built entirely around you.</div>
-            </div>
-            <div>
-              <div className="font-semibold text-[14px] md:text-[15px] text-white mb-1">Optimise continuously</div>
-              <div className="text-[13.5px] text-white/80 leading-[1.55] font-light">Longevity isn't a destination — it's a practice. Your program evolves with your data, refined at every step.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 7 — OUR TEAM (4-quadrant) -------------------------------------
-function OurTeam() {
-  const FOUNDERS = [
-    { key: 'dr-abhinav', name: 'Dr Abhinav Sharma', creds: 'MBBS MS', role: 'Founder / Director' },
-    { key: 'dr-bhavna', name: 'Dr Bhavna Sharma', creds: 'MBBS MS · IVF Specialist', role: 'Co-Founder / Director' },
-    { key: 'dr-karan', name: 'Dr Karan Mane', creds: 'MBBS MS', role: 'Director' },
-  ]
-  const TEAM_TOP = [
-    { key: 'dr-rahul', name: 'Dr Rahul Chaube', creds: 'MD Medicine', role: 'Physician & Diabetologist' },
-    { key: 'dr-vaibhav', name: 'Dr Vaibhav Bhisikar', creds: 'MBBS MS · MCh', role: 'Plastic & Hair Surgeon' },
-    { key: 'dr-ankit', name: 'Dr Ankit Agrawal', creds: 'MBBS CPS', role: 'Dermatologist & Trichologist' },
-  ]
-  const TEAM_BOT = [
-    { key: 'dr-surekha', name: 'Dr Surekha Sawant', role: 'Longevity Consultant' },
-    { key: 'dr-pooja', name: 'Dr Pooja Dahiya', role: 'Longevity Consultant' },
-    { key: 'dr-niloufar', name: 'Dr Niloufar Hayat', role: 'Longevity Consultant' },
+  const P = [
+    { n: '01', title: 'Metabolic & Weight Loss', dur: '3 months', mrp: '₹45,000', accent: 'rust',
+      body: 'A precision reset for metabolic health. Diagnostics-led, physician-guided weight transformation that addresses biological drivers — not behaviour alone.' },
+    { n: '02', title: 'Gut & Metabolic', dur: '4 months', mrp: '₹80,000', accent: 'iguana',
+      body: 'Whole-genomic gut microbiome restoration paired with metabolic correction. The gut–metabolism axis treated together over six months.' },
+    { n: '03', title: 'Longevity Plus', dur: '12 months', mrp: '₹1,80,000', accent: 'green',
+      body: 'Our flagship 12-month transformation. Three biological age clocks, 323 genes, GrimAge + PhenoAge, whole-genomic gut sequencing — every pillar of aging.' },
+    { n: '04', title: 'Advanced Metabolomics', dur: 'Bespoke', mrp: '₹75,000', accent: 'rust',
+      body: 'Thousands of metabolites analysed — sub-clinical dysfunction revealed long before standard panels flag concern. The deepest diagnostic lens.' },
+    { n: '05', title: 'Diabetes / Fatty Liver Reversal', dur: '6 months', mrp: '₹45,000', accent: 'iguana',
+      body: 'Root-cause precision medicine for prediabetes, type 2 diabetes, and NAFLD. Reversal pathway — not symptomatic management.' },
+    { n: '06', title: 'PCOD Correction', dur: '6 months', mrp: '₹45,000', accent: 'green',
+      body: 'Multi-system restoration — metabolic, hormonal, and microbiome correction together. The most comprehensive PCOD programme in India.' },
   ]
 
-  const Card = ({ d, textColor = 'text-ink' }: { d: { key: string; name: string; creds?: string; role: string }; textColor?: string }) => (
-    <div className="flex flex-col items-center text-center">
-      <div className="w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-white/40 mb-3.5 shadow-[0_18px_30px_-15px_rgba(27,26,24,0.25)]">
-        <img src={`/tlc-demo/team-${d.key}.png`} alt={d.name} className="w-full h-full object-cover" />
-      </div>
-      <div className={`font-display font-bold text-[13px] md:text-[14px] tracking-tight ${textColor}`}>{d.name}</div>
-      {d.creds && <div className={`text-[10.5px] mt-0.5 ${textColor === 'text-white' ? 'text-white/70' : 'text-graphite/80'}`}>{d.creds}</div>}
-      <div className={`text-[10.5px] mt-0.5 ${textColor === 'text-white' ? 'text-white/70' : 'text-graphite/80'}`}>{d.role}</div>
-    </div>
-  )
-
-  return (
-    <section className="grid md:grid-cols-2">
-      {/* TOP-LEFT — Founders & Directors (cream) */}
-      <div className="px-6 md:px-12 lg:px-14 py-14 md:py-16" style={{ backgroundColor: '#EDE5D6' }}>
-        <div className="text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-2">
-          Founders and Directors
-        </div>
-        <div className="h-px w-full bg-iguana/60 mb-10" />
-        <div className="grid grid-cols-3 gap-4">
-          {FOUNDERS.map((d) => <Card key={d.key} d={d} />)}
-        </div>
-      </div>
-
-      {/* TOP-RIGHT — Team of Doctors (iguana) */}
-      <div className="bg-iguana px-6 md:px-12 lg:px-14 py-14 md:py-16">
-        <div className="text-[11px] tracking-[0.32em] uppercase text-white font-semibold mb-2">
-          Team of Doctors
-        </div>
-        <div className="h-px w-full bg-white/30 mb-10" />
-        <div className="grid grid-cols-3 gap-4">
-          {TEAM_TOP.map((d) => <Card key={d.key} d={d} textColor="text-white" />)}
-        </div>
-      </div>
-
-      {/* BOTTOM-LEFT — "Our Team" copy block (rust) */}
-      <div className="bg-rust text-white px-6 md:px-12 lg:px-14 py-14 md:py-16 flex flex-col justify-center">
-        <div className="text-[11px] tracking-[0.32em] uppercase text-white/80 font-semibold mb-2">
-          Our Team
-        </div>
-        <div className="h-px w-full bg-white/30 mb-8" />
-        <h3 className="font-display font-bold text-[28px] md:text-[34px] leading-[1.1] tracking-[-0.02em] mb-6">
-          Doctors Dedicated to Your Longevity.
-        </h3>
-        <p className="text-[14px] md:text-[15px] leading-[1.65] text-white/85 font-light">
-          A multidisciplinary panel of longevity physicians, endocrinologists, metabolic specialists, and nutritionists. Every patient is cared for by a team — not a single doctor — that holds your complete biological picture.
-        </p>
-      </div>
-
-      {/* BOTTOM-RIGHT — Longevity Consultants (cream) */}
-      <div className="px-6 md:px-12 lg:px-14 py-14 md:py-16" style={{ backgroundColor: '#EDE5D6' }}>
-        <div className="text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-2">
-          Team of Doctors
-        </div>
-        <div className="h-px w-full bg-iguana/60 mb-10" />
-        <div className="grid grid-cols-3 gap-4">
-          {TEAM_BOT.map((d) => <Card key={d.key} d={d} />)}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 8 — DIAGNOSTICS (expandable) ----------------------------------
-function Diagnostics() {
-  const [open, setOpen] = useState<number | null>(null)
-
-  const DIAGNOSTICS = [
-    {
-      title: 'Blood Biomarkers',
-      tag: '160+ Markers',
-      body: 'A comprehensive panel of 160+ blood markers — spanning metabolic health, hormonal balance, inflammatory status, cardiovascular risk, nutritional sufficiency, and organ function. Collected from the comfort of your home.',
-      hi: 'The most complete baseline picture of your internal biology.',
-    },
-    {
-      title: 'Body Composition Analysis',
-      tag: 'BCA · Segmental',
-      body: 'Measures fat mass, lean muscle mass, visceral fat, and hydration at the segmental level. Tracked progressively throughout your program to document and guide your physical transformation with precision.',
-      hi: 'Not just your weight — your body\'s true composition, measured and mapped.',
-    },
-    {
-      title: 'Oligoscan — Cell Scan',
-      tag: 'Spectrophotometric',
-      body: 'A non-invasive spectrophotometric scan of the skin that measures intracellular mineral concentrations and heavy metal burden in real time — without blood. Reveals cellular-level deficiencies and toxicities that standard panels miss entirely.',
-      hi: 'Cellular truth — without a needle.',
-    },
-    {
-      title: 'Epigenetic Age Testing',
-      tag: 'GrimAge + PhenoAge',
-      body: 'Performed using the gold-standard GrimAge epigenetic clock — widely regarded as the most accurate predictor of biological age and mortality risk — combined with PhenoAge testing. Together, these analyse DNA methylation across 9 million base pairs.',
-      hi: 'While most clinics estimate, we measure — at 9 million base pairs.',
-    },
-    {
-      title: 'Genetic Testing',
-      tag: '323 Genes & SNPs',
-      body: 'We analyse 323 genes and SNPs (Single Nucleotide Polymorphisms) that govern your metabolic, hormonal, cardiovascular, and longevity pathways. This is your permanent genetic blueprint — informing every intervention we make.',
-      hi: 'Most clinics test fewer than 99 genes. We test 323.',
-    },
-    {
-      title: 'Gut Microbiome Testing',
-      tag: 'Whole Genomic Sequencing',
-      body: 'TLC uses whole genomic sequencing of every microbial species in your gut — the most comprehensive microbiome analysis available. Reveals diversity index, compromised pathways, imbalanced species, and inflammation markers.',
-      hi: 'Most clinics use 16S rRNA — a partial read. We do whole genomic — the complete picture.',
-    },
-  ]
-
-  return (
-    <section className="bg-green text-white px-6 md:px-12 lg:px-16 py-16 md:py-24">
-      <div className="max-w-[1280px] mx-auto">
-        {/* Header */}
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-16">
-          <div>
-            <div className="text-[10.5px] tracking-[0.32em] uppercase text-iguana font-semibold mb-3">
-              Why Our Diagnostics Are Different
-            </div>
-            <h2 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.025em] mb-2">
-              We Don't Just Test.
-            </h2>
-            <h2 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.025em] text-iguana-soft">
-              We Decode Your Biology.
-            </h2>
-          </div>
-          <p className="text-[14.5px] md:text-[15px] text-white/80 leading-[1.7] font-light max-w-[420px] md:pb-3">
-            At TLC, diagnostics are not a formality — they are the foundation of everything. We use the world's most advanced testing protocols across six domains, giving you a picture of your health that standard medicine cannot access.
-          </p>
-        </div>
-
-        {/* 6 expandable cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-          {DIAGNOSTICS.map((d, i) => {
-            const isOpen = open === i
-            return (
-              <button
-                key={d.title}
-                type="button"
-                onClick={() => setOpen(isOpen ? null : i)}
-                aria-expanded={isOpen}
-                className={`text-left p-6 md:p-7 rounded-[16px] border transition-all duration-500 group ${
-                  isOpen ? 'bg-iguana/15 border-iguana/50' : 'bg-white/[0.04] border-white/12 hover:bg-white/[0.07] hover:border-white/20'
-                }`}
-              >
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="text-[10px] tracking-[0.28em] uppercase text-iguana-soft font-semibold tabular-nums">
-                    0{i + 1}
-                  </div>
-                  <span aria-hidden className={`text-[18px] leading-none transition-transform duration-500 ${isOpen ? 'rotate-45 text-iguana-soft' : 'text-white/50'}`}>+</span>
-                </div>
-                <h3 className="font-display font-bold text-[19px] md:text-[20px] tracking-[-0.015em] text-white mb-1.5">
-                  {d.title}
-                </h3>
-                <div className="text-[10.5px] tracking-[0.22em] uppercase text-iguana-soft font-semibold mb-3">
-                  {d.tag}
-                </div>
-                <div
-                  className="grid transition-all duration-500"
-                  style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
-                >
-                  <div className="overflow-hidden">
-                    <p className="text-[13.5px] leading-[1.6] text-white/80 font-light mb-3 pt-1">
-                      {d.body}
-                    </p>
-                    <p className="text-[12.5px] italic text-iguana-soft font-medium">
-                      {d.hi}
-                    </p>
-                  </div>
-                </div>
-                {!isOpen && (
-                  <div className="text-[11px] tracking-[0.22em] uppercase text-white/55 font-medium mt-1 group-hover:text-white/75 transition-colors">
-                    Tap to read more →
-                  </div>
-                )}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 9 — HOW OLD IS YOUR BIOLOGY -----------------------------------
-function BioAgeClocks() {
-  const CLOCKS = [
-    { tag: 'Blood Biological Age', body: 'Derived from your biomarker panel, reflecting your body\'s functional age — tracked over time to measure reversal.' },
-    { tag: 'Epigenetic Age', body: 'Measured via GrimAge + PhenoAge DNA methylation analysis (9M base pairs) — the most validated predictor of healthspan and lifespan.' },
-    { tag: 'Gut Age', body: 'Derived from whole genomic microbiome sequencing — reflecting inflammation, immunity, and metabolic health, tracked over time.' },
-  ]
-
-  return (
-    <section className="grid md:grid-cols-2 min-h-[70vh]" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — clock head image */}
-      <div className="relative overflow-hidden bg-graphite min-h-[400px] md:min-h-full">
-        <img
-          src="/tlc-demo/page-bio-age.jpg"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'left center' }}
-        />
-      </div>
-
-      {/* RIGHT — 3 clocks */}
-      <div className="px-6 md:px-12 lg:px-14 py-16 md:py-20 flex items-center">
-        <div className="max-w-[520px]">
-          <h2 className="font-display font-bold text-[30px] md:text-[40px] tracking-[-0.025em] text-rust mb-6 leading-[1.1]">
-            How Old Is Your Biology — Really?
-          </h2>
-          <div className="h-px w-full bg-iguana/60 mb-8" />
-          <div className="space-y-7">
-            {CLOCKS.map((c, i) => (
-              <div key={c.tag} className="flex gap-4">
-                <div className="text-[11px] tracking-[0.28em] uppercase text-rust font-semibold tabular-nums shrink-0 pt-1">
-                  0{i + 1}
-                </div>
-                <div>
-                  <div className="font-display font-bold text-[15.5px] md:text-[16.5px] uppercase tracking-tight text-ink mb-1.5">
-                    {c.tag}
-                  </div>
-                  <p className="text-[13.5px] md:text-[14px] leading-[1.6] text-graphite font-light">
-                    {c.body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 10 — EUROPEAN PARTNERSHIP -------------------------------------
-function EuropeanPartnership() {
-  return (
-    <section className="grid md:grid-cols-2 min-h-[70vh]" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — content */}
-      <div className="px-6 md:px-12 lg:px-14 py-16 md:py-20 flex items-center">
-        <div className="max-w-[520px]">
-          <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
-            The Science Behind The Science
-          </div>
-          <h2 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.025em] text-rust mb-3">
-            Gold Standard Testing.
-          </h2>
-          <h3 className="font-display font-semibold text-[20px] md:text-[24px] leading-[1.2] tracking-[-0.015em] text-ink mb-7">
-            Delivered from the World's Finest Laboratories.
-          </h3>
-
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-5">
-            For our most advanced diagnostics, TLC partners exclusively with a specialist laboratory in the Netherlands — one of Europe's foremost centres for genomic and epigenomic science.
-          </p>
-          <div className="space-y-3 mb-6">
-            <div className="text-[13.5px] leading-[1.6] text-graphite">
-              <strong className="text-ink font-semibold">323 genes & SNPs</strong> — your complete genetic blueprint, not a partial panel.
-            </div>
-            <div className="text-[13.5px] leading-[1.6] text-graphite">
-              <strong className="text-ink font-semibold">GrimAge + PhenoAge</strong> — DNA methylation across 9 million base pairs.
-            </div>
-            <div className="text-[13.5px] leading-[1.6] text-graphite">
-              <strong className="text-ink font-semibold">Whole genomic gut sequencing</strong> — beyond the partial 16S rRNA used by most clinics globally.
-            </div>
-          </div>
-          <p className="text-[13px] italic text-rust font-medium">
-            When it comes to your biology, there is no acceptable margin for a partial picture.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT — Netherlands street imagery */}
-      <div className="relative overflow-hidden min-h-[400px] md:min-h-full">
-        <img
-          src="/tlc-demo/page-european.jpg"
-          alt="The Netherlands laboratory partnership"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: 'right center' }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.0) 50%, rgba(20,15,12,0.45) 100%)' }}
-        />
-        <div className="relative z-10 h-full min-h-[400px] md:min-h-full flex items-end px-6 md:px-12 lg:px-14 py-12">
-          <h3 className="font-display font-bold text-[26px] md:text-[36px] leading-[1.1] tracking-[-0.025em] text-white">
-            Our European Partnership —<br />The Netherlands Laboratory
-          </h3>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 11 — THE TLC APP ----------------------------------------------
-function TlcApp() {
-  const FEATURES = [
-    { t: 'Biological Age Clocks', d: 'Blood, epigenetic & gut age tracked in real time' },
-    { t: 'Biomarker Dashboard', d: '1000+ markers visualised over time' },
-    { t: 'Body Composition', d: 'BCA trends charted progressively' },
-    { t: 'Consultation Notes', d: 'Every physician recommendation accessible' },
-    { t: 'Recommendations', d: 'Supplements, nutrition, activities, lifestyle' },
-  ]
-
-  return (
-    <section className="grid md:grid-cols-2 min-h-[70vh]" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — content */}
-      <div className="px-6 md:px-12 lg:px-14 py-16 md:py-20 flex items-center">
-        <div className="max-w-[480px]">
-          <h2 className="font-display font-bold text-[34px] md:text-[44px] tracking-[-0.025em] text-rust mb-5">
-            The TLC App.
-          </h2>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-8">
-            Included in every TLC program. The TLC App is a proprietary longitudinal health intelligence platform — not a wellness tracker. It continuously visualises your biological transformation between clinical visits.
-          </p>
-          <div className="h-px w-full bg-iguana/60 mb-7" />
-          <div className="space-y-4">
-            {FEATURES.map((f) => (
-              <div key={f.t}>
-                <div className="font-semibold text-[14px] md:text-[15px] text-ink mb-0.5">{f.t}</div>
-                <div className="text-[13px] text-graphite/85 leading-[1.55]">{f.d}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* RIGHT — phone mockup */}
-      <div className="relative overflow-hidden bg-graphite min-h-[400px] md:min-h-full flex items-center justify-center">
-        <img
-          src="/tlc-demo/tlc-app-mockup.jpg"
-          alt="TLC App interface"
-          className="relative z-10 h-[80%] w-auto object-contain"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(circle at 50% 50%, rgba(178,122,123,0.08), transparent 60%)' }}
-        />
-        <div className="absolute right-6 md:right-10 bottom-10 md:bottom-12 text-right pointer-events-none">
-          <div className="font-display font-bold text-[20px] md:text-[28px] leading-[1.1] text-white">
-            Your Biology.<br />
-            Tracked. Decoded. Optimised.
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ----- Section 12 — TESTIMONIALS ---------------------------------------------
-function Testimonials() {
-  const T = [
-    { id: 'shaun', name: 'Shaun Gomez', programme: 'Advanced Metabolic', tone: 'rust' as const,
-      quote: 'I reduced my weight from 87 kg to 72 kg through this program. Beyond weight loss, I feel more focused and active in my daily life. The personalised approach made it effective.' },
-    { id: 'abhinav-s', name: 'Abhinav Saxena', programme: 'Longevity Plus', tone: 'green' as const,
-      quote: 'I lost weight from 85 kg to nearly 71 kg and feel healthier from within. My energy improved, and I feel younger overall. The guidance also helped my liver health.' },
-    { id: 'anand', name: 'Anand Patil', programme: 'Diabetes Reversal', tone: 'rust' as const,
-      quote: 'My HbA1c dropped from 7.4 to 5.7 within four months. I feel more in control of my health now, and the routine is easy to follow.' },
-    { id: 'bhushan', name: 'Bhushan Kamble', programme: 'Metabolic', tone: 'green' as const,
-      quote: 'I reduced 9–10 kg and my glucose moved from diabetic to normal. The progress came faster than I expected. Customised support made it easy to maintain.' },
-    { id: 'prem', name: 'Prem Pathak', programme: 'Gut & Metabolic', tone: 'rust' as const,
-      quote: 'My HbA1c dropped from 7.8 to 5.7 within just two months. I also lost weight and feel much lighter. I feel more in control of my health.' },
-    { id: 'sadhna', name: 'Sadhna Gupta', programme: 'Diabetes Reversal', tone: 'green' as const,
-      quote: 'My fasting dropped from around 170–180 to nearly 110, and my medications have reduced. I feel more energetic, and managing my diet has become much easier.' },
-  ]
-
-  const toneClasses = {
-    rust: { ribbon: 'bg-rust', text: 'text-white' },
-    green: { ribbon: 'bg-green', text: 'text-white' },
+  const accentClass = (a: string) => {
+    if (a === 'rust') return 'text-rust'
+    if (a === 'iguana') return 'text-iguana'
+    return 'text-green'
+  }
+  const accentLine = (a: string) => {
+    if (a === 'rust') return 'bg-rust'
+    if (a === 'iguana') return 'bg-iguana'
+    return 'bg-green'
   }
 
   return (
-    <section className="px-6 md:px-12 lg:px-16 py-16 md:py-24" style={{ backgroundColor: '#EDE5D6' }}>
+    <section
+      ref={root}
+      id="programs"
+      className="py-24 md:py-36 px-6 md:px-12 bg-white"
+    >
       <div className="max-w-[1280px] mx-auto">
-        <div className="mb-12 md:mb-16">
-          <h2 className="font-display font-bold text-[32px] md:text-[44px] lg:text-[52px] leading-[1.05] tracking-[-0.025em] text-rust">
-            Testimonials By Our Clients
+        <div className="text-center mb-16 md:mb-20">
+          <div className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            — Six Programmes —
+          </div>
+          <h2 className="font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block">One foundation.</span>
+            </span>{' '}
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block font-bold text-rust">Six pathways.</span>
+            </span>
           </h2>
-          <div className="h-px w-32 bg-iguana mt-6" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {T.map((t) => {
-            const c = toneClasses[t.tone]
-            return (
-              <article key={t.id} className="bg-white rounded-[16px] overflow-hidden shadow-[0_24px_50px_-30px_rgba(27,26,24,0.25)]">
-                {/* Coloured ribbon header with portrait */}
-                <div className={`relative ${c.ribbon} px-5 pt-7 pb-5`}>
-                  <div className="absolute -top-9 left-1/2 -translate-x-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-4 border-cream bg-white shadow-[0_18px_30px_-15px_rgba(0,0,0,0.4)]">
-                    <img src={`/tlc-demo/test-${t.id}.png`} alt={t.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="mt-12 text-center">
-                    <div className={`font-display font-bold text-[16px] md:text-[17px] tracking-tight ${c.text}`}>{t.name}</div>
-                    <div className={`text-[11px] mt-0.5 tracking-[0.22em] uppercase ${c.text} opacity-80 font-medium`}>{t.programme}</div>
-                  </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10">
+          {P.map((p) => (
+            <a
+              key={p.n}
+              href="#contact"
+              data-cursor="hover"
+              className="prog-card group relative bg-white p-8 md:p-10 flex flex-col min-h-[340px] hover:bg-[#EAE0CC] transition-colors duration-700"
+            >
+              <div className="flex items-baseline justify-between mb-6">
+                <span className={`text-[11px] tracking-[0.32em] uppercase font-semibold tabular-nums ${accentClass(p.accent)}`}>
+                  {p.n}
+                </span>
+                <span className="text-[10px] tracking-[0.28em] uppercase text-graphite/60 font-medium">
+                  {p.dur}
+                </span>
+              </div>
+
+              <h3 className="font-display font-light text-[24px] md:text-[28px] leading-[1.15] tracking-[-0.02em] text-ink mb-4">
+                {p.title}
+              </h3>
+              <span aria-hidden className={`block h-px w-10 ${accentLine(p.accent)} mb-5`} />
+              <p className="text-[14px] leading-[1.65] text-graphite font-light mb-auto">
+                {p.body}
+              </p>
+
+              <div className="flex items-end justify-between mt-8 pt-6 border-t border-ink/10">
+                <div>
+                  <div className="text-[9.5px] tracking-[0.32em] uppercase text-graphite/60 font-semibold mb-1">From</div>
+                  <div className={`font-display font-bold text-[22px] tracking-tight ${accentClass(p.accent)}`}>{p.mrp}</div>
                 </div>
-                {/* Quote body */}
-                <div className="px-5 py-5 md:px-6 md:py-6">
-                  <p className="text-[13.5px] md:text-[14px] leading-[1.65] text-graphite font-light italic">
-                    "{t.quote}"
-                  </p>
-                </div>
-              </article>
-            )
-          })}
+                <span className="inline-flex items-center gap-1.5 text-[10.5px] tracking-[0.28em] uppercase text-ink font-semibold group-hover:text-rust transition-colors duration-500">
+                  Explore <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+                </span>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
   )
 }
 
-// ----- Section 13 — BRAND AMBASSADOR -----------------------------------------
-function BrandAmbassador() {
+// =============================================================================
+// SECTION 06 — METHOD (3 principles)
+// =============================================================================
+// Vertical scroll-revealed list, sticky number indicator on the side.
+// =============================================================================
+
+function Method() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const items = el.querySelectorAll<HTMLElement>('.method-item')
+    gsap.set(items, { opacity: 0, x: -20 })
+    items.forEach((item) => {
+      gsap.to(item, {
+        opacity: 1,
+        x: 0,
+        duration: 1.0,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: item, start: 'top 80%' },
+      })
+    })
+  }, [])
+
+  const PRINCIPLES = [
+    { n: '01', title: 'Measure first.', body: 'Nothing is assumed. Everything is tested — across genetic, epigenetic, cellular, gut, and metabolic levels — before a single recommendation is made.' },
+    { n: '02', title: 'Personalise completely.', body: 'Your biology is unlike anyone else\'s. Your diagnostics, protocol, nutrition, and tracking are built entirely around you — never a template.' },
+    { n: '03', title: 'Optimise continuously.', body: 'Longevity is a practice, not a destination. Your programme evolves with your data — refined at every visit, tracked every day.' },
+  ]
+
   return (
-    <section className="grid md:grid-cols-2 min-h-[60vh]" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — Milind portrait */}
-      <div className="relative overflow-hidden min-h-[400px] md:min-h-full flex items-end justify-center" style={{ backgroundColor: '#EDE5D6' }}>
+    <section
+      ref={root}
+      className="py-24 md:py-36 px-6 md:px-12 bg-ink text-white"
+    >
+      <div className="max-w-[1180px] mx-auto">
+        <div className="mb-20 md:mb-24 max-w-[760px]">
+          <div className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-6">
+            — The TLC Method —
+          </div>
+          <h2 className="font-display font-light text-[34px] md:text-[56px] xl:text-[68px] leading-[1.05] tracking-[-0.03em]">
+            Three principles.
+            <br />
+            <span className="font-bold text-rust-soft">One discipline.</span>
+          </h2>
+        </div>
+
+        <div className="space-y-16 md:space-y-24">
+          {PRINCIPLES.map((p) => (
+            <div key={p.n} className="method-item grid md:grid-cols-[140px_1fr] gap-6 md:gap-12 items-baseline">
+              <div className="text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold tabular-nums">
+                {p.n}
+              </div>
+              <div className="max-w-[680px]">
+                <h3 className="font-display font-light text-[28px] md:text-[44px] xl:text-[56px] leading-[1.1] tracking-[-0.025em] text-white mb-5">
+                  {p.title}
+                </h3>
+                <p className="text-[15px] md:text-[16px] leading-[1.7] text-white/70 font-light">
+                  {p.body}
+                </p>
+                <div className="h-px w-full bg-white/15 mt-12" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// SECTION 07 — THE TLC APP
+// =============================================================================
+// Full-bleed dark moment. Phone mockup. Generous space. One callout.
+// =============================================================================
+
+function TlcApp() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 20 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'expo.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+    gsap.fromTo(
+      el.querySelector('.phone'),
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: el, start: 'top 75%' },
+      }
+    )
+  }, [])
+
+  return (
+    <section
+      ref={root}
+      className="relative py-28 md:py-40 px-6 md:px-12 overflow-hidden"
+      style={{ backgroundColor: '#1A1F1A' }}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-30"
+        style={{
+          background:
+            'radial-gradient(900px 700px at 70% 50%, rgba(178,122,123,0.18), transparent 60%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1280px] mx-auto grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-20 items-center">
+        <div className="text-white">
+          <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-6">
+            The TLC App
+          </div>
+          <h2 className="fade-up font-display font-light text-[36px] md:text-[56px] xl:text-[68px] leading-[1.05] tracking-[-0.03em] mb-10">
+            Your biology.
+            <br />
+            <span className="font-bold">Tracked. Decoded. Optimised.</span>
+          </h2>
+          <p className="fade-up text-[15px] md:text-[16px] leading-[1.75] text-white/75 font-light mb-12 max-w-[460px]">
+            Included in every TLC programme — a proprietary longitudinal health intelligence platform. Not a wellness tracker. Your biology, visualised between clinical visits.
+          </p>
+
+          <ul className="fade-up space-y-4 max-w-[400px]">
+            {[
+              'Three biological-age clocks, real-time',
+              '1,000+ biomarkers visualised over time',
+              'Body composition trends, charted',
+              'Every physician recommendation, accessible',
+              'Personalised supplements, nutrition, lifestyle',
+            ].map((line) => (
+              <li key={line} className="flex items-start gap-3 text-[14px] md:text-[15px] leading-[1.6] text-white/85 font-light">
+                <span aria-hidden className="block w-4 h-px bg-rust-soft mt-2.5 shrink-0" />
+                {line}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="phone relative flex items-center justify-center">
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(circle at 50% 50%, rgba(178,122,123,0.20), transparent 65%)',
+              filter: 'blur(40px)',
+            }}
+          />
+          <img
+            src="/tlc-demo/tlc-app-mockup.jpg"
+            alt="TLC App interface"
+            className="relative z-10 w-full max-w-[440px] h-auto object-contain"
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// SECTION 08 — TESTIMONIALS
+// =============================================================================
+// 6 patient stories. Type-led, outcome metric front and centre.
+// 3-column grid on desktop, stacked on mobile.
+// =============================================================================
+
+function Testimonials() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const cards = el.querySelectorAll<HTMLElement>('.test-card')
+    gsap.set(cards, { opacity: 0, y: 24 })
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'expo.out',
+      stagger: 0.08,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+  }, [])
+
+  const T = [
+    { id: 'shaun', name: 'Shaun Gomez', programme: 'Advanced Metabolic',
+      metric: '−15 kg', metricLabel: 'In programme',
+      quote: 'I reduced my weight from 87 kg to 72 kg. Beyond weight loss, I feel more focused and active. The personalised approach made it sustainable.' },
+    { id: 'abhinav-s', name: 'Abhinav Saxena', programme: 'Longevity Plus',
+      metric: '−14 kg', metricLabel: 'Plus liver health',
+      quote: 'Lost weight from 85 kg to nearly 71 kg and feel healthier from within. My energy improved, and the guidance helped my liver health too.' },
+    { id: 'anand', name: 'Anand Patil', programme: 'Diabetes Reversal',
+      metric: '7.4 → 5.7', metricLabel: 'HbA1c, 4 months',
+      quote: 'My sugar levels and insulin improved significantly within four months. HbA1c dropped from 7.4 to 5.7 — a big change for me.' },
+    { id: 'bhushan', name: 'Bhushan Kamble', programme: 'Metabolic',
+      metric: 'Diabetic → Normal', metricLabel: 'Glucose normalised',
+      quote: 'I reduced 9–10 kg and my glucose moved from diabetic to normal. The progress came faster than expected — easy to follow long-term.' },
+    { id: 'prem', name: 'Prem Pathak', programme: 'Gut & Metabolic',
+      metric: '7.8 → 5.7', metricLabel: 'HbA1c, 2 months',
+      quote: 'My HbA1c dropped from 7.8 to 5.7 within just two months. I lost weight, feel lighter, and more in control of my health.' },
+    { id: 'sadhna', name: 'Sadhna Gupta', programme: 'Diabetes Reversal',
+      metric: '170s → 110', metricLabel: 'Fasting glucose',
+      quote: "I've had diabetes for years. My fasting dropped from around 170–180 to nearly 110, and my medications have reduced. I feel more energetic." },
+  ]
+
+  return (
+    <section
+      ref={root}
+      className="py-24 md:py-36 px-6 md:px-12"
+      style={{ backgroundColor: '#EAE0CC' }}
+    >
+      <div className="max-w-[1280px] mx-auto">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            — Patient Outcomes —
+          </div>
+          <h2 className="font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
+            Verified.
+            <br />
+            <span className="font-bold text-rust">Measurable.</span>
+          </h2>
+          <p className="text-[14px] md:text-[15px] text-graphite font-light leading-[1.7] max-w-[520px] mx-auto mt-8">
+            Every outcome below is documented through repeat diagnostics — not memory.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10">
+          {T.map((t) => (
+            <article key={t.id} className="test-card relative bg-white p-8 md:p-10 flex flex-col min-h-[400px]">
+              {/* Metric - the headline number */}
+              <div className="mb-2">
+                <div className="font-display font-light text-[32px] md:text-[40px] leading-[1.0] tracking-[-0.025em] text-rust tabular-nums">
+                  {t.metric}
+                </div>
+                <div className="text-[10px] tracking-[0.32em] uppercase text-graphite/65 font-semibold mt-2">
+                  {t.metricLabel}
+                </div>
+              </div>
+
+              <span aria-hidden className="block h-px w-12 bg-rust/40 my-6" />
+
+              <blockquote className="text-[14.5px] md:text-[15px] leading-[1.7] text-graphite font-light italic mb-auto">
+                "{t.quote}"
+              </blockquote>
+
+              <div className="flex items-center gap-3 mt-8 pt-6 border-t border-ink/10">
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-mist shrink-0">
+                  <img src={`/tlc-demo/test-${t.id}.png`} alt={t.name} className="w-full h-full object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <div className="font-display font-bold text-[13.5px] tracking-tight text-ink leading-tight">{t.name}</div>
+                  <div className="text-[10px] tracking-[0.22em] uppercase text-graphite/65 font-medium mt-0.5">{t.programme}</div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// SECTION 09 — TEAM
+// =============================================================================
+// 9 doctors as a clean editorial grid. Hover reveals credentials.
+// =============================================================================
+
+function Team() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const cards = el.querySelectorAll<HTMLElement>('.doc-card')
+    gsap.set(cards, { opacity: 0, y: 20 })
+    gsap.to(cards, {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'expo.out',
+      stagger: 0.05,
+      scrollTrigger: { trigger: el, start: 'top 78%' },
+    })
+  }, [])
+
+  const TEAM = [
+    { key: 'dr-abhinav', name: 'Dr Abhinav Sharma', creds: 'MBBS · MS', role: 'Founder · Director' },
+    { key: 'dr-bhavna', name: 'Dr Bhavna Sharma', creds: 'MBBS · MS · IVF Specialist', role: 'Co-Founder · Director' },
+    { key: 'dr-karan', name: 'Dr Karan Mane', creds: 'MBBS · MS', role: 'Director' },
+    { key: 'dr-rahul', name: 'Dr Rahul Chaube', creds: 'MD Medicine', role: 'Physician & Diabetologist' },
+    { key: 'dr-vaibhav', name: 'Dr Vaibhav Bhisikar', creds: 'MBBS · MS · MCh', role: 'Plastic & Hair Surgeon' },
+    { key: 'dr-ankit', name: 'Dr Ankit Agrawal', creds: 'MBBS · CPS', role: 'Dermatologist & Trichologist' },
+    { key: 'dr-surekha', name: 'Dr Surekha Sawant', creds: '', role: 'Longevity Consultant' },
+    { key: 'dr-pooja', name: 'Dr Pooja Dahiya', creds: '', role: 'Longevity Consultant' },
+    { key: 'dr-niloufar', name: 'Dr Niloufar Hayat', creds: '', role: 'Longevity Consultant' },
+  ]
+
+  return (
+    <section
+      ref={root}
+      className="py-24 md:py-36 px-6 md:px-12 bg-white"
+    >
+      <div className="max-w-[1280px] mx-auto">
+        <div className="text-center mb-16 md:mb-20">
+          <div className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            — Our Team —
+          </div>
+          <h2 className="font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">
+            Doctors dedicated to
+            <br />
+            <span className="font-bold text-rust">your longevity.</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-x-12 md:gap-y-16">
+          {TEAM.map((d) => (
+            <div key={d.key} className="doc-card group text-center">
+              <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-5 rounded-full overflow-hidden bg-[#EAE0CC] transition-transform duration-700 group-hover:scale-[1.04]">
+                <img
+                  src={`/tlc-demo/team-${d.key}.png`}
+                  alt={d.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="font-display font-bold text-[14px] md:text-[15px] tracking-tight text-ink mb-1.5">
+                {d.name}
+              </div>
+              {d.creds && (
+                <div className="text-[10.5px] tracking-[0.22em] uppercase text-rust font-semibold mb-1">
+                  {d.creds}
+                </div>
+              )}
+              <div className="text-[11px] tracking-[0.22em] uppercase text-graphite/70 font-medium">
+                {d.role}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// =============================================================================
+// SECTION 10 — BRAND AMBASSADOR
+// =============================================================================
+// Cinematic split — single bold Milind moment.
+// =============================================================================
+
+function Ambassador() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 20 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'expo.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+  }, [])
+
+  return (
+    <section
+      ref={root}
+      className="grid md:grid-cols-[1fr_1.1fr] min-h-[80vh]"
+      style={{ backgroundColor: '#EAE0CC' }}
+    >
+      {/* LEFT — Milind portrait, full bleed */}
+      <div className="relative overflow-hidden bg-ink min-h-[480px] md:min-h-full">
         <img
           src="/tlc-demo/milind-soman.jpg"
           alt="Milind Soman — Brand Ambassador, The Longevity Centre"
-          className="relative z-10 max-h-[85%] w-auto object-contain"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-x-6 bottom-6 z-20 text-center">
-          <div className="font-display font-bold text-[18px] md:text-[20px] tracking-tight text-ink">Milind Soman</div>
-          <div className="text-[10.5px] mt-0.5 tracking-[0.22em] uppercase text-rust font-semibold">Brand Ambassador · The Longevity Centre</div>
+        <div
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none"
+          style={{ background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)' }}
+        />
+        <div className="absolute left-0 right-0 bottom-0 px-6 md:px-10 py-10 md:py-12 text-white">
+          <div className="font-display font-bold text-[20px] md:text-[26px] tracking-tight mb-1">Milind Soman</div>
+          <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust-soft font-semibold">Brand Ambassador · The Longevity Centre</div>
         </div>
       </div>
 
       {/* RIGHT — copy */}
-      <div className="px-6 md:px-12 lg:px-14 py-16 md:py-20 flex items-center">
+      <div className="px-6 md:px-12 lg:px-20 py-20 md:py-24 flex items-center">
         <div className="max-w-[520px]">
-          <h2 className="font-display font-bold text-[30px] md:text-[40px] tracking-[-0.025em] text-rust mb-7">
-            Partnering with Excellence
+          <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
+            — Partnership —
+          </div>
+          <h2 className="fade-up font-display font-light text-[32px] md:text-[48px] xl:text-[60px] leading-[1.05] tracking-[-0.03em] text-ink mb-10">
+            A living testament
+            <br />
+            <span className="font-bold text-rust">to longevity.</span>
           </h2>
-          <div className="h-px w-full bg-iguana/60 mb-7" />
-          <p className="text-[14px] md:text-[15px] leading-[1.7] text-graphite font-light mb-5">
-            TLC proudly collaborates with Milind Soman, our brand ambassador and a living testament to longevity. At 60, his Ironman achievements and unwavering vitality exemplify what's possible when biology meets dedication.
+          <p className="fade-up text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light mb-5">
+            At 60, Milind Soman's Ironman achievements and unwavering vitality exemplify what's possible when biology meets dedication.
           </p>
-          <p className="text-[14px] md:text-[15px] leading-[1.7] text-graphite font-light">
-            At TLC, we believe longevity must lead the future of healthcare — where preventive and functional medicine replace reactive treatment. Together with Milind, we're redefining aging — proving that optimal health isn't just achievable. It's sustainable, measurable, and transformative.
+          <p className="fade-up text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light">
+            Together, we're redefining aging — proving that optimal health isn't just achievable. It's sustainable, measurable, and transformative.
           </p>
         </div>
       </div>
@@ -985,196 +1093,134 @@ function BrandAmbassador() {
   )
 }
 
-// ----- Section 14 — OUR PROGRAMMES -------------------------------------------
-function OurProgrammes() {
-  const PROGRAMMES = [
-    { n: '01', title: 'Metabolic & Weight Loss', dur: '3 months', mrp: '₹45,000', tone: 'rust' as const,
-      blurb: 'A precision reset for metabolic health — diagnostics-led, physician-guided weight loss that addresses biological drivers, not just behaviour.' },
-    { n: '02', title: 'Gut & Metabolic', dur: '4 months', mrp: '₹80,000', tone: 'iguana' as const,
-      blurb: 'Whole-genomic gut microbiome restoration paired with metabolic correction — the gut–metabolism axis treated together over six months.' },
-    { n: '03', title: 'Longevity Plus', dur: '12 months', mrp: '₹1,80,000+', tone: 'green' as const,
-      blurb: 'Our flagship 12-month transformation. Three biological age clocks, 323 genes, GrimAge + PhenoAge, whole-genomic gut sequencing — every pillar of aging.' },
-    { n: '04', title: 'Advanced Metabolomics', dur: '—', mrp: '₹75,000', tone: 'rust' as const,
-      blurb: 'Thousands of metabolites analysed — sub-clinical dysfunction revealed long before standard panels flag concern. The deepest diagnostic lens.' },
-    { n: '05', title: 'Diabetes / Fatty Liver Reversal', dur: '—', mrp: '₹45,000', tone: 'iguana' as const,
-      blurb: 'Root-cause precision medicine for prediabetes, type 2 diabetes, and NAFLD. Reversal pathway, not symptomatic management.' },
-    { n: '06', title: 'PCOD Correction', dur: '—', mrp: '₹45,000', tone: 'green' as const,
-      blurb: 'Multi-system restoration — metabolic, hormonal, and microbiome correction together. The most comprehensive PCOD program in India.' },
-  ]
+// =============================================================================
+// SECTION 11 — FINAL CTA
+// =============================================================================
+// Minimal closing. One sentence. One button. Done.
+// =============================================================================
 
-  const toneClasses = {
-    rust: { tab: 'bg-rust', text: 'text-white' },
-    iguana: { tab: 'bg-iguana', text: 'text-white' },
-    green: { tab: 'bg-green', text: 'text-white' },
-  }
+function FinalCta() {
+  const root = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = root.current
+    if (!el) return
+    const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
+    gsap.set(lines, { yPercent: 110 })
+    gsap.to(lines, {
+      yPercent: 0,
+      duration: 1.4,
+      ease: 'expo.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+    const fade = el.querySelectorAll<HTMLElement>('.fade-up')
+    gsap.set(fade, { opacity: 0, y: 16 })
+    gsap.to(fade, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 75%' },
+    })
+  }, [])
 
   return (
-    <section id="programmes" className="bg-rust text-white px-6 md:px-12 lg:px-16 py-16 md:py-24">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="mb-12 md:mb-14">
-          <div className="text-[10.5px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-3">
-            Our Programmes
-          </div>
-          <h2 className="font-display font-bold text-[34px] md:text-[48px] lg:text-[56px] leading-[1.05] tracking-[-0.025em] mb-4">
-            Six Programmes. One Foundation.
-          </h2>
-          <p className="text-[15px] md:text-[16px] text-white/80 leading-[1.65] font-light max-w-[600px]">
-            Whichever season of life you're in, there is a programme here that was built for you — physician-led, diagnostics-rooted, and continuously refined.
-          </p>
+    <section
+      ref={root}
+      id="contact"
+      className="relative py-32 md:py-44 px-6 md:px-12 overflow-hidden bg-ink text-white"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-30"
+        style={{
+          background:
+            'radial-gradient(900px 700px at 50% 30%, rgba(178,122,123,0.18), transparent 60%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1080px] mx-auto text-center">
+        <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-10 md:mb-14">
+          — Begin —
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          {PROGRAMMES.map((p) => {
-            const c = toneClasses[p.tone]
-            return (
-              <a
-                key={p.n}
-                href="#contact"
-                data-cursor="hover"
-                className="group bg-white text-ink rounded-[18px] overflow-hidden flex flex-col shadow-[0_24px_60px_-30px_rgba(0,0,0,0.4)] hover:-translate-y-1 transition-transform duration-500"
-              >
-                <div className={`${c.tab} ${c.text} px-5 py-3 flex items-center justify-between`}>
-                  <span className="text-[10px] tracking-[0.28em] uppercase font-semibold tabular-nums">{p.n}</span>
-                  <span className="text-[10px] tracking-[0.22em] uppercase font-semibold opacity-90">{p.dur}</span>
-                </div>
-                <div className="px-6 py-6 flex-1 flex flex-col">
-                  <h3 className="font-display font-bold text-[20px] md:text-[22px] leading-[1.15] tracking-[-0.015em] text-ink mb-3">
-                    {p.title}
-                  </h3>
-                  <p className="text-[13.5px] leading-[1.6] text-graphite font-light mb-6 flex-1">
-                    {p.blurb}
-                  </p>
-                  <div className="pt-4 border-t border-mist flex items-center justify-between">
-                    <div>
-                      <div className="text-[9.5px] tracking-[0.28em] uppercase text-stone font-semibold">From</div>
-                      <div className="font-display font-bold text-[18px] tracking-tight text-rust">{p.mrp}</div>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 text-[11px] tracking-[0.22em] uppercase text-ink font-semibold group-hover:text-rust transition-colors">
-                      Explore <span aria-hidden>→</span>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            )
-          })}
+        <h2 className="font-display font-light text-[40px] sm:text-[60px] md:text-[80px] xl:text-[100px] leading-[1.0] tracking-[-0.04em] mb-16 md:mb-20">
+          <span className="line-mask inline-block overflow-hidden align-bottom">
+            <span className="inline-block">Your biology</span>
+          </span>{' '}
+          <span className="line-mask inline-block overflow-hidden align-bottom">
+            <span className="inline-block">has a story.</span>
+          </span>
+          <br />
+          <span className="font-bold text-rust-soft">
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block">We help you rewrite it.</span>
+            </span>
+          </span>
+        </h2>
+
+        <div className="fade-up flex flex-wrap items-center justify-center gap-3 mb-16 md:mb-20">
+          <a
+            href="tel:+911140844840"
+            data-cursor="hover"
+            className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink rounded-full text-[11.5px] tracking-[0.22em] uppercase font-semibold hover:bg-rust hover:text-white transition-colors duration-700"
+          >
+            <span className="relative flex h-1.5 w-1.5" aria-hidden>
+              <span className="absolute inline-flex h-full w-full rounded-full bg-rust opacity-70 animate-ping" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rust" />
+            </span>
+            Book Initial Consultation
+            <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+          </a>
+          <a
+            href="https://wa.me/918826809123"
+            data-cursor="hover"
+            className="inline-flex items-center gap-2 px-6 py-4 border border-white/25 text-white rounded-full text-[11.5px] tracking-[0.22em] uppercase font-semibold hover:bg-white/10 transition-colors duration-700"
+          >
+            WhatsApp
+          </a>
         </div>
-      </div>
-    </section>
-  )
-}
 
-// ----- Section 15 — FINAL CTA / CONTACT --------------------------------------
-function FinalContact() {
-  return (
-    <section id="contact" className="grid md:grid-cols-2" style={{ backgroundColor: '#EDE5D6' }}>
-      {/* LEFT — tagline + brand */}
-      <div className="px-6 md:px-12 lg:px-14 py-16 md:py-24 flex items-center">
-        <div className="max-w-[520px]">
-          <div className="mb-10">
-            <div className="font-display font-bold text-[26px] tracking-[0.18em] text-rust mb-1">TLC</div>
-            <div className="text-[11px] tracking-[0.4em] uppercase text-graphite font-medium">The Longevity Centre</div>
-            <div className="text-[10.5px] tracking-[0.32em] uppercase text-graphite/70 font-medium mt-1">Precision Longevity Medicine</div>
-          </div>
-          <div className="h-px w-full bg-iguana/60 mb-8" />
-          <h2 className="font-display font-bold text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.025em] text-rust mb-5">
-            Your Biology Has a Story.<br />We Help You Rewrite It.
-          </h2>
-          <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light">
-            Whether you are managing a diagnosis, optimising your health, or simply refusing to accept the default pace of aging — there is a programme here that was built for you.
-          </p>
-        </div>
-      </div>
-
-      {/* RIGHT — clinic photo + contact */}
-      <div className="relative overflow-hidden bg-green min-h-[400px] md:min-h-full">
-        <img
-          src="/tlc-demo/page-back-cover.jpg"
-          alt=""
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-          style={{ objectPosition: 'right center' }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(50,60,49,0.4) 0%, rgba(50,60,49,0.85) 100%)' }}
-        />
-        <div className="relative z-10 px-6 md:px-12 lg:px-14 py-16 md:py-24 text-white min-h-[400px] md:min-h-full flex flex-col justify-center">
-          <div className="text-[10.5px] tracking-[0.32em] uppercase text-iguana-soft font-semibold mb-3">
-            Our Clinics
-          </div>
-          <div className="text-[15px] md:text-[16px] tracking-[0.18em] uppercase text-white/90 font-medium mb-10">
-            Delhi · Gurugram · Pune · Mumbai · Goa · Bengaluru
-          </div>
-
-          <div className="h-px w-24 bg-white/40 mb-8" />
-
-          <h3 className="font-display font-bold text-[22px] md:text-[28px] mb-7 leading-[1.15] tracking-[-0.015em]">
-            Book your initial consultation today.
-          </h3>
-
-          <div className="space-y-3.5">
-            <div>
-              <div className="text-[10.5px] tracking-[0.28em] uppercase text-iguana-soft font-semibold mb-0.5">Phone</div>
-              <a href="tel:+911140844840" className="text-[15px] md:text-[16px] text-white hover:text-iguana-soft transition-colors">+91 11408 44840</a>
-            </div>
-            <div>
-              <div className="text-[10.5px] tracking-[0.28em] uppercase text-iguana-soft font-semibold mb-0.5">Email</div>
-              <a href="mailto:info@thelongevitycentre.co" className="text-[15px] md:text-[16px] text-white hover:text-iguana-soft transition-colors">info@thelongevitycentre.co</a>
-            </div>
-            <div>
-              <div className="text-[10.5px] tracking-[0.28em] uppercase text-iguana-soft font-semibold mb-0.5">Website</div>
-              <a href="/" className="text-[15px] md:text-[16px] text-white hover:text-iguana-soft transition-colors">www.thelongevitycentre.co</a>
-            </div>
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-3">
-            <a href="#" data-cursor="hover" className="inline-flex items-center gap-2.5 pl-5 pr-6 py-3.5 bg-white text-ink rounded-full text-[12px] tracking-[0.2em] uppercase font-semibold hover:bg-rust hover:text-white transition-colors duration-500">
-              <span className="relative flex h-2 w-2" aria-hidden>
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
-              Book Consultation
-              <span aria-hidden>→</span>
-            </a>
-            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-5 py-3.5 border border-white/30 text-white rounded-full text-[12px] tracking-[0.2em] uppercase font-semibold hover:bg-white/10 transition-colors duration-500">
-              WhatsApp
-            </a>
-          </div>
+        <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-white/55 font-medium">
+          Delhi <span className="mx-2 text-rust-soft">·</span> Gurugram{' '}
+          <span className="mx-2 text-rust-soft">·</span> Pune{' '}
+          <span className="mx-2 text-rust-soft">·</span> Mumbai{' '}
+          <span className="mx-2 text-rust-soft">·</span> Goa{' '}
+          <span className="mx-2 text-rust-soft">·</span> Bengaluru
         </div>
       </div>
     </section>
   )
 }
 
-// ============================================================================
+// =============================================================================
 // PAGE COMPOSITION
-// ============================================================================
+// =============================================================================
+
 export function DemoHomePage() {
   useDocumentMeta({
     title: 'TLC — Precision Longevity Medicine · Demo',
     description:
-      "TLC — The Longevity Centre. India's first doctor-led personalised longevity program. Diagnostics-led, physician-guided, and continuously refined.",
+      "TLC — The Longevity Centre. India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided, continuously refined.",
     path: '/demo',
   })
 
   return (
     <>
-      <HeroCover />
-      <WhoWeAre />
-      <CellularAging />
-      <WhyLongevityMedicine />
-      <FoundersWord />
-      <MissionPhilosophy />
-      <OurTeam />
+      <Hero />
+      <Manifesto />
+      <Clocks />
       <Diagnostics />
-      <BioAgeClocks />
-      <EuropeanPartnership />
+      <Programmes />
+      <Method />
       <TlcApp />
       <Testimonials />
-      <BrandAmbassador />
-      <OurProgrammes />
-      <FinalContact />
+      <Team />
+      <Ambassador />
+      <FinalCta />
     </>
   )
 }
