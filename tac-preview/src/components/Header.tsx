@@ -77,18 +77,16 @@ export function Header() {
       <header
         ref={navRef}
         role="banner"
-        className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 bg-ink ${
+        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-500 px-3 md:px-5 ${
           hidden ? '-translate-y-full' : 'translate-y-0'
-        } ${scrolled ? 'shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)]' : ''}`}
-        style={{
-          willChange: 'transform',
-          // Subtle bottom hairline for masthead architecture
-          borderBottom: '1px solid rgba(255,255,255,0.06)',
-        }}
+        } ${scrolled ? 'top-2 md:top-3' : 'top-3 md:top-5'}`}
+        style={{ willChange: 'transform' }}
       >
         <div
-          className={`max-w-[1400px] mx-auto flex items-center gap-6 lg:gap-10 px-6 md:px-10 lg:px-14 transition-all duration-500 ${
-            scrolled ? 'py-3 md:py-4' : 'py-4 md:py-5'
+          className={`w-full max-w-[1400px] flex items-center gap-4 md:gap-6 lg:gap-8 pl-2 pr-2 md:pl-3 md:pr-3 py-2 md:py-2.5 rounded-full transition-all duration-500 bg-ink ${
+            scrolled
+              ? 'shadow-[0_18px_50px_-15px_rgba(0,0,0,0.65)]'
+              : 'shadow-[0_12px_40px_-15px_rgba(0,0,0,0.55)]'
           }`}
         >
           {/* Logo — clicks go to home from any page; smooth-scroll to top if already home */}
@@ -104,20 +102,20 @@ export function Header() {
                 else window.scrollTo({ top: 0, behavior: 'smooth' })
               }
             }}
-            className="text-white shrink-0"
+            className="text-white shrink-0 pl-2 md:pl-3"
             aria-label="The Anti-Aging Centre — home"
           >
             <Logo variant="light" />
           </a>
 
-          {/* Desktop nav — left-aligned after logo, generous spacing, restrained */}
-          <nav className="hidden md:flex items-center gap-7 lg:gap-9 flex-1" aria-label="Primary">
+          {/* Desktop nav — UPPERCASE bold links, centered between logo and CTA */}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-9 flex-1 justify-center" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 data-cursor="hover"
-                className="group relative py-1.5 text-[13.5px] lg:text-[14px] tracking-[-0.005em] font-medium text-white/80 hover:text-white transition-colors duration-300"
+                className="group relative py-1.5 text-[11.5px] lg:text-[12px] tracking-[0.18em] font-bold uppercase text-white/85 hover:text-white transition-colors duration-300"
               >
                 <span className="relative">{item.label}</span>
                 <span
@@ -129,15 +127,15 @@ export function Header() {
           </nav>
 
           {/* Right cluster — phone + primary CTA */}
-          <div className="flex items-center gap-5 lg:gap-7 ml-auto md:ml-0 shrink-0">
-            {/* Phone — prominent masthead listing */}
+          <div className="flex items-center gap-3 md:gap-4 ml-auto md:ml-0 shrink-0">
+            {/* Phone — visible from lg+ to keep the bar premium-uncrowded */}
             <a
               href="tel:+918826809123"
               data-cursor="hover"
               aria-label="Call +91 88268 09123"
-              className="hidden md:inline-flex items-center gap-2 text-[13px] lg:text-[14px] text-white/90 hover:text-white font-medium transition-colors duration-300 whitespace-nowrap"
+              className="hidden lg:inline-flex items-center gap-2 text-[12.5px] text-white/85 hover:text-white font-medium transition-colors duration-300 whitespace-nowrap"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft" aria-hidden="true" focusable="false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft" aria-hidden="true" focusable="false">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <span className="tabular-nums tracking-tight">+91 88268 09123</span>
@@ -148,15 +146,14 @@ export function Header() {
               href="#cta"
               data-cursor="hover"
               data-magnetic
-              className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-white text-ink text-[12.5px] lg:text-[13px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
+              className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-white text-ink text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
             >
               <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
               </span>
-              <span className="hidden lg:inline">Book a Consultation</span>
-              <span className="lg:hidden">Book</span>
-              <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-0.5">→</span>
+              <span className="hidden md:inline">Arrange a Consultation</span>
+              <span className="md:hidden">Book</span>
             </a>
 
             {/* Hamburger button — mobile only */}
@@ -166,9 +163,9 @@ export function Header() {
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/15 text-white hover:bg-white/10 transition-colors duration-300"
+              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white hover:bg-white/10 transition-colors duration-300"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                 <line x1="4" y1="7" x2="20" y2="7" />
                 <line x1="4" y1="13" x2="20" y2="13" />
                 <line x1="4" y1="19" x2="20" y2="19" />
