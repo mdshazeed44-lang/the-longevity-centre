@@ -5,7 +5,6 @@ import { HomePage } from './pages/HomePage'
 import { AboutPage } from './pages/AboutPage'
 import { CentresPage } from './pages/CentresPage'
 import { LongevityProgramPage } from './pages/LongevityProgramPage'
-import { DemoHomePage } from './pages/DemoHomePage'
 
 // Tiny path-based router — no react-router needed for a handful of pages
 function getPage() {
@@ -13,7 +12,6 @@ function getPage() {
   if (path === '/about') return <AboutPage />
   if (path === '/centres') return <CentresPage />
   if (path === '/longevity-program') return <LongevityProgramPage />
-  if (path === '/demo') return <DemoHomePage />
   return <HomePage />
 }
 
