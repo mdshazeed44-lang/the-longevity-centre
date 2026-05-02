@@ -122,17 +122,22 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
     >
       {/* Background video — full bleed cinematic, plays muted on loop.
           preload="metadata" lets the browser show the poster instantly while
-          the video streams in progressively, improving LCP. */}
+          the video streams in progressively, improving LCP.
+          <source media="..."> picks the right cut per breakpoint —
+          desktop gets hero-desktop.mp4 (5 MB), small screens fall back
+          to hero.mp4 so phones don't have to download the desktop edit. */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
-        src="/videos/hero.mp4"
         autoPlay
         loop
         muted
         playsInline
         preload="metadata"
-      />
+      >
+        <source src="/videos/hero-desktop.mp4" media="(min-width: 768px)" type="video/mp4" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
+      </video>
 
       {/* Cinematic overlays — vignette + bottom gradient + left text gradient */}
       <div
@@ -162,20 +167,20 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       />
 
       {/* Content — left aligned, premium hero layout */}
-      <div className="relative z-10 min-h-[100vh] flex flex-col justify-end pt-28 pb-12 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
+      <div className="relative z-10 min-h-[100vh] flex flex-col justify-end pt-20 pb-8 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
         {/* Eyebrow + phone pill row */}
-        <div ref={eyebrow} className="flex flex-wrap items-center gap-4 mb-5">
-          <span className="text-[11px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">
+        <div ref={eyebrow} className="flex flex-wrap items-center gap-3 md:gap-4 mb-3 md:mb-5">
+          <span className="text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">
             Premium Longevity Clinics · India
           </span>
           <a
             href="tel:+918826809123"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[12px] hover:bg-white/20 transition-colors duration-300"
+            className="inline-flex items-center gap-2 px-3.5 md:px-4 py-1.5 md:py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[11.5px] md:text-[12px] hover:bg-white/20 transition-colors duration-300"
           >
             <svg
-              width="14"
-              height="14"
+              width="13"
+              height="13"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -191,7 +196,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         </div>
 
         {/* Headline */}
-        <h1 className="font-display font-bold text-[38px] sm:text-[54px] md:text-[68px] xl:text-[92px] leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-6">
+        <h1 className="font-display font-bold text-[34px] sm:text-[50px] md:text-[68px] xl:text-[92px] leading-[1.0] md:leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-4 md:mb-6">
           <MaskedReveal text="Age should" delay={0.55} charClassName="text-white/95" />
           <br />
           <MaskedReveal text="never define you." delay={0.7} charClassName="text-white" />
@@ -200,14 +205,14 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* Description */}
         <p
           ref={para}
-          className="text-[15px] md:text-[17px] leading-[1.6] text-white/80 max-w-[560px] mb-6 font-light"
+          className="text-[14px] md:text-[17px] leading-[1.55] md:leading-[1.6] text-white/80 max-w-[560px] mb-4 md:mb-6 font-light"
         >
           Explore TAC's innovative, personalised preventive medicine for a
           vibrant and fulfilling life — at any stage.
         </p>
 
         {/* Slim spec pills — anchor key facts inline above the CTAs */}
-        <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-7">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-7">
           {[
             { k: 'Centres', v: '5 Pan-India' },
             { k: 'Experience', v: '20+ Years' },
@@ -215,13 +220,13 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           ].map((s) => (
             <div
               key={s.k}
-              className="inline-flex items-center gap-2.5 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3.5 pr-4 md:pl-4 md:pr-5 py-2 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
+              className="inline-flex items-center gap-2 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3 pr-3.5 md:pl-4 md:pr-5 py-1.5 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
             >
               <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
-              <span className="text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
+              <span className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
                 {s.k}
               </span>
-              <span className="text-[12.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap">
+              <span className="text-[11.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap">
                 {s.v}
               </span>
             </div>
@@ -229,22 +234,22 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         </div>
 
         {/* CTA cards — like reference site */}
-        <div ref={ctas} className="flex flex-wrap gap-4">
+        <div ref={ctas} className="flex flex-wrap gap-3 md:gap-4">
           <a
             href="#cta"
             data-cursor="hover"
             data-magnetic
-            className="group inline-flex items-center gap-4 pl-6 pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[240px]"
+            className="group inline-flex items-center gap-3 md:gap-4 pl-5 pr-3 md:pl-6 md:pr-4 py-2.5 md:py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[210px] md:min-w-[240px]"
           >
             <div className="text-left">
-              <div className="text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-1">
+              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-0.5 md:mb-1">
                 Book Now
               </div>
-              <div className="text-[15px] font-semibold text-white tracking-tight">
+              <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
                 Arrange a Consultation
               </div>
             </div>
-            <span className="ml-auto w-9 h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
+            <span className="ml-auto w-8 h-8 md:w-9 md:h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
               →
             </span>
           </a>
@@ -252,24 +257,24 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
           <a
             href="#clinics"
             data-cursor="hover"
-            className="group inline-flex items-center gap-4 pl-6 pr-4 py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[240px]"
+            className="group inline-flex items-center gap-3 md:gap-4 pl-5 pr-3 md:pl-6 md:pr-4 py-2.5 md:py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[210px] md:min-w-[240px]"
           >
             <div className="text-left">
-              <div className="text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-1">
+              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-0.5 md:mb-1">
                 Explore
               </div>
-              <div className="text-[15px] font-semibold text-white tracking-tight">
+              <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
                 Our Five Centres
               </div>
             </div>
-            <span className="ml-auto w-9 h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
+            <span className="ml-auto w-8 h-8 md:w-9 md:h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
               →
             </span>
           </a>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute left-6 md:left-14 lg:left-20 bottom-4 md:bottom-5 flex items-center gap-3 text-[11px] tracking-[0.28em] uppercase text-white/55">
+        {/* Scroll indicator — desktop only (mobile is too tight) */}
+        <div className="hidden md:flex absolute left-6 md:left-14 lg:left-20 bottom-4 md:bottom-5 items-center gap-3 text-[11px] tracking-[0.28em] uppercase text-white/55">
           <span className="inline-block w-5 h-8 rounded-full border border-white/40 relative">
             <span className="absolute left-1/2 -translate-x-1/2 top-1.5 w-1 h-1.5 rounded-full bg-white/80 animate-bounce" />
           </span>
