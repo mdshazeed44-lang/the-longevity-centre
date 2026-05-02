@@ -2,20 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { reduceMotion } from '../lib/motion'
 
-// Premium animated preloader — aurora ambient + orbiting rings around logo +
-// per-letter tagline reveal + animated counter + shimmer-fill bar + 3-slice
-// curtain peel with a rust hairline drawn across.
-// Background is the brand-handover colour #1e212f (dark midnight blue-grey).
-
-const TAGLINE = 'PREMIUM LONGEVITY MEDICINE · INDIA'
-
-// Pre-computed star positions so they're stable across renders.
-const STARS = [
-  { l: 8, t: 18, d: 0.0 }, { l: 18, t: 72, d: 0.4 }, { l: 27, t: 38, d: 1.1 },
-  { l: 35, t: 86, d: 0.7 }, { l: 46, t: 12, d: 1.4 }, { l: 54, t: 64, d: 0.2 },
-  { l: 63, t: 28, d: 0.9 }, { l: 72, t: 78, d: 1.6 }, { l: 80, t: 42, d: 0.5 },
-  { l: 88, t: 18, d: 1.2 }, { l: 92, t: 70, d: 0.3 }, { l: 14, t: 56, d: 0.8 },
-]
+// Editorial title-card preloader. Background #1e212f, type-led, restrained,
+// confident pacing. References: Loro Piana, Aesop, Saint Laurent fashion-
+// film opening titles. NOT: rings, stars, counters, glows.
 
 export function Preloader({ onDone }: { onDone: () => void }) {
   const root = useRef<HTMLDivElement>(null)
@@ -31,19 +20,18 @@ export function Preloader({ onDone }: { onDone: () => void }) {
     if (!el) return
     const q = (sel: string) => el.querySelectorAll<HTMLElement>(sel)
 
-    // Initial states
-    gsap.set(q('.pre-logo'), { opacity: 0, y: 20, scale: 0.85, rotateY: 18, transformPerspective: 800 })
-    gsap.set(q('.pre-glow'), { opacity: 0, scale: 0.7 })
-    gsap.set(q('.pre-ring'), { opacity: 0, scale: 0.85 })
-    gsap.set(q('.pre-letter'), { yPercent: 110, opacity: 0 })
-    gsap.set(q('.pre-counter'), { opacity: 0, y: 6 })
-    gsap.set(q('.pre-bar'), { opacity: 0 })
-    gsap.set(q('.pre-bar-fill'), { scaleX: 0, transformOrigin: 'left center' })
+    // Initial states — everything hidden, ready for cinematic entrance
+    gsap.set(q('.pre-corner'), { opacity: 0, y: -8 })
+    gsap.set(q('.pre-eyebrow-letter'), { opacity: 0, y: 14 })
+    gsap.set(q('.pre-display-mask'), { clipPath: 'inset(0 100% 0 0)' })
+    gsap.set(q('.pre-rule'), { scaleX: 0, transformOrigin: 'center center' })
+    gsap.set(q('.pre-tag-letter'), {
+      opacity: 0,
+      letterSpacing: '0.05em',
+    })
+    gsap.set(q('.pre-bottom-bar'), { scaleX: 0, transformOrigin: 'left center' })
+    gsap.set(q('.pre-bottom-meta'), { opacity: 0 })
     gsap.set(q('.pre-finale-line'), { scaleX: 0, transformOrigin: 'left center' })
-    gsap.set(q('.pre-star'), { opacity: 0, scale: 0.4 })
-
-    const counterEl = el.querySelector<HTMLElement>('.pre-counter-num')
-    const counterObj = { v: 0 }
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -52,123 +40,109 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       },
     })
 
-    // 1. Stars twinkle in
-    tl.to(q('.pre-star'), {
+    // 1. Corner stamps fade in — sets the "production credit" frame
+    tl.to(q('.pre-corner'), {
       opacity: 1,
-      scale: 1,
+      y: 0,
       duration: 0.8,
-      ease: 'power2.out',
-      stagger: { each: 0.04, from: 'random' },
+      ease: 'power3.out',
+      stagger: 0.1,
     })
-      // 2. Glow halo blooms
+      // 2. Eyebrow "01" + rust dot — letter rise
       .to(
-        q('.pre-glow'),
-        { opacity: 1, scale: 1, duration: 1.0, ease: 'expo.out' },
-        '-=0.6'
-      )
-      // 3. Orbiting rings pop in
-      .to(
-        q('.pre-ring'),
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.9,
-          ease: 'expo.out',
-          stagger: 0.08,
-        },
-        '-=0.7'
-      )
-      // 4. Logo lands with 3D flip
-      .to(
-        q('.pre-logo'),
+        q('.pre-eyebrow-letter'),
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          rotateY: 0,
-          duration: 1.1,
+          duration: 0.6,
           ease: 'expo.out',
+          stagger: 0.04,
         },
-        '-=0.6'
+        '-=0.4'
       )
-      // 5. Per-letter tagline reveal
+      // 3. Logo wipe — clip-path slides open from left, like a paper unfolding
       .to(
-        q('.pre-letter'),
+        q('.pre-display-mask'),
         {
-          yPercent: 0,
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 1.4,
+          ease: 'expo.inOut',
+        },
+        '-=0.3'
+      )
+      // 4. Thin rust rule draws across, anchored to centre
+      .to(
+        q('.pre-rule'),
+        {
+          scaleX: 1,
+          duration: 0.9,
+          ease: 'expo.inOut',
+        },
+        '-=0.7'
+      )
+      // 5. Tagline letterspacing OPENS from tight 0.05em → set 0.42em while
+      //    each letter fades in — Loro Piana / Aesop signature reveal.
+      .to(
+        q('.pre-tag-letter'),
+        {
           opacity: 1,
-          duration: 0.7,
+          letterSpacing: '0.42em',
+          duration: 1.4,
           ease: 'expo.out',
-          stagger: 0.022,
+          stagger: 0.02,
         },
         '-=0.5'
       )
-      // 6. Counter + bar appear, count from 0 → 100
+      // 6. Bottom credits bar + label fill in
       .to(
-        q('.pre-counter'),
-        { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' },
-        '-=0.3'
+        q('.pre-bottom-meta'),
+        { opacity: 1, duration: 0.4, ease: 'power3.out' },
+        '-=0.6'
       )
       .to(
-        q('.pre-bar'),
-        { opacity: 1, duration: 0.3, ease: 'power3.out' },
+        q('.pre-bottom-bar'),
+        { scaleX: 1, duration: 1.0, ease: 'power2.inOut' },
         '<'
       )
-      .to(
-        counterObj,
-        {
-          v: 100,
-          duration: 1.4,
-          ease: 'power2.inOut',
-          onUpdate: () => {
-            if (counterEl) counterEl.textContent = String(Math.round(counterObj.v)).padStart(2, '0')
-          },
-        },
-        '<'
-      )
-      .to(
-        q('.pre-bar-fill'),
-        { scaleX: 1, duration: 1.4, ease: 'power2.inOut' },
-        '<'
-      )
-      // 7. Hold a beat, then collapse content
+      // 7. Hold a confident beat — luxury timing
+      .to({}, { duration: 0.35 })
+      // 8. EXIT — content scales subtly + fades; finale rust line draws
+      //    across the meridian.
       .to(
         q('.pre-content'),
         {
-          y: -16,
+          y: -8,
           opacity: 0,
-          scale: 1.04,
-          duration: 0.55,
+          scale: 1.02,
+          duration: 0.7,
           ease: 'power3.in',
-        },
-        '+=0.25'
+        }
       )
-      // 8. Rust hairline draws across the meridian
+      .to(
+        q('.pre-corner, .pre-bottom'),
+        { opacity: 0, duration: 0.4, ease: 'power2.in' },
+        '<'
+      )
       .to(
         q('.pre-finale-line'),
-        { scaleX: 1, duration: 0.7, ease: 'expo.out' },
+        { scaleX: 1, duration: 0.6, ease: 'expo.out' },
         '-=0.4'
       )
-      // 9. Three-slice curtain peel — top up, middle hold, bottom down
+      // 9. Single confident curtain peel — heavy cubic-bezier(0.87,0,0.13,1)
+      //    feel via expo.inOut
       .to(
-        q('.pre-curtain-top'),
-        { yPercent: -100, duration: 0.95, ease: 'expo.inOut' },
+        q('.pre-curtain'),
+        {
+          yPercent: -100,
+          duration: 1.0,
+          ease: 'expo.inOut',
+        },
         '+=0.05'
-      )
-      .to(
-        q('.pre-curtain-mid'),
-        { scaleY: 0, transformOrigin: 'center center', duration: 0.9, ease: 'expo.inOut' },
-        '<0.05'
-      )
-      .to(
-        q('.pre-curtain-bot'),
-        { yPercent: 100, duration: 0.95, ease: 'expo.inOut' },
-        '<'
       )
       .to(
         q('.pre-finale-line'),
         { opacity: 0, duration: 0.4, ease: 'power2.out' },
-        '<0.2'
+        '<0.3'
       )
 
     return () => {
@@ -178,6 +152,8 @@ export function Preloader({ onDone }: { onDone: () => void }) {
 
   if (hidden) return null
 
+  const TAGLINE = 'PREMIUM LONGEVITY MEDICINE · INDIA'
+
   return (
     <div
       ref={root}
@@ -185,161 +161,91 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       aria-hidden="true"
       style={{ background: '#1e212f' }}
     >
-      <style>{`
-        @keyframes pre-aurora {
-          0%   { transform: translate(0%, 0%) scale(1); opacity: 0.55; }
-          50%  { transform: translate(6%, -4%) scale(1.06); opacity: 0.75; }
-          100% { transform: translate(0%, 0%) scale(1); opacity: 0.55; }
-        }
-        @keyframes pre-aurora-2 {
-          0%   { transform: translate(0%, 0%); opacity: 0.4; }
-          50%  { transform: translate(-7%, 5%); opacity: 0.6; }
-          100% { transform: translate(0%, 0%); opacity: 0.4; }
-        }
-        @keyframes pre-spin-cw  { 0% { transform: rotate(0deg);    } 100% { transform: rotate(360deg);  } }
-        @keyframes pre-spin-ccw { 0% { transform: rotate(0deg);    } 100% { transform: rotate(-360deg); } }
-        @keyframes pre-pulse-glow {
-          0%, 100% { transform: scale(1);    opacity: 1;   }
-          50%      { transform: scale(1.08); opacity: 0.8; }
-        }
-        @keyframes pre-twinkle {
-          0%, 100% { opacity: 0.25; transform: scale(0.8); }
-          50%      { opacity: 1;    transform: scale(1.3); }
-        }
-        @keyframes pre-shimmer {
-          0%   { background-position:   0% 50%; }
-          100% { background-position: 200% 50%; }
-        }
-        .pre-aurora-1 { animation: pre-aurora    14s ease-in-out infinite; will-change: transform, opacity; }
-        .pre-aurora-2 { animation: pre-aurora-2  18s ease-in-out infinite; will-change: transform, opacity; }
-        .pre-ring-outer { animation: pre-spin-cw  60s linear infinite; }
-        .pre-ring-mid   { animation: pre-spin-ccw 45s linear infinite; }
-        .pre-ring-inner { animation: pre-spin-cw  30s linear infinite; }
-        .pre-glow-pulse { animation: pre-pulse-glow 3.5s ease-in-out infinite; }
-        .pre-star { animation: pre-twinkle 4s ease-in-out infinite; will-change: opacity, transform; }
-        .pre-bar-fill {
-          background: linear-gradient(90deg,
-            rgba(178,122,123,0.25) 0%,
-            rgba(178,122,123,0.95) 50%,
-            rgba(178,122,123,0.25) 100%);
-          background-size: 200% 100%;
-          animation: pre-shimmer 1.6s linear infinite;
-          will-change: background-position;
-        }
-      `}</style>
+      {/* Single curtain — peels straight up at the end with one bold gesture */}
+      <div className="pre-curtain absolute inset-0" style={{ background: '#1e212f' }} />
 
-      {/* Three-slice curtain — peel top-up, middle-collapse, bottom-down */}
-      <div className="absolute inset-0 flex flex-col">
-        <div className="pre-curtain-top flex-1" style={{ background: '#1e212f' }} />
-        <div className="pre-curtain-mid flex-1" style={{ background: '#1e212f' }} />
-        <div className="pre-curtain-bot flex-1" style={{ background: '#1e212f' }} />
-      </div>
-
-      {/* Aurora ambient — two drifting radial blobs (rust + soft blue) */}
-      <div
-        aria-hidden
-        className="pre-aurora-1 absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(700px 500px at 30% 35%, rgba(178,122,123,0.20), transparent 65%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="pre-aurora-2 absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(800px 600px at 75% 70%, rgba(120,140,180,0.12), transparent 60%)',
-        }}
-      />
-
-      {/* Constellation — twinkling stars */}
+      {/* Production-credit corner stamps */}
       <div className="absolute inset-0 pointer-events-none">
-        {STARS.map((s, i) => (
-          <span
-            key={i}
-            className="pre-star absolute w-[3px] h-[3px] rounded-full bg-white/70"
-            style={{
-              left: `${s.l}%`,
-              top: `${s.t}%`,
-              animationDelay: `${s.d}s`,
-              boxShadow: '0 0 6px rgba(255,255,255,0.7), 0 0 12px rgba(178,122,123,0.4)',
-            }}
-          />
-        ))}
+        {/* Top-left: chapter mark + brand abbreviation */}
+        <div className="pre-corner absolute top-6 left-6 md:top-8 md:left-10 flex items-center gap-3 text-[10px] tracking-[0.3em] uppercase text-white/55 font-medium">
+          <span className="tabular-nums">01</span>
+          <span className="w-6 h-px bg-rust-soft/70" />
+          <span>TAC</span>
+        </div>
+        {/* Top-right: roman year stamp */}
+        <div className="pre-corner absolute top-6 right-6 md:top-8 md:right-10 text-[10px] tracking-[0.32em] uppercase text-white/45 font-medium tabular-nums">
+          MMXXVI
+        </div>
+        {/* Bottom-left: subtle "now playing" label */}
+        <div className="pre-corner absolute bottom-6 left-6 md:bottom-8 md:left-10 flex items-center gap-2.5 text-[10px] tracking-[0.3em] uppercase text-white/45 font-medium">
+          <span className="relative flex h-1.5 w-1.5" aria-hidden>
+            <span className="absolute inline-flex h-full w-full rounded-full bg-rust-soft opacity-70 animate-ping" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rust-soft" />
+          </span>
+          <span>Now Boarding</span>
+        </div>
+        {/* Bottom-right: tiny serial */}
+        <div className="pre-corner absolute bottom-6 right-6 md:bottom-8 md:right-10 text-[10px] tracking-[0.3em] uppercase text-white/35 font-medium tabular-nums">
+          № 0001
+        </div>
       </div>
 
-      {/* Centered content */}
-      <div className="pre-content absolute inset-0 flex flex-col items-center justify-center">
-        {/* Logo with orbiting rings + glow halo */}
-        <div className="relative flex items-center justify-center">
-          {/* Rust glow halo */}
-          <div
-            className="pre-glow pre-glow-pulse absolute -inset-16 md:-inset-20 rounded-full"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(178,122,123,0.35) 0%, rgba(178,122,123,0) 70%)',
-              filter: 'blur(20px)',
-              willChange: 'transform, opacity',
-            }}
-          />
+      {/* Centred title-card content */}
+      <div className="pre-content absolute inset-0 flex flex-col items-center justify-center px-6">
+        {/* Eyebrow — small letter-rise reveal */}
+        <div className="flex items-center justify-center mb-10 md:mb-14 overflow-hidden">
+          {Array.from('— A LONGEVITY PRACTICE —').map((c, i) => (
+            <span
+              key={i}
+              className="pre-eyebrow-letter inline-block text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-rust-soft font-semibold"
+              style={{ willChange: 'transform, opacity' }}
+            >
+              {c === ' ' ? ' ' : c}
+            </span>
+          ))}
+        </div>
 
-          {/* Outer ring with rust dot accent */}
-          <div className="pre-ring pre-ring-outer absolute -inset-20 md:-inset-24 rounded-full border border-rust-soft/25 will-change-transform">
-            <span aria-hidden className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-rust-soft" style={{ boxShadow: '0 0 8px rgba(178,122,123,0.8)' }} />
-          </div>
-
-          {/* Mid ring (counter-spin) */}
-          <div className="pre-ring pre-ring-mid absolute -inset-14 md:-inset-16 rounded-full border border-white/10 will-change-transform">
-            <span aria-hidden className="absolute top-1/2 -right-0.5 -translate-y-1/2 w-1 h-1 rounded-full bg-white/70" />
-            <span aria-hidden className="absolute top-1/2 -left-0.5 -translate-y-1/2 w-1 h-1 rounded-full bg-white/40" />
-          </div>
-
-          {/* Inner ring */}
-          <div className="pre-ring pre-ring-inner absolute -inset-10 md:-inset-11 rounded-full border border-rust-soft/15 will-change-transform" />
-
-          {/* Logo */}
+        {/* Logo — clip-path wipes open from left like a paper letterhead */}
+        <div className="pre-display-mask" style={{ willChange: 'clip-path' }}>
           <img
             src="/new-logo-white.webp"
             alt="The Anti-Aging Centre"
-            className="pre-logo relative z-10 h-[60px] md:h-[72px] w-auto object-contain"
-            style={{ willChange: 'transform, opacity' }}
+            className="h-[60px] md:h-[80px] w-auto object-contain block"
           />
         </div>
 
-        {/* Per-letter tagline */}
-        <div className="mt-12 md:mt-14 overflow-hidden">
-          <div className="flex justify-center text-[10px] md:text-[11px] tracking-[0.4em] uppercase text-white/65 font-medium">
-            {Array.from(TAGLINE).map((c, i) => (
-              <span key={i} className="inline-block overflow-hidden">
-                <span className="pre-letter inline-block" style={{ willChange: 'transform, opacity' }}>
-                  {c === ' ' ? ' ' : c}
-                </span>
-              </span>
-            ))}
-          </div>
-        </div>
+        {/* Thin rust rule under logo — draws across from centre */}
+        <div className="pre-rule mt-8 md:mt-10 h-px w-[200px] md:w-[260px] bg-rust-soft/80" style={{ willChange: 'transform' }} />
 
-        {/* Counter + bar */}
-        <div className="mt-8 flex flex-col items-center gap-3">
-          <div
-            className="pre-counter text-[10px] tracking-[0.32em] uppercase text-white/45 tabular-nums font-medium"
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <span className="pre-counter-num">00</span>
-            <span className="text-white/25 mx-1">/</span>
-            <span>100</span>
-          </div>
-          <div className="pre-bar h-px w-[240px] md:w-[280px] bg-white/10 overflow-hidden" style={{ willChange: 'opacity' }}>
-            <div className="pre-bar-fill h-full w-full" style={{ willChange: 'transform' }} />
-          </div>
+        {/* Tagline — letterspacing OPENS from tight to wide while letters fade in */}
+        <div className="mt-6 md:mt-8 flex justify-center">
+          {Array.from(TAGLINE).map((c, i) => (
+            <span
+              key={i}
+              className="pre-tag-letter inline-block text-[10px] md:text-[11px] uppercase text-white/60 font-medium"
+              style={{ willChange: 'opacity, letter-spacing' }}
+            >
+              {c === ' ' ? ' ' : c}
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Rust hairline drawn across the meridian as the curtains part */}
+      {/* Bottom credits — thin line + minimal label, like a movie poster */}
+      <div className="pre-bottom absolute left-0 right-0 bottom-0 px-6 md:px-10 pb-3.5 md:pb-4">
+        <div className="pre-bottom-meta flex items-center justify-between text-[9.5px] tracking-[0.32em] uppercase text-white/35 font-medium mb-2">
+          <span>Loading</span>
+          <span className="tabular-nums">India · 2026</span>
+        </div>
+        <div className="h-px w-full bg-white/8 overflow-hidden">
+          <div className="pre-bottom-bar h-full w-full bg-white/35" style={{ willChange: 'transform' }} />
+        </div>
+      </div>
+
+      {/* Finale rust hairline — drawn across the meridian during exit */}
       <div
-        className="pre-finale-line absolute left-0 right-0 top-1/2 h-px bg-rust-soft will-change-transform"
-        style={{ boxShadow: '0 0 12px rgba(178,122,123,0.7)' }}
+        className="pre-finale-line absolute left-0 right-0 top-1/2 h-px bg-rust-soft"
+        style={{ willChange: 'transform, opacity' }}
       />
     </div>
   )
