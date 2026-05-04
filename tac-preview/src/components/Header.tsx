@@ -319,7 +319,7 @@ export function Header() {
         </div>
       </header>
 
-      {/* MOBILE MENU OVERLAY */}
+      {/* MOBILE MENU OVERLAY — white theme matching the rest of the site */}
       <div
         id="mobile-menu"
         role="dialog"
@@ -330,31 +330,32 @@ export function Header() {
         }`}
         aria-hidden={!menuOpen}
       >
-        <div className="absolute inset-0 bg-ink" />
+        <div className="absolute inset-0 bg-white" />
+        {/* Soft warm wash — barely-there rust + nougat */}
         <div
           aria-hidden
-          className="absolute inset-0 pointer-events-none opacity-60"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(700px 500px at 80% 100%, rgba(178,122,123,0.18), transparent 60%)',
+              'radial-gradient(900px 600px at 18% 20%, rgba(148,84,85,0.06), transparent 60%), radial-gradient(800px 500px at 82% 90%, rgba(238,230,219,0.55), transparent 60%)',
           }}
         />
 
-        <div className="relative h-full flex flex-col px-6 pt-6 pb-10 text-white overflow-y-auto">
+        <div className="relative h-full flex flex-col px-6 pt-6 pb-10 text-ink overflow-y-auto">
           <div className="flex items-center justify-between mb-12">
             <a
               href="/"
               onClick={() => setMenuOpen(false)}
               aria-label="The Longevity Centre — home"
-              className="text-white"
+              className="text-ink"
             >
-              <Logo variant="light" size={56} />
+              <Logo variant="dark" size={56} />
             </a>
             <button
               type="button"
               onClick={() => setMenuOpen(false)}
               aria-label="Close navigation menu"
-              className="w-10 h-10 rounded-full border border-white/20 hover:bg-white/10 flex items-center justify-center transition-colors duration-300"
+              className="w-10 h-10 rounded-full border border-ink/15 text-ink hover:bg-ink/5 hover:border-rust hover:text-rust flex items-center justify-center transition-colors duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -369,7 +370,7 @@ export function Header() {
                 key={it.label}
                 href={it.href}
                 onClick={() => setMenuOpen(false)}
-                className="group relative block py-3.5 border-b border-white/10 overflow-hidden"
+                className="group relative block py-3.5 border-b border-ink/10 overflow-hidden"
                 style={{
                   transition: `transform 700ms cubic-bezier(0.22,1,0.36,1) ${
                     menuOpen ? 80 + i * 70 : 0
@@ -379,10 +380,10 @@ export function Header() {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-display font-bold text-[34px] sm:text-[40px] leading-[1.0] tracking-[-0.025em] text-white group-hover:text-rust-soft transition-colors duration-500">
+                  <span className="font-display font-bold text-[34px] sm:text-[40px] leading-[1.0] tracking-[-0.025em] text-ink group-hover:text-rust transition-colors duration-500">
                     {it.label}
                   </span>
-                  <span className="text-[11px] tracking-[0.3em] uppercase text-white/45 tabular-nums font-medium">
+                  <span className="text-[11px] tracking-[0.3em] uppercase text-stone tabular-nums font-medium">
                     0{i + 1}
                   </span>
                 </div>
@@ -403,29 +404,29 @@ export function Header() {
             <a
               href="#cta"
               onClick={() => setMenuOpen(false)}
-              className="group flex items-center justify-between w-full pl-5 pr-2 py-3 bg-white text-ink rounded-full font-semibold text-[12px] tracking-[0.18em] uppercase"
+              className="group flex items-center justify-between w-full pl-5 pr-2 py-3 bg-rust text-white rounded-full font-semibold text-[12px] tracking-[0.18em] uppercase shadow-[0_12px_30px_-12px_rgba(148,84,85,0.55)]"
             >
               <span className="flex items-center gap-2.5">
                 <span className="relative flex h-2 w-2" aria-hidden="true">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
                 </span>
                 Arrange a Consultation
               </span>
-              <span className="w-9 h-9 rounded-full bg-ink text-white flex items-center justify-center" aria-hidden="true">
+              <span className="w-9 h-9 rounded-full bg-white text-rust flex items-center justify-center" aria-hidden="true">
                 →
               </span>
             </a>
 
-            <div className="flex items-center justify-between text-[12.5px] text-white/75 pt-3 border-t border-white/10">
-              <a href="tel:+918826809123" aria-label="Call +91 88268 09123" className="inline-flex items-center gap-2 hover:text-white transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft" aria-hidden="true" focusable="false">
+            <div className="flex items-center justify-between text-[12.5px] text-graphite pt-3 border-t border-ink/10">
+              <a href="tel:+918826809123" aria-label="Call +91 88268 09123" className="inline-flex items-center gap-2 hover:text-rust transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust" aria-hidden="true" focusable="false">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
                 +91 88268 09123
               </a>
-              <a href="https://wa.me/918826809123" aria-label="Chat on WhatsApp" className="inline-flex items-center gap-2 hover:text-white transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-rust-soft" aria-hidden="true" focusable="false">
+              <a href="https://wa.me/918826809123" aria-label="Chat on WhatsApp" className="inline-flex items-center gap-2 hover:text-rust transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-rust" aria-hidden="true" focusable="false">
                   <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.71.3 1.262.48 1.694.629.712.227 1.36.195 1.871.121.571-.091 1.758-.721 2.006-1.413.255-.69.255-1.29.18-1.414-.074-.124-.27-.21-.57-.345m-5.446 7.443h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
                 </svg>
                 WhatsApp
