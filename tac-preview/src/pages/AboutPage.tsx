@@ -9,9 +9,9 @@ import { useDocumentMeta } from '../lib/seo'
 gsap.registerPlugin(ScrollTrigger)
 
 const ABOUT_META = {
-  title: 'About TAC — Leaders in Preventive & Anti-Aging Medicine, India',
+  title: 'About TLC — The Longevity Centre · Precision Longevity Medicine, India',
   description:
-    'Meet the founders of The Anti-Aging Centre — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 7,500+ procedures). Twenty-plus years of preventive medicine experience. Five centres pan-India.',
+    'Meet the founders of The Longevity Centre — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 7,500+ procedures). Twenty-plus years of preventive medicine experience. Five centres pan-India.',
   path: '/about',
   jsonLd: [
     {

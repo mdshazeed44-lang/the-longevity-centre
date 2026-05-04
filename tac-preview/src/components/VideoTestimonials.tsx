@@ -1,59 +1,70 @@
-// Video testimonials — "Infinite Cinema Marquee"
-// Continuous horizontal marquee of vertical video cards (auto-scrolls slowly).
-// Hover any card → marquee pauses + card grows + plays inline (muted).
-// Click → fullscreen lightbox modal with controls.
-// Background: dark with sweeping film-projector light beams.
+// VideoTestimonials — editorial featured-story pattern.
+// One story shown large with the OUTCOME METRIC as the hero.
+// Below: thumbnail selector to switch between stories.
+// Smooth fade transition. White BG, rust accents — brand-aligned.
 //
-// Source videos: TAC's own patient testimonials, downloaded + compressed
-// (~60 MB total, premium quality preserved with bitrate caps).
+// Source: TLC brochure page 15 — 4 patient videos with verified outcome
+// metrics (HbA1c drops, kg lost). Quotes are verbatim.
+
 import { useEffect, useRef, useState } from 'react'
 
 type Testimonial = {
   id: string
-  index: string
   name: string
-  tag: string          // TAC programme category (no fabricated metrics)
+  programme: string
+  metric: string         // big headline number (e.g., "−15 kg" or "7.4 → 5.7")
+  metricLabel: string    // small caption (e.g., "in programme" or "HbA1c, 4 months")
+  quote: string          // verbatim patient quote
   video: string
   poster: string
   orientation: 'vertical' | 'horizontal'
 }
 
-// Source: theantiagingcentre.com — 4 actual patient video testimonials.
-// `tag` maps each story to one of TAC's five flagship programmes — never
-// invent specific outcome numbers (weight lost, biomarker drops, etc.).
 const TESTIMONIALS: Testimonial[] = [
   {
+    id: 'shaun',
+    name: 'Mr. Shaun Gomez',
+    programme: 'Advanced Metabolic Programme',
+    metric: '−15 kg',
+    metricLabel: 'In Programme',
+    quote:
+      'I reduced my weight from 87 kg to 72 kg through this programme. Beyond weight loss, I feel more focused and active in my daily life. The personalised approach based on my body and vitals made it easy to follow and effective.',
+    video: '/videos/testimonials/gomez.mp4',
+    poster: '/videos/testimonials/posters/gomez.png',
+    orientation: 'horizontal',
+  },
+  {
     id: 'abhinav',
-    index: '01',
     name: 'Mr. Abhinav Saxena',
-    tag: 'Metabolic Health',
+    programme: 'Longevity Plus Programme',
+    metric: '−14 kg',
+    metricLabel: 'Plus liver health restored',
+    quote:
+      'I lost weight from around 85 kg to nearly 71 kg and feel healthier from within. My energy levels have improved, and I feel younger overall. The guidance also helped improve my liver health, making the whole journey practical and sustainable.',
     video: '/videos/testimonials/abhinav.mp4',
     poster: '/videos/testimonials/posters/abhinav.webp',
     orientation: 'vertical',
   },
   {
     id: 'bhushan',
-    index: '02',
     name: 'Mr. Bhushan Kamble',
-    tag: 'Weight & Composition',
+    programme: 'Metabolic Programme',
+    metric: 'Diabetic → Normal',
+    metricLabel: 'Glucose normalised, −10 kg',
+    quote:
+      'I reduced around 9–10 kg and my glucose levels improved from diabetic to normal. The progress came faster than I expected. The customised plan and continuous support made it easy to follow and maintain long-term results.',
     video: '/videos/testimonials/bhushan.mp4',
     poster: '/videos/testimonials/posters/bhushan.png',
     orientation: 'vertical',
   },
   {
-    id: 'gomez',
-    index: '03',
-    name: 'Mr. Shaun Gomez',
-    tag: 'Vitality',
-    video: '/videos/testimonials/gomez.mp4',
-    poster: '/videos/testimonials/posters/gomez.png',
-    orientation: 'horizontal',
-  },
-  {
     id: 'sadhna',
-    index: '04',
     name: 'Mrs. Sadhna Gupta',
-    tag: 'Longevity Plus',
+    programme: 'Diabetes Reversal Programme',
+    metric: '170s → 110',
+    metricLabel: 'Fasting glucose',
+    quote:
+      "I've had diabetes for many years, and my sugar levels are now much better controlled. My fasting dropped from around 170–180 to nearly 110, and my medications have reduced. I feel more energetic, and managing my diet and daily health has become much easier and more consistent.",
     video: '/videos/testimonials/sadhna.mp4',
     poster: '/videos/testimonials/posters/sadhna.png',
     orientation: 'vertical',
@@ -61,286 +72,275 @@ const TESTIMONIALS: Testimonial[] = [
 ]
 
 export function VideoTestimonials() {
-  const [openIdx, setOpenIdx] = useState<number | null>(null)
-  const cardRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const [activeIdx, setActiveIdx] = useState(0)
+  const [openLightbox, setOpenLightbox] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const active = TESTIMONIALS[activeIdx]
 
-  // Lock body scroll when modal open
+  // When active story changes, reset video element
   useEffect(() => {
-    if (openIdx !== null) document.body.style.overflow = 'hidden'
+    const v = videoRef.current
+    if (v) {
+      v.muted = true
+      v.currentTime = 0
+      v.play().catch(() => {})
+    }
+  }, [activeIdx])
+
+  // Lock body scroll when lightbox open
+  useEffect(() => {
+    if (openLightbox) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = ''
     return () => {
       document.body.style.overflow = ''
     }
-  }, [openIdx])
+  }, [openLightbox])
 
-  // Cards duplicated 2x for seamless infinite marquee
-  const items = [...TESTIMONIALS, ...TESTIMONIALS]
+  // Keyboard nav (← / →)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (openLightbox) {
+        if (e.key === 'Escape') setOpenLightbox(false)
+        return
+      }
+      if (e.key === 'ArrowRight') setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)
+      if (e.key === 'ArrowLeft') setActiveIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [openLightbox])
 
   return (
     <section
       id="testimonials"
-      className="relative py-12 md:py-14 overflow-hidden"
-      style={{
-        background:
-          'radial-gradient(circle at 50% 0%, #1d1614 0%, #0d0908 70%)',
-      }}
+      className="relative bg-white py-14 md:py-18 px-6 md:px-12 overflow-hidden"
     >
-      {/* Sweeping projector light beams */}
+      {/* Subtle ambient warmth */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none overflow-hidden"
-      >
-        <div
-          className="absolute -top-1/4 left-1/2 -translate-x-1/2 w-[1400px] h-[1400px] opacity-40"
-          style={{
-            background:
-              'conic-gradient(from 70deg at 50% 0%, transparent 0deg, rgba(178,122,123,0.18) 18deg, transparent 30deg, transparent 100deg, rgba(178,122,123,0.10) 110deg, transparent 130deg)',
-            animation: 'tac-projector-sweep 22s ease-in-out infinite alternate',
-          }}
-        />
-      </div>
-      <style>{`
-        @keyframes tac-projector-sweep {
-          0% { transform: translateX(-50%) rotate(0deg); }
-          100% { transform: translateX(-50%) rotate(20deg); }
-        }
-        @keyframes tac-marquee-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .tac-cinema-track {
-          animation: tac-marquee-scroll 50s linear infinite;
-        }
-        .tac-cinema-wrap:hover .tac-cinema-track {
-          animation-play-state: paused;
-        }
-        /* Dim non-hovered cards when track is hovered, lift the active one */
-        .tac-cinema-wrap:hover .tac-cinema-card { opacity: 0.55; transform: scale(0.97); }
-        .tac-cinema-card { transition: opacity 600ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1); }
-        .tac-cinema-card:hover { opacity: 1 !important; transform: scale(1.04) !important; }
-        .tac-cinema-card:hover .tac-card-frame {
-          border-color: rgba(178,122,123,0.45);
-          box-shadow:
-            0 1px 0 rgba(255,255,255,0.06) inset,
-            0 0 0 1px rgba(178,122,123,0.18),
-            0 50px 90px -40px rgba(148,84,85,0.55),
-            0 30px 60px -25px rgba(0,0,0,0.7);
-        }
-        .tac-cinema-card:hover .tac-card-glow { opacity: 1; }
-        .tac-cinema-card:hover .tac-card-cta { opacity: 1; transform: translateX(0); }
-        .tac-cinema-card:hover .tac-card-meta-line { width: 36px; }
-      `}</style>
+        className="absolute inset-0 pointer-events-none opacity-50"
+        style={{
+          background:
+            'radial-gradient(900px 500px at 50% 0%, rgba(148,84,85,0.06), transparent 65%)',
+        }}
+      />
 
-      {/* Header */}
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-12 mb-9 md:mb-12 text-center">
-        <div className="inline-flex items-center gap-3 mb-4">
-          <span className="w-7 h-px bg-rust-soft" />
-          <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
-            Patient Stories · Unscripted
-          </span>
-          <span className="w-7 h-px bg-rust-soft" />
+      <div className="relative max-w-[1280px] mx-auto">
+        {/* HEADER */}
+        <div className="text-center mb-10 md:mb-14 max-w-[680px] mx-auto">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <span className="w-7 h-px bg-rust" />
+            <span className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold">
+              Patient Outcomes · Verified
+            </span>
+            <span className="w-7 h-px bg-rust" />
+          </div>
+          <h2 className="font-display font-light text-[26px] md:text-[36px] xl:text-[42px] leading-[1.1] tracking-[-0.025em] text-ink">
+            Real results.
+            <span className="font-bold text-rust"> Real measurements.</span>
+          </h2>
+          <p className="mt-4 text-[13px] md:text-[14px] leading-[1.6] text-graphite font-light max-w-[480px] mx-auto">
+            Every outcome below is documented through repeat diagnostics — not memory. These are TLC patients in their own words.
+          </p>
         </div>
-        <h2 className="font-display font-bold text-[28px] md:text-[40px] xl:text-[44px] leading-[1.05] tracking-[-0.03em] text-white">
-          In their <span className="italic font-medium text-rust-soft">own</span> words.
-        </h2>
-        <p className="mt-3 text-[13px] md:text-[14px] text-white/65 font-light max-w-[460px] mx-auto leading-[1.55]">
-          No scripts, no actors. Real TAC patients, recorded in our clinics.
-          Hover to preview · click for the full story.
-        </p>
-        {/* Spec row — small editorial credits */}
-        <div className="mt-5 inline-flex items-center gap-4 text-[10px] md:text-[10.5px] tracking-[0.28em] uppercase text-white/40 font-medium">
-          <span>04 Stories</span>
-          <span aria-hidden className="w-1 h-1 rounded-full bg-white/30" />
-          <span>Verified TAC Patients</span>
-          <span aria-hidden className="w-1 h-1 rounded-full bg-white/30" />
-          <span>Filmed On Location</span>
-        </div>
-      </div>
 
-      {/* Marquee */}
-      <div className="tac-cinema-wrap relative w-full overflow-hidden">
-        {/* Edge fade gradients */}
-        <div
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-32 z-10 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(90deg, rgba(13,9,8,1) 0%, rgba(13,9,8,0) 100%)',
-          }}
-        />
-        <div
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-32 z-10 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(-90deg, rgba(13,9,8,1) 0%, rgba(13,9,8,0) 100%)',
-          }}
-        />
+        {/* FEATURED STORY — 2-col editorial spread */}
+        <div className="grid md:grid-cols-[1fr_1fr] gap-8 md:gap-12 items-center">
+          {/* LEFT — Video frame with outcome metric chip */}
+          <div className="relative">
+            {/* Outcome metric chip — floats top-left, smaller and tighter */}
+            <div className="absolute -top-3 -left-2 md:-top-4 md:-left-3 z-20 bg-white rounded-[14px] px-4 py-3 md:px-5 md:py-3.5 shadow-[0_18px_36px_-20px_rgba(148,84,85,0.40)] border border-mist/60">
+              <div className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-1">
+                {active.metricLabel}
+              </div>
+              <div className="font-display font-bold text-[22px] md:text-[28px] leading-[1.0] tracking-[-0.02em] text-rust tabular-nums">
+                {active.metric}
+              </div>
+            </div>
 
-        {/* The scrolling track */}
-        <div
-          className="tac-cinema-track flex items-center gap-5 md:gap-6 will-change-transform"
-          style={{ width: 'max-content' }}
-        >
-          {items.map((t, idx) => {
-            const realIdx = idx % TESTIMONIALS.length
-            // First name for compact display badge; e.g. "Mr. Abhinav Saxena" → "ABHINAV"
-            const firstName = t.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '').split(' ')[0]
-            return (
+            {/* Video frame — uses object-contain so the person is never cropped */}
+            <button
+              type="button"
+              onClick={() => setOpenLightbox(true)}
+              aria-label={`Watch ${active.name}'s full story`}
+              className="group relative block w-full overflow-hidden rounded-[16px] bg-black border border-mist/60 cursor-pointer"
+              style={{
+                aspectRatio: active.orientation === 'horizontal' ? '4/3' : '3/4',
+                boxShadow:
+                  '0 24px 50px -30px rgba(27,26,24,0.28), 0 10px 24px -20px rgba(27,26,24,0.12)',
+              }}
+            >
+              <video
+                ref={videoRef}
+                key={active.id}
+                src={active.video}
+                poster={active.poster}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-contain bg-black"
+              />
+              {/* Subtle bottom shade for play-button legibility (smaller area) */}
               <div
-                key={`${t.id}-${idx}`}
-                className="tac-cinema-card group relative shrink-0 cursor-pointer"
-                style={{ width: '244px' }}
-                onMouseEnter={() => {
-                  const v = cardRefs.current[idx]
-                  if (v) {
-                    v.muted = true
-                    v.currentTime = 0
-                    v.play().catch(() => {})
-                  }
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)',
                 }}
-                onMouseLeave={() => {
-                  const v = cardRefs.current[idx]
-                  if (v) v.pause()
-                }}
-                onClick={() => setOpenIdx(realIdx)}
+              />
+              {/* Play disc — bottom-right of video */}
+              <div className="absolute bottom-4 right-4 flex items-center gap-3">
+                <span className="text-[10px] tracking-[0.28em] uppercase text-white/90 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  Watch full story
+                </span>
+                <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-105">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="white" className="ml-0.5">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+              </div>
+            </button>
+          </div>
+
+          {/* RIGHT — Pull quote + attribution */}
+          <div>
+            <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-4">
+              {active.programme}
+            </div>
+
+            {/* Quote glyph — large editorial open quote */}
+            <div className="font-display text-[60px] md:text-[80px] leading-none text-rust/15 mb-[-20px] md:mb-[-30px] select-none" aria-hidden>
+              "
+            </div>
+
+            <blockquote
+              key={active.id}
+              className="relative font-display font-light text-[17px] md:text-[20px] xl:text-[22px] leading-[1.4] tracking-[-0.01em] text-ink mb-7 max-w-[480px]"
+              style={{ animation: 'tac-quote-in 0.8s cubic-bezier(0.22,1,0.36,1) both' }}
+            >
+              {active.quote}
+            </blockquote>
+
+            <div className="flex items-baseline gap-3 mb-1.5">
+              <span aria-hidden className="block w-7 h-px bg-rust" />
+              <div className="font-display font-bold text-[16px] md:text-[17px] tracking-tight text-ink">
+                {active.name}
+              </div>
+            </div>
+            <div className="pl-10 text-[10px] tracking-[0.22em] uppercase text-graphite/65 font-medium">
+              The Longevity Centre · Patient
+            </div>
+          </div>
+        </div>
+
+        {/* THUMBNAIL SELECTOR — switch between stories */}
+        <div className="mt-10 md:mt-14">
+          <div className="flex items-center justify-between mb-5 max-w-[760px] mx-auto">
+            <div className="text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold">
+              {String(activeIdx + 1).padStart(2, '0')} / {String(TESTIMONIALS.length).padStart(2, '0')} Stories
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setActiveIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                aria-label="Previous story"
+                className="w-10 h-10 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink flex items-center justify-center transition-colors duration-300"
               >
-                {/* Rust ambient glow behind card — only on hover */}
-                <div
-                  aria-hidden
-                  className="tac-card-glow absolute -inset-3 rounded-[24px] opacity-0 transition-opacity duration-700 pointer-events-none -z-0"
-                  style={{
-                    background:
-                      'radial-gradient(60% 60% at 50% 50%, rgba(178,122,123,0.25), transparent 70%)',
-                    filter: 'blur(20px)',
-                  }}
-                />
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)}
+                aria-label="Next story"
+                className="w-10 h-10 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink flex items-center justify-center transition-colors duration-300"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-                <div
-                  className="tac-card-frame relative rounded-[18px] overflow-hidden bg-black border border-white/12 transition-all duration-700"
-                  style={{
-                    aspectRatio: '9/13',
-                    boxShadow:
-                      '0 1px 0 rgba(255,255,255,0.05) inset, 0 30px 60px -25px rgba(0,0,0,0.7)',
-                  }}
+          {/* Thumbnail strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-3.5 max-w-[760px] mx-auto">
+            {TESTIMONIALS.map((t, i) => {
+              const isActive = i === activeIdx
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setActiveIdx(i)}
+                  aria-label={`View ${t.name}'s story`}
+                  aria-current={isActive}
+                  className={`group relative text-left transition-all duration-500 ${
+                    isActive ? 'scale-100' : 'scale-95 opacity-70 hover:opacity-100 hover:scale-100'
+                  }`}
                 >
-                  <video
-                    ref={(el) => {
-                      cardRefs.current[idx] = el
-                    }}
-                    src={t.video}
-                    poster={t.poster}
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-
-                  {/* Subtle inner highlight at top — gives the frame a glossy ridge */}
                   <div
-                    aria-hidden
-                    className="absolute inset-x-0 top-0 h-px pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
-                    }}
-                  />
-
-                  {/* Top-left film slate corner — index + status dot */}
-                  <div className="absolute top-3 left-3 flex items-center gap-2 backdrop-blur-md bg-black/35 border border-white/12 rounded-full pl-2 pr-3 py-1">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span aria-hidden className="absolute inline-flex h-full w-full rounded-full bg-rust-soft opacity-70 animate-ping" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rust-soft" />
-                    </span>
-                    <span className="font-display font-bold text-[10px] text-white/90 tabular-nums tracking-[0.18em]">
-                      {t.index} / {String(TESTIMONIALS.length).padStart(2, '0')}
-                    </span>
-                  </div>
-
-                  {/* Top-right quote glyph — editorial detail */}
-                  <div
-                    aria-hidden
-                    className="absolute top-3 right-3 font-display text-[28px] leading-none text-white/30 group-hover:text-rust-soft/80 transition-colors duration-700 select-none"
+                    className={`relative aspect-[4/5] w-full overflow-hidden rounded-[12px] bg-mist border-2 transition-all duration-500 ${
+                      isActive ? 'border-rust shadow-[0_18px_30px_-18px_rgba(148,84,85,0.45)]' : 'border-transparent'
+                    }`}
                   >
-                    “
-                  </div>
-
-                  {/* Vignette + bottom shade for legibility of overlay text */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.0) 22%, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.92) 100%)',
-                    }}
-                  />
-
-                  {/* Centre play disc — refined: glass + rust ring on hover */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="relative">
-                      {/* Pulsing ring (only animated on hover via group) */}
-                      <div
-                        aria-hidden
-                        className="absolute inset-0 rounded-full border border-rust-soft/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-ping"
-                      />
-                      <div className="relative w-12 h-12 rounded-full bg-white/12 backdrop-blur-md border border-white/35 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-105 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)]">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="white" className="ml-0.5">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
+                    <img
+                      src={t.poster}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: 'linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.7) 100%)',
+                      }}
+                    />
+                    {/* Active indicator */}
+                    {isActive && (
+                      <div className="absolute top-2 left-2 flex items-center gap-1.5 backdrop-blur-md bg-rust/90 rounded-full px-2 py-0.5">
+                        <span className="relative flex h-1 w-1" aria-hidden>
+                          <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
+                          <span className="relative inline-flex rounded-full h-1 w-1 bg-white" />
+                        </span>
+                        <span className="text-[8.5px] tracking-[0.22em] uppercase text-white font-semibold">Active</span>
+                      </div>
+                    )}
+                    <div className="absolute bottom-2 left-2 right-2 text-white">
+                      <div className="font-display font-bold text-[12.5px] md:text-[13px] leading-tight tracking-tight truncate">
+                        {t.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '')}
+                      </div>
+                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/75 font-medium mt-0.5 truncate">
+                        {t.metric}
                       </div>
                     </div>
                   </div>
-
-                  {/* Bottom info card — overlay with structure */}
-                  <div className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-10 text-white">
-                    {/* Programme tag chip */}
-                    <div className="inline-flex items-center gap-1.5 backdrop-blur-md bg-white/[0.08] border border-white/15 rounded-full px-2.5 py-1 mb-2.5">
-                      <span aria-hidden className="w-1 h-1 rounded-full bg-rust-soft" />
-                      <span className="text-[8.5px] tracking-[0.28em] uppercase text-white/85 font-semibold">
-                        {t.tag}
-                      </span>
-                    </div>
-                    {/* Display name — first name in larger display, full name as caption */}
-                    <div className="font-display font-bold text-[20px] leading-[1.0] tracking-[-0.015em] text-white uppercase">
-                      {firstName}
-                    </div>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span aria-hidden className="tac-card-meta-line block h-px w-3 bg-rust-soft transition-all duration-500" />
-                      <span className="text-[9.5px] tracking-[0.22em] uppercase text-white/65 font-medium leading-none">
-                        {t.name}
-                      </span>
-                    </div>
-
-                    {/* Hover-revealed CTA — slides in from left */}
-                    <div className="tac-card-cta mt-3 flex items-center gap-1.5 opacity-0 -translate-x-1 transition-all duration-500 text-[9.5px] tracking-[0.28em] uppercase text-rust-soft font-semibold">
-                      Watch full story
-                      <span aria-hidden>→</span>
-                    </div>
-                  </div>
-
-                  {/* Top-right corner — runtime label, only on hover */}
-                  <div className="absolute top-3 right-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="text-[9px] tracking-[0.28em] uppercase text-white/55 font-medium">
-                      Verbatim
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Lightbox modal */}
-      {openIdx !== null && (
+      {/* Quote fade-in keyframe */}
+      <style>{`
+        @keyframes tac-quote-in {
+          0% { opacity: 0; transform: translateY(12px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      {/* LIGHTBOX MODAL */}
+      {openLightbox && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/85 backdrop-blur-md"
-          onClick={() => setOpenIdx(null)}
+          onClick={() => setOpenLightbox(false)}
         >
           <button
             type="button"
-            onClick={() => setOpenIdx(null)}
+            onClick={() => setOpenLightbox(false)}
             aria-label="Close testimonial"
             className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/30 hover:bg-white/10 flex items-center justify-center text-white transition-colors"
           >
@@ -350,29 +350,26 @@ export function VideoTestimonials() {
             </svg>
           </button>
           <div
-            className="relative max-w-[480px] w-full"
+            className="relative max-w-[640px] w-full"
             onClick={(e) => e.stopPropagation()}
             style={{
-              aspectRatio:
-                TESTIMONIALS[openIdx].orientation === 'horizontal'
-                  ? '16/9'
-                  : '9/16',
+              aspectRatio: active.orientation === 'horizontal' ? '16/9' : '9/16',
             }}
           >
             <video
-              src={TESTIMONIALS[openIdx].video}
-              poster={TESTIMONIALS[openIdx].poster}
+              src={active.video}
+              poster={active.poster}
               controls
               autoPlay
               playsInline
               className="absolute inset-0 w-full h-full rounded-[20px] bg-black object-cover"
             />
-            <div className="absolute -bottom-12 left-0 right-0 text-center text-white">
+            <div className="absolute -bottom-14 left-0 right-0 text-center text-white">
               <div className="font-display font-bold text-[20px] md:text-[24px] tracking-tight">
-                {TESTIMONIALS[openIdx].name}
+                {active.name}
               </div>
-              <div className="text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mt-1">
-                The Anti-Aging Centre · Patient
+              <div className="text-[10px] tracking-[0.28em] uppercase text-white/65 font-medium mt-1">
+                {active.programme} · {active.metric}
               </div>
             </div>
           </div>

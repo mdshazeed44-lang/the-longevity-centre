@@ -145,9 +145,9 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 }))
 
 const CENTRES_META = {
-  title: 'Our Centres — TAC Clinics in Gurugram, Delhi, Pune & Bangalore',
+  title: 'Our Centres — TLC Clinics in Gurugram, Delhi, Pune & Bangalore',
   description:
-    'The Anti-Aging Centre operates five flagship clinics across India — Gurugram (Sector 48), Delhi (Greater Kailash-1), Pune (Hadapsar) and Bangalore (JP Nagar, Sadashivnagar).',
+    'The Longevity Centre operates five flagship clinics across India — Gurugram (Sector 48), Delhi (Greater Kailash-1), Pune (Hadapsar) and Bangalore (JP Nagar, Sadashivnagar).',
   path: '/centres',
   jsonLd: [
     {

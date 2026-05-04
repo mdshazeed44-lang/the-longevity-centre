@@ -1,55 +1,37 @@
+// ProgramsHome — TLC's six flagship programmes presented in the
+// signature stacking-deck pattern (mirrors src/components/Programs.tsx).
+//
+// Used on the demo page now; will replace the home Programs section
+// once the user approves.
+//
+// Each card has two CTAs:
+//   • Arrange a Consultation -> #contact
+//   • Learn More -> /programs/[slug] (detail pages built separately)
+//
+// Source data: client brief + brochure pricing table.
+// "Longevity Plus" is shown as ONE card with two tier prices (Starter
+// + Complete) since both are 12-month versions of the same programme
+// (this matches the brochure's 6-tab presentation on page 17).
+
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
+import { PROGRAMS } from '../lib/programs'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Source: theantiagingcentre.com — TAC's 5 official programmes (verbatim).
-export const PROGRAMS = [
-  {
-    cat: '01',
-    title: 'Longevity Plus Program',
-    tag: 'Flagship · 12 mo',
-    desc:
-      'A 12-month medical longevity protocol — comprehensive blood panels, body composition, DNA-based genetic testing and gut microbiome mapping, with personalised interventions and ongoing follow-ups under one coordinated team.',
-    img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1400&q=85',
-  },
-  {
-    cat: '02',
-    title: 'Metabolic & Diabetes Clinic',
-    tag: 'Metabolic Health',
-    desc:
-      'Dedicated clinic for diabetes, prediabetes, insulin resistance, PCOD, thyroid disorders and fatty liver — using continuous monitoring, advanced blood tests and body composition analysis to reverse metabolic risk.',
-    img: '/tac-photos/metabolic-diabetes.webp',
-  },
-  {
-    cat: '03',
-    title: 'Gut Correction Program',
-    tag: 'Digestive · Microbiome',
-    desc:
-      'Comprehensive gut health and microbiome testing to uncover causes of bloating, IBS-like symptoms and food sensitivities — followed by targeted nutrition, probiotics and lifestyle interventions.',
-    img: '/tac-photos/gut-health.webp',
-  },
-  {
-    cat: '04',
-    title: 'Medical Weight Loss & Body Composition',
-    tag: 'Weight & Composition',
-    desc:
-      'Doctor-supervised weight loss using body composition analysis (BCA), metabolic markers and hormonal testing to target fat loss — not just the number on the scale. Ideal for obesity, diabetes and PCOD-related weight gain.',
-    img: '/tac-photos/medical-weight-loss.webp',
-  },
-  {
-    cat: '05',
-    title: 'Skin & Aesthetics',
-    tag: 'Dermatology',
-    desc:
-      'Dermatologist-led anti-ageing aesthetics rooted in collagen, micronutrient and hormonal health — not just topical fixes. Includes laser hair reduction, hair-loss treatment and skin rejuvenation protocols.',
-    img: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=1400&q=85',
-  },
-]
+// Use shared data from src/lib/programs.ts; map to the shape this card needs.
+const TLC_PROGRAMMES = PROGRAMS.map((p) => ({
+  slug: p.slug,
+  cat: p.cat,
+  title: p.shortTitle,
+  tag: p.tag,
+  desc: p.desc,
+  img: p.cardImg,
+}))
 
-export function Programs() {
+export function ProgramsHome() {
   const root = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
@@ -60,8 +42,9 @@ export function Programs() {
     if (!sectionEl) return
 
     // Heading line reveal
-    const headingLines =
-      heading.current?.querySelectorAll<HTMLElement>('.line-mask > span')
+    const headingLines = heading.current?.querySelectorAll<HTMLElement>(
+      '.line-mask > span'
+    )
     let headingTween: gsap.core.Tween | undefined
     if (headingLines?.length) {
       gsap.set(headingLines, { yPercent: 110 })
@@ -85,8 +68,7 @@ export function Programs() {
 
       const next = cards[i + 1]
 
-      // STACKING PIN — each card pins at top while next slides up over it.
-      // Larger pin distance + smoother release = less snap, more glide.
+      // Stacking pin — same as home Programs.tsx
       if (next) {
         const pinST = ScrollTrigger.create({
           trigger: card,
@@ -99,8 +81,6 @@ export function Programs() {
         })
         cleanups.push(() => pinST.kill())
 
-        // Behind-card depth: glide UP smoothly with longer travel + buttery scrub.
-        // We animate the INNER so transform doesn't fight the pin.
         const depthTween = gsap.fromTo(
           inner,
           { scale: 1, opacity: 1, y: 0 },
@@ -111,10 +91,8 @@ export function Programs() {
             ease: 'power3.inOut',
             scrollTrigger: {
               trigger: next,
-              // start the exit much earlier so it feels like a deliberate glide
               start: 'top bottom-=80',
               end: `top top+=${pinTop + 20}`,
-              // higher scrub = smoother lerp follow on the scroll position
               scrub: 1.4,
             },
           }
@@ -125,7 +103,7 @@ export function Programs() {
         })
       }
 
-      // ENTER — gentle slide-up. Longer travel + softer easing = buttery glide.
+      // Enter — gentle slide-up
       const enterTween = gsap.fromTo(
         inner,
         { y: 140, opacity: 0, scale: 0.97 },
@@ -135,11 +113,7 @@ export function Programs() {
           scale: 1,
           duration: 1.6,
           ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            once: true,
-          },
+          scrollTrigger: { trigger: card, start: 'top 90%', once: true },
         }
       )
       cleanups.push(() => {
@@ -147,8 +121,7 @@ export function Programs() {
         enterTween.kill()
       })
 
-
-      // Image parallax — gentle, slow drift inside the card
+      // Image parallax
       if (img) {
         const imgTween = gsap.fromTo(
           img,
@@ -181,17 +154,17 @@ export function Programs() {
 
   return (
     <section
-      id="programs"
+      id="programmes"
       ref={root}
-      className="relative bg-cream/40 py-20 md:py-28 px-6 md:px-12 overflow-hidden"
+      className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden"
     >
-      {/* ambient backdrop */}
+      {/* Subtle ambient backdrop */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-60"
+        className="absolute inset-0 pointer-events-none opacity-50"
         style={{
           background:
-            'radial-gradient(900px 600px at 80% 0%, rgba(167,75,42,0.05), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(54,73,68,0.04), transparent 60%)',
+            'radial-gradient(900px 600px at 80% 0%, rgba(167,75,42,0.04), transparent 60%), radial-gradient(700px 500px at 0% 80%, rgba(54,73,68,0.03), transparent 60%)',
         }}
       />
 
@@ -207,34 +180,36 @@ export function Programs() {
             </div>
             <h2
               ref={heading}
-              className="font-display font-bold text-[36px] md:text-[64px] leading-[1.0] tracking-[-0.03em] text-ink"
+              className="font-display font-light text-[36px] md:text-[56px] xl:text-[68px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
-              <span className="line-mask">
-                <span>Five flagship programmes.</span>
-              </span>
-              <br />
-              <span className="line-mask">
-                <span>One coordinated plan.</span>
+              <span className="line-mask inline-block overflow-hidden align-bottom">
+                <span className="inline-block">Six programmes.</span>
+              </span>{' '}
+              <span className="line-mask inline-block overflow-hidden align-bottom">
+                <span className="inline-block font-bold text-rust">
+                  One foundation.
+                </span>
               </span>
             </h2>
           </div>
           <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite md:pb-4 max-w-[440px] font-light">
             Each programme is led by a dedicated specialist, but all run inside
-            one shared medical record — so nothing is treated in isolation.
+            one shared medical record — diagnostics-led, physician-guided, and
+            continuously refined.
           </p>
         </div>
       </div>
 
       {/* Stacking deck */}
       <div className="relative max-w-[1240px] mx-auto">
-        {PROGRAMS.map((p, i) => (
+        {TLC_PROGRAMMES.map((p, i) => (
           <div
-            key={p.title}
-            id={`program-${i}`}
+            key={p.slug}
+            id={`programme-${p.slug}`}
             ref={(el) => {
               cardsRef.current[i] = el
             }}
-            className="program-card relative mb-[18vh] md:mb-[26vh] last:mb-0"
+            className="programme-card relative mb-[18vh] md:mb-[26vh] last:mb-0"
             style={{
               transformOrigin: 'center top',
               willChange: 'transform, opacity',
@@ -248,47 +223,51 @@ export function Programs() {
                 willChange: 'transform, opacity',
               }}
             >
-              <div className="grid md:grid-cols-[1.05fr_1fr] min-h-[480px] md:min-h-[560px]">
+              <div className="grid md:grid-cols-[1.05fr_1fr] min-h-[400px] md:min-h-[460px]">
                 {/* Content */}
-                <div className="relative px-9 py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 flex flex-col justify-between">
-                  {/* top row — number + tag */}
+                <div className="relative px-8 py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 flex flex-col justify-between">
+                  {/* Top row — number + tag + counter */}
                   <div className="flex items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
-                      <span className="font-display text-[20px] md:text-[22px] text-rust font-semibold tabular-nums tracking-tight">
+                      <span className="font-display text-[18px] md:text-[20px] text-rust font-semibold tabular-nums tracking-tight">
                         {p.cat}
                       </span>
                       <span className="h-px w-10 bg-rust/40" />
-                      <span className="text-[10.5px] tracking-[0.3em] uppercase text-stone font-medium">
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-stone font-medium">
                         {p.tag}
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-12 md:mt-0">
-                    <h3 className="font-display font-bold text-[34px] md:text-[48px] lg:text-[58px] leading-[1.02] tracking-[-0.03em] text-ink mb-7">
+                  <div className="mt-8 md:mt-0">
+                    <h3 className="font-display font-light text-[28px] md:text-[40px] lg:text-[48px] leading-[1.05] tracking-[-0.025em] text-ink mb-5">
                       {p.title}
                     </h3>
-                    <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite max-w-[480px] mb-12 font-light">
+                    <p className="text-[14px] md:text-[15.5px] leading-[1.65] text-graphite max-w-[480px] mb-7 font-light">
                       {p.desc}
                     </p>
+
+                    {/* CTAs */}
                     <div className="flex items-center gap-3 flex-wrap">
                       <a
-                        href="#cta"
+                        href="#contact"
                         data-cursor="hover"
                         data-magnetic
-                        className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+                        className="group inline-flex items-center gap-2.5 pl-4 pr-6 py-3 bg-ink text-white text-[11px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                       >
-                        <span className="relative flex h-2 w-2">
+                        <span className="relative flex h-1.5 w-1.5">
                           <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-soft" />
                         </span>
                         Arrange a Consultation
-                        <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
+                        <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+                          →
+                        </span>
                       </a>
                       <a
-                        href="#"
+                        href={`/programs/${p.slug}`}
                         data-cursor="hover"
-                        className="inline-flex items-center gap-2 px-7 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
+                        className="inline-flex items-center gap-2 px-6 py-3 border border-ink/15 text-ink text-[11px] tracking-[0.2em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
                       >
                         Learn More
                       </a>
@@ -304,7 +283,7 @@ export function Programs() {
                     loading="lazy"
                     className="card-img absolute inset-0 w-full h-[112%] -top-[6%] object-cover"
                   />
-                  {/* soft top-left vignette to anchor against text */}
+                  {/* Soft top-left vignette to anchor against text */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{

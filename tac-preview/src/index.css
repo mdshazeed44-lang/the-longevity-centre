@@ -123,6 +123,39 @@ button, .nav-link { font-weight: 500; }
   box-sizing: border-box;
 }
 
+/* Prevent images and videos overflowing their containers — especially
+   important on mobile where small screens can be broken by oversized assets. */
+img, video, svg, picture {
+  max-width: 100%;
+  display: block;
+}
+/* Restore intrinsic sizing for absolutely-positioned full-bleed images */
+.absolute img,
+img.absolute {
+  height: 100%;
+  width: 100%;
+}
+
+/* Better mobile tap behaviour — remove iOS tap highlight, allow vertical pan */
+a, button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent horizontal scroll bleed on mobile from any rogue wide element */
+html, body {
+  overflow-x: clip;
+  overscroll-behavior-y: none;
+}
+
+/* Smaller-screen typography fallback — scale extreme display sizes down */
+@media (max-width: 360px) {
+  h1, .font-display {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
 html.lenis {
   height: auto;
 }

@@ -8,46 +8,64 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- Primary meta -->
-    <title>TAC — The Anti-Aging Centre · Premium Preventive Medicine, India</title>
+    <title>TLC — The Longevity Centre · Precision Longevity Medicine, India</title>
     <meta
       name="description"
-      content="The Anti-Aging Centre (TAC) — India's premium preventive medicine and longevity clinic. Personalised programmes for longevity, metabolic health, gut balance, weight loss and elegant anti-aging. Twenty-plus years of clinical experience, five centres pan-India."
+      content="The Longevity Centre (TLC) — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided programmes across longevity, metabolic, gut, weight and biological-age reversal. Twenty-plus years of clinical experience, six centres pan-India."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="author" content="The Anti-Aging Centre" />
+    <meta name="author" content="The Longevity Centre" />
     <link rel="canonical" href="https://theantiagingcentre.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="The Anti-Aging Centre" />
+    <meta property="og:site_name" content="The Longevity Centre" />
     <meta property="og:locale" content="en_IN" />
-    <meta property="og:title" content="TAC — Premium Anti-Aging & Preventive Medicine, India" />
+    <meta property="og:title" content="TLC — The Longevity Centre · Precision Longevity Medicine, India" />
     <meta
       property="og:description"
-      content="Personalised longevity, metabolic, gut and aesthetics programmes. Twenty-plus years of preventive-medicine experience. Five centres pan-India."
+      content="India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic and biological-age reversal."
     />
     <meta property="og:url" content="https://theantiagingcentre.com/" />
-    <meta property="og:image" content="https://theantiagingcentre.com/new-logo-white.webp" />
+    <meta property="og:image" content="https://theantiagingcentre.com/tlc-logo.png" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TAC — Premium Anti-Aging & Preventive Medicine, India" />
+    <meta name="twitter:title" content="TLC — The Longevity Centre · Precision Longevity Medicine, India" />
     <meta
       name="twitter:description"
-      content="Personalised longevity, metabolic, gut and aesthetics programmes. Twenty-plus years of preventive-medicine experience. Five centres pan-India."
+      content="India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic and biological-age reversal."
     />
-    <meta name="twitter:image" content="https://theantiagingcentre.com/new-logo-white.webp" />
+    <meta name="twitter:image" content="https://theantiagingcentre.com/tlc-logo.png" />
 
     <!-- Fonts (preconnect + preload) -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Only the weights we actually use — keeps font payload small.
+         display=swap so text shows immediately in the fallback while web font loads. -->
     <link
-      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@100,200,300,400,500,600,700,800,900&display=swap"
+      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800&display=swap"
       rel="stylesheet"
     />
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" rel="stylesheet" />
+    <!-- Alex Brush only used in a couple of decorative spots — load deferred -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" />
+    </noscript>
+
+    <!-- Preload key brand assets so first paint isn't blocked on logo -->
+    <link rel="preload" as="image" href="/tlc-logo.png" />
+
+    <!-- DNS-prefetch for analytics / Google fonts CDN that lazy-loads later -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://cdn.fontshare.com" />
 
     <!-- Site-wide JSON-LD: MedicalBusiness with founders, services and locations -->
     <script type="application/ld+json">

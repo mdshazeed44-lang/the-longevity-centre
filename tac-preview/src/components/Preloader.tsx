@@ -208,9 +208,10 @@ export function Preloader({ onDone }: { onDone: () => void }) {
         {/* Logo — clip-path wipes open from left like a paper letterhead */}
         <div className="pre-display-mask" style={{ willChange: 'clip-path' }}>
           <img
-            src="/new-logo-white.webp"
-            alt="The Anti-Aging Centre"
+            src="/tlc-logo.png"
+            alt="The Longevity Centre"
             className="h-[60px] md:h-[80px] w-auto object-contain block"
+            style={{ filter: 'brightness(0) invert(1)' }}
           />
         </div>
 

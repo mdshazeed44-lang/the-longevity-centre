@@ -1,21 +1,161 @@
-// Header — floating glassmorphic pill nav + mobile fullscreen overlay menu.
+// Header — floating pill nav (white bg) + mobile fullscreen overlay menu.
 // Behaviour:
-//  • Solid pill on scroll past 80px (more contrast over content)
+//  • Solid white pill with subtle border + shadow
 //  • Hides on scroll-down past hero, reveals on scroll-up
 //  • Mobile: hamburger opens fullscreen overlay with staggered slide-in nav,
 //    Esc-to-close, body-scroll-lock
+//  • "Programmes" item has a dropdown listing all 6 TLC programmes
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { Logo } from './Logo'
 import { reduceMotion } from '../lib/motion'
+import { PROGRAMS } from '../lib/programs'
+import { DIAGNOSTICS } from '../lib/diagnostics'
 
-const NAV_ITEMS = [
+type NavItem = {
+  label: string
+  href: string
+  children?: { label: string; href: string; tag?: string }[]
+  // Dropdown panel header copy
+  panelEyebrow?: string
+  panelLine?: string
+  panelCta?: string
+}
+
+const NAV_ITEMS: NavItem[] = [
   { label: 'About', href: '/about' },
-  { label: 'Longevity', href: '/longevity-program' },
-  { label: 'Method', href: '/#method' },
+  {
+    label: 'Programmes',
+    href: '/programs',
+    panelEyebrow: 'Six Programmes',
+    panelLine: 'Diagnostics-led, physician-guided.',
+    panelCta: 'View all programmes →',
+    children: PROGRAMS.map((p) => ({
+      label: p.shortTitle,
+      href: `/programs/${p.slug}`,
+      tag: p.duration,
+    })),
+  },
+  {
+    label: 'Diagnostics',
+    href: '/diagnostics',
+    panelEyebrow: 'Nine Diagnostics',
+    panelLine: 'Measurement first, intervention second.',
+    panelCta: 'View all diagnostics →',
+    children: DIAGNOSTICS.map((d) => ({
+      label: d.shortName,
+      href: `/diagnostics/${d.slug}`,
+      tag: d.category,
+    })),
+  },
   { label: 'Centres', href: '/centres' },
   { label: 'Contact', href: '/#cta' },
 ]
+
+// Desktop nav dropdown — hover or focus to open.
+function NavDropdown({ item }: { item: NavItem }) {
+  const [open, setOpen] = useState(false)
+  const closeTimer = useRef<number | null>(null)
+
+  const openNow = () => {
+    if (closeTimer.current) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+    setOpen(true)
+  }
+  const closeSoon = () => {
+    if (closeTimer.current) window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => setOpen(false), 200)
+  }
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={openNow}
+      onMouseLeave={closeSoon}
+      onFocus={openNow}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) closeSoon()
+      }}
+    >
+      <a
+        href={item.href}
+        data-cursor="hover"
+        aria-haspopup="true"
+        aria-expanded={open}
+        className="group relative inline-flex items-center gap-1.5 py-1.5 text-[11.5px] lg:text-[12px] tracking-[0.18em] font-bold uppercase text-ink/80 hover:text-ink transition-colors duration-300"
+      >
+        <span className="relative">{item.label}</span>
+        <svg
+          width="9"
+          height="9"
+          viewBox="0 0 12 12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+          className={`transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+        >
+          <path d="M3 4.5 L6 7.5 L9 4.5" />
+        </svg>
+        <span
+          aria-hidden
+          className="absolute left-0 right-0 -bottom-0.5 mx-auto h-px w-0 bg-rust group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        />
+      </a>
+
+      {/* Dropdown panel */}
+      <div
+        className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 z-50 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'
+        }`}
+        role="menu"
+      >
+        <div className="w-[440px] bg-white rounded-[18px] border border-mist/70 shadow-[0_30px_60px_-25px_rgba(27,26,24,0.35)] overflow-hidden">
+          <div className="px-6 pt-5 pb-4 border-b border-mist/60">
+            <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-1">
+              {item.panelEyebrow ?? 'Menu'}
+            </div>
+            <div className="text-[12px] text-graphite font-light">
+              {item.panelLine ?? ''}
+            </div>
+          </div>
+          <div className="py-2 max-h-[60vh] overflow-y-auto">
+            {item.children?.map((c) => (
+              <a
+                key={c.href}
+                href={c.href}
+                role="menuitem"
+                data-cursor="hover"
+                className="group flex items-baseline justify-between gap-4 px-6 py-2.5 hover:bg-cream transition-colors duration-300"
+              >
+                <span className="text-[13.5px] font-display font-medium text-ink group-hover:text-rust transition-colors duration-300 tracking-tight">
+                  {c.label}
+                </span>
+                {c.tag && (
+                  <span className="text-[10px] tracking-[0.22em] uppercase text-stone/70 font-medium whitespace-nowrap">
+                    {c.tag}
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
+          <a
+            href={item.href}
+            data-cursor="hover"
+            role="menuitem"
+            className="block px-6 py-3.5 bg-cream/60 hover:bg-rust hover:text-white text-[10.5px] tracking-[0.28em] uppercase text-rust font-semibold border-t border-mist/60 transition-colors duration-300"
+          >
+            {item.panelCta ?? 'View all →'}
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -83,10 +223,10 @@ export function Header() {
         style={{ willChange: 'transform' }}
       >
         <div
-          className={`w-full max-w-[1400px] flex items-center gap-4 md:gap-6 lg:gap-8 pl-2 pr-2 md:pl-3 md:pr-3 py-2 md:py-2.5 rounded-full transition-all duration-500 bg-ink ${
+          className={`w-full max-w-[1400px] flex items-center gap-4 md:gap-6 lg:gap-8 pl-2 pr-2 md:pl-3 md:pr-3 py-2 md:py-2.5 rounded-full transition-all duration-500 bg-white border border-mist/60 ${
             scrolled
-              ? 'shadow-[0_18px_50px_-15px_rgba(0,0,0,0.65)]'
-              : 'shadow-[0_12px_40px_-15px_rgba(0,0,0,0.55)]'
+              ? 'shadow-[0_18px_50px_-15px_rgba(27,26,24,0.18)]'
+              : 'shadow-[0_12px_40px_-15px_rgba(27,26,24,0.12)]'
           }`}
         >
           {/* Logo — clicks go to home from any page; smooth-scroll to top if already home */}
@@ -102,28 +242,32 @@ export function Header() {
                 else window.scrollTo({ top: 0, behavior: 'smooth' })
               }
             }}
-            className="text-white shrink-0 pl-2 md:pl-3"
-            aria-label="The Anti-Aging Centre — home"
+            className="shrink-0 pl-2 md:pl-3 flex items-center"
+            aria-label="The Longevity Centre — home"
           >
-            <Logo variant="light" />
+            <Logo variant="dark" size={52} />
           </a>
 
           {/* Desktop nav — UPPERCASE bold links, centered between logo and CTA */}
           <nav className="hidden md:flex items-center gap-6 lg:gap-9 flex-1 justify-center" aria-label="Primary">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                data-cursor="hover"
-                className="group relative py-1.5 text-[11.5px] lg:text-[12px] tracking-[0.18em] font-bold uppercase text-white/85 hover:text-white transition-colors duration-300"
-              >
-                <span className="relative">{item.label}</span>
-                <span
-                  aria-hidden
-                  className="absolute left-0 right-0 -bottom-0.5 mx-auto h-px w-0 bg-rust-soft group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-                />
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <NavDropdown key={item.label} item={item} />
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  data-cursor="hover"
+                  className="group relative py-1.5 text-[11.5px] lg:text-[12px] tracking-[0.18em] font-bold uppercase text-ink/80 hover:text-ink transition-colors duration-300"
+                >
+                  <span className="relative">{item.label}</span>
+                  <span
+                    aria-hidden
+                    className="absolute left-0 right-0 -bottom-0.5 mx-auto h-px w-0 bg-rust group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  />
+                </a>
+              )
+            )}
           </nav>
 
           {/* Right cluster — phone + primary CTA */}
@@ -133,20 +277,20 @@ export function Header() {
               href="tel:+918826809123"
               data-cursor="hover"
               aria-label="Call +91 88268 09123"
-              className="hidden lg:inline-flex items-center gap-2 text-[12.5px] text-white/85 hover:text-white font-medium transition-colors duration-300 whitespace-nowrap"
+              className="hidden lg:inline-flex items-center gap-2 text-[12.5px] text-ink/80 hover:text-ink font-medium transition-colors duration-300 whitespace-nowrap"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft" aria-hidden="true" focusable="false">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust" aria-hidden="true" focusable="false">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <span className="tabular-nums tracking-tight">+91 88268 09123</span>
             </a>
 
-            {/* Primary CTA — solid white pill with green ping dot */}
+            {/* Primary CTA — solid ink (dark) pill on the white header */}
             <a
               href="#cta"
               data-cursor="hover"
               data-magnetic
-              className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-white text-ink text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust hover:text-white transition-colors duration-500 whitespace-nowrap"
+              className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-ink text-white text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust transition-colors duration-500 whitespace-nowrap"
             >
               <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
@@ -163,7 +307,7 @@ export function Header() {
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/15 text-white hover:bg-white/10 transition-colors duration-300"
+              className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-full border border-ink/15 text-ink hover:bg-ink/5 transition-colors duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                 <line x1="4" y1="7" x2="20" y2="7" />
@@ -201,10 +345,10 @@ export function Header() {
             <a
               href="/"
               onClick={() => setMenuOpen(false)}
-              aria-label="The Anti-Aging Centre — home"
+              aria-label="The Longevity Centre — home"
               className="text-white"
             >
-              <Logo variant="light" />
+              <Logo variant="light" size={56} />
             </a>
             <button
               type="button"

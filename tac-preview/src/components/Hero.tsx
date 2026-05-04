@@ -121,11 +121,10 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
       className="relative w-full overflow-hidden min-h-[100vh] bg-ink text-white"
     >
       {/* Background video — full bleed cinematic, plays muted on loop.
-          preload="metadata" lets the browser show the poster instantly while
-          the video streams in progressively, improving LCP.
-          <source media="..."> picks the right cut per breakpoint —
-          desktop gets hero-desktop.mp4 (5 MB), small screens fall back
-          to hero.mp4 so phones don't have to download the desktop edit. */}
+          Uses /videos/hero.mp4 (single woman raising arms — the "vitality"
+          editorial cut chosen by the client). preload="metadata" lets the
+          browser show the poster instantly while the video streams in
+          progressively, improving LCP. */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
@@ -135,7 +134,6 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         playsInline
         preload="metadata"
       >
-        <source src="/videos/hero-desktop.mp4" media="(min-width: 768px)" type="video/mp4" />
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 

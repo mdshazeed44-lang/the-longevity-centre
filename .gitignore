@@ -37,3 +37,9 @@ Thumbs.db
 # Reference material — brand guides, brochures, extracted page renders.
 # All dev-only; never commit to repo. /docs is the local-only reference folder.
 docs/
+
+# Reference PDFs that the client uploaded into /public for designer reference.
+# Per user instruction (5 May 2026): "isko hatana mat", but never push to git.
+# These are huge (>100 MB) and would break Netlify deploy if shipped.
+tac-preview/public/*.pdf
+tac-preview/public/**/*.pdf

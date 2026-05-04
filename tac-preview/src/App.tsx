@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
-import { Preloader } from './components/Preloader'
+// import { Preloader } from './components/Preloader'  // Removed per user request — site opens directly
 import { Cursor } from './components/Cursor'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
@@ -599,12 +599,12 @@ export function ResultsSplit() {
           </ul>
         </div>
 
-        {/* RIGHT — clean image, no text overlay. Real TAC clinic interior. */}
+        {/* RIGHT — editorial brand imagery: vitality reclaimed, body restored. */}
         <div className="md:sticky md:top-28 flex flex-col gap-5">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-mist">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-mist">
             <img
-              src="/tac-photos/clinic-interior-2.jpg"
-              alt="Inside a TAC clinic"
+              src="/longevity/reformed-life.jpg"
+              alt="Restored vitality — strength and capability returned"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -900,8 +900,8 @@ export function Editorial() {
         <div className="aspect-[4/3] md:aspect-[5/4] overflow-hidden rounded-[20px] bg-mist">
           <img
             ref={imgRef}
-            src="/tac-photos/clinic-interior-2.jpg"
-            alt="Diagnostics at TAC"
+            src="/longevity/diagnostics-lab.jpg"
+            alt="Lab technician sampling a labelled blood vial — biomarker analysis"
             className="w-full h-[110%] object-cover"
           />
         </div>
@@ -942,59 +942,61 @@ export function Editorial() {
 }
 
 // ---------- CTA Band ----------
+// Editorial CTA on white. Rust accents, ink headline with rust accent.
+// Three contact paths + 3-stat reassurance grid with hairline borders.
 export function CtaBand() {
   return (
     <section
       id="cta"
-      className="relative bg-ink py-14 md:py-18 px-6 md:px-12 overflow-hidden"
+      className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden"
     >
-      {/* Ambient warm glow + soft grain — premium dark luxury */}
+      {/* Soft ambient warmth — barely-there rust + nougat wash */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)',
+            'radial-gradient(900px 600px at 18% 25%, rgba(148,84,85,0.05), transparent 60%), radial-gradient(800px 500px at 85% 75%, rgba(238,230,219,0.55), transparent 60%)',
         }}
       />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay hero-grain"
-      />
+      {/* Hairline top + bottom rules — editorial framing */}
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-0 h-px bg-ink/8" />
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-ink/8" />
 
       <div className="relative z-10 max-w-[1180px] mx-auto">
         {/* Eyebrow row */}
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="w-7 h-px bg-rust-soft" />
-          <span className="text-[11px] tracking-[0.32em] uppercase text-rust-soft font-semibold">
+        <div className="flex items-center justify-center gap-3 mb-7">
+          <span className="w-7 h-px bg-rust" />
+          <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
             Begin Your Programme
           </span>
-          <span className="w-7 h-px bg-rust-soft" />
+          <span className="w-7 h-px bg-rust" />
         </div>
 
-        {/* Headline — TAC voice */}
-        <h2 className="font-display font-bold text-[34px] md:text-[56px] xl:text-[68px] leading-[1.0] tracking-[-0.035em] text-white text-center mb-5 max-w-[1080px] mx-auto">
-          Age should never define you.
+        {/* Headline — ink with rust accent on the verb */}
+        <h2 className="font-display font-light text-[34px] md:text-[56px] xl:text-[68px] leading-[1.02] tracking-[-0.035em] text-ink text-center mb-6 max-w-[1080px] mx-auto">
+          Age should never{' '}
+          <span className="font-bold text-rust">define you.</span>
         </h2>
 
         {/* Sub */}
-        <p className="text-[15px] md:text-[17px] text-white/70 max-w-[600px] mx-auto leading-[1.65] mb-9 text-center font-light">
+        <p className="text-[15px] md:text-[17px] text-graphite max-w-[620px] mx-auto leading-[1.7] mb-10 text-center font-light">
           Speak with our medical team for a 30-minute personalised conversation.
           No commitment. Just clarity. Available across our five flagship
           clinics in Gurugram, Delhi, Pune and Bangalore.
         </p>
 
         {/* CTA — three contact paths in pill form */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-14">
           <a
             href="#cta"
             data-cursor="hover"
             data-magnetic
-            className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
+            className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
             </span>
             Arrange a Consultation
             <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
@@ -1004,21 +1006,21 @@ export function CtaBand() {
           <a
             href="https://wa.me/918826809123"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+            className="inline-flex items-center gap-2 px-6 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
           >
             WhatsApp
           </a>
           <a
             href="tel:+918826809123"
             data-cursor="hover"
-            className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
+            className="inline-flex items-center gap-2 px-6 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
           >
             +91 88268 09123
           </a>
         </div>
 
-        {/* Reassurance row — three trust pills */}
-        <div className="grid grid-cols-3 gap-px bg-white/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-white/10">
+        {/* Reassurance row — three trust pills, hairline grid on white */}
+        <div className="grid grid-cols-3 gap-px bg-ink/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
           {[
             { k: '5', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },
@@ -1026,12 +1028,12 @@ export function CtaBand() {
           ].map((s) => (
             <div
               key={s.l}
-              className="bg-ink px-5 py-5 text-center"
+              className="bg-white px-5 py-6 text-center"
             >
-              <div className="font-display font-bold text-[22px] md:text-[28px] text-white leading-none mb-1.5 tabular-nums tracking-[-0.01em]">
+              <div className="font-display font-bold text-[22px] md:text-[30px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
                 {s.k}
               </div>
-              <div className="text-[10px] tracking-[0.25em] uppercase text-white/55 font-medium">
+              <div className="text-[10px] tracking-[0.28em] uppercase text-graphite font-semibold">
                 {s.l}
               </div>
             </div>
@@ -1042,11 +1044,10 @@ export function CtaBand() {
   )
 }
 // ---------- App ----------
-// App is the chrome shell — Preloader · Cursor · Header · {children} · Footer
+// App is the chrome shell — Cursor · Header · {children} · Footer
 // + Lenis smooth-scroll lifecycle. Pages are passed in as children from main.tsx.
+// (Preloader removed per user request — site opens directly.)
 function App({ children }: { children: ReactNode }) {
-  const [ready, setReady] = useState(false)
-
   useEffect(() => {
     if (reduceMotion()) return
     const lenis = new Lenis({
@@ -1071,14 +1072,12 @@ function App({ children }: { children: ReactNode }) {
 
   return (
     <div className="bg-white text-graphite">
-      <Preloader onDone={() => setReady(true)} />
       <Cursor />
       <Header />
       <main id="main" tabIndex={-1}>
         {children}
       </main>
       <Footer />
-      {!ready && null}
     </div>
   )
 }
