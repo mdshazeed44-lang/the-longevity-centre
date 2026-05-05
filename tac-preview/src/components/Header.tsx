@@ -48,6 +48,7 @@ const NAV_ITEMS: NavItem[] = [
       tag: d.category,
     })),
   },
+  { label: 'Skin & Aesthetics', href: '/skin-aesthetics' },
   { label: 'Centres', href: '/centres' },
   { label: 'Contact', href: '/contact' },
 ]
