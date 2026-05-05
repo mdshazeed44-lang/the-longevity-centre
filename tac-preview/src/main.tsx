@@ -18,8 +18,6 @@ const DiagnosticDetailPage = lazy(() => import('./pages/DiagnosticDetailPage').t
 const CentreDetailPage = lazy(() => import('./pages/CentreDetailPage').then((m) => ({ default: m.CentreDetailPage })))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })))
 const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })))
-const BlogPage = lazy(() => import('./pages/BlogPage').then((m) => ({ default: m.BlogPage })))
-const CareersPage = lazy(() => import('./pages/CareersPage').then((m) => ({ default: m.CareersPage })))
 
 // Lightweight skeleton during page-chunk fetch — keeps layout reserved
 function PageFallback() {
@@ -40,8 +38,6 @@ function getPage() {
   if (path.startsWith('/centres/')) return <CentreDetailPage />
   if (path === '/privacy') return <PrivacyPage />
   if (path === '/terms') return <TermsPage />
-  if (path === '/blog') return <BlogPage />
-  if (path === '/careers') return <CareersPage />
   if (path === '/longevity-program') return <LongevityProgramPage />
   if (path === '/demo') return <BenefitsDemoPage />
   if (path === '/programs') return <ProgramsIndexPage />
