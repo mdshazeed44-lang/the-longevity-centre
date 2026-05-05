@@ -42,7 +42,7 @@ const TREATMENTS: Treatment[] = [
     n: '01',
     title: 'Skin PRP',
     eyebrow: 'Platelet-Rich Plasma',
-    image: '/longevity/brand/mood-rust-towels.jpg',
+    image: '/skin-aesthetics/01-prp.jpg',
     description:
       "PRP (Platelet-Rich Plasma) therapy utilises your own blood platelets, rich in growth factors, to stimulate cellular renewal and tissue regeneration. We extract growth factors from a small blood sample through centrifugation, then concentrate them and inject the plasma into the skin for targeted rejuvenation — natural, autologous, minimal-risk.",
     treats: [
@@ -64,7 +64,7 @@ const TREATMENTS: Treatment[] = [
     n: '02',
     title: 'Chemical Peels',
     eyebrow: 'Cellular Renewal',
-    image: '/longevity/brand/mood-terracotta.jpg',
+    image: '/skin-aesthetics/02-peels.jpg',
     description:
       "A carefully formulated solution applied to exfoliate the top layer of skin, revealing fresher, smoother skin underneath. The treatment stimulates cellular turnover — addressing concerns like uneven texture, fine lines, and pigmentation. Depth and active ingredients are matched to your skin's tolerance.",
     treats: [
@@ -85,7 +85,7 @@ const TREATMENTS: Treatment[] = [
     n: '03',
     title: 'Hydrafacial',
     eyebrow: 'Multi-Step Rejuvenation',
-    image: '/longevity/brand/mood-water-ripple.jpg',
+    image: '/skin-aesthetics/03-hydrafacial.jpg',
     description:
       "A multi-step skincare treatment that integrates cleansing, exfoliation, extraction, hydration, and antioxidant infusion through a specialised device — in a single sitting. Quenches your skin's thirst with painless extraction and nourishing serums infused deep into the pores.",
     treats: [
@@ -107,7 +107,7 @@ const TREATMENTS: Treatment[] = [
     n: '04',
     title: 'Microneedling with Dermapen',
     eyebrow: 'Collagen Induction',
-    image: '/longevity/brand/mood-iflow.jpg',
+    image: '/skin-aesthetics/04-microneedling.jpg',
     description:
       "A minimally invasive procedure using tiny needles to create micro-injuries, triggering the skin's natural healing process and stimulating collagen production. The Dermapen 4 offers advanced automated needling with adjustable depth and speed — tailored to each area of your face.",
     treats: [
@@ -132,7 +132,7 @@ const TREATMENTS: Treatment[] = [
     n: '05',
     title: 'Laser Hair Reduction',
     eyebrow: 'Quanta Long Pulse · Italy',
-    image: '/longevity/brand/mood-zen-sand.jpg',
+    image: '/skin-aesthetics/05-laser.jpg',
     description:
       'Permanent hair reduction using the Quanta Long Pulse Laser from Italy — CE (Europe) and FDA approved. Each pulse treats multiple hairs in seconds. Universal compatibility across all skin types (I–VI) and hair types — including fine, coarse, and ingrown hair. No gel required, no risk of burns across skin tones.',
     treats: [
@@ -154,7 +154,7 @@ const TREATMENTS: Treatment[] = [
     n: '06',
     title: 'Hair Loss Solutions',
     eyebrow: 'Diagnosis-First · 360° Care',
-    image: '/longevity/brand/mood-leaf-skeleton.jpg',
+    image: '/skin-aesthetics/06-hair.jpg',
     description:
       'A 360-degree approach to hair loss — we diagnose and treat micronutrient deficiencies, perform PRP, and offer Hair Transplantation under one roof. Conditions addressed include androgenetic alopecia (male/female pattern), alopecia areata, and telogen effluvium.',
     treats: [
@@ -175,7 +175,7 @@ const TREATMENTS: Treatment[] = [
     n: '07',
     title: 'Fillers, Botox & Skin Boosters',
     eyebrow: 'Restorative Injectables',
-    image: '/longevity/brand/mood-hands-pose.jpg',
+    image: '/skin-aesthetics/07-injectables.jpg',
     description:
       'Three complementary injectable treatments — Botox to relax muscle-driven wrinkles, Dermal Fillers to restore lost volume, and Skin Boosters with hyaluronic acid to deeply hydrate and revitalise. All three can be combined for comprehensive facial rejuvenation. FDA-approved products only.',
     treats: [
