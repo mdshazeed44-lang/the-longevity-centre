@@ -748,70 +748,67 @@ export function AboutPage() {
             </p>
           </div>
 
-          <div ref={foundersRef} className="grid gap-5 md:gap-6 max-w-[1180px] mx-auto" style={{ perspective: '1200px' }}>
-            {FOUNDERS.map((f, idx) => {
-              const reverse = idx % 2 === 1
-              return (
-                <article
-                  key={f.name}
-                  className="founder-card group bg-white hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 grid md:grid-cols-[5fr_7fr] items-stretch"
-                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-                >
-                  {/* Portrait — square aspect ratio matches the source image
-                      proportions (800x800) so we get crisp display without
-                      object-cover zooming in on the face. */}
-                  <div
-                    className={`relative aspect-square overflow-hidden bg-cream ${reverse ? 'md:order-2' : ''}`}
-                  >
+          {/* Founder cards — refined profile-card layout. Smaller round
+              portrait avoids any pixel-fattening from the brochure source,
+              gives both founders a consistent premium look regardless of
+              their source image resolution. */}
+          <div ref={foundersRef} className="grid md:grid-cols-2 gap-5 md:gap-6 max-w-[1180px] mx-auto" style={{ perspective: '1200px' }}>
+            {FOUNDERS.map((f) => (
+              <article
+                key={f.name}
+                className="founder-card group relative bg-white hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 p-7 md:p-9 flex flex-col"
+                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+              >
+                {/* Portrait + stat badge row */}
+                <div className="flex items-start gap-5 mb-6">
+                  <div className="relative shrink-0 w-[120px] md:w-[140px] aspect-square rounded-full overflow-hidden bg-cream border-4 border-white shadow-[0_18px_40px_-20px_rgba(27,26,24,0.30)] group-hover:shadow-[0_22px_50px_-15px_rgba(148,84,85,0.40)] transition-shadow duration-500">
                     <img
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      width={800}
-                      height={800}
-                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                      style={{ objectPosition: 'center' }}
+                      width={280}
+                      height={280}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      style={{ objectPosition: 'center top' }}
                     />
-                    {/* Soft bottom gradient for stat badge legibility */}
-                    <div
+                    <span
                       aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-                      style={{
-                        background:
-                          'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%)',
-                      }}
+                      className="absolute inset-0 rounded-full ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 transition-all duration-500"
                     />
-                    {/* Stat badge */}
-                    <div className="absolute top-4 left-4 backdrop-blur-md bg-ink/85 border border-white/15 rounded-full px-3.5 py-2 transition-transform duration-700 group-hover:-translate-y-0.5 shadow-[0_10px_24px_-12px_rgba(27,26,24,0.5)]">
-                      <div className="font-display font-bold text-[15px] text-white tabular-nums tracking-tight leading-none">
-                        {f.stat}
-                      </div>
-                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/80 font-medium mt-0.5">
-                        {f.statLabel}
-                      </div>
-                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div
-                    className={`p-7 md:p-10 lg:p-12 flex flex-col justify-center ${reverse ? 'md:order-1' : ''}`}
-                  >
-                    <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
-                      {f.role}
+                  {/* Stat block beside portrait */}
+                  <div className="flex-1 min-w-0 pt-2">
+                    <div className="text-[10px] tracking-[0.32em] uppercase text-stone font-semibold mb-1">
+                      Track Record
                     </div>
-                    <h3 className="font-display font-bold text-[28px] md:text-[36px] lg:text-[42px] leading-[1.0] tracking-[-0.025em] text-ink mb-2">
-                      {f.name}
-                    </h3>
-                    <div className="text-[12px] tracking-[0.22em] uppercase text-stone font-medium mb-5">
-                      {f.creds}
+                    <div className="font-display font-bold text-[26px] md:text-[32px] text-rust tabular-nums tracking-tight leading-none mb-1.5">
+                      {f.stat}
                     </div>
-                    <p className="text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light max-w-[520px]">
-                      {f.bio}
-                    </p>
+                    <div className="text-[10.5px] tracking-[0.22em] uppercase text-graphite font-medium">
+                      {f.statLabel}
+                    </div>
                   </div>
-                </article>
-              )
-            })}
+                </div>
+
+                {/* Hairline divider */}
+                <span aria-hidden className="block h-px w-full bg-mist mb-6" />
+
+                {/* Role · name · creds · bio */}
+                <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
+                  {f.role}
+                </div>
+                <h3 className="font-display font-bold text-[24px] md:text-[28px] lg:text-[32px] leading-[1.05] tracking-[-0.02em] text-ink mb-2">
+                  {f.name}
+                </h3>
+                <div className="text-[11px] tracking-[0.22em] uppercase text-stone font-medium mb-5">
+                  {f.creds}
+                </div>
+                <p className="text-[14px] md:text-[14.5px] leading-[1.7] text-graphite font-light">
+                  {f.bio}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
