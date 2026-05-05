@@ -9,33 +9,33 @@ import { useDocumentMeta } from '../lib/seo'
 gsap.registerPlugin(ScrollTrigger)
 
 const ABOUT_META = {
-  title: 'About TLC — The Longevity Centre · Precision Longevity Medicine, India',
+  title: 'About TLC · Founders, Vision & Specialist Team',
   description:
-    'Meet the founders of The Longevity Centre — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 7,500+ procedures). Twenty-plus years of preventive medicine experience. Five centres pan-India.',
+    'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 7,500+ procedures). 20+ years of preventive medicine.',
   path: '/about',
   jsonLd: [
     {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
-      '@id': 'https://theantiagingcentre.com/about#webpage',
-      url: 'https://theantiagingcentre.com/about',
+      '@id': 'https://thelongevitycentre.com/about#webpage',
+      url: 'https://thelongevitycentre.com/about',
       name: 'About TAC — Leaders in Preventive & Anti-Aging Medicine, India',
-      isPartOf: { '@id': 'https://theantiagingcentre.com/#organization' },
-      about: { '@id': 'https://theantiagingcentre.com/#organization' },
+      isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
+      about: { '@id': 'https://thelongevitycentre.com/#organization' },
       inLanguage: 'en-IN',
     },
     {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      '@id': 'https://theantiagingcentre.com/about#dr-abhinav-sharma',
+      '@id': 'https://thelongevitycentre.com/about#dr-abhinav-sharma',
       name: 'Dr. Abhinav Sharma',
       honorificPrefix: 'Dr.',
       honorificSuffix: 'MBBS, MS',
       jobTitle: 'Co-Founder · Anti-Aging & Preventive Medicine',
       description:
         'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness.',
-      image: 'https://theantiagingcentre.com/team/dr-abhinav.webp',
-      worksFor: { '@id': 'https://theantiagingcentre.com/#organization' },
+      image: 'https://thelongevitycentre.com/team/dr-abhinav.webp',
+      worksFor: { '@id': 'https://thelongevitycentre.com/#organization' },
       knowsAbout: [
         'Anti-Aging Medicine',
         'Preventive Medicine',
@@ -46,14 +46,14 @@ const ABOUT_META = {
     {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      '@id': 'https://theantiagingcentre.com/about#dr-bhavna-sharma',
+      '@id': 'https://thelongevitycentre.com/about#dr-bhavna-sharma',
       name: 'Dr. Bhavna Sharma',
       honorificPrefix: 'Dr.',
       jobTitle: 'Co-Founder · Reproductive & Sexual Anti-Aging',
       description:
         "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT.",
-      image: 'https://theantiagingcentre.com/team/dr-bhavna.jpg',
-      worksFor: { '@id': 'https://theantiagingcentre.com/#organization' },
+      image: 'https://thelongevitycentre.com/team/dr-bhavna.jpg',
+      worksFor: { '@id': 'https://thelongevitycentre.com/#organization' },
       knowsAbout: [
         'IVF',
         "Women's Health",
@@ -423,7 +423,7 @@ export function AboutPage() {
           {/* Inline contact strip */}
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[12.5px] text-white/70">
             <a
-              href="mailto:info@theantiagingcentre.com"
+              href="mailto:info@thelongevitycentre.com"
               className="inline-flex items-center gap-2.5 hover:text-white transition-colors"
             >
               <span className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center text-rust-soft">
@@ -432,7 +432,7 @@ export function AboutPage() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </span>
-              info@theantiagingcentre.com
+              info@thelongevitycentre.com
             </a>
             <a
               href="tel:+918826809123"

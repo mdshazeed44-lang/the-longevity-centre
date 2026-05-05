@@ -18,18 +18,18 @@ import {
 import { useDocumentMeta } from '../lib/seo'
 
 const HOME_META = {
-  title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
+  title: 'TLC — Precision Longevity Medicine, India',
   description:
-    "India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided programmes for longevity, metabolic health (diabetes, prediabetes, PCOD, thyroid), gut microbiome, weight loss and biological age reversal. Twenty-plus years of clinical experience. Six centres pan-India.",
+    "India's first doctor-led personalised longevity programme. Diagnostics-led care across longevity, metabolic, gut, weight loss and biological-age reversal.",
   path: '/',
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': 'https://theantiagingcentre.com/#webpage',
-    url: 'https://theantiagingcentre.com/',
+    '@id': 'https://thelongevitycentre.com/#webpage',
+    url: 'https://thelongevitycentre.com/',
     name: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
-    isPartOf: { '@id': 'https://theantiagingcentre.com/#organization' },
-    about: { '@id': 'https://theantiagingcentre.com/#organization' },
+    isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
+    about: { '@id': 'https://thelongevitycentre.com/#organization' },
     description:
       "India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut and weight programmes.",
     inLanguage: 'en-IN',

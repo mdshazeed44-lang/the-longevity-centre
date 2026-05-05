@@ -1,11 +1,11 @@
-// DiagnosticsPage — premium editorial page for TLC's diagnostic stack.
-// Source content: theantiagingcentre.com/diagnostics — 9 services, rewritten
-// in TLC voice (rigour-led, physician-guided, measured). White canvas, rust
-// accents, hairline grid pattern. Reuses CtaBand from App.tsx for the close.
-import { useEffect, useRef } from 'react'
+// DiagnosticsPage — /diagnostics index. Premium editorial layout for
+// TLC's nine-service diagnostic stack. Content rewritten in TLC voice
+// (rigour-led, physician-guided, measured). Reuses CtaBand from App.tsx.
+import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
+import { useDocumentMeta, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../App'
 import { DIAGNOSTICS } from '../lib/diagnostics'
 
@@ -122,6 +122,55 @@ const DOMAINS = [
 export function DiagnosticsPage() {
   const root = useRef<HTMLDivElement>(null)
 
+  // SEO — title, description, canonical, JSON-LD (MedicalBusiness with
+  // an OfferCatalog of every diagnostic, plus an ItemList for crawl).
+  useDocumentMeta(
+    useMemo(
+      () => ({
+        title: 'Diagnostics · TLC — Genomic, Metabolic & Microbiome Testing',
+        description:
+          "Nine validated diagnostic protocols at TLC — genomic, epigenomic, metabolic, microbiome and cellular. Measurement first, intervention second.",
+        path: '/diagnostics',
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalBusiness',
+            '@id': `${SITE_URL}/diagnostics#service`,
+            name: 'The Longevity Centre — Diagnostics',
+            description:
+              'Diagnostics-led, physician-guided longevity medicine. Nine validated diagnostic protocols across genomic, epigenomic, metabolic and microbiome domains.',
+            url: `${SITE_URL}/diagnostics`,
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Diagnostic Services',
+              itemListElement: SERVICES.map((s, i) => ({
+                '@type': 'Offer',
+                position: i + 1,
+                itemOffered: {
+                  '@type': 'MedicalProcedure',
+                  name: s.name,
+                  description: s.body,
+                },
+              })),
+            },
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            '@id': `${SITE_URL}/diagnostics#item-list`,
+            itemListElement: DIAGNOSTICS.map((d, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              name: d.name,
+              url: `${SITE_URL}/diagnostics/${d.slug}`,
+            })),
+          },
+        ],
+      }),
+      []
+    )
+  )
+
   useEffect(() => {
     if (reduceMotion()) return
     const el = root.current
@@ -176,35 +225,6 @@ export function DiagnosticsPage() {
       stagger: 0.12,
       scrollTrigger: { trigger: steps[0], start: 'top 80%' },
     })
-
-    // JSON-LD: MedicalProcedure + ItemList
-    const ld = {
-      '@context': 'https://schema.org',
-      '@type': 'MedicalBusiness',
-      name: 'The Longevity Centre — Diagnostics',
-      description:
-        'Diagnostics-led, physician-guided longevity medicine. Nine validated diagnostic protocols across genomic, epigenomic, metabolic and microbiome domains.',
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Diagnostic Services',
-        itemListElement: SERVICES.map((s, i) => ({
-          '@type': 'Offer',
-          position: i + 1,
-          itemOffered: {
-            '@type': 'MedicalProcedure',
-            name: s.name,
-            description: s.body,
-          },
-        })),
-      },
-    }
-    const tag = document.createElement('script')
-    tag.type = 'application/ld+json'
-    tag.text = JSON.stringify(ld)
-    document.head.appendChild(tag)
-    return () => {
-      tag.remove()
-    }
   }, [])
 
   return (

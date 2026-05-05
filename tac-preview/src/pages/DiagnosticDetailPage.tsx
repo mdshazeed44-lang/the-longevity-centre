@@ -12,10 +12,11 @@
 //  8. Related diagnostics — 3-card grid linking to other tests
 //  9. CTA Band (reused from App)
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
+import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../App'
 import { DIAGNOSTICS, getDiagnosticBySlug } from '../lib/diagnostics'
 
@@ -29,6 +30,50 @@ export function DiagnosticDetailPage() {
     .replace(/\/$/, '')
     .replace(/^\/diagnostics\//, '')
   const test = getDiagnosticBySlug(slug)
+
+  // Per-page SEO. Called unconditionally (hooks rules) — when the slug
+  // is invalid we still emit a generic 404-shaped meta so search engines
+  // see a coherent (non-indexed) page rather than the homepage's title.
+  useDocumentMeta(
+    useMemo(
+      () =>
+        test
+          ? {
+              title: `${test.name} · TLC Diagnostics`,
+              description:
+                test.intro.length > 158
+                  ? test.intro.slice(0, 155).trimEnd() + '…'
+                  : test.intro,
+              path: `/diagnostics/${test.slug}`,
+              jsonLd: [
+                {
+                  '@context': 'https://schema.org',
+                  '@type': 'MedicalProcedure',
+                  '@id': `${SITE_URL}/diagnostics/${test.slug}#procedure`,
+                  name: test.name,
+                  alternateName: test.shortName,
+                  description: test.intro,
+                  url: `${SITE_URL}/diagnostics/${test.slug}`,
+                  bodyLocation: 'Body',
+                  preparation: test.process[0]?.body,
+                  followup: test.process[2]?.body,
+                },
+                breadcrumbList([
+                  { name: 'Home', url: '/' },
+                  { name: 'Diagnostics', url: '/diagnostics' },
+                  { name: test.shortName, url: `/diagnostics/${test.slug}` },
+                ]),
+              ],
+            }
+          : {
+              title: 'Diagnostic not found · TLC',
+              description:
+                'The diagnostic you were looking for could not be found. View all nine TLC diagnostic protocols.',
+              path: '/diagnostics',
+            },
+      [test]
+    )
+  )
 
   useEffect(() => {
     if (!test) return
@@ -59,25 +104,6 @@ export function DiagnosticDetailPage() {
       stagger: 0.07,
       scrollTrigger: { trigger: el, start: 'top 75%' },
     })
-
-    // SEO JSON-LD
-    const ld = {
-      '@context': 'https://schema.org',
-      '@type': 'MedicalProcedure',
-      name: test.name,
-      alternateName: test.shortName,
-      description: test.intro,
-      bodyLocation: 'Body',
-      preparation: test.process[0].body,
-      followup: test.process[2].body,
-    }
-    const tag = document.createElement('script')
-    tag.type = 'application/ld+json'
-    tag.text = JSON.stringify(ld)
-    document.head.appendChild(tag)
-    return () => {
-      tag.remove()
-    }
   }, [test])
 
   // 404 — slug not found

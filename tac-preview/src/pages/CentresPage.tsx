@@ -49,9 +49,9 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 }))
 
 const CENTRES_META = {
-  title: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad & Bangalore',
+  title: 'Our Centres · TLC Clinics Across 8 Indian Cities',
   description:
-    'The Longevity Centre operates eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore. Diagnostics-led, physician-guided premium preventive medicine.',
+    'TLC operates 8 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
   path: '/centres',
   jsonLd: [
     {

@@ -152,25 +152,25 @@ const HERO_PILLS = [
 ]
 
 const PROGRAM_META = {
-  title: 'Longevity Program — Your Anti-Aging Blueprint | TAC',
+  title: 'Longevity Program · TLC — Your Anti-Aging Blueprint',
   description:
-    "TAC's flagship Longevity Program — advanced metabolic, DNA and gut microbiome diagnostics, AI-enhanced precision analytics and doctor-designed personalised protocols. 50,000+ lives reformed across India.",
+    "TLC's flagship 12-month protocol — advanced metabolic, DNA and gut microbiome diagnostics, AI analytics, doctor-designed personalised plans.",
   path: '/longevity-program',
   jsonLd: [
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      '@id': 'https://theantiagingcentre.com/longevity-program#webpage',
-      url: 'https://theantiagingcentre.com/longevity-program',
-      name: 'Longevity Program — Your Anti-Aging Blueprint | TAC',
-      isPartOf: { '@id': 'https://theantiagingcentre.com/#organization' },
-      about: { '@id': 'https://theantiagingcentre.com/#organization' },
+      '@id': 'https://thelongevitycentre.com/longevity-program#webpage',
+      url: 'https://thelongevitycentre.com/longevity-program',
+      name: 'Longevity Program · TLC — Your Anti-Aging Blueprint',
+      isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
+      about: { '@id': 'https://thelongevitycentre.com/#organization' },
       inLanguage: 'en-IN',
     },
     {
       '@context': 'https://schema.org',
       '@type': 'MedicalProcedure',
-      '@id': 'https://theantiagingcentre.com/longevity-program#procedure',
+      '@id': 'https://thelongevitycentre.com/longevity-program#procedure',
       name: 'Longevity Program',
       procedureType: 'PreventiveMedicine',
       description:

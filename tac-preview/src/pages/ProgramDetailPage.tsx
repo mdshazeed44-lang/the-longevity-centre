@@ -631,7 +631,7 @@ export function ProgramDetailPage() {
           description: program.focus,
           procedureType: 'TherapeuticProcedure',
           followup: program.duration,
-          performer: { '@id': 'https://theantiagingcentre.com/#organization' },
+          performer: { '@id': 'https://thelongevitycentre.com/#organization' },
         }
       : undefined,
   })

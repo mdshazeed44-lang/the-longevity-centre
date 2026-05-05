@@ -8,11 +8,11 @@
 //  4. Process — 4-step grid (dark band)
 //  5. Other treatments — 6-card grid linking to siblings
 //  6. CtaBand
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../App'
 import {
   SKIN_TREATMENTS,
@@ -30,20 +30,48 @@ export function SkinAestheticsDetailPage() {
     .replace(/^\/skin-aesthetics\//, '')
   const t = getSkinTreatmentBySlug(slug)
 
-  // Per-page SEO meta — generated from the treatment data, but called
-  // unconditionally so React hooks rules are happy even when t is null.
+  // Per-page SEO. Called unconditionally — when slug is invalid we still
+  // emit a coherent (non-rich) meta so search engines don't see homepage
+  // metadata for a 404-shaped URL.
   useDocumentMeta(
-    t
-      ? {
-          title: `${t.title} · TLC — The Longevity Centre`,
-          description: t.description.slice(0, 200),
-          path: `/skin-aesthetics/${t.slug}`,
-        }
-      : {
-          title: 'Treatment not found · TLC',
-          description: 'The skin treatment you were looking for could not be found.',
-          path: '/skin-aesthetics',
-        }
+    useMemo(
+      () =>
+        t
+          ? {
+              title: `${t.title} · TLC Skin & Aesthetics`,
+              description:
+                t.description.length > 158
+                  ? t.description.slice(0, 155).trimEnd() + '…'
+                  : t.description,
+              path: `/skin-aesthetics/${t.slug}`,
+              ogImage: t.image,
+              jsonLd: [
+                {
+                  '@context': 'https://schema.org',
+                  '@type': 'MedicalProcedure',
+                  '@id': `${SITE_URL}/skin-aesthetics/${t.slug}#procedure`,
+                  name: t.title,
+                  description: t.description,
+                  url: `${SITE_URL}/skin-aesthetics/${t.slug}`,
+                  bodyLocation: 'Skin',
+                  ...(t.process?.[0] && { preparation: t.process[0].body }),
+                  ...(t.process?.[3] && { followup: t.process[3].body }),
+                },
+                breadcrumbList([
+                  { name: 'Home', url: '/' },
+                  { name: 'Skin & Aesthetics', url: '/skin-aesthetics' },
+                  { name: t.shortName, url: `/skin-aesthetics/${t.slug}` },
+                ]),
+              ],
+            }
+          : {
+              title: 'Treatment not found · TLC',
+              description:
+                'The skin treatment you were looking for could not be found. Browse all seven TLC aesthetic treatments.',
+              path: '/skin-aesthetics',
+            },
+      [t]
+    )
   )
 
   useEffect(() => {

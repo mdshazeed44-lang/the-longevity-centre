@@ -3,6 +3,7 @@
 // can review the flow before approving for the live homepage.
 // Original homepage at / unaffected.
 
+import { useEffect } from 'react'
 import { BenefitsHome } from '../components/BenefitsHome'
 import { ProgramsHome } from '../components/ProgramsHome'
 import { useDocumentMeta } from '../lib/seo'
@@ -10,9 +11,25 @@ import { useDocumentMeta } from '../lib/seo'
 export function BenefitsDemoPage() {
   useDocumentMeta({
     title: 'Demo · Benefits + Programmes — TLC',
-    description: 'Demo preview of the new homepage sections.',
+    description:
+      'Internal preview of new homepage sections. Not for public consumption.',
     path: '/demo',
   })
+
+  // /demo is a designer preview — keep it out of search indexes.
+  useEffect(() => {
+    let robots = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
+    if (!robots) {
+      robots = document.createElement('meta')
+      robots.name = 'robots'
+      document.head.appendChild(robots)
+    }
+    const previous = robots.content
+    robots.content = 'noindex, nofollow'
+    return () => {
+      robots!.content = previous || 'index, follow'
+    }
+  }, [])
 
   return (
     <div className="bg-white">

@@ -1,25 +1,41 @@
-// SEO meta hook — updates per-route <title>, description, OG/Twitter tags,
-// canonical link, and per-page JSON-LD structured data.
-//
-// Site-wide MedicalBusiness JSON-LD lives in index.html. Page-specific JSON-LD
-// (e.g. Person for founders on /about) is injected via this hook with cleanup.
+/**
+ * Per-page SEO hook — keeps page meta in sync with route navigation.
+ *
+ * Updates on every render of a page that calls it:
+ *   • <title>
+ *   • <meta name="description">
+ *   • Open Graph (og:title / og:description / og:url / og:image)
+ *   • Twitter Card (twitter:title / twitter:description / twitter:image)
+ *   • <link rel="canonical">
+ *   • Optional JSON-LD <script> blocks (cleaned up on unmount)
+ *
+ * Site-wide Organization / MedicalBusiness JSON-LD lives in index.html
+ * so it survives even before the SPA hydrates.
+ */
 import { useEffect } from 'react'
 
-export const SITE_URL = 'https://theantiagingcentre.com'
+/** Canonical site URL — used for og:url, canonical, and JSON-LD @ids. */
+export const SITE_URL = 'https://thelongevitycentre.com'
+
+/** Default OG/Twitter image when a page doesn't supply its own. */
 const DEFAULT_OG_IMAGE = '/new-logo-white.webp'
 
-export type PageMeta = {
+export type JsonLd = Record<string, unknown>
+
+export interface PageMeta {
+  /** Page title — keep ≤ 60 chars for full display in SERPs. */
   title: string
+  /** Description — keep 140-160 chars to avoid SERP truncation. */
   description: string
   /** Path including leading slash, e.g. '/about'. Defaults to '/'. */
   path?: string
-  /** Optional override for og:image. Defaults to logo. */
+  /** Path or absolute URL of the OG image. Defaults to the brand logo. */
   ogImage?: string
   /** One or more JSON-LD objects to inject into <head>. */
-  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>
+  jsonLd?: JsonLd | JsonLd[]
 }
 
-function setNamedMeta(name: string, content: string) {
+function setNamedMeta(name: string, content: string): void {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)
   if (!el) {
     el = document.createElement('meta')
@@ -29,7 +45,7 @@ function setNamedMeta(name: string, content: string) {
   el.content = content
 }
 
-function setPropMeta(prop: string, content: string) {
+function setPropMeta(prop: string, content: string): void {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[property="${prop}"]`)
   if (!el) {
     el = document.createElement('meta')
@@ -39,7 +55,7 @@ function setPropMeta(prop: string, content: string) {
   el.content = content
 }
 
-function setCanonical(url: string) {
+function setCanonical(url: string): void {
   let el = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')
   if (!el) {
     el = document.createElement('link')
@@ -49,7 +65,36 @@ function setCanonical(url: string) {
   el.href = url
 }
 
-export function useDocumentMeta(meta: PageMeta) {
+/**
+ * Build a BreadcrumbList JSON-LD object for detail pages.
+ *
+ * @example
+ *   breadcrumbList([
+ *     { name: 'Home',         url: '/' },
+ *     { name: 'Diagnostics',  url: '/diagnostics' },
+ *     { name: 'Oligoscan',    url: '/diagnostics/oligoscan' },
+ *   ])
+ */
+export function breadcrumbList(
+  items: { name: string; url: string }[]
+): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url.startsWith('http') ? item.url : SITE_URL + item.url,
+    })),
+  }
+}
+
+/**
+ * Set per-route head metadata (title, description, OG, Twitter, canonical,
+ * optional JSON-LD blocks). Call once per page from a top-level component.
+ */
+export function useDocumentMeta(meta: PageMeta): void {
   useEffect(() => {
     const path = meta.path ?? '/'
     const url = SITE_URL + path
@@ -70,7 +115,8 @@ export function useDocumentMeta(meta: PageMeta) {
     setNamedMeta('twitter:image', ogImage)
     setCanonical(url)
 
-    // Inject per-page JSON-LD blocks; remove on cleanup so route changes don't pile up.
+    // Inject per-page JSON-LD blocks. Tagged with data-page-jsonld so we
+    // only remove what we injected — never the static blocks in index.html.
     const injected: HTMLScriptElement[] = []
     if (meta.jsonLd) {
       const items = Array.isArray(meta.jsonLd) ? meta.jsonLd : [meta.jsonLd]
