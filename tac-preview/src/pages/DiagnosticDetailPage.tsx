@@ -17,7 +17,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
-import { CtaBand } from '../App'
+import { CtaBand } from '../components/sections/CtaBand'
 import { DIAGNOSTICS, getDiagnosticBySlug } from '../lib/diagnostics'
 
 gsap.registerPlugin(ScrollTrigger)

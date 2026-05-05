@@ -15,7 +15,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CENTRES, getCentreBySlug } from '../lib/centres'
-import { CtaBand } from '../App'
+import { CtaBand } from '../components/sections/CtaBand'
 
 gsap.registerPlugin(ScrollTrigger)
 

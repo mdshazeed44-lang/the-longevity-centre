@@ -6,15 +6,13 @@ import { BenefitsHome } from '../components/BenefitsHome'
 import { ProgramsHome as Programs } from '../components/ProgramsHome'
 import { Method } from '../components/Method'
 import { VideoTestimonials } from '../components/VideoTestimonials'
-import {
-  PressStrip,
-  ScienceCards,
-  ResultsSplit,
-  Editorial,
-  ClinicsBand,
-  BrochureCTA,
-  CtaBand,
-} from '../App'
+import { PressStrip } from '../components/sections/PressStrip'
+import { ScienceCards } from '../components/sections/ScienceCards'
+import { ResultsSplit } from '../components/sections/ResultsSplit'
+import { Editorial } from '../components/sections/Editorial'
+import { ClinicsBand } from '../components/sections/ClinicsBand'
+import { BrochureCTA } from '../components/sections/BrochureCTA'
+import { CtaBand } from '../components/sections/CtaBand'
 import { useDocumentMeta } from '../lib/seo'
 
 const HOME_META = {

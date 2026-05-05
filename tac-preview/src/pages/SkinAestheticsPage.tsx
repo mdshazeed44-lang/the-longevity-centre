@@ -15,7 +15,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
-import { CtaBand } from '../App'
+import { CtaBand } from '../components/sections/CtaBand'
 import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
 gsap.registerPlugin(ScrollTrigger)
