@@ -42,7 +42,7 @@ const TREATMENTS: Treatment[] = [
     n: '01',
     title: 'Skin PRP',
     eyebrow: 'Platelet-Rich Plasma',
-    image: '/skin-aesthetics/01-prp.jpg',
+    image: '/skin-aesthetics/01-prp-acp.jpg',
     description:
       "PRP (Platelet-Rich Plasma) therapy utilises your own blood platelets, rich in growth factors, to stimulate cellular renewal and tissue regeneration. We extract growth factors from a small blood sample through centrifugation, then concentrate them and inject the plasma into the skin for targeted rejuvenation — natural, autologous, minimal-risk.",
     treats: [
@@ -175,7 +175,7 @@ const TREATMENTS: Treatment[] = [
     n: '07',
     title: 'Fillers, Botox & Skin Boosters',
     eyebrow: 'Restorative Injectables',
-    image: '/skin-aesthetics/07-injectables.jpg',
+    image: '/skin-aesthetics/07-mesotherapy.jpg',
     description:
       'Three complementary injectable treatments — Botox to relax muscle-driven wrinkles, Dermal Fillers to restore lost volume, and Skin Boosters with hyaluronic acid to deeply hydrate and revitalise. All three can be combined for comprehensive facial rejuvenation. FDA-approved products only.',
     treats: [
