@@ -757,30 +757,36 @@ export function AboutPage() {
                   className="founder-card group bg-white hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 grid md:grid-cols-[5fr_7fr] items-stretch"
                   style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
                 >
-                  {/* Portrait */}
+                  {/* Portrait — square aspect ratio matches the source image
+                      proportions (800x800) so we get crisp display without
+                      object-cover zooming in on the face. */}
                   <div
-                    className={`relative aspect-[4/5] md:aspect-auto md:min-h-[420px] overflow-hidden bg-mist ${reverse ? 'md:order-2' : ''}`}
+                    className={`relative aspect-square overflow-hidden bg-cream ${reverse ? 'md:order-2' : ''}`}
                   >
                     <img
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      width={800}
+                      height={800}
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                      style={{ objectPosition: 'center' }}
                     />
+                    {/* Soft bottom gradient for stat badge legibility */}
                     <div
                       aria-hidden
-                      className="absolute inset-0 pointer-events-none"
+                      className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
                       style={{
                         background:
-                          'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
+                          'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.20) 100%)',
                       }}
                     />
                     {/* Stat badge */}
-                    <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-2 transition-transform duration-700 group-hover:-translate-y-0.5">
+                    <div className="absolute top-4 left-4 backdrop-blur-md bg-ink/85 border border-white/15 rounded-full px-3.5 py-2 transition-transform duration-700 group-hover:-translate-y-0.5 shadow-[0_10px_24px_-12px_rgba(27,26,24,0.5)]">
                       <div className="font-display font-bold text-[15px] text-white tabular-nums tracking-tight leading-none">
                         {f.stat}
                       </div>
-                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
+                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/80 font-medium mt-0.5">
                         {f.statLabel}
                       </div>
                     </div>
