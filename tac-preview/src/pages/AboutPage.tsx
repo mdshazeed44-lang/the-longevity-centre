@@ -457,7 +457,7 @@ export function AboutPage() {
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </span>
-              Gurugram · Delhi · Pune · Bangalore
+              Delhi · Gurgaon · Mumbai · Pune · Nagpur · Goa · Hyderabad · Bangalore
             </span>
           </div>
         </div>
@@ -737,14 +737,17 @@ export function AboutPage() {
                   Where We Practise
                 </div>
                 <div className="font-display font-bold text-[22px] md:text-[26px] leading-[1.15] tracking-[-0.02em] text-ink mb-5">
-                  Five centres designed around the patient — not the protocol.
+                  Eight centres designed around the patient — not the protocol.
                 </div>
                 <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[13px] text-graphite font-light">
-                  <li>Gurugram</li>
-                  <li>Pune Hadapsar</li>
-                  <li>Delhi GK-1</li>
-                  <li>Bangalore JP Nagar</li>
-                  <li>Bangalore Sadashivnagar</li>
+                  <li>Delhi</li>
+                  <li>Gurgaon</li>
+                  <li>Mumbai</li>
+                  <li>Pune</li>
+                  <li>Nagpur</li>
+                  <li>Goa</li>
+                  <li>Hyderabad</li>
+                  <li>Bangalore</li>
                 </ul>
               </div>
             </div>
@@ -854,7 +857,7 @@ export function AboutPage() {
               </span>
             </a>
             <a
-              href="https://wa.me/918826809123"
+              href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
               data-cursor="hover"
               className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
             >

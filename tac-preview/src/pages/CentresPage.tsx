@@ -118,9 +118,9 @@ const CENTRES: Centre[] = [
 ]
 
 const HERO_STATS = [
-  { k: 'Centres', v: '5' },
+  { k: 'Centres', v: '8' },
   { k: 'Reach', v: 'Pan-India' },
-  { k: 'Cities', v: 'Gurugram · Delhi · Pune · Bangalore' },
+  { k: 'Cities', v: 'Delhi · Gurgaon · Mumbai · Pune · Nagpur · Goa · Hyderabad · Bangalore' },
 ]
 
 // Per-centre JSON-LD — only for centres with verified street addresses.
@@ -145,9 +145,9 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 }))
 
 const CENTRES_META = {
-  title: 'Our Centres — TLC Clinics in Gurugram, Delhi, Pune & Bangalore',
+  title: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad & Bangalore',
   description:
-    'The Longevity Centre operates five flagship clinics across India — Gurugram (Sector 48), Delhi (Greater Kailash-1), Pune (Hadapsar) and Bangalore (JP Nagar, Sadashivnagar).',
+    'The Longevity Centre operates eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore. Diagnostics-led, physician-guided premium preventive medicine.',
   path: '/centres',
   jsonLd: [
     {
@@ -327,9 +327,9 @@ export function CentresPage() {
           </h1>
 
           <p className="mt-10 text-[16px] md:text-[19px] leading-[1.7] text-white/75 max-w-[640px] font-light">
-            Five flagship clinics across India — Gurugram, Delhi, Pune and two
-            in Bangalore. One shared medical record across every centre — your
-            care continues wherever you go.
+            Eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur,
+            Goa, Hyderabad and Bangalore. One shared medical record across
+            every centre — your care continues wherever you go.
           </p>
 
           {/* Slim spec pills — backdrop-blur chips matching About hero language */}
@@ -591,7 +591,7 @@ export function CentresPage() {
               </span>
             </a>
             <a
-              href="https://wa.me/918826809123"
+              href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
               data-cursor="hover"
               className="inline-flex items-center gap-2 px-7 py-5 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500"
             >

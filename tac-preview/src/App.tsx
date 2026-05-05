@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ---------- Clinics band ----------
 export function ClinicsBand() {
-  // Source: theantiagingcentre.com — the five physical centres, verbatim.
+  // The eight TLC clinic locations across India.
   type Clinic = {
     city: string
     region: string
@@ -22,16 +22,22 @@ export function ClinicsBand() {
   }
   const clinics: Clinic[] = [
     {
-      city: 'Gurugram',
+      city: 'Delhi',
+      region: 'NCR',
+      area: 'Greater Kailash-1',
+      phone: '+91 97171 46500',
+    },
+    {
+      city: 'Gurgaon',
       region: 'NCR',
       area: 'Sector 48',
       phone: '+91 87701 95833',
     },
     {
-      city: 'Delhi',
-      region: 'NCR',
-      area: 'Greater Kailash-1',
-      phone: '+91 97171 46500',
+      city: 'Mumbai',
+      region: 'Maharashtra',
+      area: 'Opening soon',
+      phone: '+91 88268 09123',
     },
     {
       city: 'Pune',
@@ -40,15 +46,27 @@ export function ClinicsBand() {
       phone: '+91 97623 86121',
     },
     {
-      city: 'Bangalore',
-      region: 'Karnataka',
-      area: 'JP Nagar',
-      phone: '+91 80767 19637',
+      city: 'Nagpur',
+      region: 'Maharashtra',
+      area: 'Opening soon',
+      phone: '+91 88268 09123',
+    },
+    {
+      city: 'Goa',
+      region: 'Goa',
+      area: 'Opening soon',
+      phone: '+91 88268 09123',
+    },
+    {
+      city: 'Hyderabad',
+      region: 'Telangana',
+      area: 'Opening soon',
+      phone: '+91 88268 09123',
     },
     {
       city: 'Bangalore',
       region: 'Karnataka',
-      area: 'Sadashivnagar',
+      area: 'JP Nagar · Sadashivnagar',
       phone: '+91 80767 19637',
     },
   ]
@@ -74,19 +92,18 @@ export function ClinicsBand() {
       })
     }
 
-    // Row stagger — each row slides in from the left with subtle skew
+    // City card stagger — fade up + slight lift
     const rows = railRef.current?.querySelectorAll<HTMLElement>('.clinic-row')
     let rowTween: gsap.core.Tween | undefined
     if (rows?.length) {
-      gsap.set(rows, { opacity: 0, x: -40, skewY: 1 })
+      gsap.set(rows, { opacity: 0, y: 28 })
       rowTween = gsap.to(rows, {
         opacity: 1,
-        x: 0,
-        skewY: 0,
-        duration: 0.9,
+        y: 0,
+        duration: 1.0,
         ease: 'expo.out',
-        stagger: 0.08,
-        scrollTrigger: { trigger: railRef.current, start: 'top 80%' },
+        stagger: 0.06,
+        scrollTrigger: { trigger: railRef.current, start: 'top 82%' },
       })
     }
 
@@ -113,139 +130,284 @@ export function ClinicsBand() {
     }
   }, [])
 
+  // Pin coordinates as % of the map image's box (left, top).
+  // 'side' decides where the city label sits — chosen per pin to avoid
+  // overlapping with neighbours (Mumbai/Pune/Hyderabad/Goa cluster).
+  const pinCoords: Record<
+    string,
+    { left: string; top: string; side: 'top' | 'bottom' | 'left' | 'right' }
+  > = {
+    Delhi:     { left: '46%', top: '32%', side: 'top' },
+    Gurgaon:   { left: '43%', top: '36%', side: 'left' },
+    Nagpur:    { left: '48%', top: '58%', side: 'right' },
+    Mumbai:    { left: '34%', top: '63%', side: 'left' },
+    Pune:      { left: '40%', top: '67%', side: 'right' },
+    Hyderabad: { left: '48%', top: '69%', side: 'right' },
+    Goa:       { left: '36%', top: '74%', side: 'left' },
+    Bangalore: { left: '44%', top: '80%', side: 'bottom' },
+  }
+
   return (
-    <section id="clinics" ref={ref} className="bg-white">
-      <div className="max-w-[1280px] mx-auto px-6 md:px-12 py-12 md:py-16">
-        {/* Compact header — 2 col */}
-        <div className="grid md:grid-cols-[1.3fr_1fr] gap-8 md:gap-12 items-end mb-8 md:mb-10">
+    <section id="clinics" ref={ref} className="relative bg-white overflow-hidden">
+      {/* Soft warm wash — barely-there cream + rust */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-70"
+        style={{
+          background:
+            'radial-gradient(900px 600px at 18% 20%, rgba(148,84,85,0.04), transparent 60%), radial-gradient(800px 500px at 82% 80%, rgba(238,230,219,0.55), transparent 60%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-12 py-16 md:py-20">
+        {/* Header */}
+        <div className="grid md:grid-cols-[1.3fr_1fr] gap-8 md:gap-12 items-end mb-12 md:mb-14">
           <div>
             <div className="flex items-center gap-3 mb-4">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+              <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] text-rust font-semibold uppercase">
                 Our Centres
               </span>
             </div>
             <h2
               ref={headRef}
-              className="font-display font-bold text-[28px] md:text-[42px] leading-[1.0] tracking-[-0.03em] text-ink"
+              className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink"
             >
               <span className="line-mask">
                 <span>Find us where</span>
               </span>{' '}
               <span className="line-mask">
-                <span>you live.</span>
+                <span className="font-bold text-rust">you live.</span>
               </span>
             </h2>
           </div>
           <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right md:pb-2">
-            Five flagship centres across India — Gurugram, Delhi, Pune and two
-            in Bangalore.
+            Eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur,
+            Goa, Hyderabad and Bangalore. One shared medical record across
+            every centre.
           </p>
         </div>
 
-        {/* Compact directory rows — each row reveals from left with skew */}
-        <div ref={railRef} className="border-t border-mist">
-          {clinics.map((c, i) => {
-            const isFeatured = !!c.featured
-            return (
+        {/* MAIN — city grid (left) + India map (right) */}
+        <div className="grid lg:grid-cols-[1.15fr_1fr] gap-8 lg:gap-12 items-start">
+          {/* CITY DIRECTORY ROWS — clean horizontal list.
+              Each row: number · city · area+region · phone · arrow.
+              Compact single-line layout, hairline dividers between rows. */}
+          <div ref={railRef} className="border-t border-mist">
+            {clinics.map((c, i) => (
               <a
                 key={c.city + c.area}
-                href={isFeatured ? '#cta' : '#cta'}
+                href="#cta"
                 data-cursor="hover"
-                className={`clinic-row group relative grid grid-cols-[36px_1fr_auto] md:grid-cols-[60px_1fr_1.4fr_1fr_140px] gap-3 md:gap-6 items-center px-2 md:px-4 py-3.5 md:py-4 border-b border-mist transition-colors duration-500 ${
-                  isFeatured ? 'bg-ink/95 text-white -mx-2 md:-mx-4 px-4 md:px-8 rounded-xl' : 'hover:bg-cream/50'
-                }`}
+                className="clinic-row group relative grid grid-cols-[28px_1fr_auto] md:grid-cols-[40px_1.1fr_1.4fr_1.2fr_36px] gap-3 md:gap-5 items-center px-1 md:px-2 py-3.5 md:py-4 border-b border-mist hover:bg-cream/40 transition-colors duration-500"
               >
-                {/* number */}
-                <span
-                  className={`font-display text-[14px] md:text-[16px] tabular-nums tracking-tight font-semibold ${
-                    isFeatured ? 'text-rust-soft' : 'text-rust'
-                  }`}
-                >
+                {/* Number */}
+                <span className="font-display text-[12px] md:text-[13px] text-rust font-semibold tabular-nums tracking-tight">
                   {String(i + 1).padStart(2, '0')}
                 </span>
 
-                {/* city — on mobile shows area+region inline since other cells are hidden */}
+                {/* City */}
                 <div className="min-w-0">
-                  <h3
-                    className={`font-display font-bold text-[19px] md:text-[28px] leading-[1.0] tracking-[-0.02em] truncate transition-colors duration-500 ${
-                      isFeatured ? 'text-white' : 'text-ink group-hover:text-rust-deep'
-                    }`}
-                  >
+                  <h3 className="font-display font-bold text-[16px] md:text-[19px] leading-[1.1] tracking-[-0.02em] text-ink group-hover:text-rust transition-colors duration-500 truncate">
                     {c.city}
                   </h3>
-                  {/* area shown under city on mobile only */}
-                  <div
-                    className={`md:hidden text-[10px] tracking-[0.22em] uppercase font-medium mt-1 truncate ${
-                      isFeatured ? 'text-white/70' : 'text-stone'
-                    }`}
-                  >
-                    {c.area}
+                  {/* Mobile-only meta */}
+                  <div className="md:hidden text-[10px] tracking-[0.22em] uppercase text-stone font-medium mt-1 truncate">
+                    {c.area} · {c.region}
                   </div>
                 </div>
 
-                {/* area */}
-                <div className="hidden md:block">
-                  <div
-                    className={`text-[12px] tracking-[0.22em] uppercase font-medium leading-tight ${
-                      isFeatured ? 'text-white/70' : 'text-graphite'
-                    }`}
-                  >
+                {/* Area + region (desktop only) */}
+                <div className="hidden md:block min-w-0">
+                  <div className="text-[11px] tracking-[0.22em] uppercase text-graphite font-semibold leading-tight truncate">
                     {c.area}
                   </div>
-                  <div
-                    className={`text-[10.5px] tracking-[0.25em] uppercase mt-1 ${
-                      isFeatured ? 'text-white/50' : 'text-stone'
-                    }`}
-                  >
+                  <div className="text-[10px] tracking-[0.22em] uppercase text-stone font-medium mt-0.5 truncate">
                     {c.region}
                   </div>
                 </div>
 
-                {/* phone */}
-                <div
-                  className={`text-[12.5px] md:text-[13.5px] tabular-nums tracking-tight font-medium hidden md:block ${
-                    isFeatured ? 'text-white' : 'text-ink'
-                  }`}
-                >
+                {/* Phone (desktop only) */}
+                <div className="hidden md:block text-[12.5px] tabular-nums tracking-tight text-ink font-medium truncate">
                   {c.phone}
                 </div>
 
-                {/* CTA arrow with line — animated underline */}
-                <div className="flex items-center justify-end gap-2.5 relative">
-                  <span
-                    className={`text-[10.5px] tracking-[0.28em] uppercase font-semibold hidden md:inline ${
-                      isFeatured ? 'text-white' : 'text-ink'
-                    }`}
-                  >
-                    {isFeatured ? 'Book Online' : 'Visit'}
-                  </span>
-                  <span
-                    aria-hidden
-                    className={`relative inline-flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full transition-all duration-500 ${
-                      isFeatured
-                        ? 'bg-rust-soft/20 text-rust-soft group-hover:bg-rust-soft/30'
-                        : 'bg-cream group-hover:bg-ink group-hover:text-white text-ink'
-                    }`}
-                  >
-                    →
-                  </span>
-                </div>
-
-                {/* hover-fill accent line under row */}
+                {/* Arrow chip */}
                 <span
                   aria-hidden
-                  className={`absolute left-0 right-0 bottom-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    isFeatured ? 'bg-rust-soft/40' : 'bg-rust'
-                  }`}
+                  className="inline-flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full bg-cream group-hover:bg-rust text-ink group-hover:text-white transition-colors duration-500 text-[13px] shrink-0"
+                >
+                  →
+                </span>
+
+                {/* Hover-fill rust line under row */}
+                <span
+                  aria-hidden
+                  className="absolute left-0 right-0 bottom-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] bg-rust"
                 />
               </a>
-            )
-          })}
+            ))}
+          </div>
 
-          {/* drawn baseline */}
-          <div className="clinic-divider h-px bg-ink/20 mt-2" />
+          {/* INDIA MAP — sticky on desktop, full visual on mobile */}
+          <div className="lg:sticky lg:top-28">
+            <div className="relative bg-[#FAF6EE] border border-mist rounded-[24px] p-6 md:p-8 overflow-hidden">
+              {/* Subtle ambient wash */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none opacity-60"
+                style={{
+                  background:
+                    'radial-gradient(500px 400px at 50% 30%, rgba(148,84,85,0.06), transparent 70%)',
+                }}
+              />
+
+              {/* Header strip */}
+              <div className="relative flex items-center justify-between mb-5">
+                <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold">
+                  Pan-India Network
+                </div>
+                <div className="font-display font-bold text-[14px] text-ink tabular-nums">
+                  8 Cities
+                </div>
+              </div>
+
+              {/* India map — uses uploaded line-art map asset, with rust
+                  pins positioned on top via absolute coordinates. */}
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: '1 / 1' }}
+                aria-label="Map of India with TLC clinic locations"
+                role="img"
+              >
+                <img
+                  src="/main-map.png"
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
+                />
+
+                {/* Pins overlay — Google-Maps-style teardrop markers.
+                    Each pin is a rust teardrop shape with a white core dot
+                    and a vibrating glow halo behind it. The pin anchors
+                    from its bottom point (which lands exactly on the city
+                    coordinate). Labels float beside each pin. */}
+                {clinics.map((c, i) => {
+                  const p = pinCoords[c.city]
+                  if (!p) return null
+
+                  const labelPos: Record<string, string> = {
+                    top: 'left-1/2 bottom-full mb-1 -translate-x-1/2',
+                    bottom: 'left-1/2 top-full mt-2 -translate-x-1/2',
+                    left: 'right-full top-1/2 mr-2 -translate-y-1/2',
+                    right: 'left-full top-1/2 ml-2 -translate-y-1/2',
+                  }
+
+                  return (
+                    <div
+                      key={c.city + c.area}
+                      className="clinic-pin absolute group"
+                      style={{
+                        // Anchor pin's bottom-center on the city coord
+                        left: p.left,
+                        top: p.top,
+                        transform: 'translate(-50%, -100%)',
+                      }}
+                    >
+                      {/* Vibrating glow halo — radiating soft rust pulse */}
+                      <span
+                        aria-hidden
+                        className="pin-glow absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-[20%] w-10 h-10 rounded-full"
+                        style={{
+                          background:
+                            'radial-gradient(circle, rgba(148,84,85,0.55) 0%, rgba(148,84,85,0.20) 45%, transparent 75%)',
+                          animationDelay: `${i * 0.18}s`,
+                          filter: 'blur(2px)',
+                        }}
+                      />
+
+                      {/* Teardrop pin — SVG with rust fill + white core */}
+                      <svg
+                        width="26"
+                        height="34"
+                        viewBox="0 0 26 34"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="pin-bob relative block drop-shadow-[0_4px_8px_rgba(27,26,24,0.35)] group-hover:drop-shadow-[0_6px_12px_rgba(148,84,85,0.55)] transition-all duration-300"
+                        style={{ animationDelay: `${i * 0.18}s` }}
+                      >
+                        {/* Outer subtle ring around pin head for definition */}
+                        <path
+                          d="M13 0C5.82 0 0 5.82 0 13c0 9.5 13 21 13 21s13-11.5 13-21c0-7.18-5.82-13-13-13z"
+                          fill="#945455"
+                          stroke="#FFFFFF"
+                          strokeWidth="1.6"
+                        />
+                        {/* Inner gradient glow on the pin head */}
+                        <circle cx="13" cy="13" r="10" fill="#7A4344" opacity="0.45" />
+                        {/* Center white dot */}
+                        <circle
+                          cx="13"
+                          cy="13"
+                          r="4.5"
+                          fill="#FFFFFF"
+                        />
+                        {/* Tiny rust dot in white core for depth */}
+                        <circle cx="13" cy="13" r="1.6" fill="#945455" />
+                      </svg>
+
+                      {/* Label pill */}
+                      <span
+                        className={`absolute ${labelPos[p.side]} px-2 py-[3px] bg-white border border-rust/25 rounded-full text-[9px] tracking-[0.16em] uppercase text-ink font-bold whitespace-nowrap shadow-[0_4px_10px_-3px_rgba(27,26,24,0.15)] group-hover:bg-rust group-hover:text-white group-hover:border-rust transition-colors duration-300`}
+                      >
+                        {c.city}
+                      </span>
+                    </div>
+                  )
+                })}
+
+                <style>{`
+                  /* Vibrating glow — quick pulse + scale */
+                  @keyframes clinicPinGlow {
+                    0%   { opacity: 0.85; transform: translate(-50%, 20%) scale(1); }
+                    50%  { opacity: 0.35; transform: translate(-50%, 20%) scale(1.45); }
+                    100% { opacity: 0.85; transform: translate(-50%, 20%) scale(1); }
+                  }
+                  .pin-glow {
+                    animation: clinicPinGlow 1.6s ease-in-out infinite;
+                  }
+
+                  /* Subtle vertical bob on the pin itself */
+                  @keyframes clinicPinBob {
+                    0%, 100% { transform: translateY(0); }
+                    50%      { transform: translateY(-2px); }
+                  }
+                  .pin-bob {
+                    animation: clinicPinBob 2.4s ease-in-out infinite;
+                  }
+
+                  @media (prefers-reduced-motion: reduce) {
+                    .pin-glow, .pin-bob { animation: none; }
+                  }
+                `}</style>
+              </div>
+
+              {/* Footer strip — quick stat */}
+              <div className="relative mt-5 pt-5 border-t border-mist text-center">
+                <div className="text-[10px] tracking-[0.3em] uppercase text-rust font-semibold mb-1">
+                  Shared Medical Record
+                </div>
+                <p className="text-[12.5px] leading-[1.5] text-graphite font-light">
+                  Your care continues across every centre — one team, one
+                  programme, one record.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* drawn baseline divider */}
+        <div className="clinic-divider h-px bg-ink/15 mt-12 md:mt-16" />
       </div>
     </section>
   )
@@ -546,19 +708,19 @@ export function ResultsSplit() {
   }, [])
 
   return (
-    <section id="results" className="bg-cream/50 py-12 md:py-16 px-6 md:px-12">
-      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.05fr_1fr] gap-10 md:gap-16 items-start">
-        {/* LEFT — outcomes list */}
-        <div className="md:pt-2">
-          <div className="flex items-center gap-3 mb-7">
-            <span className="w-8 h-px bg-rust" />
-            <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+    <section id="results" className="bg-cream/50 py-10 md:py-14 px-6 md:px-12">
+      <div className="max-w-[1280px] mx-auto grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 items-start">
+        {/* LEFT — outcomes list (compact) */}
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="w-7 h-px bg-rust" />
+            <span className="text-[10.5px] tracking-[0.32em] text-rust font-semibold uppercase">
               What 12 Months Brings
             </span>
           </div>
           <h2
             ref={headRef}
-            className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink mb-5"
+            className="font-display font-bold text-[26px] md:text-[36px] xl:text-[42px] leading-[1.0] tracking-[-0.03em] text-ink mb-3.5"
           >
             <span className="line-mask">
               <span>A new,</span>
@@ -568,30 +730,29 @@ export function ResultsSplit() {
               <span>reformed life.</span>
             </span>
           </h2>
-          <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[520px] mb-8">
-            After the thorough 12-month programme, our patients describe a
-            reformed life — restored vitality, measurably better health, and a
-            sense of well-being that wasn't there before.
+          <p className="text-[13.5px] md:text-[14.5px] leading-[1.55] text-graphite font-light max-w-[520px] mb-5">
+            After the 12-month programme, patients describe a reformed life —
+            restored vitality, measurably better health.
           </p>
 
           <ul ref={ref} className="border-t border-mist">
             {outcomes.map((o, i) => (
               <li
                 key={o.label}
-                className="result-row group flex items-baseline gap-6 md:gap-8 py-5 border-b border-mist"
+                className="result-row group flex items-baseline gap-5 md:gap-6 py-3 border-b border-mist"
               >
-                <span className="font-display text-[14px] text-rust font-semibold tabular-nums tracking-tight w-8 shrink-0">
+                <span className="font-display text-[12.5px] text-rust font-semibold tabular-nums tracking-tight w-7 shrink-0">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <div className="font-display font-bold text-[18px] md:text-[20px] leading-[1.25] tracking-[-0.01em] text-ink group-hover:text-rust-deep transition-colors duration-300">
+                  <div className="font-display font-bold text-[15px] md:text-[16.5px] leading-[1.25] tracking-[-0.01em] text-ink group-hover:text-rust-deep transition-colors duration-300">
                     {o.label}
                   </div>
-                  <div className="mt-1.5 text-[13px] md:text-[14px] text-stone leading-[1.55] font-light">
+                  <div className="mt-0.5 text-[12px] md:text-[12.5px] text-stone leading-[1.45] font-light">
                     {o.detail}
                   </div>
                 </div>
-                <span className="hidden md:inline-block text-rust opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-500 text-lg">
+                <span className="hidden md:inline-block text-rust opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-500 text-base">
                   →
                 </span>
               </li>
@@ -599,36 +760,15 @@ export function ResultsSplit() {
           </ul>
         </div>
 
-        {/* RIGHT — editorial brand imagery: vitality reclaimed, body restored. */}
-        <div className="md:sticky md:top-28 flex flex-col gap-5">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-mist">
+        {/* RIGHT — editorial brand imagery only */}
+        <div className="md:sticky md:top-28">
+          <div className="relative aspect-[4/5] sm:aspect-[1/1] md:aspect-[4/5] overflow-hidden rounded-[18px] bg-mist max-h-[560px]">
             <img
               src="/longevity/reformed-life.jpg"
               alt="Restored vitality — strength and capability returned"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
-          </div>
-
-          {/* Caption block — separate from image, not overlaid */}
-          <div className="bg-white rounded-[20px] border border-mist p-6 md:p-7">
-            <div className="text-[10px] tracking-[0.3em] uppercase text-rust font-semibold mb-3">
-              One Coordinated Team
-            </div>
-            <p className="text-[14px] md:text-[15px] leading-[1.65] text-graphite font-light mb-6">
-              Internal medicine, endocrinology, dermatology and gastroenterology —
-              under one shared medical record, one programme, one team.
-            </p>
-            <a
-              href="#cta"
-              data-cursor="hover"
-              className="inline-flex items-center gap-3 text-[11px] tracking-[0.25em] text-ink uppercase font-semibold group hover:text-rust transition-colors duration-300"
-            >
-              Meet the team
-              <span className="inline-block transition-transform duration-500 group-hover:translate-x-1 text-rust">
-                →
-              </span>
-            </a>
           </div>
         </div>
       </div>
@@ -846,7 +986,7 @@ export function BrochureCTA() {
               </span>
             </a>
             <a
-              href="https://wa.me/918826809123"
+              href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
               data-cursor="hover"
               className="inline-flex items-center gap-2 px-6 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
             >
@@ -982,8 +1122,8 @@ export function CtaBand() {
         {/* Sub */}
         <p className="text-[15px] md:text-[17px] text-graphite max-w-[620px] mx-auto leading-[1.7] mb-10 text-center font-light">
           Speak with our medical team for a 30-minute personalised conversation.
-          No commitment. Just clarity. Available across our five flagship
-          clinics in Gurugram, Delhi, Pune and Bangalore.
+          No commitment. Just clarity. Available across our eight clinics in
+          Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore.
         </p>
 
         {/* CTA — three contact paths in pill form */}
@@ -1004,7 +1144,7 @@ export function CtaBand() {
             </span>
           </a>
           <a
-            href="https://wa.me/918826809123"
+            href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
             data-cursor="hover"
             className="inline-flex items-center gap-2 px-6 py-4 border border-ink/15 text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
           >
@@ -1022,7 +1162,7 @@ export function CtaBand() {
         {/* Reassurance row — three trust pills, hairline grid on white */}
         <div className="grid grid-cols-3 gap-px bg-ink/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
           {[
-            { k: '5', l: 'Centres pan-India' },
+            { k: '8', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },
             { k: '163', l: 'Biomarkers per patient' },
           ].map((s) => (

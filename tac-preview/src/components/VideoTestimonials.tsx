@@ -113,7 +113,7 @@ export function VideoTestimonials() {
   return (
     <section
       id="testimonials"
-      className="relative bg-white py-14 md:py-18 px-6 md:px-12 overflow-hidden"
+      className="relative bg-white py-10 md:py-14 px-6 md:px-12 overflow-hidden"
     >
       {/* Subtle ambient warmth */}
       <div
@@ -127,7 +127,7 @@ export function VideoTestimonials() {
 
       <div className="relative max-w-[1280px] mx-auto">
         {/* HEADER */}
-        <div className="text-center mb-10 md:mb-14 max-w-[680px] mx-auto">
+        <div className="text-center mb-8 md:mb-10 max-w-[680px] mx-auto">
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="w-7 h-px bg-rust" />
             <span className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold">
@@ -158,18 +158,43 @@ export function VideoTestimonials() {
               </div>
             </div>
 
-            {/* Video frame — uses object-contain so the person is never cropped */}
+            {/* Video frame — fixed aspect across all testimonials so heights
+                never jump as the user switches stories.
+                Vertical clips no longer show ugly black bars: a blurred,
+                desaturated copy of the poster fills the side gaps in a
+                cream-toned ambient wash, with a subtle rust radial overlay
+                to keep things on-brand. Horizontal videos fill the frame. */}
             <button
               type="button"
               onClick={() => setOpenLightbox(true)}
               aria-label={`Watch ${active.name}'s full story`}
-              className="group relative block w-full overflow-hidden rounded-[16px] bg-black border border-mist/60 cursor-pointer"
+              className="group relative block w-full overflow-hidden rounded-[16px] border border-mist/60 cursor-pointer max-h-[440px] mx-auto"
               style={{
-                aspectRatio: active.orientation === 'horizontal' ? '4/3' : '3/4',
+                aspectRatio: '16/10',
+                backgroundColor: '#EEE6DB', // nougat fallback
                 boxShadow:
                   '0 24px 50px -30px rgba(27,26,24,0.28), 0 10px 24px -20px rgba(27,26,24,0.12)',
               }}
             >
+              {/* Blurred poster fill — covers the entire frame so vertical
+                  videos don't sit on black. */}
+              <img
+                key={`backdrop-${active.id}`}
+                src={active.poster}
+                aria-hidden
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover scale-[1.15] blur-2xl opacity-55 saturate-[0.85]"
+              />
+              {/* Soft cream-rust ambient wash on top of the blur — keeps
+                  the brand colour signature even when the poster is cool-toned. */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'radial-gradient(circle at 50% 50%, rgba(238,230,219,0.30), transparent 70%), radial-gradient(circle at 80% 90%, rgba(148,84,85,0.10), transparent 60%)',
+                }}
+              />
               <video
                 ref={videoRef}
                 key={active.id}
@@ -179,7 +204,7 @@ export function VideoTestimonials() {
                 loop
                 playsInline
                 preload="metadata"
-                className="absolute inset-0 w-full h-full object-contain bg-black"
+                className="relative w-full h-full object-contain"
               />
               {/* Subtle bottom shade for play-button legibility (smaller area) */}
               <div

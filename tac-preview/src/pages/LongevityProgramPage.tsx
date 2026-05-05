@@ -542,7 +542,7 @@ export function LongevityProgramPage() {
               Free Longevity Assessment
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
-            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
+            <a href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-4 border border-white/20 text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
           </div>
         </div>
       </section>
@@ -1181,7 +1181,7 @@ export function LongevityProgramPage() {
               Book Free Assessment
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
-            <a href="https://wa.me/918826809123" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
+            <a href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0" data-cursor="hover" className="inline-flex items-center gap-2 px-6 py-3.5 border border-white/20 text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 transition-colors duration-500">WhatsApp</a>
           </div>
         </div>
       </section>

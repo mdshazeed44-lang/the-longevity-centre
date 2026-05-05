@@ -27,11 +27,14 @@ const SOCIALS = [
 ]
 
 const CLINICS = [
-  'Gurugram',
-  'Delhi GK-1',
-  'Pune Hadapsar',
-  'Bangalore JP Nagar',
-  'Bangalore Sadashivnagar',
+  'Delhi',
+  'Gurgaon',
+  'Mumbai',
+  'Pune',
+  'Nagpur',
+  'Goa',
+  'Hyderabad',
+  'Bangalore',
 ]
 
 const COMPANY_LINKS = ['About', 'Method', 'Diagnostics', 'Blog', 'Careers', 'Privacy']
@@ -80,7 +83,7 @@ export function Footer() {
               </span>
             </a>
             <a
-              href="https://wa.me/918826809123"
+              href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
               data-cursor="hover"
               className="inline-flex items-center gap-2 text-[12px] text-graphite hover:text-rust transition-colors duration-300"
             >
@@ -130,7 +133,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://wa.me/918826809123"
+                  href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
                   data-cursor="hover"
                   aria-label="Chat on WhatsApp"
                   className="group inline-flex items-center gap-2.5 text-graphite hover:text-rust transition-colors duration-300"

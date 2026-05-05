@@ -590,7 +590,7 @@ function FinalCta({ p }: { p: Program }) {
             </span>
           </a>
           <a
-            href="https://wa.me/918826809123"
+            href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
             data-cursor="hover"
             className="inline-flex items-center gap-2 px-6 py-4 border border-white/25 text-white rounded-full text-[11.5px] tracking-[0.22em] uppercase font-semibold hover:bg-white/10 hover:border-white transition-colors duration-500"
           >
