@@ -67,7 +67,7 @@ export function Footer() {
         <div className="grid md:grid-cols-[1.5fr_1fr] gap-8 md:gap-14 items-end pb-10 md:pb-12 border-b border-ink/10">
           <div>
             <div className="mb-5">
-              <Logo variant="dark" showTagline={false} size={64} />
+              <Logo variant="dark" size={64} />
             </div>
             <h3 className="font-display font-light text-[26px] md:text-[34px] lg:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink max-w-[640px]">
               Premium preventive medicine for the{' '}

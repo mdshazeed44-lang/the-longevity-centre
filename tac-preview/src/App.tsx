@@ -2,7 +2,6 @@ import { useEffect, useRef, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
-// import { Preloader } from './components/Preloader'  // Removed per user request — site opens directly
 import { Cursor } from './components/Cursor'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
@@ -1186,7 +1185,6 @@ export function CtaBand() {
 // ---------- App ----------
 // App is the chrome shell — Cursor · Header · {children} · Footer
 // + Lenis smooth-scroll lifecycle. Pages are passed in as children from main.tsx.
-// (Preloader removed per user request — site opens directly.)
 function App({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (reduceMotion()) return
@@ -1198,8 +1196,8 @@ function App({ children }: { children: ReactNode }) {
       smoothWheel: true,
       wheelMultiplier: 0.95,
     })
-    // expose for in-page anchor scroll + debug
-    ;(window as unknown as { __lenis?: Lenis }).__lenis = lenis
+    // expose for in-page anchor scroll + debug (typed via src/types/globals.d.ts)
+    window.__lenis = lenis
     lenis.on('scroll', () => {
       ScrollTrigger.update()
     })

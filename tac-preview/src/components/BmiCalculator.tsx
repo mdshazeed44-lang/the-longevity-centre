@@ -130,26 +130,20 @@ function bandAccent(c: BmiBand['category']) {
 }
 
 export type BmiCalculatorProps = {
-  // Visual variant — controls headline / CTA framing only
+  /** Visual variant — controls headline / CTA framing only. */
   variant?: 'selector' | 'program'
-  // For variant="program": the slug of the current programme so the CTA
-  // points to "Book this programme" instead of a recommendation.
-  currentProgramSlug?: ProgramSlug
+  /** Display name of the current programme (used in `variant="program"` CTAs). */
   currentProgramName?: string
-  // Section eyebrow override
+  /** Section eyebrow override. */
   eyebrow?: string
-  // Headline override (otherwise variant-default is used)
+  /** Headline override (otherwise the variant-default is used). */
   headline?: string
-  // Sub-copy override
+  /** Sub-copy override. */
   subcopy?: string
 }
 
 export function BmiCalculator({
   variant = 'selector',
-  // currentProgramSlug accepted by callers but not used inside the component
-  // (the recommendation logic uses the BMI band, not the parent programme).
-  // Kept on the props type so usage sites stay readable.
-  currentProgramSlug: _currentProgramSlug,
   currentProgramName,
   eyebrow,
   headline,

@@ -250,8 +250,7 @@ export function Header() {
               const path = window.location.pathname.replace(/\/$/, '')
               if (path === '' || path === '/') {
                 e.preventDefault()
-                const lenis = (window as unknown as { __lenis?: { scrollTo: (t: number, o?: object) => void } }).__lenis
-                if (lenis) lenis.scrollTo(0, { duration: 1.4 })
+                if (window.__lenis) window.__lenis.scrollTo(0, { duration: 1.4 })
                 else window.scrollTo({ top: 0, behavior: 'smooth' })
               }
             }}

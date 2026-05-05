@@ -1,15 +1,11 @@
-export const reduceMotion = () =>
+/**
+ * Motion utilities — single source of truth for animation hygiene.
+ *
+ * All scroll-triggered animations across the site call `reduceMotion()`
+ * at the top of their effect to bail out for users who have set the
+ * "Reduce motion" OS preference. Keeps animations accessible without
+ * each component re-implementing the matchMedia check.
+ */
+export const reduceMotion = (): boolean =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-export const ease = {
-  out: [0.16, 1, 0.3, 1] as const,
-  inOut: [0.65, 0, 0.35, 1] as const,
-  emphasized: [0.22, 1, 0.36, 1] as const,
-}
-
-export const gsapEase = {
-  out: 'power4.out',
-  inOut: 'power3.inOut',
-  expo: 'expo.out',
-}

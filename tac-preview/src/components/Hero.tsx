@@ -56,7 +56,7 @@ function MaskedReveal({
   )
 }
 
-export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
+export function Hero() {
   const root = useRef<HTMLElement>(null)
   const eyebrow = useRef<HTMLDivElement>(null)
   const para = useRef<HTMLParagraphElement>(null)

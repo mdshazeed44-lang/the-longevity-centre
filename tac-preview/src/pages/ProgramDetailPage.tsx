@@ -645,16 +645,7 @@ export function ProgramDetailPage() {
       <Hero p={program} />
       <DesignedFor p={program} />
       {showBmi && (
-        <BmiCalculator
-          variant="program"
-          currentProgramSlug={
-            program.slug as
-              | 'metabolic-weight-loss'
-              | 'diabetes-fatty-liver-reversal'
-              | 'pcod-correction'
-          }
-          currentProgramName={program.shortTitle}
-        />
+        <BmiCalculator variant="program" currentProgramName={program.shortTitle} />
       )}
       <Diagnostics p={program} />
       <CareModel p={program} />
