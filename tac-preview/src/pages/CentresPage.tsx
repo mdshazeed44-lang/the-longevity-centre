@@ -53,6 +53,7 @@ const CENTRES_META = {
   description:
     'TLC operates 8 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
   path: '/centres',
+  ogImage: '/og/centres.jpg',
   jsonLd: [
     {
       '@context': 'https://schema.org',

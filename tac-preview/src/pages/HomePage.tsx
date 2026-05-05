@@ -22,6 +22,7 @@ const HOME_META = {
   description:
     "India's first doctor-led personalised longevity programme. Diagnostics-led care across longevity, metabolic, gut, weight loss and biological-age reversal.",
   path: '/',
+  ogImage: '/og/home.jpg',
   jsonLd: {
     '@context': 'https://schema.org',
     '@type': 'WebPage',

@@ -25,6 +25,7 @@ const META = {
   description:
     'Dermatology-led anti-aging skin clinic at TLC — pigmentation, acne and scars, dullness, fine lines and wrinkles. Lasers, peels, injectables and advanced facials, performed by physicians.',
   path: '/skin-aesthetics',
+  ogImage: '/og/skin-aesthetics.jpg',
 }
 
 // Numbered list (01 → 07) for display purposes

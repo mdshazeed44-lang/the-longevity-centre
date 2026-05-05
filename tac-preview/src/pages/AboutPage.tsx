@@ -13,6 +13,7 @@ const ABOUT_META = {
   description:
     'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 7,500+ procedures). 20+ years of preventive medicine.',
   path: '/about',
+  ogImage: '/og/about.jpg',
   jsonLd: [
     {
       '@context': 'https://schema.org',

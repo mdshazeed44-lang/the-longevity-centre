@@ -156,6 +156,7 @@ const PROGRAM_META = {
   description:
     "TLC's flagship 12-month protocol — advanced metabolic, DNA and gut microbiome diagnostics, AI analytics, doctor-designed personalised plans.",
   path: '/longevity-program',
+  ogImage: '/og/longevity-program.jpg',
   jsonLd: [
     {
       '@context': 'https://schema.org',

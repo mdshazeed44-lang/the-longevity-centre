@@ -131,6 +131,7 @@ export function DiagnosticsPage() {
         description:
           "Nine validated diagnostic protocols at TLC — genomic, epigenomic, metabolic, microbiome and cellular. Measurement first, intervention second.",
         path: '/diagnostics',
+        ogImage: '/og/diagnostics.jpg',
         jsonLd: [
           {
             '@context': 'https://schema.org',

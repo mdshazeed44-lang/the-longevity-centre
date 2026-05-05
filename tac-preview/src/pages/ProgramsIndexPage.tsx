@@ -194,9 +194,11 @@ function CtaBand() {
 
 export function ProgramsIndexPage() {
   useDocumentMeta({
-    title: 'Programmes · TLC',
-    description: "TLC's six flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
+    title: 'Programmes · TLC — Diagnostics-Led Longevity & Metabolic Care',
+    description:
+      "TLC's six flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
     path: '/programs',
+    ogImage: '/og/programmes.jpg',
   })
 
   return (

@@ -23,10 +23,11 @@ gsap.registerPlugin(ScrollTrigger)
 const WHATSAPP_NUMBER = '918826809123'
 
 const META = {
-  title: 'Begin a Consultation · TLC — The Longevity Centre',
+  title: 'Begin a Consultation · TLC',
   description:
-    'Speak with the TLC medical team via WhatsApp. Fill in a few details for a 30-minute personalised consultation across our eight clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore.',
+    'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our eight clinics in India — no commitment, just clarity.',
   path: '/contact',
+  ogImage: '/og/contact.jpg',
 }
 
 type FormState = 'idle' | 'submitting' | 'success'
