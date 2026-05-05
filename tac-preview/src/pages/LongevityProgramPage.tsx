@@ -467,7 +467,7 @@ export function LongevityProgramPage() {
   return (
     <div id="longevity-program">
       {/* HERO — cinematic dark with cross-fading montage + floating DNA glyph */}
-      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
+      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center">
         <video className="hero-clip clip-1" src="/videos/centres-clips/dna.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
         <video className="hero-clip clip-2" src="/videos/centres-clips/lab.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
         <video className="hero-clip clip-3" src="/videos/centres-clips/clinic.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />

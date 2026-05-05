@@ -118,7 +118,7 @@ export function Hero() {
     <section
       id="hero"
       ref={root}
-      className="relative w-full overflow-hidden min-h-[100vh] bg-ink text-white"
+      className="relative w-full overflow-hidden min-h-screen min-h-[100svh] bg-ink text-white"
     >
       {/* Background video — full bleed cinematic, plays muted on loop.
           Uses /videos/hero.mp4 (single woman raising arms — the "vitality"
@@ -165,7 +165,7 @@ export function Hero() {
       />
 
       {/* Content — left aligned, premium hero layout */}
-      <div className="relative z-10 min-h-[100vh] flex flex-col justify-end pt-20 pb-8 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
+      <div className="relative z-10 min-h-screen min-h-[100svh] flex flex-col justify-end pt-20 pb-8 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
         {/* Eyebrow + phone pill row */}
         <div ref={eyebrow} className="flex flex-wrap items-center gap-3 md:gap-4 mb-3 md:mb-5">
           <span className="text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">

@@ -23,7 +23,7 @@ const CENTRES = CENTRES_DATA.map((c, i) => ({
 const HERO_STATS = [
   { k: 'Centres', v: '8' },
   { k: 'Reach', v: 'Pan-India' },
-  { k: 'Cities', v: 'Delhi · Gurgaon · Mumbai · Pune · Nagpur · Goa · Hyderabad · Bangalore' },
+  { k: 'Cities', v: '8 — Delhi to Bangalore' },
 ]
 
 // Per-centre JSON-LD — only for verified (operational) centres.
@@ -159,7 +159,7 @@ export function CentresPage() {
       {/* HERO — cinematic dark hero with cross-fading anti-aging montage:
           DNA helix → laboratory equipment → modern clinic corridor.
           Three short Pexels clips (~7 MB total) cross-fade on a 24s cycle. */}
-      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
+      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center">
         {/* Cross-fading clip stack */}
         <video
           className="hero-clip clip-1"

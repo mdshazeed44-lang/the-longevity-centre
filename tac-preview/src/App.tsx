@@ -1158,8 +1158,9 @@ export function CtaBand() {
           </a>
         </div>
 
-        {/* Reassurance row — three trust pills, hairline grid on white */}
-        <div className="grid grid-cols-3 gap-px bg-ink/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
+        {/* Reassurance row — stacks on mobile so 3 cells don't compress
+            below 110px each. Hairline grid pattern on tablet and up. */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
           {[
             { k: '8', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },

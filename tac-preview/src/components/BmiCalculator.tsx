@@ -473,7 +473,7 @@ function Field({
           type="button"
           onClick={() => step(-1)}
           aria-label={`Decrease ${label.toLowerCase()}`}
-          className="shrink-0 w-10 h-12 flex items-center justify-center text-graphite hover:text-rust transition-colors text-[18px] leading-none"
+          className="shrink-0 w-11 h-12 flex items-center justify-center text-graphite hover:text-rust transition-colors text-[18px] leading-none"
         >
           −
         </button>
@@ -490,7 +490,7 @@ function Field({
           type="button"
           onClick={() => step(1)}
           aria-label={`Increase ${label.toLowerCase()}`}
-          className="shrink-0 w-10 h-12 flex items-center justify-center text-graphite hover:text-rust transition-colors text-[18px] leading-none"
+          className="shrink-0 w-11 h-12 flex items-center justify-center text-graphite hover:text-rust transition-colors text-[18px] leading-none"
         >
           +
         </button>

@@ -241,7 +241,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 aria-label={`The Longevity Centre on ${s.label}`}
                 data-cursor="hover"
-                className="group w-9 h-9 rounded-full border border-ink/15 hover:border-rust flex items-center justify-center text-graphite hover:text-rust hover:bg-rust/5 transition-all duration-500"
+                className="group w-11 h-11 rounded-full border border-ink/15 hover:border-rust flex items-center justify-center text-graphite hover:text-rust hover:bg-rust/5 transition-all duration-500"
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                   <path d={s.d} />

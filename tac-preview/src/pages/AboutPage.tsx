@@ -254,36 +254,42 @@ export function AboutPage() {
         t.kill()
       })
 
-      // 3D tilt-on-hover for founder cards
-      cards.forEach((card) => {
-        const onMove = (e: MouseEvent) => {
-          const rect = card.getBoundingClientRect()
-          const x = (e.clientX - rect.left) / rect.width - 0.5
-          const y = (e.clientY - rect.top) / rect.height - 0.5
-          gsap.to(card, {
-            rotateY: x * 6,
-            rotateX: -y * 6,
-            duration: 0.6,
-            ease: 'power3.out',
-            transformPerspective: 1000,
-            transformOrigin: 'center',
+      // 3D tilt-on-hover for founder cards. Skip on touch devices —
+      // synthetic mousemove events from a tap leave the card stuck at
+      // an angle. The (hover: hover) media-query is the canonical way
+      // to detect a real pointing device.
+      const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+      if (supportsHover) {
+        cards.forEach((card) => {
+          const onMove = (e: MouseEvent) => {
+            const rect = card.getBoundingClientRect()
+            const x = (e.clientX - rect.left) / rect.width - 0.5
+            const y = (e.clientY - rect.top) / rect.height - 0.5
+            gsap.to(card, {
+              rotateY: x * 6,
+              rotateX: -y * 6,
+              duration: 0.6,
+              ease: 'power3.out',
+              transformPerspective: 1000,
+              transformOrigin: 'center',
+            })
+          }
+          const onLeave = () => {
+            gsap.to(card, {
+              rotateY: 0,
+              rotateX: 0,
+              duration: 0.9,
+              ease: 'expo.out',
+            })
+          }
+          card.addEventListener('mousemove', onMove)
+          card.addEventListener('mouseleave', onLeave)
+          cleanups.push(() => {
+            card.removeEventListener('mousemove', onMove)
+            card.removeEventListener('mouseleave', onLeave)
           })
-        }
-        const onLeave = () => {
-          gsap.to(card, {
-            rotateY: 0,
-            rotateX: 0,
-            duration: 0.9,
-            ease: 'expo.out',
-          })
-        }
-        card.addEventListener('mousemove', onMove)
-        card.addEventListener('mouseleave', onLeave)
-        cleanups.push(() => {
-          card.removeEventListener('mousemove', onMove)
-          card.removeEventListener('mouseleave', onLeave)
         })
-      })
+      }
     }
 
     // Clinic interiors parallax — section removed; ref kept harmless
@@ -332,7 +338,7 @@ export function AboutPage() {
   return (
     <div id="about">
       {/* HERO — page header with cinematic lab video background */}
-      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-[100vh] flex items-center">
+      <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center">
         {/* Background video — full bleed cinematic lab/science footage */}
         <video
           className="absolute inset-0 w-full h-full object-cover hero-video"
