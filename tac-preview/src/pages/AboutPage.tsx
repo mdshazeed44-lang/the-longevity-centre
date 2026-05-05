@@ -491,42 +491,237 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* MISSION — editorial intro */}
+      {/* OUR VISION — sanctuary where science meets serenity (brochure verbatim) */}
+      <section className="bg-white py-20 md:py-28 px-6 md:px-12">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
+            <div>
+              <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
+                Our Vision
+              </div>
+              <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
+                <span className="line-mask">
+                  <span>A sanctuary where</span>
+                </span>
+                <br />
+                <span className="line-mask">
+                  <span className="font-bold text-rust">science meets serenity.</span>
+                </span>
+              </h2>
+            </div>
+            <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
+              <p>
+                TLC is India's premier longevity and metabolic medicine clinic
+                — a precision-medicine centre where every protocol begins with
+                diagnostics and every program is built around one patient: you.
+              </p>
+              <p>
+                Our physicians bring together expertise in endocrinology,
+                metabolic medicine, gut health, regenerative science, and
+                anti-aging — each with more than twenty years of clinical
+                experience.
+              </p>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-3 pt-3 mt-3 border-t border-mist/70">
+                {[
+                  { k: '20+', v: 'Years experience' },
+                  { k: '1000+', v: 'Biomarkers tracked' },
+                  { k: '6', v: 'Programmes' },
+                  { k: '8', v: 'Centres pan-India' },
+                ].map((s) => (
+                  <li key={s.v} className="flex items-baseline gap-3">
+                    <span className="font-display font-bold text-[20px] md:text-[24px] text-rust tabular-nums tracking-tight">
+                      {s.k}
+                    </span>
+                    <span className="text-[12.5px] tracking-[0.18em] uppercase text-graphite font-semibold">
+                      {s.v}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MISSION — Blue Zones / live well to one hundred (brochure verbatim) */}
       <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
         <div className="max-w-[1100px] mx-auto">
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
             <div>
-              <div className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase mb-5">
+              <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
                 Our Mission
               </div>
               <h2
                 ref={missionRef}
-                className="font-display font-bold text-[34px] md:text-[52px] leading-[1.0] tracking-[-0.03em] text-ink"
+                className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink"
               >
                 <span className="line-mask">
-                  <span>A medical practice,</span>
+                  <span>To help you live well</span>
                 </span>
                 <br />
                 <span className="line-mask">
-                  <span>rooted in nature.</span>
+                  <span className="font-bold text-rust">all the way to one hundred.</span>
                 </span>
               </h2>
             </div>
-            <div className="space-y-6 text-[15.5px] md:text-[17px] leading-[1.7] text-graphite font-light">
+            <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
               <p>
-                We measure what others guess — and we change what others manage.
-                TAC was built on the conviction that ageing isn't a fate to be
-                accepted, but a process that can be measured, slowed and even
-                reversed with the right science.
+                There are places in the world where living to one hundred is
+                not exceptional. It is ordinary. The Blue Zones — Sardinia,
+                Okinawa, Ikaria, Loma Linda, Nicoya — are home to the highest
+                concentrations of centenarians on earth.
               </p>
               <p>
-                Our team integrates twenty-plus years of clinical expertise
-                with cutting-edge diagnostics — biomarker panels, genetic
-                analysis, gut microbiome sequencing, body composition and
-                vascular function — to design programmes uniquely yours. One
-                shared medical record. One coordinated team. Every intervention
-                backed by data, every outcome verified by repeat tests.
+                They do not reach one hundred through luck. They reach it
+                through a way of living that keeps their biology young.
               </p>
+              <p className="text-ink font-medium">
+                At TLC, our mission is to bring that possibility to you — not
+                through chance, but through science. We combine the most
+                advanced tools of longevity medicine with deeply personalised
+                clinical care to help our patients achieve what the Blue Zones
+                demonstrate is possible: a long life, fully lived.
+              </p>
+              <p className="font-display italic text-rust text-[18px] md:text-[22px] leading-[1.4] pt-3">
+                Not just more years. A well-lived hundred.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR PHILOSOPHY — treat the biology, not the symptom (brochure verbatim) */}
+      <section className="bg-white py-20 md:py-28 px-6 md:px-12">
+        <div className="max-w-[1180px] mx-auto">
+          <div className="text-center max-w-[760px] mx-auto mb-14 md:mb-16">
+            <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
+              Our Philosophy
+            </div>
+            <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink mb-7">
+              <span className="line-mask">
+                <span>Treat the biology.</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span className="font-bold text-rust">Not the symptom.</span>
+              </span>
+            </h2>
+            <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light">
+              The most powerful moment in medicine is not when disease is
+              diagnosed — it is the years before, when the biology that will
+              eventually produce that disease can still be read, understood,
+              and changed. Every TLC programme is built on three principles.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[20px] overflow-hidden">
+            {[
+              {
+                n: '01',
+                title: 'Measure first',
+                body: 'Nothing is assumed. Everything is tested. We read your biology at the genetic, epigenetic, cellular, gut, and metabolic level before a single recommendation is made.',
+              },
+              {
+                n: '02',
+                title: 'Personalise completely',
+                body: "Your biology is unlike anyone else's. Your programme — your diagnostics, your protocol, your nutrition, your tracking — is designed entirely around you.",
+              },
+              {
+                n: '03',
+                title: 'Optimise continuously',
+                body: 'Longevity is not a destination. It is a practice. Your programme evolves as your data does — refined at every visit, tracked every day.',
+              },
+            ].map((p) => (
+              <article key={p.n} className="bg-white p-7 md:p-8 flex flex-col">
+                <div className="font-display text-[22px] md:text-[26px] text-rust font-bold tabular-nums tracking-tight mb-4">
+                  {p.n}
+                </div>
+                <span aria-hidden className="block h-px w-8 bg-rust mb-5" />
+                <h3 className="font-display font-bold text-[20px] md:text-[22px] tracking-[-0.015em] text-ink mb-4">
+                  {p.title}
+                </h3>
+                <p className="text-[13.5px] md:text-[14.5px] leading-[1.65] text-graphite font-light">
+                  {p.body}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 max-w-[760px] mx-auto text-center">
+            <p className="font-display italic text-[18px] md:text-[22px] leading-[1.45] text-ink">
+              This is not conventional medicine. It is medicine as it should
+              always have been —{' '}
+              <span className="text-rust font-bold not-italic">
+                proactive, precise, and built around the person in front of us.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FOUNDER'S NOTE — pull-quote on dark band */}
+      <section className="relative bg-ink text-white py-24 md:py-32 px-6 md:px-12 overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            background:
+              'radial-gradient(900px 600px at 20% 0%, rgba(148,84,85,0.20), transparent 60%), radial-gradient(800px 500px at 90% 100%, rgba(178,122,123,0.14), transparent 60%)',
+          }}
+        />
+        <div className="relative z-10 max-w-[920px] mx-auto">
+          <div className="text-center mb-10 md:mb-14">
+            <div className="text-[11px] tracking-[0.42em] text-rust-soft font-semibold uppercase mb-5">
+              A Word From Our Founders
+            </div>
+            <h2 className="font-display font-light text-[30px] md:text-[48px] xl:text-[56px] leading-[1.1] tracking-[-0.025em] text-white">
+              <span className="line-mask">
+                <span>The best years of your life</span>
+              </span>
+              <br />
+              <span className="line-mask">
+                <span className="font-bold text-rust-soft">should still be ahead of you.</span>
+              </span>
+            </h2>
+          </div>
+          <div className="space-y-5 text-[14.5px] md:text-[16.5px] leading-[1.75] text-white/80 font-light max-w-[720px] mx-auto">
+            <p>
+              We founded TLC with one conviction: that modern medicine arrives
+              too late. We wait for disease to declare itself — and then we
+              treat it. But the biology of illness begins years, sometimes
+              decades, before any symptom appears. By then, precious time has
+              already been lost.
+            </p>
+            <p>
+              We wanted to build something different. A place where science
+              meets you before disease does. Where your biology is read in
+              full — at the genetic, cellular, and microbial level — and where
+              the finest tools of longevity medicine are used not to manage
+              decline, but to prevent it entirely.
+            </p>
+            <p className="text-white font-medium">
+              At TLC, we do not treat patients. We partner with individuals who
+              have decided that aging on their own terms is not a luxury — it
+              is a right. That conviction is the foundation of everything we do.
+            </p>
+          </div>
+          <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+            <div className="text-center">
+              <div className="font-display italic text-[20px] md:text-[24px] text-rust-soft">
+                Dr. Abhinav Sharma
+              </div>
+              <div className="text-[10.5px] tracking-[0.32em] uppercase text-white/55 font-semibold mt-1">
+                Co-Founder
+              </div>
+            </div>
+            <span aria-hidden className="hidden md:inline-block w-px h-10 bg-white/20" />
+            <div className="text-center">
+              <div className="font-display italic text-[20px] md:text-[24px] text-rust-soft">
+                Dr. Bhavna Sharma
+              </div>
+              <div className="text-[10.5px] tracking-[0.32em] uppercase text-white/55 font-semibold mt-1">
+                Co-Founder
+              </div>
             </div>
           </div>
         </div>
@@ -613,6 +808,88 @@ export function AboutPage() {
                 </article>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* EUROPEAN PARTNERSHIP — Netherlands laboratory (brochure verbatim) */}
+      <section className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-70"
+          style={{
+            background:
+              'radial-gradient(900px 500px at 18% 20%, rgba(238,230,219,0.55), transparent 60%), radial-gradient(700px 400px at 90% 90%, rgba(148,84,85,0.05), transparent 60%)',
+          }}
+        />
+        <div className="relative z-10 max-w-[1180px] mx-auto">
+          <div className="grid md:grid-cols-[1.15fr_1fr] gap-10 md:gap-16 items-end mb-12 md:mb-14">
+            <div>
+              <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
+                — Our European Partnership · The Netherlands Laboratory —
+              </div>
+              <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
+                <span className="line-mask">
+                  <span>Gold-standard testing,</span>
+                </span>
+                <br />
+                <span className="line-mask">
+                  <span className="font-bold text-rust">delivered from the world's finest labs.</span>
+                </span>
+              </h2>
+            </div>
+            <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[440px] md:pb-2">
+              For our most advanced diagnostics, TLC partners exclusively with
+              a specialist laboratory in the Netherlands — one of Europe's
+              foremost centres for genomic and epigenomic science.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[20px] overflow-hidden">
+            {[
+              {
+                tag: '323 Genes & SNPs',
+                title: 'Complete Genetic Blueprint',
+                body: 'Genetic profile across metabolism, longevity, hormonal health and cardiovascular risk. Not a partial panel — the full picture. Most clinics test fewer than 99 genes; we test 323.',
+              },
+              {
+                tag: 'Epigenetic Age',
+                title: 'GrimAge + PhenoAge',
+                body: 'The two most scientifically validated epigenetic clocks in clinical medicine — analysing DNA methylation across 9 million base pairs. The most accurate measure of biological age available anywhere.',
+              },
+              {
+                tag: 'Whole-Genome Microbiome',
+                title: 'Every Microbial Species, Sequenced',
+                body: 'Complete sequencing of every microbial species in your gut — the gold standard, as opposed to the partial 16S rRNA sequencing used by most clinics globally.',
+              },
+            ].map((p, i) => (
+              <article key={p.title} className="bg-white p-7 md:p-8 flex flex-col">
+                <div className="font-display text-[14px] text-rust font-semibold tabular-nums tracking-tight mb-3">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-2">
+                  {p.tag}
+                </div>
+                <h3 className="font-display font-bold text-[19px] md:text-[22px] leading-[1.2] tracking-[-0.015em] text-ink mb-4">
+                  {p.title}
+                </h3>
+                <span aria-hidden className="block h-px w-8 bg-rust mb-4" />
+                <p className="text-[13.5px] md:text-[14.5px] leading-[1.65] text-graphite font-light">
+                  {p.body}
+                </p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 md:mt-14 max-w-[820px] mx-auto text-center">
+            <p className="font-display italic text-[18px] md:text-[22px] leading-[1.5] text-ink">
+              Most longevity clinics in India work with domestic labs offering
+              limited genomic capability. At TLC, our European partnership
+              ensures the science underpinning your programme is held to the{' '}
+              <span className="text-rust font-bold not-italic">highest global standard</span>{' '}
+              — because when it comes to your biology, there is no acceptable
+              margin for a partial picture.
+            </p>
           </div>
         </div>
       </section>
