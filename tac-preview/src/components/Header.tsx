@@ -11,6 +11,7 @@ import { Logo } from './Logo'
 import { reduceMotion } from '../lib/motion'
 import { PROGRAMS } from '../lib/programs'
 import { DIAGNOSTICS } from '../lib/diagnostics'
+import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
 type NavItem = {
   label: string
@@ -48,7 +49,18 @@ const NAV_ITEMS: NavItem[] = [
       tag: d.category,
     })),
   },
-  { label: 'Skin & Aesthetics', href: '/skin-aesthetics' },
+  {
+    label: 'Skin & Aesthetics',
+    href: '/skin-aesthetics',
+    panelEyebrow: 'Seven Treatments',
+    panelLine: 'Dermatology-led, physician-performed.',
+    panelCta: 'View all treatments →',
+    children: SKIN_TREATMENTS.map((t) => ({
+      label: t.shortName,
+      href: `/skin-aesthetics#${t.slug}`,
+      tag: t.category,
+    })),
+  },
   { label: 'Centres', href: '/centres' },
   { label: 'Contact', href: '/contact' },
 ]
