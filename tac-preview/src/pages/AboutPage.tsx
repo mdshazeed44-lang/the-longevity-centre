@@ -89,13 +89,12 @@ const FOUNDERS = [
 // Specialist team — actual doctors with real portraits cropped from
 // the TAC brochure PDF (pages 10–12). Founders shown in the dedicated
 // Founders section above; this list is the wider physician panel.
+//
+// Note: Dr. Karan Mane (Director) appears in the brochure name list but
+// no portrait is published anywhere. We omit him from this clinical
+// grid rather than show a placeholder — directorship is acknowledged
+// separately if needed. All 6 listed below have verified portraits.
 const SPECIALISTS = [
-  {
-    name: 'Dr. Karan Mane',
-    creds: 'MBBS · MS',
-    role: 'Director',
-    photo: '', // No photo available in brochure
-  },
   {
     name: 'Dr. Rahul Chaube',
     creds: 'MD Medicine',
