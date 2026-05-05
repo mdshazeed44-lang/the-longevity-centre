@@ -57,7 +57,7 @@ const NAV_ITEMS: NavItem[] = [
     panelCta: 'View all treatments →',
     children: SKIN_TREATMENTS.map((t) => ({
       label: t.shortName,
-      href: `/skin-aesthetics#${t.slug}`,
+      href: `/skin-aesthetics/${t.slug}`,
       tag: t.category,
     })),
   },

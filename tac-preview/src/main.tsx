@@ -20,6 +20,7 @@ const PrivacyPage = lazy(() => import('./pages/PrivacyPage').then((m) => ({ defa
 const TermsPage = lazy(() => import('./pages/TermsPage').then((m) => ({ default: m.TermsPage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })))
 const SkinAestheticsPage = lazy(() => import('./pages/SkinAestheticsPage').then((m) => ({ default: m.SkinAestheticsPage })))
+const SkinAestheticsDetailPage = lazy(() => import('./pages/SkinAestheticsDetailPage').then((m) => ({ default: m.SkinAestheticsDetailPage })))
 
 // Lightweight skeleton during page-chunk fetch — keeps layout reserved
 function PageFallback() {
@@ -42,6 +43,7 @@ function getPage() {
   if (path === '/terms') return <TermsPage />
   if (path === '/contact') return <ContactPage />
   if (path === '/skin-aesthetics') return <SkinAestheticsPage />
+  if (path.startsWith('/skin-aesthetics/')) return <SkinAestheticsDetailPage />
   if (path === '/longevity-program') return <LongevityProgramPage />
   if (path === '/demo') return <BenefitsDemoPage />
   if (path === '/programs') return <ProgramsIndexPage />

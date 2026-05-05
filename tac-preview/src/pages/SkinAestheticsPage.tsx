@@ -1,12 +1,13 @@
 // SkinAestheticsPage — /skin-aesthetics
-// Editorial service page covering TLC's medical-aesthetics offering.
-// Content sourced from theantiagingcentre.com/skin-aesthetics and the
-// individual treatment pages (PRP, Peels, Hydrafacial, Microneedling,
-// Laser Hair Reduction, Hair Loss Solutions, Fillers/Botox/Boosters).
+// Editorial INDEX page covering TLC's seven aesthetic treatments.
+// Each row is a teaser linking to its dedicated detail page at
+// /skin-aesthetics/[slug]. Content sourced from
+// theantiagingcentre.com via the shared lib/skin-treatments module.
 //
 // Sections:
-//   1. Hero
-//   2. Seven treatments (alternating image + content rows)
+//   1. Hero (with anchor chip strip — clicks scroll the index page;
+//      "View" CTA per row goes to the detail page)
+//   2. Seven treatment teasers (alternating image + content rows)
 //   3. Why Choose TLC (5-card dark band)
 //   4. CtaBand
 import { useEffect, useRef } from 'react'
@@ -15,6 +16,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CtaBand } from '../App'
+import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -25,175 +27,11 @@ const META = {
   path: '/skin-aesthetics',
 }
 
-type Treatment = {
-  n: string
-  title: string
-  eyebrow: string
-  image: string
-  description: string
-  treats: string[]
-  benefits: string[]
-  duration: string
-  note?: string
-}
-
-const TREATMENTS: Treatment[] = [
-  {
-    n: '01',
-    title: 'Skin PRP',
-    eyebrow: 'Platelet-Rich Plasma',
-    image: '/skin-aesthetics/01-prp-acp.jpg',
-    description:
-      "PRP (Platelet-Rich Plasma) therapy utilises your own blood platelets, rich in growth factors, to stimulate cellular renewal and tissue regeneration. We extract growth factors from a small blood sample through centrifugation, then concentrate them and inject the plasma into the skin for targeted rejuvenation — natural, autologous, minimal-risk.",
-    treats: [
-      'Facial wrinkles and fine lines',
-      'Acne scars',
-      'Hair loss',
-      'Skin rejuvenation',
-    ],
-    benefits: [
-      'Stimulates collagen production',
-      'Improves skin texture and tone',
-      'Minimises pores',
-      'Enhances skin elasticity',
-    ],
-    duration: '1–3 sessions, 4–6 weeks apart',
-    note: 'Visible improvement within 2–4 weeks. Long-lasting results.',
-  },
-  {
-    n: '02',
-    title: 'Chemical Peels',
-    eyebrow: 'Cellular Renewal',
-    image: '/skin-aesthetics/02-peels.jpg',
-    description:
-      "A carefully formulated solution applied to exfoliate the top layer of skin, revealing fresher, smoother skin underneath. The treatment stimulates cellular turnover — addressing concerns like uneven texture, fine lines, and pigmentation. Depth and active ingredients are matched to your skin's tolerance.",
-    treats: [
-      'Uneven skin tone from excess tanning',
-      'Irregular pigmentation and dark patches',
-      'Fine lines and rough texture',
-      'Dullness and loss of radiance',
-    ],
-    benefits: [
-      'Removes dead skin for a fresh, smooth canvas',
-      'Stimulates collagen to soften lines',
-      'Lightens dark spots and hyperpigmentation',
-      'Improves overall texture',
-    ],
-    duration: 'Series of 4–6 sessions, depending on depth',
-  },
-  {
-    n: '03',
-    title: 'Hydrafacial',
-    eyebrow: 'Multi-Step Rejuvenation',
-    image: '/skin-aesthetics/03-hydrafacial.jpg',
-    description:
-      "A multi-step skincare treatment that integrates cleansing, exfoliation, extraction, hydration, and antioxidant infusion through a specialised device — in a single sitting. Quenches your skin's thirst with painless extraction and nourishing serums infused deep into the pores.",
-    treats: [
-      'Acne and congested pores',
-      'Fine lines',
-      'Uneven tone',
-      'Dehydrated, dull skin',
-    ],
-    benefits: [
-      'Deep cleansing + impurity extraction',
-      'Hydration boost with nourishing serums',
-      'Plump, dewy appearance',
-      'Immediate visible improvement',
-    ],
-    duration: '30–60 minutes · no downtime',
-    note: 'Perfect for events — visible glow same-day.',
-  },
-  {
-    n: '04',
-    title: 'Microneedling with Dermapen',
-    eyebrow: 'Collagen Induction',
-    image: '/skin-aesthetics/04-microneedling.jpg',
-    description:
-      "A minimally invasive procedure using tiny needles to create micro-injuries, triggering the skin's natural healing process and stimulating collagen production. The Dermapen 4 offers advanced automated needling with adjustable depth and speed — tailored to each area of your face.",
-    treats: [
-      'Fine lines and wrinkles',
-      'Acne scars',
-      'Hyperpigmentation',
-      'Uneven texture and tone',
-      'Stretch marks',
-    ],
-    benefits: [
-      'Improves skin texture and tone',
-      'Reduces fine lines and wrinkles',
-      'Minimises pores',
-      'Fades scars and stretch marks',
-      'Enhances elasticity',
-    ],
-    duration: '3–6 sessions, 4–6 weeks apart',
-    note:
-      'Topical numbing cream applied — relatively painless. Suitable for sensitive skin.',
-  },
-  {
-    n: '05',
-    title: 'Laser Hair Reduction',
-    eyebrow: 'Quanta Long Pulse · Italy',
-    image: '/skin-aesthetics/05-laser.jpg',
-    description:
-      'Permanent hair reduction using the Quanta Long Pulse Laser from Italy — CE (Europe) and FDA approved. Each pulse treats multiple hairs in seconds. Universal compatibility across all skin types (I–VI) and hair types — including fine, coarse, and ingrown hair. No gel required, no risk of burns across skin tones.',
-    treats: [
-      'Unwanted hair on all body areas',
-      'Ingrown hairs',
-      'Patchy or paradoxical hair growth',
-    ],
-    benefits: [
-      'Long-lasting, permanent reduction',
-      'Precision targeting in sensitive areas',
-      'Fewer ingrown hairs than shaving / waxing',
-      'No gel required · immediate return to work',
-      'Safe across all skin tones',
-    ],
-    duration: 'Fewer sessions than conventional diode lasers',
-    note: 'CE + FDA approved · Made in Italy.',
-  },
-  {
-    n: '06',
-    title: 'Hair Loss Solutions',
-    eyebrow: 'Diagnosis-First · 360° Care',
-    image: '/skin-aesthetics/06-hair.jpg',
-    description:
-      'A 360-degree approach to hair loss — we diagnose and treat micronutrient deficiencies, perform PRP, and offer Hair Transplantation under one roof. Conditions addressed include androgenetic alopecia (male/female pattern), alopecia areata, and telogen effluvium.',
-    treats: [
-      'Androgenetic alopecia (male / female pattern)',
-      'Alopecia areata (patchy hair loss)',
-      'Telogen effluvium (excessive shedding)',
-    ],
-    benefits: [
-      'Cellscan Spectrophotometry · micronutrient assessment',
-      'State-of-the-art PRP with maximum growth factors',
-      'Advanced Hair Transplant including robotic options',
-      'Plant-based supplementation',
-      'Minimal scarring · permanent, natural results',
-    ],
-    duration: 'Tiered protocol — assessment through maintenance',
-  },
-  {
-    n: '07',
-    title: 'Fillers, Botox & Skin Boosters',
-    eyebrow: 'Restorative Injectables',
-    image: '/skin-aesthetics/07-mesotherapy.jpg',
-    description:
-      'Three complementary injectable treatments — Botox to relax muscle-driven wrinkles, Dermal Fillers to restore lost volume, and Skin Boosters with hyaluronic acid to deeply hydrate and revitalise. All three can be combined for comprehensive facial rejuvenation. FDA-approved products only.',
-    treats: [
-      'Forehead lines, frown lines, crow\'s feet (Botox)',
-      'Nasolabial folds, lip enhancement, cheek contouring (Fillers)',
-      'Dehydration, dullness, fine lines (Skin Boosters)',
-    ],
-    benefits: [
-      'FDA-approved products only',
-      'Quick procedure with minimal downtime',
-      'Natural-looking, customised results',
-      'Long-lasting effects',
-      'Combinable for full-face rejuvenation',
-    ],
-    duration: 'In-clinic · effects last 4–12 months by product',
-    note: 'Administered only by qualified physicians.',
-  },
-]
+// Numbered list (01 → 07) for display purposes
+const TREATMENTS = SKIN_TREATMENTS.map((t, i) => ({
+  ...t,
+  n: String(i + 1).padStart(2, '0'),
+}))
 
 const WHY_CHOOSE = [
   {
@@ -321,17 +159,17 @@ export function SkinAestheticsPage() {
             </a>
           </div>
 
-          {/* Treatment quick-list — anchor links to each section below */}
+          {/* Treatment quick-list — links to detail pages */}
           <div className="mt-12 md:mt-16 flex flex-wrap gap-2">
             {TREATMENTS.map((t) => (
               <a
-                key={t.n}
-                href={`#${t.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                key={t.slug}
+                href={`/skin-aesthetics/${t.slug}`}
                 data-cursor="hover"
                 className="inline-flex items-center gap-2 px-3.5 py-2 border border-ink/12 rounded-full text-[10.5px] tracking-[0.22em] uppercase font-semibold text-graphite hover:border-rust hover:text-rust transition-colors duration-300"
               >
                 <span className="text-rust tabular-nums">{t.n}</span>
-                {t.title}
+                {t.shortName}
               </a>
             ))}
           </div>
@@ -355,16 +193,19 @@ export function SkinAestheticsPage() {
           <div className="space-y-12 md:space-y-16">
             {TREATMENTS.map((t, idx) => {
               const reverse = idx % 2 === 1
-              const slug = t.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+              const detailHref = `/skin-aesthetics/${t.slug}`
               return (
                 <article
-                  key={t.n}
-                  id={slug}
+                  key={t.slug}
+                  id={t.slug}
                   className="fade-up grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-14 items-center scroll-mt-24"
                 >
-                  {/* Image */}
-                  <div
-                    className={`relative aspect-[4/3] md:aspect-[5/4] rounded-[20px] overflow-hidden bg-mist ${
+                  {/* Image — clickable, links to detail */}
+                  <a
+                    href={detailHref}
+                    data-cursor="hover"
+                    aria-label={`Open the ${t.title} detail page`}
+                    className={`group relative block aspect-[4/3] md:aspect-[5/4] rounded-[20px] overflow-hidden bg-mist ${
                       reverse ? 'md:order-2' : ''
                     }`}
                   >
@@ -372,7 +213,7 @@ export function SkinAestheticsPage() {
                       src={t.image}
                       alt={`${t.title} treatment at TLC`}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04]"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                     />
                     <div
                       aria-hidden
@@ -387,16 +228,22 @@ export function SkinAestheticsPage() {
                         {t.n}
                       </span>
                     </div>
-                  </div>
+                  </a>
 
                   {/* Content */}
                   <div className={reverse ? 'md:order-1' : ''}>
                     <div className="text-[10.5px] tracking-[0.32em] text-rust font-semibold uppercase mb-4">
                       {t.eyebrow}
                     </div>
-                    <h3 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.0] tracking-[-0.025em] text-ink mb-5">
-                      {t.title}
-                    </h3>
+                    <a
+                      href={detailHref}
+                      data-cursor="hover"
+                      className="block group/title"
+                    >
+                      <h3 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.0] tracking-[-0.025em] text-ink mb-5 transition-colors duration-500 group-hover/title:text-rust">
+                        {t.title}
+                      </h3>
+                    </a>
                     <p className="text-[14.5px] md:text-[15px] leading-[1.7] text-graphite font-light mb-6">
                       {t.description}
                     </p>
@@ -443,13 +290,10 @@ export function SkinAestheticsPage() {
                       </div>
                     </div>
 
-                    {/* Duration + optional note */}
-                    <div className="border-t border-ink/10 pt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                    {/* Duration + Read more CTA */}
+                    <div className="border-t border-ink/10 pt-5 flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-2">
-                        <span
-                          aria-hidden
-                          className="text-rust"
-                        >
+                        <span aria-hidden className="text-rust">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
@@ -459,12 +303,25 @@ export function SkinAestheticsPage() {
                           {t.duration}
                         </span>
                       </div>
-                      {t.note && (
-                        <div className="text-[12.5px] text-stone leading-[1.5] font-light italic">
-                          {t.note}
-                        </div>
-                      )}
+                      <a
+                        href={detailHref}
+                        data-cursor="hover"
+                        className="group/cta inline-flex items-center gap-2 text-[11px] tracking-[0.32em] uppercase text-rust hover:text-ink font-semibold transition-colors"
+                      >
+                        Read more
+                        <span
+                          aria-hidden
+                          className="inline-block transition-transform duration-300 group-hover/cta:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </a>
                     </div>
+                    {t.note && (
+                      <div className="mt-3 text-[12.5px] text-stone leading-[1.5] font-light italic">
+                        {t.note}
+                      </div>
+                    )}
                   </div>
                 </article>
               )
