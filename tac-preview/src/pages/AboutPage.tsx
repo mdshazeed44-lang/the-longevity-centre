@@ -71,7 +71,7 @@ const FOUNDERS = [
     creds: 'MBBS · MS',
     role: 'Co-Founder · Anti-Aging & Preventive Medicine',
     bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness — blending expertise with innovation for holistic care.',
-    img: '/team/dr-abhinav.webp',
+    img: '/team/dr-abhinav.jpg',
     stat: '11,000+',
     statLabel: 'Successful Surgeries',
   },
@@ -86,38 +86,57 @@ const FOUNDERS = [
   },
 ]
 
-// Specialist team — sourced verbatim from theantiagingcentre.com
-// Verified as the 4 specialities TAC explicitly lists beyond the founders.
-const SPECIALITIES = [
+// Specialist team — actual doctors with real portraits cropped from
+// the TAC brochure PDF (pages 10–12). Founders shown in the dedicated
+// Founders section above; this list is the wider physician panel.
+const SPECIALISTS = [
   {
-    n: '01',
-    title: 'Dermatologists',
-    tag: 'Skin & Aesthetics',
-    body: 'Elegant anti-aging aesthetics — clinical-grade dermatology under the longevity programme.',
+    name: 'Dr. Karan Mane',
+    creds: 'MBBS · MS',
+    role: 'Director',
+    photo: '', // No photo available in brochure
   },
   {
-    n: '02',
-    title: 'Nutritionists',
-    tag: 'Diet & Microbiome',
-    body: 'Personalised nutrition aligned with biomarkers, body composition and gut health.',
+    name: 'Dr. Rahul Chaube',
+    creds: 'MD Medicine',
+    role: 'Physician & Diabetologist',
+    photo: '/team/dr-rahul-chaube.jpg',
   },
   {
-    n: '03',
-    title: 'Anti-Aging Specialists',
-    tag: 'Preventive Medicine',
-    body: 'Twenty-plus years of preventive-medicine experience — longevity protocols and biomarker tracking.',
+    name: 'Dr. Vaibhav Bhisikar',
+    creds: 'MBBS · MS · MCh',
+    role: 'Plastic & Hair Surgeon',
+    photo: '/team/dr-vaibhav-bhisikar.jpg',
   },
   {
-    n: '04',
-    title: 'Metabolic Specialists',
-    tag: 'Diabetes · Thyroid · Gut',
-    body: 'Diabetes, prediabetes, PCOD, thyroid, fatty liver — the metabolic side of healthspan.',
+    name: 'Dr. Aniket Agarwal',
+    creds: 'MBBS · CPS',
+    role: 'Dermatologist & Trichologist',
+    photo: '/team/dr-aniket-agarwal.jpg',
+  },
+  {
+    name: 'Dr. Surekha Sawant',
+    creds: 'Longevity Consultant',
+    role: 'Patient Care · Programme Coordination',
+    photo: '/team/dr-surekha-sawant.jpg',
+  },
+  {
+    name: 'Dr. Pooja Dahiya',
+    creds: 'Longevity Consultant',
+    role: 'Patient Care · Programme Coordination',
+    photo: '/team/dr-pooja-dahiya.jpg',
+  },
+  {
+    name: 'Dr. Niloufar Hayat',
+    creds: 'Longevity Consultant',
+    role: 'Patient Care · Programme Coordination',
+    photo: '/team/dr-niloufar-hayat.jpg',
   },
 ]
 
 const HERO_CHIPS = [
   { k: 'Experience', v: '20+ Years' },
-  { k: 'Centres', v: '5 Pan-India' },
+  { k: 'Centres', v: '8 Pan-India' },
   { k: 'Procedures', v: '18,500+' },
 ]
 
@@ -127,7 +146,7 @@ const MARQUEE_LINES = [
   'Medicine, not marketing.',
   'Real outcomes. Real data.',
   'Twenty years of preventive medicine.',
-  'Five centres pan-India.',
+  'Eight centres pan-India.',
 ]
 
 const STATS = [
@@ -145,7 +164,7 @@ export function AboutPage() {
   const teamHeadingRef = useRef<HTMLHeadingElement>(null)
   const teamRef = useRef<HTMLDivElement>(null)
   const foundersRef = useRef<HTMLDivElement>(null)
-  const interiorsRef = useRef<HTMLDivElement>(null)
+  // interiorsRef removed — Clinic Interiors section deleted (lived on /centres)
   const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -268,30 +287,7 @@ export function AboutPage() {
       })
     }
 
-    // Clinic interiors band — parallax shift
-    const interiorImgs = interiorsRef.current?.querySelectorAll<HTMLElement>('.interior-img')
-    interiorImgs?.forEach((img, i) => {
-      const t = gsap.fromTo(
-        img,
-        { yPercent: -8 },
-        {
-          yPercent: 8,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: interiorsRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2,
-          },
-        }
-      )
-      cleanups.push(() => {
-        t.scrollTrigger?.kill()
-        t.kill()
-      })
-      // also offset second image's stagger entrance
-      void i
-    })
+    // Clinic interiors parallax — section removed; ref kept harmless
 
     // Stats — count-up + cell fade-up
     const cells = statsRef.current?.querySelectorAll<HTMLElement>('.stat-cell')
@@ -474,25 +470,27 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* MARQUEE — editorial brand-line ribbon */}
+      {/* MARQUEE — slim editorial brand-line ribbon.
+          Compact, low-key: small uppercase eyebrow type, rust dot
+          separators, soft cream BG with hairline border. */}
       <section
         aria-hidden
-        className="relative bg-cream border-y border-mist/60 py-7 md:py-9 overflow-hidden marquee"
+        className="relative bg-cream/70 border-y border-mist/60 py-3 md:py-4 overflow-hidden marquee"
       >
-        <div className="marquee-track items-center text-ink">
+        <div className="marquee-track items-center text-graphite">
           {[...MARQUEE_LINES, ...MARQUEE_LINES].map((line, i) => (
-            <span key={i} className="flex items-center gap-16 shrink-0">
-              <span className="font-display text-[24px] md:text-[34px] tracking-[-0.02em] font-semibold whitespace-nowrap">
+            <span key={i} className="flex items-center gap-7 md:gap-10 shrink-0">
+              <span className="text-[10.5px] md:text-[11.5px] tracking-[0.32em] uppercase font-semibold whitespace-nowrap">
                 {line}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-rust shrink-0" />
+              <span className="w-1 h-1 rounded-full bg-rust shrink-0" />
             </span>
           ))}
         </div>
       </section>
 
       {/* OUR VISION — sanctuary where science meets serenity (brochure verbatim) */}
-      <section className="bg-white py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-white py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1100px] mx-auto">
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
             <div>
@@ -544,7 +542,7 @@ export function AboutPage() {
       </section>
 
       {/* MISSION — Blue Zones / live well to one hundred (brochure verbatim) */}
-      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1100px] mx-auto">
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
             <div>
@@ -591,7 +589,7 @@ export function AboutPage() {
       </section>
 
       {/* OUR PHILOSOPHY — treat the biology, not the symptom (brochure verbatim) */}
-      <section className="bg-white py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-white py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1180px] mx-auto">
           <div className="text-center max-w-[760px] mx-auto mb-14 md:mb-16">
             <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
@@ -660,7 +658,7 @@ export function AboutPage() {
       </section>
 
       {/* FOUNDER'S NOTE — pull-quote on dark band */}
-      <section className="relative bg-ink text-white py-24 md:py-32 px-6 md:px-12 overflow-hidden">
+      <section className="relative bg-ink text-white py-16 md:py-24 px-6 md:px-12 overflow-hidden">
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none opacity-60"
@@ -728,7 +726,7 @@ export function AboutPage() {
       </section>
 
       {/* FOUNDERS */}
-      <section className="bg-white py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-white py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           {/* Magazine-style pull quote header */}
           <div className="mb-14 md:mb-20 grid md:grid-cols-[auto_1fr] gap-8 md:gap-14 items-end max-w-[1080px]">
@@ -813,7 +811,7 @@ export function AboutPage() {
       </section>
 
       {/* EUROPEAN PARTNERSHIP — Netherlands laboratory (brochure verbatim) */}
-      <section className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
+      <section className="relative bg-white py-14 md:py-20 px-6 md:px-12 overflow-hidden">
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none opacity-70"
@@ -895,7 +893,7 @@ export function AboutPage() {
       </section>
 
       {/* SPECIALIST TEAM — beyond the founders. Sourced verbatim from theantiagingcentre.com */}
-      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-14 md:mb-20">
             <div className="inline-flex items-center gap-3 mb-6">
@@ -907,49 +905,64 @@ export function AboutPage() {
             </div>
             <h2
               ref={teamHeadingRef}
-              className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto"
+              className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink max-w-[820px] mx-auto"
             >
               <span className="line-mask">
-                <span>Four specialities.</span>
-              </span>
-              <br />
+                <span>Doctors dedicated</span>
+              </span>{' '}
               <span className="line-mask">
-                <span>One coordinated team.</span>
+                <span className="font-bold text-rust">to your longevity.</span>
               </span>
             </h2>
-            <p className="mt-7 text-[15.5px] md:text-[17px] leading-[1.7] text-graphite/80 font-light max-w-[640px] mx-auto">
-              The founders are joined by a wider team of specialists — every
-              protocol coordinated under one shared medical record.
+            <p className="mt-7 text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[640px] mx-auto">
+              A multidisciplinary panel of longevity physicians,
+              endocrinologists, metabolic specialists and consultants. Every
+              patient is cared for by a team — not a single doctor — that
+              holds your complete biological picture.
             </p>
           </div>
 
-          <div ref={teamRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-            {SPECIALITIES.map((s) => (
+          <div ref={teamRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
+            {SPECIALISTS.map((s) => (
               <article
-                key={s.title}
-                className="team-card group relative bg-white hover:bg-cream rounded-[20px] border border-mist/70 hover:border-rust/30 p-6 md:p-7 lg:p-8 overflow-hidden transition-colors duration-500"
+                key={s.name}
+                className="team-card group flex flex-col items-center text-center"
                 style={{ willChange: 'transform, opacity' }}
               >
-                {/* Soft ghost numeral */}
-                <span
-                  aria-hidden
-                  className="absolute -right-1 -bottom-3 font-display font-bold text-[110px] md:text-[140px] leading-none text-ink/[0.04] tabular-nums tracking-[-0.04em] pointer-events-none select-none transition-all duration-700 group-hover:text-rust/[0.08]"
-                >
-                  {s.n}
-                </span>
-                <div className="relative">
-                  <div className="text-[10px] tracking-[0.28em] uppercase text-stone/55 font-medium mb-4 tabular-nums">
-                    0{s.n.replace(/^0/, '')}
-                  </div>
-                  <h3 className="font-display font-bold text-[20px] md:text-[24px] leading-[1.05] tracking-[-0.02em] text-ink mb-2">
-                    {s.title}
-                  </h3>
-                  <div className="text-[10.5px] tracking-[0.28em] uppercase text-rust font-semibold mb-4">
-                    {s.tag}
-                  </div>
-                  <p className="text-[13.5px] leading-[1.65] text-graphite font-light">
-                    {s.body}
-                  </p>
+                {/* Round portrait */}
+                <div className="relative w-full aspect-square rounded-full overflow-hidden bg-mist border-4 border-white shadow-[0_18px_40px_-20px_rgba(27,26,24,0.25)] mb-4 group-hover:shadow-[0_22px_50px_-15px_rgba(148,84,85,0.35)] transition-shadow duration-500">
+                  {s.photo ? (
+                    <img
+                      src={s.photo}
+                      alt={s.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-cream">
+                      <span className="font-display font-bold text-[28px] text-rust/40 tracking-tight">
+                        {s.name.split(' ').slice(-1)[0][0]}
+                      </span>
+                    </div>
+                  )}
+                  {/* subtle inner ring on hover */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 rounded-full ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 transition-all duration-500"
+                  />
+                </div>
+
+                {/* Name */}
+                <h3 className="font-display font-bold text-[14.5px] md:text-[16px] leading-[1.2] tracking-[-0.015em] text-ink group-hover:text-rust transition-colors duration-500 mb-1">
+                  {s.name}
+                </h3>
+                {/* Credentials */}
+                <div className="text-[10px] tracking-[0.22em] uppercase text-rust font-semibold mb-1.5">
+                  {s.creds}
+                </div>
+                {/* Role */}
+                <div className="text-[11.5px] leading-[1.45] text-graphite font-light px-1">
+                  {s.role}
                 </div>
               </article>
             ))}
@@ -957,83 +970,12 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* CLINIC INTERIORS — parallax duo band with editorial caption */}
-      <section ref={interiorsRef} className="relative bg-white py-20 md:py-28 px-6 md:px-12 overflow-hidden">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-14 md:mb-20">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                Our Clinics
-              </span>
-              <span className="w-7 h-px bg-rust" />
-            </div>
-            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
-              Premium spaces, pan-India.
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-[1fr_1fr] gap-5 md:gap-6 items-stretch">
-            <div className="relative aspect-[4/5] md:aspect-[3/4] rounded-[24px] overflow-hidden bg-mist">
-              <img
-                src="/tac-photos/clinic-interior-1.jpg"
-                alt="TAC clinic interior"
-                loading="lazy"
-                className="interior-img absolute inset-0 w-full h-[120%] object-cover"
-                style={{ willChange: 'transform' }}
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%)',
-                }}
-              />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <div className="text-[10px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-2">
-                  The Space
-                </div>
-                <div className="font-display font-bold text-[20px] md:text-[26px] leading-[1.1] tracking-[-0.02em]">
-                  Clinical precision, hotel-quality calm.
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-5 md:gap-6">
-              <div className="relative aspect-[4/3] rounded-[24px] overflow-hidden bg-mist">
-                <img
-                  src="/tac-photos/clinic-interior-2.jpg"
-                  alt="TAC consultation room"
-                  loading="lazy"
-                  className="interior-img absolute inset-0 w-full h-[120%] object-cover"
-                  style={{ willChange: 'transform' }}
-                />
-              </div>
-              <div className="relative bg-cream rounded-[24px] border border-mist/70 p-7 md:p-9 flex-1 flex flex-col justify-between min-h-[180px]">
-                <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-4">
-                  Where We Practise
-                </div>
-                <div className="font-display font-bold text-[22px] md:text-[26px] leading-[1.15] tracking-[-0.02em] text-ink mb-5">
-                  Eight centres designed around the patient — not the protocol.
-                </div>
-                <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[13px] text-graphite font-light">
-                  <li>Delhi</li>
-                  <li>Gurgaon</li>
-                  <li>Mumbai</li>
-                  <li>Pune</li>
-                  <li>Nagpur</li>
-                  <li>Goa</li>
-                  <li>Hyderabad</li>
-                  <li>Bangalore</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* CLINIC INTERIORS section removed — Centres detail now lives on
+          /centres + the Clinics band on the homepage. Avoiding duplication
+          on the About page keeps the narrative focused on team + philosophy. */}
 
       {/* STATS strip */}
-      <section className="bg-cream/40 py-20 md:py-28 px-6 md:px-12">
+      <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
         <div className="max-w-[1280px] mx-auto">
           <div className="text-center mb-14 md:mb-20">
             <div className="inline-flex items-center gap-3 mb-6">
