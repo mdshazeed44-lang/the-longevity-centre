@@ -761,7 +761,7 @@ export function AboutPage() {
               >
                 {/* Portrait + stat badge row */}
                 <div className="flex items-start gap-5 mb-6">
-                  <div className="relative shrink-0 w-[120px] md:w-[140px] aspect-square rounded-full overflow-hidden bg-cream border-4 border-white shadow-[0_18px_40px_-20px_rgba(27,26,24,0.30)] group-hover:shadow-[0_22px_50px_-15px_rgba(148,84,85,0.40)] transition-shadow duration-500">
+                  <div className="relative shrink-0 w-[120px] md:w-[140px] aspect-square rounded-full overflow-hidden bg-mist border-4 border-white shadow-[0_18px_40px_-20px_rgba(27,26,24,0.30)] group-hover:shadow-[0_22px_50px_-15px_rgba(148,84,85,0.40)] transition-shadow duration-500">
                     <img
                       src={f.img}
                       alt={f.name}
@@ -769,7 +769,7 @@ export function AboutPage() {
                       width={280}
                       height={280}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                      style={{ objectPosition: 'center top' }}
+                      style={{ objectPosition: '50% 35%' }}
                     />
                     <span
                       aria-hidden
@@ -940,6 +940,7 @@ export function AboutPage() {
                       alt={s.name}
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      style={{ objectPosition: '50% 35%' }}
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center bg-cream">
