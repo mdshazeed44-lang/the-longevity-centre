@@ -2,13 +2,13 @@
 // Two-column editorial layout: form on the left, direct-contact card on
 // the right (phone, WhatsApp, email + the 4 operational clinics).
 //
-// Form submission goes to Web3Forms — a free email-relay service. Client
-// signs up at https://web3forms.com (1 minute, no library), gets an
-// access key, and pastes it into Vercel as VITE_WEB3FORMS_KEY.
-// Form submissions land directly in the client's email inbox.
+// Lead handling: form submissions open WhatsApp directly with the
+// patient's details pre-filled as a message to the clinic line. No
+// email backend, no API key, no monthly cost — leads land in the
+// clinic's WhatsApp inbox and the medical team replies from there.
 //
-// Until the key is configured, the form runs in a "demo" mode and shows
-// the success state without actually sending — useful for design review.
+// To switch to email later, replace the handleSubmit body with a
+// Web3Forms / Formspree POST.
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -19,23 +19,22 @@ import { PROGRAMS } from '../lib/programs'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Read the key from Vite env. Empty string = demo mode (no real send).
-const WEB3FORMS_KEY = (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined) || ''
+// Clinic WhatsApp number (digits only — Indian country code prefixed).
+const WHATSAPP_NUMBER = '918826809123'
 
 const META = {
   title: 'Begin a Consultation · TLC — The Longevity Centre',
   description:
-    'Speak with the TLC medical team. Submit the form for a 30-minute personalised consultation across our eight clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore.',
+    'Speak with the TLC medical team via WhatsApp. Fill in a few details for a 30-minute personalised consultation across our eight clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore.',
   path: '/contact',
 }
 
-type FormState = 'idle' | 'submitting' | 'success' | 'error'
+type FormState = 'idle' | 'submitting' | 'success'
 
 export function ContactPage() {
   useDocumentMeta(META)
   const root = useRef<HTMLDivElement>(null)
   const [state, setState] = useState<FormState>('idle')
-  const [errorMsg, setErrorMsg] = useState('')
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -65,56 +64,52 @@ export function ContactPage() {
     })
   }, [])
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setState('submitting')
-    setErrorMsg('')
     const form = e.currentTarget
     const data = new FormData(form)
 
-    // Demo mode — no key configured yet. Show success without sending.
-    if (!WEB3FORMS_KEY) {
-      await new Promise((r) => setTimeout(r, 700))
+    // Honeypot — bots fill this, drop the submission silently.
+    if (data.get('botcheck')) {
       setState('success')
       return
     }
 
-    // Real submission via Web3Forms.
-    const payload: Record<string, unknown> = {
-      access_key: WEB3FORMS_KEY,
-      subject: `New consultation request — ${data.get('name')} (${data.get('city')})`,
-      from_name: 'TLC Website Contact Form',
-    }
-    data.forEach((v, k) => {
-      payload[k] = v
-    })
+    // Build a clean WhatsApp message from the form values. The clinic
+    // team gets every field as a single readable message in their
+    // WhatsApp business inbox.
+    const name = (data.get('name') as string) || ''
+    const email = (data.get('email') as string) || ''
+    const phone = (data.get('phone') as string) || ''
+    const centre = (data.get('centre') as string) || 'Not selected'
+    const programme = (data.get('programme') as string) || 'Not specified'
+    const preferredContact =
+      (data.get('preferred_contact') as string) || 'Phone'
+    const message = ((data.get('message') as string) || '').trim()
 
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-      const json = await res.json().catch(() => ({}))
-      if (res.ok && json.success !== false) {
-        setState('success')
-        form.reset()
-      } else {
-        setState('error')
-        setErrorMsg(
-          (json.message as string) ||
-            'Something went wrong. Please call or WhatsApp us directly — we usually reply within an hour.'
-        )
-      }
-    } catch {
-      setState('error')
-      setErrorMsg(
-        'Network issue. Please try again, or reach us on WhatsApp / phone — links on the right.'
-      )
+    const lines = [
+      'Hello TLC team — new consultation request from the website.',
+      '',
+      `*Name:* ${name}`,
+      `*Phone:* ${phone}`,
+      `*Email:* ${email}`,
+      `*Preferred centre:* ${centre}`,
+      `*Programme of interest:* ${programme}`,
+      `*Preferred way to reach me:* ${preferredContact}`,
+    ]
+    if (message) {
+      lines.push('', '*Message:*', message)
     }
+
+    const text = encodeURIComponent(lines.join('\n'))
+    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
+
+    // Open WhatsApp in a new tab so the user can come back to /contact
+    // (success state) without losing context.
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setState('success')
+    form.reset()
   }
 
   const operationalCentres = CENTRES.filter((c) => c.status === 'open')
@@ -145,9 +140,9 @@ export function ContactPage() {
             </span>
           </h1>
           <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[640px]">
-            Tell us a little about yourself and what you're hoping to address.
-            A member of our medical team will reach out within 24 hours to
-            schedule the call — at the centre nearest to you, or online.
+            Fill in a few details — your enquiry will open in WhatsApp, ready
+            to send to our medical team. We usually reply within an hour to
+            schedule the call, at the centre nearest you or online.
           </p>
         </div>
       </section>
@@ -297,13 +292,6 @@ export function ContactPage() {
                     this consultation.
                   </p>
 
-                  {/* Error */}
-                  {state === 'error' && errorMsg && (
-                    <div className="bg-rust/5 border border-rust/30 rounded-xl px-4 py-3 text-[13px] leading-[1.6] text-rust-deep">
-                      {errorMsg}
-                    </div>
-                  )}
-
                   {/* Submit */}
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <button
@@ -317,7 +305,7 @@ export function ContactPage() {
                         <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
                       </span>
-                      {state === 'submitting' ? 'Sending…' : 'Submit Request'}
+                      {state === 'submitting' ? 'Opening WhatsApp…' : 'Send via WhatsApp'}
                       <span
                         aria-hidden
                         className="inline-block transition-transform duration-500 group-hover:translate-x-1"
@@ -326,7 +314,7 @@ export function ContactPage() {
                       </span>
                     </button>
                     <span className="text-[11px] tracking-[0.28em] uppercase text-stone font-semibold">
-                      We reply within 24 hrs
+                      Usually reply within an hour
                     </span>
                   </div>
                 </form>
@@ -532,23 +520,25 @@ function SuccessPanel() {
         </svg>
       </div>
       <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
-        — Request received —
+        — WhatsApp opening —
       </div>
       <h3 className="font-display font-light text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-        Thank you. <span className="font-bold text-rust">We'll be in touch.</span>
+        One last step. <span className="font-bold text-rust">Send the message.</span>
       </h3>
       <p className="text-[14.5px] leading-[1.7] text-graphite font-light max-w-[460px] mx-auto mb-8">
-        A member of our medical team will reach out within 24 hours to
-        schedule your consultation. If it's urgent, please WhatsApp or call
-        us directly — we usually reply within an hour.
+        We've opened WhatsApp in a new tab with your details pre-filled.
+        Just hit <em>send</em> and our medical team will reply — usually
+        within an hour. If WhatsApp didn't open, tap the button below.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
         <a
           href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
           data-cursor="hover"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3.5 bg-ink text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
         >
-          WhatsApp Now
+          Open WhatsApp
         </a>
         <a
           href="/"
