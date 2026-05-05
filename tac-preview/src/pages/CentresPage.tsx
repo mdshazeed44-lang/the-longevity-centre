@@ -1,121 +1,24 @@
-// CentresPage — five clinics directory.
-// Addresses sourced verbatim from theantiagingcentre.com (Gurugram, Pune, Delhi).
-// Bangalore branches kept at city/area level only (no street address verified).
+// CentresPage — eight clinics directory (4 open + 4 opening-soon).
+// Single source of truth: src/lib/centres.ts
 //
-// Photos: pulled from TAC's official site (theantiagingcentre.com).
-// Four unique TAC clinic photos exist publicly:
-//   - Gurugram exterior with neon "TAC … Block A1, Tikri Sec.48 Gurugram" sign
-//     → only photo that visibly identifies a specific clinic
-//   - Green-chairs lobby (TAC's own site labels this as Gurugram interior)
-//   - Treatment room with line-art mural (TAC labels as Pune)
-//   - Premium TAC-branded reception with archway corridor (TAC reuses this
-//     for Delhi + both Bangalore branches on their own site)
-//
-// Alt text describes what's in each photo without claiming false specificity.
-// TAC does not currently publish per-clinic photos for the Bangalore branches,
-// so visual variety there is limited to architectural language across photos.
+// Open centres render full address + phone + email + Get Directions.
+// Opening-soon centres render an "Opening 2026" badge + remote-onboarding
+// note instead of phone/maps. Every row links to /centres/[slug] for the
+// full detail page.
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
+import { CENTRES as CENTRES_DATA } from '../lib/centres'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Centre = {
-  n: string
-  city: string
-  region: string
-  area: string
-  address: string
-  phone: string
-  email: string
-  mapsUrl: string
-  photo: string
-  /** Honest alt text — describes what the photo actually shows, not necessarily this exact clinic. */
-  photoAlt: string
-  postalCode?: string
-  /** When false, we don't emit MedicalClinic JSON-LD because we lack a verified street address */
-  verified: boolean
-}
-
-const CENTRES: Centre[] = [
-  {
-    n: '01',
-    city: 'Gurugram',
-    region: 'Haryana · NCR',
-    area: 'Sector 48',
-    address:
-      'Block A1, Tikri, Vipul World, Sohna Road, Near GD Goenka Public School, Sector 48, Gurugram, Haryana — 122018',
-    phone: '+91 11 408 44848',
-    email: 'info@theantiagingcentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sector+48+Gurugram',
-    photo: '/tac-photos/gurugram-exterior.jpg',
-    photoAlt: 'The TAC Gurugram clinic exterior with the neon TAC sign at Block A1, Tikri Sector 48',
-    postalCode: '122018',
-    verified: true,
-  },
-  {
-    n: '02',
-    city: 'Delhi',
-    region: 'NCR',
-    area: 'Greater Kailash-1',
-    address: 'S-79, Ground Floor, Greater Kailash-1, New Delhi — 110048',
-    phone: '+91 80 473 60047',
-    email: 'info@theantiagingcentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Greater+Kailash+Delhi',
-    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
-    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
-    postalCode: '110048',
-    verified: true,
-  },
-  {
-    n: '03',
-    city: 'Pune',
-    region: 'Maharashtra',
-    area: 'Hadapsar',
-    address:
-      '2nd Floor, Kumar Prism, Amanora Road, Opp. Fab India, Hadapsar, Pune — 411028',
-    phone: '+91 11 408 44840',
-    email: 'info@theantiagingcentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Hadapsar+Pune',
-    photo: '/tac-photos/pune-clinic.jpg',
-    photoAlt: 'A TAC Pune Hadapsar treatment room with line-art mural and aesthetic equipment',
-    postalCode: '411028',
-    verified: true,
-  },
-  {
-    n: '04',
-    city: 'Bangalore',
-    region: 'Karnataka',
-    area: 'JP Nagar',
-    address: 'JP Nagar, Bangalore, Karnataka',
-    phone: '+91 88268 09123',
-    email: 'info@theantiagingcentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+JP+Nagar+Bangalore',
-    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
-    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
-    verified: false,
-  },
-  {
-    n: '05',
-    city: 'Bangalore',
-    region: 'Karnataka',
-    area: 'Sadashivnagar',
-    address: 'Sadashivnagar, Bangalore, Karnataka',
-    phone: '+91 88268 09123',
-    email: 'info@theantiagingcentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=The+Anti-Aging+Centre+Sadashivnagar+Bangalore',
-    photo: '/tac-photos/delhi-bangalore-clinic.jpg',
-    photoAlt: "TAC's signature reception with the TAC monogram and archway corridor",
-    verified: false,
-  },
-]
+// Display numbering — 01, 02, … 08
+const CENTRES = CENTRES_DATA.map((c, i) => ({
+  ...c,
+  n: String(i + 1).padStart(2, '0'),
+}))
 
 const HERO_STATS = [
   { k: 'Centres', v: '8' },
@@ -123,22 +26,23 @@ const HERO_STATS = [
   { k: 'Cities', v: 'Delhi · Gurgaon · Mumbai · Pune · Nagpur · Goa · Hyderabad · Bangalore' },
 ]
 
-// Per-centre JSON-LD — only for centres with verified street addresses.
+// Per-centre JSON-LD — only for verified (operational) centres.
+// Opening-soon centres are intentionally omitted so Google doesn't index
+// a clinic that hasn't opened yet.
 const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
   '@context': 'https://schema.org',
   '@type': 'MedicalClinic',
-  '@id': `https://theantiagingcentre.com/centres#${c.city.toLowerCase()}-${c.area.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
-  name: `TAC ${c.city} — ${c.area}`,
-  parentOrganization: { '@id': 'https://theantiagingcentre.com/#organization' },
+  '@id': `https://thelongevitycentre.com/centres/${c.slug}#clinic`,
+  name: `TLC ${c.city} — ${c.area}`,
+  parentOrganization: { '@id': 'https://thelongevitycentre.com/#organization' },
   telephone: c.phone.replace(/\s+/g, ''),
   email: c.email,
-  url: 'https://theantiagingcentre.com/centres',
+  url: `https://thelongevitycentre.com/centres/${c.slug}`,
   address: {
     '@type': 'PostalAddress',
     streetAddress: c.address,
     addressLocality: c.city,
-    addressRegion: c.region.split(' ·')[0],
-    postalCode: c.postalCode,
+    addressRegion: c.state,
     addressCountry: 'IN',
   },
   medicalSpecialty: ['PreventiveMedicine', 'Geriatric', 'Dermatology'],
@@ -153,11 +57,11 @@ const CENTRES_META = {
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      '@id': 'https://theantiagingcentre.com/centres#webpage',
-      url: 'https://theantiagingcentre.com/centres',
-      name: 'Our Centres — TAC Clinics in Gurugram, Delhi, Pune & Bangalore',
-      isPartOf: { '@id': 'https://theantiagingcentre.com/#organization' },
-      about: { '@id': 'https://theantiagingcentre.com/#organization' },
+      '@id': 'https://thelongevitycentre.com/centres#webpage',
+      url: 'https://thelongevitycentre.com/centres',
+      name: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad & Bangalore',
+      isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
+      about: { '@id': 'https://thelongevitycentre.com/#organization' },
       inLanguage: 'en-IN',
     },
     ...CENTRES_JSONLD,
@@ -357,23 +261,27 @@ export function CentresPage() {
         <div ref={rowsRef} className="max-w-[1280px] mx-auto space-y-10 md:space-y-14">
           {CENTRES.map((c, idx) => {
             const reverse = idx % 2 === 1
+            const isOpen = c.status === 'open'
             return (
               <article
-                key={c.n}
+                key={c.slug}
                 className="centre-row grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center"
               >
-                {/* Photo — atmosphere, not labelled per-clinic */}
-                <div
-                  className={`centre-img relative aspect-[16/10] md:aspect-[3/2] md:max-h-[360px] rounded-[20px] overflow-hidden bg-mist ${
+                {/* Photo — clickable, links to detail page */}
+                <a
+                  href={`/centres/${c.slug}`}
+                  data-cursor="hover"
+                  aria-label={`Open the TLC ${c.city} centre page`}
+                  className={`centre-img group relative block aspect-[16/10] md:aspect-[3/2] md:max-h-[360px] rounded-[20px] overflow-hidden bg-mist ${
                     reverse ? 'md:order-2' : ''
                   }`}
                   style={{ willChange: 'transform, opacity' }}
                 >
                   <img
-                    src={c.photo}
-                    alt={c.photoAlt}
+                    src={c.hero}
+                    alt={`Inside the TLC ${c.city} centre`}
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.04]"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                   />
                   <div
                     aria-hidden
@@ -389,7 +297,16 @@ export function CentresPage() {
                       {c.n}
                     </span>
                   </div>
-                </div>
+
+                  {/* Opening-soon ribbon */}
+                  {!isOpen && (
+                    <div className="absolute top-5 right-5 backdrop-blur-md bg-rust/90 border border-white/25 rounded-full px-3.5 py-1.5">
+                      <span className="text-[9.5px] tracking-[0.32em] uppercase text-white font-semibold">
+                        Opening 2026
+                      </span>
+                    </div>
+                  )}
+                </a>
 
                 {/* Content */}
                 <div
@@ -403,14 +320,20 @@ export function CentresPage() {
                     </span>
                   </div>
 
-                  <h2 className="font-display font-bold text-[34px] md:text-[48px] lg:text-[56px] leading-[1.0] tracking-[-0.03em] text-ink mb-2">
-                    {c.city}
-                  </h2>
+                  <a
+                    href={`/centres/${c.slug}`}
+                    data-cursor="hover"
+                    className="block group/title"
+                  >
+                    <h2 className="font-display font-bold text-[34px] md:text-[48px] lg:text-[56px] leading-[1.0] tracking-[-0.03em] text-ink mb-2 transition-colors duration-500 group-hover/title:text-rust">
+                      {c.city}
+                    </h2>
+                  </a>
                   <div className="text-[13px] md:text-[14px] tracking-[0.22em] uppercase text-stone font-medium mb-7">
                     {c.area}
                   </div>
 
-                  {/* Address */}
+                  {/* Details */}
                   <div className="space-y-4 mb-8">
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
@@ -424,65 +347,87 @@ export function CentresPage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
-                        </svg>
-                      </span>
-                      <a
-                        href={`tel:${c.phone.replace(/\s+/g, '')}`}
-                        data-cursor="hover"
-                        aria-label={`Call ${c.city} centre at ${c.phone}`}
-                        className="text-[14.5px] tabular-nums tracking-tight text-graphite hover:text-rust-deep transition-colors"
-                      >
-                        {c.phone}
-                      </a>
-                    </div>
+                    {isOpen ? (
+                      <>
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                          </span>
+                          <a
+                            href={`tel:${c.phone.replace(/\s+/g, '')}`}
+                            data-cursor="hover"
+                            aria-label={`Call ${c.city} centre at ${c.phone}`}
+                            className="text-[14.5px] tabular-nums tracking-tight text-graphite hover:text-rust-deep transition-colors"
+                          >
+                            {c.phone}
+                          </a>
+                        </div>
 
-                    <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                          <polyline points="22,6 12,13 2,6" />
-                        </svg>
-                      </span>
-                      <a
-                        href={`mailto:${c.email}`}
-                        data-cursor="hover"
-                        className="text-[14.5px] tracking-tight text-graphite hover:text-rust-deep transition-colors"
-                      >
-                        {c.email}
-                      </a>
-                    </div>
+                        <div className="flex items-center gap-3">
+                          <span className="w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                              <polyline points="22,6 12,13 2,6" />
+                            </svg>
+                          </span>
+                          <a
+                            href={`mailto:${c.email}`}
+                            data-cursor="hover"
+                            className="text-[14.5px] tracking-tight text-graphite hover:text-rust-deep transition-colors"
+                          >
+                            {c.email}
+                          </a>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex items-start gap-3">
+                        <span className="mt-0.5 w-7 h-7 shrink-0 rounded-full border border-mist flex items-center justify-center text-rust">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                          </svg>
+                        </span>
+                        <p className="text-[14px] leading-[1.65] text-graphite font-light max-w-[460px]">
+                          {c.timings}
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* CTAs */}
                   <div className="flex flex-wrap items-center gap-3">
                     <a
-                      href="/#cta"
+                      href={`/centres/${c.slug}`}
                       data-cursor="hover"
                       className="group inline-flex items-center gap-2.5 pl-5 pr-7 py-3.5 bg-ink text-white text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                     >
-                      <span className="relative flex h-2 w-2" aria-hidden="true">
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                      </span>
-                      Book Consultation
+                      View Centre
                       <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                         →
                       </span>
                     </a>
-                    <a
-                      href={c.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-cursor="hover"
-                      aria-label={`Get directions to TAC ${c.city} ${c.area}`}
-                      className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/15 text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink hover:text-white transition-colors duration-500"
-                    >
-                      Get Directions
-                    </a>
+                    {isOpen ? (
+                      <a
+                        href={c.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-cursor="hover"
+                        aria-label={`Get directions to TLC ${c.city} ${c.area}`}
+                        className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/15 text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink hover:text-white transition-colors duration-500"
+                      >
+                        Get Directions
+                      </a>
+                    ) : (
+                      <a
+                        href="/#cta"
+                        data-cursor="hover"
+                        className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/15 text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink hover:text-white transition-colors duration-500"
+                      >
+                        Get Notified
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
