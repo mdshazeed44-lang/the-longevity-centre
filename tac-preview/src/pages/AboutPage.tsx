@@ -71,7 +71,7 @@ const FOUNDERS = [
     creds: 'MBBS · MS',
     role: 'Co-Founder · Anti-Aging & Preventive Medicine',
     bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness — blending expertise with innovation for holistic care.',
-    img: '/team/dr-abhinav.jpg',
+    img: '/team/dr-abhinav.webp',
     stat: '11,000+',
     statLabel: 'Successful Surgeries',
   },
