@@ -1,7 +1,7 @@
 // Footer — white canvas with rust accents, brand statement, contact directory,
 // programmes / clinics / company columns, and copyright row.
 import { Logo } from './Logo'
-import { PROGRAMS } from './Programs'
+import { PROGRAMS } from '../lib/programs'
 
 const SOCIALS = [
   {
@@ -37,7 +37,16 @@ const CLINICS = [
   'Bangalore',
 ]
 
-const COMPANY_LINKS = ['About', 'Method', 'Diagnostics', 'Blog', 'Careers', 'Privacy']
+// Company column — only links to pages that actually exist.
+const COMPANY_LINKS: { label: string; href: string }[] = [
+  { label: 'About', href: '/about' },
+  { label: 'Diagnostics', href: '/diagnostics' },
+  { label: 'Centres', href: '/centres' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Privacy', href: '/privacy' },
+  { label: 'Terms', href: '/terms' },
+]
 
 export function Footer() {
   return (
@@ -156,13 +165,13 @@ export function Footer() {
             </div>
             <ul className="space-y-2.5 text-[13.5px]">
               {PROGRAMS.slice(0, 6).map((p) => (
-                <li key={p.title}>
+                <li key={p.slug}>
                   <a
-                    href="#programs"
+                    href={`/programs/${p.slug}`}
                     data-cursor="hover"
                     className="text-graphite hover:text-rust hover:translate-x-0.5 inline-block transition-all duration-300"
                   >
-                    {p.title}
+                    {p.shortTitle}
                   </a>
                 </li>
               ))}
@@ -196,13 +205,13 @@ export function Footer() {
             </div>
             <ul className="space-y-2.5 text-[13.5px]">
               {COMPANY_LINKS.map((c) => (
-                <li key={c}>
+                <li key={c.label}>
                   <a
-                    href={`#${c.toLowerCase()}`}
+                    href={c.href}
                     data-cursor="hover"
                     className="text-graphite hover:text-rust hover:translate-x-0.5 inline-block transition-all duration-300"
                   >
-                    {c}
+                    {c.label}
                   </a>
                 </li>
               ))}
@@ -215,10 +224,10 @@ export function Footer() {
           {/* Left — copyright + legal links */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-graphite tracking-tight">
             <p>© {new Date().getFullYear()} TLC — The Longevity Centre.</p>
-            <a href="#" data-cursor="hover" className="hover:text-rust transition-colors">
+            <a href="/privacy" data-cursor="hover" className="hover:text-rust transition-colors">
               Privacy
             </a>
-            <a href="#" data-cursor="hover" className="hover:text-rust transition-colors">
+            <a href="/terms" data-cursor="hover" className="hover:text-rust transition-colors">
               Terms
             </a>
             <span className="text-stone hidden md:inline">Practising medicine, not marketing.</span>
