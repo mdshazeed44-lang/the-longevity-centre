@@ -421,7 +421,7 @@ export function CentresPage() {
                       </a>
                     ) : (
                       <a
-                        href="/#cta"
+                        href="/contact"
                         data-cursor="hover"
                         className="inline-flex items-center gap-2 px-6 py-3.5 border border-ink/15 text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink hover:text-white transition-colors duration-500"
                       >
@@ -522,7 +522,7 @@ export function CentresPage() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
-              href="/#cta"
+              href="/contact"
               data-cursor="hover"
               className="group inline-flex items-center gap-3 pl-6 pr-8 py-5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
             >

@@ -1173,7 +1173,7 @@ export function LongevityProgramPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <a href="/#cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
+            <a href="/contact" data-cursor="hover" className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
               <span className="relative flex h-2 w-2" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />

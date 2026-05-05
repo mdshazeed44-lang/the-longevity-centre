@@ -76,7 +76,7 @@ export function Footer() {
           </div>
           <div className="flex flex-col md:items-end gap-3">
             <a
-              href="#cta"
+              href="/contact"
               data-cursor="hover"
               data-magnetic
               className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"

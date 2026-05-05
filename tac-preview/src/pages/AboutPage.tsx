@@ -1092,7 +1092,7 @@ export function AboutPage() {
 
                 {/* Primary — Arrange a Consultation */}
                 <a
-                  href="/#cta"
+                  href="/contact"
                   data-cursor="hover"
                   data-magnetic
                   className="group flex items-center justify-between w-full pl-5 pr-2 py-3 mb-2.5 bg-white text-ink rounded-full text-[11.5px] tracking-[0.22em] font-semibold uppercase hover:bg-rust hover:text-white transition-colors duration-500"

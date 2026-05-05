@@ -189,7 +189,7 @@ export function CentreDetailPage() {
 
             <div className="flex flex-wrap items-center gap-3">
               <a
-                href="/#cta"
+                href="/contact"
                 data-cursor="hover"
                 data-magnetic
                 className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"

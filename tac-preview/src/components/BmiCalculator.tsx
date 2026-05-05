@@ -359,7 +359,7 @@ export function BmiCalculator({
                         </span>
                       </a>
                       <a
-                        href="/#cta"
+                        href="/contact"
                         data-cursor="hover"
                         className="inline-flex items-center gap-2 px-5 py-3 border border-ink/15 text-ink text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
                       >
@@ -380,7 +380,7 @@ export function BmiCalculator({
                         : 'Book a 30-minute consultation — we\'ll review your numbers in clinical depth.'}
                     </h4>
                     <a
-                      href="/#cta"
+                      href="/contact"
                       data-cursor="hover"
                       data-magnetic
                       className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"

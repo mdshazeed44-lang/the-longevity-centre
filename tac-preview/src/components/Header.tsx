@@ -49,7 +49,7 @@ const NAV_ITEMS: NavItem[] = [
     })),
   },
   { label: 'Centres', href: '/centres' },
-  { label: 'Contact', href: '/#cta' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 // Desktop nav dropdown — hover or focus to open.
@@ -287,7 +287,7 @@ export function Header() {
 
             {/* Primary CTA — solid ink (dark) pill on the white header */}
             <a
-              href="#cta"
+              href="/contact"
               data-cursor="hover"
               data-magnetic
               className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-ink text-white text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust transition-colors duration-500 whitespace-nowrap"
@@ -402,7 +402,7 @@ export function Header() {
             }}
           >
             <a
-              href="#cta"
+              href="/contact"
               onClick={() => setMenuOpen(false)}
               className="group flex items-center justify-between w-full pl-5 pr-2 py-3 bg-rust text-white rounded-full font-semibold text-[12px] tracking-[0.18em] uppercase shadow-[0_12px_30px_-12px_rgba(148,84,85,0.55)]"
             >

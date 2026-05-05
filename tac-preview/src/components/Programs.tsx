@@ -273,7 +273,7 @@ export function Programs() {
                     </p>
                     <div className="flex items-center gap-3 flex-wrap">
                       <a
-                        href="#cta"
+                        href="/contact"
                         data-cursor="hover"
                         data-magnetic
                         className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"

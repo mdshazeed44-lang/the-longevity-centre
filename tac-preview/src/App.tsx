@@ -197,7 +197,7 @@ export function ClinicsBand() {
             {clinics.map((c, i) => (
               <a
                 key={c.city + c.area}
-                href="#cta"
+                href="/contact"
                 data-cursor="hover"
                 className="clinic-row group relative grid grid-cols-[28px_1fr_auto] md:grid-cols-[40px_1.1fr_1.4fr_1.2fr_36px] gap-3 md:gap-5 items-center px-1 md:px-2 py-3.5 md:py-4 border-b border-mist hover:bg-cream/40 transition-colors duration-500"
               >
@@ -971,7 +971,7 @@ export function BrochureCTA() {
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-3">
             <a
-              href="#cta"
+              href="/contact"
               data-cursor="hover"
               data-magnetic
               className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
@@ -1129,7 +1129,7 @@ export function CtaBand() {
         {/* CTA — three contact paths in pill form */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-14">
           <a
-            href="#cta"
+            href="/contact"
             data-cursor="hover"
             data-magnetic
             className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"

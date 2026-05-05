@@ -234,7 +234,7 @@ export function Hero(_: { scrollRef?: React.MutableRefObject<number> }) {
         {/* CTA cards — like reference site */}
         <div ref={ctas} className="flex flex-wrap gap-3 md:gap-4">
           <a
-            href="#cta"
+            href="/contact"
             data-cursor="hover"
             data-magnetic
             className="group inline-flex items-center gap-3 md:gap-4 pl-5 pr-3 md:pl-6 md:pr-4 py-2.5 md:py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[210px] md:min-w-[240px]"
