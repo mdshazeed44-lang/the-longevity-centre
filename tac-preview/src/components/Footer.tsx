@@ -178,7 +178,7 @@ export function Footer() {
               {CLINICS.map((c) => (
                 <li key={c}>
                   <a
-                    href="#clinics"
+                    href={`/centres/${c.toLowerCase()}`}
                     data-cursor="hover"
                     className="text-graphite hover:text-rust hover:translate-x-0.5 inline-block transition-all duration-300"
                   >

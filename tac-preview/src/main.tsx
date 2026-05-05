@@ -15,6 +15,7 @@ const ProgramsIndexPage = lazy(() => import('./pages/ProgramsIndexPage').then((m
 const ProgramDetailPage = lazy(() => import('./pages/ProgramDetailPage').then((m) => ({ default: m.ProgramDetailPage })))
 const DiagnosticsPage = lazy(() => import('./pages/DiagnosticsPage').then((m) => ({ default: m.DiagnosticsPage })))
 const DiagnosticDetailPage = lazy(() => import('./pages/DiagnosticDetailPage').then((m) => ({ default: m.DiagnosticDetailPage })))
+const CentreDetailPage = lazy(() => import('./pages/CentreDetailPage').then((m) => ({ default: m.CentreDetailPage })))
 
 // Lightweight skeleton during page-chunk fetch — keeps layout reserved
 function PageFallback() {
@@ -32,6 +33,7 @@ function getPage() {
   const path = window.location.pathname.replace(/\/$/, '')
   if (path === '/about') return <AboutPage />
   if (path === '/centres') return <CentresPage />
+  if (path.startsWith('/centres/')) return <CentreDetailPage />
   if (path === '/longevity-program') return <LongevityProgramPage />
   if (path === '/demo') return <BenefitsDemoPage />
   if (path === '/programs') return <ProgramsIndexPage />
