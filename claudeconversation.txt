@@ -2070,5 +2070,230 @@ the two disagree.
 
 
 ================================================================================
-END OF SECTION 18 — END OF DOCUMENT
+END OF SECTION 18
+================================================================================
+
+
+================================================================================
+19. SESSION LOG 2026-05-05 — fifth session (cleanup + SEO + responsive)
+================================================================================
+
+Late-session work after section 18. Three focused commits driven by
+four parallel audit agents (dead-code, code-quality, SEO, responsive).
+Goal stated by user: "code aisa hona chaiye ki jaise kissi professional
+ne likha ho . neat clean profesional. easy to understand for other
+team mates. and make sure puri website mobile desktop, and tablet
+responsive ho . and SEO optimized ho."
+
+NEW PICKUPS — read this section before section 18; this is the latest
+state of the repo.
+
+
+19.1 SKIN & AESTHETICS — DEDICATED DETAIL PAGES (commit 7e85df4)
+--------------------------------------------------------------------------------
+Just before the cleanup pass. Promoted lib/skin-treatments.ts to be
+the single source of truth (full description, treats, benefits,
+duration, note, plus a 4-step Process per treatment).
+
+NEW src/pages/SkinAestheticsDetailPage.tsx — renders any treatment
+by slug at /skin-aesthetics/[slug]. Sections:
+  - Hero (breadcrumb + eyebrow + title + intro + image + CTAs)
+  - What it treats + Key benefits (2-col hairline grid)
+  - Duration / sessions card with optional clinical note
+  - The Process — dark band, 4 cards, treatment-specific steps
+  - Other Treatments — 6-card grid linking to siblings
+  - CtaBand
+  - Graceful "not found" state for invalid slugs
+
+Index page /skin-aesthetics now imports from the lib (was inline
+TREATMENTS array). Each row has a clickable image, clickable title,
+and a "Read more →" CTA — all linking to the detail page.
+
+Header "Skin & Aesthetics" dropdown updated to link to
+/skin-aesthetics/[slug] (matches the Programmes + Diagnostics pattern,
+no longer in-page anchors).
+
+
+19.2 CLEANUP PASS (commit 59b68e5)
+--------------------------------------------------------------------------------
+Codebase housekeeping — no behavioural change.
+
+DELETED dead files:
+  src/components/Programs.tsx       — legacy, no live imports
+  src/components/Preloader.tsx      — only commented refs in App.tsx
+  public/icons.svg                  — unreferenced 8 KB sprite
+  public/longevity/brand/mood-{iflow,rust-towels}.jpg
+  public/tac-photos/{TLC-01.png, *.eps, clinic-team.jpg}
+  public/team/dr-{abhinav,bhavna}-pdf.jpg   (orig PDF crops, .webp now used)
+  public/videos/hero-desktop.mp4    — unreferenced 5 MB
+  public/*.pdf — 4 orphan brochure PDFs (~650 MB)
+
+DEPENDENCIES — dropped from package.json:
+  @gsap/react   — never imported
+  clsx          — never imported
+
+CODE QUALITY — fixed all 20 ESLint errors (now 0):
+  - Moved 14 `lazy()` page imports out of main.tsx into routes.tsx
+    (kills 14 react-refresh/only-export-components errors at once).
+  - Routes exposed as a <Router /> component, not a function call,
+    so the file qualifies as "only-exports-components" for HMR.
+  - Suspense fallback extracted to components/PageFallback.tsx.
+  - Removed unused `currentProgramSlug` prop from BmiCalculator + caller.
+  - Removed unused `_showTagline` from Logo, dropped unused LogoMark.
+  - Removed unused `scrollRef` prop from Hero.
+  - Cleaned commented-out Preloader imports in App.tsx.
+  - Dropped unused `gsapEase` and `ease` from lib/motion.ts.
+
+NEW shared-lib files:
+  src/lib/contact.ts        Single source for phone, WhatsApp, email
+                            (PHONE_DISPLAY, PHONE_TEL, EMAIL,
+                            WHATSAPP_URL, waLink(message))
+  src/lib/gsap.ts           Central gsap.registerPlugin(ScrollTrigger)
+                            (currently 14 files still call it; this
+                            file is a stepping stone toward
+                            consolidating in a follow-up)
+  src/types/globals.d.ts    Declares window.__lenis as Lenis — lets
+                            us drop two `as unknown as` casts
+                            in App.tsx and Header.tsx.
+
+Build: clean, 11s. Type-check: clean. Lint: 0 errors.
+
+
+19.3 SEO PASS (commit a8f5529)
+--------------------------------------------------------------------------------
+
+DOMAIN ALIGNMENT — site was using two domains in JSON-LD across pages.
+Picked thelongevitycentre.com as canonical and replaced everywhere:
+  SITE_URL in lib/seo.ts → https://thelongevitycentre.com
+  All https://theantiagingcentre.com → https://thelongevitycentre.com
+  in JSON-LD @ids, urls and image refs (HomePage, AboutPage,
+  LongevityProgramPage, ProgramDetailPage).
+  AboutPage email info@theantiagingcentre.com → info@thelongevitycentre.com.
+
+NEW lib/seo.ts capabilities:
+  - breadcrumbList(items) helper — returns BreadcrumbList JSON-LD
+    with proper @type, position and absolute item URLs.
+  - Added JSDoc on every exported symbol.
+  - Tightened JSON-LD type to `JsonLd` alias.
+
+CRITICAL META GAPS FIXED:
+  - DiagnosticsPage now calls useDocumentMeta with full title,
+    description, canonical and TWO JSON-LD blocks (MedicalBusiness +
+    ItemList of all 9 services with deep-link URLs). Removed manual
+    <script> injection.
+  - DiagnosticDetailPage was previously emitting NO meta — every
+    detail page inherited the homepage title. Now wires
+    useDocumentMeta with per-test title, trimmed description,
+    MedicalProcedure JSON-LD, and a BreadcrumbList.
+  - SkinAestheticsDetailPage gains MedicalProcedure JSON-LD plus a
+    BreadcrumbList. Per-treatment ogImage so social previews don't
+    fall back to the brand logo.
+
+META LENGTH HYGIENE — all within Google's 60/160 ideal display ranges:
+  HomePage:               title 70→39 chars · description 330→154 chars
+  AboutPage:              title 73→47 chars · description 234→152 chars
+  CentresPage:            title 110→48 chars · description 228→158 chars
+  LongevityProgramPage:   title 53→52 chars · description 240→138 chars
+
+SITEMAP — 4 URLs → 39 URLs:
+  public/sitemap.xml expanded to cover every live route — 6 programme
+  detail pages, 9 diagnostic detail pages, 7 skin treatment detail
+  pages, 8 centre detail pages, plus contact / privacy / terms.
+  All on canonical thelongevitycentre.com domain. <lastmod> stamped.
+
+OTHER:
+  /demo (BenefitsDemoPage) sets <meta name="robots" content="noindex,
+  nofollow"> — designer preview, should never rank.
+
+
+19.4 RESPONSIVE + A11Y PASS (commit e1bf080)
+--------------------------------------------------------------------------------
+
+TOUCH TARGETS — bumped sub-44px to 44px iOS HIG minimum:
+  Header hamburger     w-9  h-9  → w-11 h-11
+  Header close button  w-10 h-10 → w-11 h-11
+  Footer social icons  w-9  h-9  → w-11 h-11
+  BMI stepper buttons  w-10      → w-11
+
+MOBILE LAYOUT:
+  - CtaBand trust band:
+      grid-cols-3 → grid-cols-1 sm:grid-cols-3
+    Three ~110px cells were wrapping awkwardly at 360px. Same fix on
+    ContactPage trust band.
+  - CentresPage hero "Cities" pill — the 60-character city list was
+    forcing a 600px+ flex item that overflowed mobile viewport.
+    Shortened to "8 — Delhi to Bangalore".
+
+VIEWPORT-HEIGHT BUG (Android Chrome URL-bar jank):
+  Replaced `min-h-[100vh]` with `min-h-screen min-h-[100svh]` on every
+  full-bleed hero (Hero, AboutPage, CentresPage, LongevityProgramPage).
+  Fallback to 100vh for browsers without svh support.
+
+INTERACTION HYGIENE:
+  AboutPage founder cards' 3D tilt-on-hover was triggering on touch
+  devices via synthetic mousemove events, leaving cards stuck at an
+  angle after a tap. Now gated on
+  `window.matchMedia('(hover: hover) and (pointer: fine)').matches` —
+  touch users see static cards as intended.
+
+
+19.5 STILL-OPEN ITEMS (deliberately not done in this pass)
+--------------------------------------------------------------------------------
+The audit surfaced these — left alone because each is a multi-hour
+refactor that would have bloated this cleanup commit beyond review:
+
+- Split src/App.tsx (1226 lines) — exports 8 marketing sections
+  (PressStrip, ScienceCards, ResultsSplit, Editorial, ClinicsBand,
+  BrochureCTA, CtaBand). HomePage imports them all from '../App'.
+  Should move to src/components/sections/.
+- Split LongevityProgramPage.tsx (1190 lines) and AboutPage.tsx
+  (1155 lines) into per-section subcomponents.
+- Build a useReveal() / useLineMask() custom hook to absorb the
+  GSAP boilerplate currently duplicated in ~20 files (~300 lines).
+- Add tsconfig "strict": true and clean fallout — biggest signal of
+  senior-dev hygiene.
+- Per-page OG images (real photographs, 1200×630) — currently fall
+  back to brand logo on social shares.
+- Add explicit `width`/`height` to every `<img>` for CLS hygiene.
+- Replace remaining 25+ hard-coded WhatsApp/phone strings with the
+  new lib/contact.ts constants.
+
+These are documented for the next session.
+
+
+19.6 CURRENT REPO STATE
+--------------------------------------------------------------------------------
+
+Routes shipped (15):
+  /                   HomePage
+  /about              AboutPage
+  /centres            CentresPage
+  /centres/[slug]     CentreDetailPage  (8 cities)
+  /longevity-program  LongevityProgramPage
+  /demo               BenefitsDemoPage  (noindex)
+  /programs           ProgramsIndexPage
+  /programs/[slug]    ProgramDetailPage  (6 programmes)
+  /diagnostics        DiagnosticsPage
+  /diagnostics/[slug] DiagnosticDetailPage  (9 services)
+  /skin-aesthetics    SkinAestheticsPage
+  /skin-aesthetics/[slug] SkinAestheticsDetailPage (7 treatments)
+  /contact            ContactPage  (WhatsApp lead routing)
+  /privacy            PrivacyPage
+  /terms              TermsPage
+
+Quality gates:
+  - npx tsc --noEmit  : clean
+  - npm run lint      : 0 errors
+  - npm run build     : 11–14 s, clean
+
+Repo health:
+  - public/ dropped from ~750 MB to 91 MB
+  - 26 files changed in cleanup commit, 234 insertions, 739 deletions
+  - 0 dead components in src/
+  - 0 unused npm dependencies
+  - 0 dead exports surfaced by audit
+
+
+================================================================================
+END OF SECTION 19 — END OF DOCUMENT
 ================================================================================
