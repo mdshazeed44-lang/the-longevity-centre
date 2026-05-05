@@ -1837,5 +1837,238 @@ vite.config.ts                               Manual chunks + minify
 
 
 ================================================================================
-END OF SECTION 17 — END OF DOCUMENT
+END OF SECTION 17
+================================================================================
+
+
+================================================================================
+18. SESSION LOG 2026-05-05 — fourth session
+================================================================================
+
+Picks up after section 17. This pass covered: WhatsApp deep links sitewide,
+favicon swap, India-map centres redesign with vibrating teardrop pins, full
+About page revamp from the brochure PDF (Vision / Philosophy / Founder's
+Note / European Partnership), real doctor portraits extracted from the
+brochure, Final CTA redesign, 8 dedicated city pages with Google Maps
+embeds, Footer cleanup (no more dead links), and Privacy + Terms pages.
+Blog + Careers were built then removed per final user instruction (pages
+not ready yet).
+
+NEW PICKUPS — read this section first. It supersedes section 17 wherever
+the two disagree.
+
+
+18.1 WHATSAPP + FAVICON
+--------------------------------------------------------------------------------
+  WhatsApp:
+    - Sitewide replace of bare phone-number tel: links with the full
+      api.whatsapp.com/send/?phone=%2B918826809123 deep link wherever
+      "Chat on WhatsApp" appears.
+    - tel:+91... is preserved on "Call" CTAs.
+
+  Favicon:
+    - Replaced generic Vite SVG with a hand-drawn rust DNA glyph (TLC
+      brand mark). public/favicon.svg + linked from index.html.
+
+
+18.2 CENTRES — INDIA MAP REDESIGN
+--------------------------------------------------------------------------------
+  Replaced the basic centres band with an editorial India map composition
+  modelled on mdpet.in/our-group/ but fully on-brand.
+
+  Asset:
+    - public/main-map.png (1.09 MB) — cream-toned India outline, uploaded
+      by user. Used as the base layer.
+
+  Pin design (in src/App.tsx ClinicsBand):
+    - Custom SVG teardrop path:
+        M13 0C5.82 0 0 5.82 0 13c0 9.5 13 21 13 21s13-11.5 13-21
+         c0-7.18-5.82-13-13-13z
+    - Rust fill (#945455), white inner dot.
+    - Two layered keyframe animations:
+        @keyframes clinicPinGlow  — 1.6s pulse, expanding rust halo
+        @keyframes clinicPinBob   — 2.4s vertical bob (1px float)
+    - Labels positioned with side: 'top' | 'bottom' | 'left' | 'right'
+      per city to avoid collisions on the map.
+
+  8 cities pinned: Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad,
+  Bangalore. Coordinates expressed as % of the image so they survive any
+  responsive resize.
+
+
+18.3 ABOUT PAGE — BROCHURE REVAMP
+--------------------------------------------------------------------------------
+  Rewritten from the TAC brochure PDF (file:///C:/TAC/.../THE ANTI-AGING
+  CENTER.pdf) — copy is now sourced from the printed brand book, not the
+  legacy site.
+
+  New sections (in /about):
+    - Our Vision
+    - Mission (Blue Zones angle, rewritten)
+    - Our Philosophy
+    - Founder's Note (Dr. Abhinav, first-person)
+    - European Partnership (Netherlands genomic lab)
+
+  Removed:
+    - Old SPECIALITIES section (4 abstract role cards)
+    - Standalone "Clinic Interiors" section (redundant with map band)
+
+  Added:
+    - SPECIALISTS: 7 actual doctors with portraits, names, titles, lines.
+    - Real founder cards (140px round portraits, hi-res 1200×1200).
+
+  Vertical-rhythm tightening (per user — "space dekho kitna zada hai"):
+    - py-20/28 → py-14/20 on most editorial sections
+    - py-24/32 → py-16/24 on hero/founder bands
+    - Marquee caps: 24/34px → 10.5/11.5px
+    - Final CTA: full-bleed slab → 360px asymmetric two-column card with
+      frosted-glass contact panel (much shorter, more premium).
+
+
+18.4 DOCTOR PORTRAITS — EXTRACTED FROM BROCHURE
+--------------------------------------------------------------------------------
+  All 8 team portraits are now real photos extracted from the TAC brochure
+  (pages 10–12) and Bhavna's official site image.
+
+  Asset paths: public/team/*.jpg (1200×1200 each)
+
+  Pipeline:
+    - pypdfium2 to render brochure pages at 6× scale (was 2×, then 3.5×,
+      then 5× — user kept calling out blur "image bhot zada pixel faat
+      rahai ho"; 6× is the final quality).
+    - scipy.ndimage connected-component labelling on pages 10/11 to
+      auto-detect circular photo blobs.
+    - Page 12 has labels ABOVE photos (different layout from 10/11) — the
+      auto-detector kept catching the text band. Fixed with a vertical
+      gap-analysis pass on row density to find the empty horizontal strip
+      between text and photo (y = 815 → 888); photos hard-coded after that.
+    - PIL crop + resize to 1200×1200 square.
+    - face_offset_pct tuning for Rahul (-10) and Pooja (smaller side
+      1100 vs 1240, top-anchored at y=888) — brochure portraits put the
+      face in the upper third, so straight-centre crops cut foreheads off.
+
+  Bhavna:
+    - Brochure version was too low-res. Replaced with the official 2560×
+      2560 portrait from theantiagingcentre.com/about (no recompression).
+
+  Avatar render:
+    - 140px rounded-full container.
+    - Background photo shown at full bounds (factor 1.0, square corners
+      hidden by the round clip mask) — earlier inscribed-square crop
+      (factor 0.62) was rejected by user as "zadaa zoom ho gaya hai".
+    - object-position: 50% 35% to bias the visible window toward the face.
+
+
+18.5 8 DEDICATED CITY PAGES
+--------------------------------------------------------------------------------
+  Per user request — each centre now has its own URL with brief, location,
+  and Google Maps iframe.
+
+  src/lib/centres.ts (NEW):
+    - Type Centre { slug, city, region, state, area, address, phone,
+        email, mapsUrl, mapsEmbed, hero, description, highlights[],
+        timings, status: 'open' | 'opening-soon', verified: boolean }
+    - 8 entries:
+        delhi (open), gurgaon (open), mumbai (opening-soon),
+        pune (open), nagpur (opening-soon), goa (opening-soon),
+        hyderabad (opening-soon), bangalore (open)
+    - getCentreBySlug(slug) helper used by the detail page.
+
+  src/pages/CentreDetailPage.tsx (NEW):
+    - 6 sections — Hero (full-bleed image + dark overlay), About,
+      Location + Map (Google Maps iframe embed), Highlights (4-card
+      hairline grid), Other Centres, CtaBand.
+    - "Opening 2026" badge for unopened centres.
+    - JSON-LD MedicalClinic schema only emitted for verified centres
+      (so Google doesn't index a clinic that hasn't opened yet).
+
+  Routing:
+    - main.tsx: path.startsWith('/centres/') → <CentreDetailPage />
+
+
+18.6 FOOTER + PRIVACY + TERMS
+--------------------------------------------------------------------------------
+  Footer (src/components/Footer.tsx):
+    - Bug fix: was importing programmes from old './Programs' (legacy 5).
+      Now imports from '../lib/programs' (real 6 TLC programmes).
+    - Programmes column → /programs/[slug] deep links.
+    - Clinics column → /centres/[city] deep links.
+    - COMPANY_LINKS converted from string[] to {label, href}[].
+    - Bottom-bar Privacy/Terms now point to /privacy and /terms.
+
+  Privacy page (src/pages/PrivacyPage.tsx — NEW):
+    - 9 sections: Information We Collect, How We Use, Sharing, Storage &
+      Security, Your Rights, Cookies, Children's Privacy, Changes,
+      Contact.
+    - Headline: "Your biology is yours. We treat it that way."
+    - Editorial document layout — line-mask hero reveal, hairline rules,
+      fade-up section reveal, CtaBand at the bottom.
+
+  Terms page (src/pages/TermsPage.tsx — NEW):
+    - 11 sections: Acceptance, Medical Disclaimer, Programmes,
+      No Guarantee of Outcomes, Patient Responsibilities, IP,
+      Third-Party Links, Limitation of Liability, Governing Law,
+      Changes, Contact.
+    - Headline: "Plain language. Honest expectations."
+    - Indian arbitration governing law clause.
+    - Same layout grammar as PrivacyPage.
+
+  Blog + Careers:
+    - Built in commit a42f192, then removed in commit d59aa9d per user
+      ("Blog Careers abhi ke liye yeh dono pages hata do").
+    - To revive later: lazy import in main.tsx, route handler, Footer
+      COMPANY_LINKS entries.
+
+
+18.7 ROUTES NOW LIVE
+--------------------------------------------------------------------------------
+  /                              HomePage
+  /about                         AboutPage
+  /centres                       CentresPage (India-map band on home,
+                                  full list here)
+  /centres/[slug]                CentreDetailPage (8 cities)
+  /longevity-program             LongevityProgramPage
+  /demo                          BenefitsDemoPage
+  /programs                      ProgramsIndexPage
+  /programs/[slug]               ProgramDetailPage (6 programmes)
+  /diagnostics                   DiagnosticsPage
+  /diagnostics/[slug]            DiagnosticDetailPage (9 services)
+  /privacy                       PrivacyPage             (NEW)
+  /terms                         TermsPage               (NEW)
+
+
+18.8 COMMITS LANDED (this session)
+--------------------------------------------------------------------------------
+  978354b  Header: mobile menu overlay → white theme
+  db4f30a  Centres redesign with India map + 8 cities, WhatsApp link
+  9657056  Favicon: replace generic SVG with TLC rust DNA icon
+  e906d79  About: revamp from brochure (Vision, Mission, Philosophy,
+            Founder's Note, European Partnership)
+  1f7dd29  About: real doctor team + remove duplicate Clinics section
+  53f9a9a  Founders: sharper portraits + centering
+  3a4b970  Founders: hi-res Bhavna from official site, compact card
+  5561557  Founders: face-centered portraits in avatar circles
+  2c413ad  Founders: Abhinav crop centred on eye line
+  f77efd6  Founders: use exact images from official site (no recompress)
+  ae4070a  Team portraits: crop INSIDE brochure circles (no white edges)
+  30e8424  Team portraits: full brochure framing (factor 1.0)
+  696067c  Team portraits: face-centred composition for Rahul + Pooja
+  f85fd28  About final CTA: tighter asymmetric premium card
+  76c4afd  Centres: dedicated detail page per city + Google Maps embeds
+  a42f192  Footer: real links + 4 new pages (Privacy, Terms, Blog,
+            Careers)
+  d59aa9d  Footer: remove Blog + Careers links (pages not ready yet)
+
+
+18.9 NEXT / OPEN
+--------------------------------------------------------------------------------
+  - Bring Blog + Careers back when content is ready.
+  - Real photographs for the "opening-soon" centres when they open.
+  - Compress /videos/hero.mp4 (still 13 MB) — H.264 CRF 28 + faststart.
+  - Real iOS Safari device pass for hero autoplay + Lenis.
+  - Self-host Cabinet Grotesk woff2 (one less DNS handshake).
+
+
+================================================================================
+END OF SECTION 18 — END OF DOCUMENT
 ================================================================================
