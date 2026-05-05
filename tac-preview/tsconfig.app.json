@@ -15,11 +15,25 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Type-checking — strict mode enabled. The flags below are all
+       implied by `"strict": true` but listed explicitly so any future
+       relaxation shows up clearly in the diff. */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+
+    /* Linting (above and beyond strict) */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true
   },
   "include": ["src"]
 }
