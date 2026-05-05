@@ -96,7 +96,7 @@ export const CENTRES: Centre[] = [
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mumbai+Maharashtra',
     mapsEmbed:
       'https://www.google.com/maps?q=Mumbai+Maharashtra+India&output=embed',
-    hero: '/longevity/brand/mood-yoga-duo.jpg',
+    hero: '/tac-photos/clinic-interior-1.jpg',
     description:
       "TLC's Mumbai centre is opening in 2026 — bringing premium preventive medicine to India's commercial capital. Until the Mumbai location goes live, Mumbai-based patients are coordinated through our Pune flagship (Hadapsar) with at-home phlebotomy + diagnostics collection across the city. Programme onboarding can begin remotely.",
     highlights: [
@@ -148,7 +148,7 @@ export const CENTRES: Centre[] = [
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Nagpur+Maharashtra',
     mapsEmbed:
       'https://www.google.com/maps?q=Nagpur+Maharashtra+India&output=embed',
-    hero: '/longevity/brand/mood-forest-light.jpg',
+    hero: '/tac-photos/clinic-interior-2.jpg',
     description:
       "TLC's Nagpur centre is opening in 2026 — extending precision longevity medicine into Central India. Until the Nagpur location goes live, patients across Vidarbha are coordinated through Pune and Hyderabad flagships, with at-home phlebotomy and diagnostics collection arranged across the city.",
     highlights: [
@@ -173,7 +173,7 @@ export const CENTRES: Centre[] = [
     mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Goa+India',
     mapsEmbed:
       'https://www.google.com/maps?q=Panaji+Goa+India&output=embed',
-    hero: '/longevity/brand/mood-water-ripple.jpg',
+    hero: '/tac-photos/clinic-interior-1.jpg',
     description:
       "TLC's Goa centre is opening in 2026 — built around the unique opportunity of precision health combined with restorative travel. Until the Goa location is operational, patients can begin programmes remotely with at-home diagnostic collection coordinated across North and South Goa. In-person visits are coordinated through Bangalore and Pune.",
     highlights: [
@@ -199,7 +199,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps/search/?api=1&query=Hyderabad+Telangana',
     mapsEmbed:
       'https://www.google.com/maps?q=Hyderabad+Telangana+India&output=embed',
-    hero: '/longevity/brand/mood-zen-sand.jpg',
+    hero: '/tac-photos/clinic-interior-2.jpg',
     description:
       "TLC's Hyderabad centre is opening in 2026 — bringing precision longevity medicine to South-Central India. Until the centre is operational, Hyderabad patients are onboarded via virtual consultation with at-home sample collection coordinated across Banjara Hills, Jubilee Hills, and Gachibowli. In-person diagnostics are coordinated through our Bangalore flagship.",
     highlights: [
