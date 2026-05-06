@@ -53,7 +53,7 @@ const ABOUT_META = {
       jobTitle: 'Co-Founder · Reproductive & Sexual Anti-Aging',
       description:
         "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT.",
-      image: 'https://thelongevitycentre.com/team/dr-bhavna.jpg',
+      image: 'https://thelongevitycentre.com/team/dr-bhavna-2026.jpg',
       worksFor: { '@id': 'https://thelongevitycentre.com/#organization' },
       knowsAbout: [
         'IVF',
@@ -81,7 +81,7 @@ const FOUNDERS = [
     creds: 'IVF Specialist',
     role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
     bio: "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT — blending compassion with cutting-edge fertility solutions, empowering women on their unique health journeys.",
-    img: '/team/dr-bhavna.jpg',
+    img: '/team/dr-bhavna-2026.jpg',
     stat: '7,500+',
     statLabel: 'IVF Procedures',
   },
