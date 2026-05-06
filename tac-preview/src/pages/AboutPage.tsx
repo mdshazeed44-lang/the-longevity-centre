@@ -754,68 +754,76 @@ export function AboutPage() {
             </p>
           </div>
 
-          {/* Founder cards — magazine-style profile layout. Big square
-              portrait at the top of each card with a frosted-glass stat
-              badge floating over it; role + name + creds + bio sit
-              below. Larger image makes both founders feel substantial
-              and premium without forcing a tight round crop. */}
+          {/* Founder cards — stacked vertically (one above the other),
+              not side-by-side. Each card has a horizontal split layout
+              on desktop: big square portrait on one side, content on
+              the other. Cards alternate sides (Abhinav: image left;
+              Bhavna: image right) for an editorial flow. On mobile they
+              collapse to image-on-top, content-below. */}
           <div
             ref={foundersRef}
-            className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-[1180px] mx-auto"
+            className="grid grid-cols-1 gap-8 md:gap-10 max-w-[1180px] mx-auto"
             style={{ perspective: '1200px' }}
           >
-            {FOUNDERS.map((f) => (
-              <article
-                key={f.name}
-                className="founder-card group bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500"
-                style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
-              >
-                {/* Portrait — full-bleed aspect-square at the top of the card */}
-                <div className="relative aspect-square overflow-hidden bg-mist">
-                  <img
-                    src={f.img}
-                    alt={f.name}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                    style={{ objectPosition: 'center 25%' }}
-                  />
-                  {/* Bottom dark gradient — keeps the stat badge readable */}
+            {FOUNDERS.map((f, i) => {
+              const reverse = i % 2 === 1
+              return (
+                <article
+                  key={f.name}
+                  className="founder-card group bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 grid md:grid-cols-2 items-stretch"
+                  style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
+                >
+                  {/* Portrait — square on mobile, full-height on desktop */}
                   <div
-                    aria-hidden
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%)',
-                    }}
-                  />
-                  {/* Floating stat badge — frosted glass over the photo */}
-                  <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-2">
-                    <div className="font-display font-bold text-[15px] text-white tabular-nums tracking-tight leading-none">
-                      {f.stat}
-                    </div>
-                    <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
-                      {f.statLabel}
+                    className={`relative aspect-square md:aspect-auto md:min-h-[480px] overflow-hidden bg-mist ${
+                      reverse ? 'md:order-2' : ''
+                    }`}
+                  >
+                    <img
+                      src={f.img}
+                      alt={f.name}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                      style={{ objectPosition: 'center 25%' }}
+                    />
+                    {/* Bottom dark gradient — keeps the stat badge readable */}
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
+                      }}
+                    />
+                    {/* Floating stat badge — frosted glass over the photo */}
+                    <div className="absolute top-5 left-5 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-4 py-2.5">
+                      <div className="font-display font-bold text-[16px] md:text-[18px] text-white tabular-nums tracking-tight leading-none">
+                        {f.stat}
+                      </div>
+                      <div className="text-[9px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
+                        {f.statLabel}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Content — role · name · creds · bio */}
-                <div className="p-7 md:p-9">
-                  <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-3">
-                    {f.role}
+                  {/* Content — role · name · creds · bio */}
+                  <div className={`p-7 md:p-10 lg:p-14 flex flex-col justify-center ${reverse ? 'md:order-1' : ''}`}>
+                    <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-4">
+                      {f.role}
+                    </div>
+                    <h3 className="font-display font-bold text-[28px] md:text-[36px] lg:text-[42px] leading-[1.0] tracking-[-0.025em] text-ink mb-2.5">
+                      {f.name}
+                    </h3>
+                    <div className="text-[12px] tracking-[0.22em] uppercase text-stone font-medium mb-6">
+                      {f.creds}
+                    </div>
+                    <p className="text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light">
+                      {f.bio}
+                    </p>
                   </div>
-                  <h3 className="font-display font-bold text-[26px] md:text-[32px] leading-[1.0] tracking-[-0.025em] text-ink mb-2">
-                    {f.name}
-                  </h3>
-                  <div className="text-[12px] tracking-[0.22em] uppercase text-stone font-medium mb-5">
-                    {f.creds}
-                  </div>
-                  <p className="text-[14.5px] md:text-[15px] leading-[1.65] text-graphite font-light">
-                    {f.bio}
-                  </p>
-                </div>
-              </article>
-            ))}
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
