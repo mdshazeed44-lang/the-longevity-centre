@@ -35,7 +35,7 @@ const ABOUT_META = {
       jobTitle: 'Co-Founder · Anti-Aging & Preventive Medicine',
       description:
         'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness.',
-      image: 'https://thelongevitycentre.com/team/dr-abhinav.webp',
+      image: 'https://thelongevitycentre.com/team/dr-abhinav.jpg',
       worksFor: { '@id': 'https://thelongevitycentre.com/#organization' },
       knowsAbout: [
         'Anti-Aging Medicine',
@@ -72,7 +72,7 @@ const FOUNDERS = [
     creds: 'MBBS · MS',
     role: 'Co-Founder · Anti-Aging & Preventive Medicine',
     bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness — blending expertise with innovation for holistic care.',
-    img: '/team/dr-abhinav.webp',
+    img: '/team/dr-abhinav.jpg',
     stat: '11,000+',
     statLabel: 'Successful Surgeries',
   },
