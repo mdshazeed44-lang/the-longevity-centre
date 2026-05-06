@@ -195,17 +195,25 @@ export function VideoTestimonials() {
                     'radial-gradient(circle at 50% 50%, rgba(238,230,219,0.30), transparent 70%), radial-gradient(circle at 80% 90%, rgba(148,84,85,0.10), transparent 60%)',
                 }}
               />
-              <video
-                ref={videoRef}
+              {/* Inline preview is a STATIC poster image, not a <video>.
+                  The actual video only mounts when the user clicks
+                  "Play" (the modal at the bottom of this component).
+                  This saves ~6 MB of speculative metadata fetches on
+                  the homepage — the four testimonial mp4s are 10-24 MB
+                  each, and `preload="metadata"` was downloading enough
+                  of each to populate duration / first frame. */}
+              <img
                 key={active.id}
-                src={active.video}
-                poster={active.poster}
-                muted
-                loop
-                playsInline
-                preload="metadata"
+                src={active.poster}
+                alt={`${active.name} testimonial`}
+                width={active.orientation === 'horizontal' ? 1280 : 720}
+                height={active.orientation === 'horizontal' ? 720 : 1280}
+                loading="lazy"
+                decoding="async"
                 className="relative w-full h-full object-contain"
               />
+              {/* Hidden ref consumer so existing controls compile. */}
+              <video ref={videoRef} className="hidden" preload="none" muted playsInline />
               {/* Subtle bottom shade for play-button legibility (smaller area) */}
               <div
                 aria-hidden

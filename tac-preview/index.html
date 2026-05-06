@@ -45,18 +45,24 @@
     />
     <meta name="twitter:image" content="https://thelongevitycentre.com/og/default.jpg" />
 
-    <!-- Fonts (preconnect + preload) -->
+    <!-- Fonts — preconnect for the CDN handshake, then non-blocking
+         stylesheet load. The `media="print"` + onload trick tells the
+         browser this CSS is for print only (which doesn't block render),
+         then on load swaps it to all media. Combined with display=swap
+         on each face, text paints immediately in the system fallback
+         and re-renders smoothly when the web fonts arrive. Only the
+         weights actually used in the codebase (300, 400, 500, 600, 700)
+         are loaded; 800 was dropped (no `font-extrabold` in src/). -->
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Only the weights we actually use — keeps font payload small.
-         display=swap so text shows immediately in the fallback while web font loads. -->
     <link
-      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700,800&display=swap"
       rel="stylesheet"
+      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
-    <!-- Alex Brush only used in a couple of decorative spots — load deferred -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap"
@@ -64,7 +70,14 @@
       onload="this.media='all'"
     />
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" />
+      <link
+        rel="stylesheet"
+        href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@300,400,500,600,700&display=swap"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap"
+      />
     </noscript>
 
     <!-- Preload the LCP element on the homepage — the hero poster.
