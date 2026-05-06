@@ -67,7 +67,16 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" />
     </noscript>
 
-    <!-- Preload key brand assets so first paint isn't blocked on logo -->
+    <!-- Preload the LCP element on the homepage — the hero poster.
+         A small JPEG (~75 KB) that paints before the 3 MB video bytes
+         arrive. The video itself uses preload="none" and lazy-loads
+         after first paint. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/videos/hero-poster.jpg"
+      fetchpriority="high"
+    />
     <link rel="preload" as="image" href="/tlc-logo.png" />
 
     <!-- DNS-prefetch for analytics / Google fonts CDN that lazy-loads later -->

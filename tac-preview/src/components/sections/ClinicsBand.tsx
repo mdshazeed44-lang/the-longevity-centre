@@ -275,9 +275,12 @@ export function ClinicsBand() {
                 role="img"
               >
                 <img
-                  src="/main-map.png"
+                  src="/main-map.webp"
                   alt=""
+                  width={900}
+                  height={900}
                   loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-contain pointer-events-none select-none"
                 />
 

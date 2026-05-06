@@ -109,8 +109,39 @@ export function Hero() {
       )
     }
 
+    // Lazy-load the hero video AFTER first paint. preload="none" on the
+    // <video> tag means the bytes don't get fetched during page load —
+    // the poster <img> takes the LCP slot. We trigger load() once the
+    // browser is idle (or after 800 ms fallback) so video starts
+    // streaming without blocking the initial paint.
+    let idleHandle: number | null = null
+    let timeoutHandle: number | null = null
+    const startVideo = () => {
+      const v = videoRef.current
+      if (!v) return
+      v.load()
+      v.play().catch(() => {
+        /* autoplay blocked — fine, poster remains visible */
+      })
+    }
+    const ric =
+      (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
+        .requestIdleCallback
+    if (typeof ric === 'function') {
+      idleHandle = ric(startVideo)
+    } else {
+      timeoutHandle = window.setTimeout(startVideo, 800)
+    }
+
     return () => {
       tl.kill()
+      if (timeoutHandle !== null) window.clearTimeout(timeoutHandle)
+      if (idleHandle !== null) {
+        const cic = (
+          window as unknown as { cancelIdleCallback?: (h: number) => void }
+        ).cancelIdleCallback
+        if (typeof cic === 'function') cic(idleHandle)
+      }
     }
   }, [])
 
@@ -120,19 +151,36 @@ export function Hero() {
       ref={root}
       className="relative w-full overflow-hidden min-h-screen min-h-[100svh] bg-ink text-white"
     >
-      {/* Background video — full bleed cinematic, plays muted on loop.
-          Uses /videos/hero.mp4 (single woman raising arms — the "vitality"
-          editorial cut chosen by the client). preload="metadata" lets the
-          browser show the poster instantly while the video streams in
-          progressively, improving LCP. */}
+      {/* Static poster — paints INSTANTLY (75 KB JPEG) so the LCP
+          element is rendered before the 3.1 MB video bytes arrive.
+          fetchPriority="high" + eager loading because this is the
+          single most important image on the site. The video covers
+          the poster as soon as it can play. */}
+      <img
+        src="/videos/hero-poster.jpg"
+        alt=""
+        aria-hidden="true"
+        width={1280}
+        height={720}
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Background video — full-bleed cinematic, plays muted on loop.
+          preload="none" so we don't block the LCP; once the page is
+          interactive the useEffect below tells the video to load.
+          The poster <img> stays painted until the video can render. */}
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover will-change-transform"
+        poster="/videos/hero-poster.jpg"
         autoPlay
         loop
         muted
         playsInline
-        preload="metadata"
+        preload="none"
       >
         <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
