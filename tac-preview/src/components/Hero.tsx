@@ -260,7 +260,7 @@ export function Hero() {
         {/* Slim spec pills — anchor key facts inline above the CTAs */}
         <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-7">
           {[
-            { k: 'Centres', v: '5 Pan-India' },
+            { k: 'Centres', v: '8 Pan-India' },
             { k: 'Experience', v: '20+ Years' },
             { k: 'Specialities', v: 'Longevity · Metabolic · Gut · Skin' },
           ].map((s) => (
@@ -310,7 +310,7 @@ export function Hero() {
                 Explore
               </div>
               <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
-                Our Five Centres
+                Our Eight Centres
               </div>
             </div>
             <span className="ml-auto w-8 h-8 md:w-9 md:h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">
