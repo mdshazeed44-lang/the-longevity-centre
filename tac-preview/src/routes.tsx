@@ -72,6 +72,9 @@ interface RouteEntry {
  * before their prefix variants (e.g. '/centres' before '/centres/').
  */
 const ROUTES: RouteEntry[] = [
+  { match: { path: '/about-us' }, Component: AboutPage },
+  // Legacy redirect target — old /about path still resolves to AboutPage so
+  // existing inbound links / bookmarks keep working.
   { match: { path: '/about' }, Component: AboutPage },
   { match: { path: '/centres' }, Component: CentresPage },
   { match: { path: '/centres/', prefix: true }, Component: CentreDetailPage },

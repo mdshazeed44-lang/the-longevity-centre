@@ -40,7 +40,7 @@ const CLINICS = [
 // Company column — only links to pages that actually exist.
 // (Blog + Careers temporarily removed — to be added back when content is ready.)
 const COMPANY_LINKS: { label: string; href: string }[] = [
-  { label: 'About', href: '/about' },
+  { label: 'About Us', href: '/about-us' },
   { label: 'Diagnostics', href: '/diagnostics' },
   { label: 'Centres', href: '/centres' },
   { label: 'Privacy', href: '/privacy' },

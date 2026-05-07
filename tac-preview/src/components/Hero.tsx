@@ -253,7 +253,7 @@ export function Hero() {
           ref={para}
           className="text-[14px] md:text-[17px] leading-[1.55] md:leading-[1.6] text-white/80 max-w-[560px] mb-4 md:mb-6 font-light"
         >
-          Explore TAC's innovative, personalised preventive medicine for a
+          Explore TLC's innovative, personalised preventive medicine for a
           vibrant and fulfilling life — at any stage.
         </p>
 

@@ -46,7 +46,7 @@ export function Benefits() {
       ),
     },
     {
-      title: 'Better sport results',
+      title: 'Better performance',
       desc: 'Increase your stamina and muscle strength to optimise sports or athletic performance.',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">

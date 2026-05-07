@@ -55,8 +55,8 @@ export function Editorial() {
               ageing and which interventions will move the needle.
             </p>
             <p>
-              Every measurement is repeated at month 9. Progress is not a feeling.
-              It is a number that has changed.
+              Every measurement is repeated through your programme. Progress is
+              not a feeling. It is a number that has changed.
             </p>
           </div>
           <a

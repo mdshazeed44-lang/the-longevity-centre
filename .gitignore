@@ -37,6 +37,7 @@ Thumbs.db
 # Reference material — brand guides, brochures, extracted page renders.
 # All dev-only; never commit to repo. /docs is the local-only reference folder.
 docs/
+**/scratch/
 
 # Reference PDFs that the client uploaded into /public for designer reference.
 # Per user instruction (5 May 2026): "isko hatana mat", but never push to git.

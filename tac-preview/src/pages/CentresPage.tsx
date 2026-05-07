@@ -1,4 +1,4 @@
-// CentresPage — eight clinics directory (4 open + 4 opening-soon).
+// CentresPage — eight clinics directory (7 open + 1 opening-soon).
 // Single source of truth: src/lib/centres.ts
 //
 // Open centres render full address + phone + email + Get Directions.
@@ -455,9 +455,9 @@ export function CentresPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
             {[
-              { src: '/tac-photos/gurugram-exterior.jpg', label: 'Gurugram' },
-              { src: '/tac-photos/pune-clinic.jpg', label: 'Pune Hadapsar' },
-              { src: '/tac-photos/delhi-bangalore-clinic.jpg', label: 'Delhi · Bangalore' },
+              { src: '/clinic-photos/gurugram-exterior.jpg', label: 'Gurugram' },
+              { src: '/clinic-photos/pune-clinic.jpg', label: 'Pune Hadapsar' },
+              { src: '/clinic-photos/delhi-bangalore-clinic.jpg', label: 'Delhi · Bangalore' },
             ].map((g) => (
               <figure
                 key={g.src}
@@ -465,7 +465,7 @@ export function CentresPage() {
               >
                 <img
                   src={g.src}
-                  alt={`Inside the TAC ${g.label} clinic`}
+                  alt={`Inside the TLC ${g.label} clinic`}
                   loading="lazy"
                   className="gallery-img absolute inset-0 w-full h-[112%] object-cover"
                   style={{ willChange: 'transform' }}

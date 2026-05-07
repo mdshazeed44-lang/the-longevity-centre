@@ -49,8 +49,8 @@ export const PROGRAMS: Program[] = [
       'Precision metabolic reset for sustainable fat loss — biology-led, not behaviour-led.',
     desc:
       'A precision metabolic reset for sustainable fat loss. We identify the biological drivers of stubborn weight gain — insulin resistance, hormonal imbalance, cellular inefficiency — and address them with diagnostics-led, physician-guided care.',
-    cardImg: '/tac-photos/medical-weight-loss.webp',
-    heroImg: '/tac-photos/medical-weight-loss.webp',
+    cardImg: '/clinic-photos/medical-weight-loss.webp',
+    heroImg: '/clinic-photos/medical-weight-loss.webp',
     designedFor: [
       'Stubborn weight gain that resists conventional methods',
       'Low energy and metabolic sluggishness',
@@ -79,7 +79,7 @@ export const PROGRAMS: Program[] = [
       'Better body composition with lean mass preserved',
       'Identification and correction of hormonal imbalance',
       'Improvement in blood biological age markers',
-      'A personalised nutrition strategy aligned to your physiology',
+      'Correction of all nutrient deficiencies',
     ],
     difference:
       'This is not a diet. It is a precision-led metabolic intervention created for those who want to improve not only how they look, but how they function, age, and live.',
@@ -99,8 +99,8 @@ export const PROGRAMS: Program[] = [
       'Genomic-level gut microbiome restoration paired with metabolic correction — the gut–metabolism axis treated together.',
     desc:
       'Whole-genomic gut microbiome restoration paired with metabolic correction. The gut–metabolism axis treated together — addressing IBS, bloating, unexplained weight gain, brain fog, and food sensitivities at the source.',
-    cardImg: '/tac-photos/gut-health.webp',
-    heroImg: '/tac-photos/gut-health.webp',
+    cardImg: '/clinic-photos/gut-health.webp',
+    heroImg: '/clinic-photos/gut-health.webp',
     designedFor: [
       'Chronic bloating, IBS, or persistent digestive discomfort',
       'Unexplained weight gain or difficulty losing weight',
@@ -221,8 +221,8 @@ export const PROGRAMS: Program[] = [
       'High-resolution biochemical profiling — analysing thousands of metabolites to surface sub-clinical dysfunction long before disease declares itself.',
     desc:
       'Thousands of metabolites analysed in a single panel — sub-clinical dysfunction surfaced years before standard tests flag concern. The deepest diagnostic lens available, designed for those whose normal tests don\'t match how they feel.',
-    cardImg: '/longevity/metabolomics-lab.jpg',
-    heroImg: '/longevity/metabolomics-lab.jpg',
+    cardImg: '/longevity/metabolomics-glassware.jpg',
+    heroImg: '/longevity/metabolomics-glassware.jpg',
     designedFor: [
       'High-performance individuals optimising function — not just avoiding disease',
       'Those with unresolved health concerns standard testing has failed to explain',
@@ -271,8 +271,8 @@ export const PROGRAMS: Program[] = [
       'Root-cause precision medicine for prediabetes, type 2 diabetes, and NAFLD. A reversal pathway — not symptomatic management.',
     desc:
       'Root-cause precision medicine for prediabetes, type 2 diabetes, and NAFLD. A reversal pathway — not symptomatic management. Designed for those seeking medication reduction under physician supervision.',
-    cardImg: '/tac-photos/metabolic-diabetes.webp',
-    heroImg: '/tac-photos/metabolic-diabetes.webp',
+    cardImg: '/clinic-photos/metabolic-diabetes.webp',
+    heroImg: '/clinic-photos/metabolic-diabetes.webp',
     designedFor: [
       'Prediabetes — elevated fasting blood glucose or HbA1c',
       'Type 2 Diabetes — seeking root-cause treatment and medication reduction',
@@ -325,8 +325,8 @@ export const PROGRAMS: Program[] = [
       'Multi-system correction — metabolic, hormonal, and microbiome addressed together. The most comprehensive PCOD programme in India.',
     desc:
       'PCOD addressed across the three systems that sustain it — metabolic, hormonal, and microbiome. The most comprehensive PCOD programme in India, with multi-disciplinary care from endocrinology to dermatology to gynaecology.',
-    cardImg: '/longevity/brand/mood-yoga-duo.jpg',
-    heroImg: '/longevity/brand/mood-terracotta.jpg',
+    cardImg: '/longevity/pcod-ultrasound.jpg',
+    heroImg: '/longevity/pcod-ultrasound.jpg',
     designedFor: [
       'Women diagnosed with PCOD or PCOS',
       'Irregular or absent menstrual cycles',
@@ -340,7 +340,7 @@ export const PROGRAMS: Program[] = [
       'Full metabolic blood panel',
       'Body Composition Analysis (BCA) — including visceral fat mapping',
       'Oligoscan cellular health assessment',
-      'Gut Microbiome Analysis — Whole Genomic Sequencing',
+      'Gut Microbiome Analysis — Whole Genomic Sequencing (optional)',
       'TLC App interface',
     ],
     diagnosticsNote:

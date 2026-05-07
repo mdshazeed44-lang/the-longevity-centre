@@ -23,9 +23,9 @@ const STEPS = [
   },
   {
     n: '03',
-    title: '9-Month Recalibration',
+    title: 'Scheduled Recalibrations',
     desc:
-      'Repeat blood, BCA, BMD and genetic testing at month nine. Continued consultations, supplements and longevity support.',
+      'Repeated BCA and cellular analysis monthly (at TLC centres). Continuous consultations, supplement and longevity support.',
     img: 'https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=1600&q=85',
   },
   {
@@ -135,7 +135,7 @@ export function Method() {
             <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] uppercase text-rust font-semibold">
-                The TAC Method
+                The TLC Method
               </span>
             </div>
             <h2

@@ -414,17 +414,18 @@ export function ContactPage() {
 
       {/* TRUST BAND — same numbers as CtaBand for consistency */}
       <section className="px-6 md:px-12 pb-20 md:pb-28 bg-white">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/10 max-w-[860px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 max-w-[1080px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
           {[
             { k: '8', l: 'Centres pan-India' },
             { k: '60+ yrs', l: 'In preventive medicine' },
-            { k: '163', l: 'Biomarkers per patient' },
+            { k: '1000+', l: 'Biomarkers per patient' },
+            { k: '3', l: 'Biological ages — Epigenetic · Blood · Gut' },
           ].map((s) => (
             <div key={s.l} className="bg-white px-5 py-6 text-center">
               <div className="font-display font-bold text-[22px] md:text-[30px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
                 {s.k}
               </div>
-              <div className="text-[10px] tracking-[0.28em] uppercase text-graphite font-semibold">
+              <div className="text-[10px] tracking-[0.28em] uppercase text-graphite font-semibold leading-[1.4]">
                 {s.l}
               </div>
             </div>

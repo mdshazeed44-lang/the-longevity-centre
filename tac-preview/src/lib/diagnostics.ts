@@ -35,8 +35,8 @@ export const DIAGNOSTICS: Diagnostic[] = [
     category: 'Cellular',
     duration: '30 seconds',
     sampleType: 'Hand scan (non-invasive)',
-    heroImg: '/diagnostics/oligoscan.jpg',
-    heroAlt: 'Lab assay tray with sample wells — cellular mineral analysis',
+    heroImg: '/diagnostics/oligoscan-spectrum.jpg',
+    heroAlt: 'Light spectrum refraction — visualising the spectrophotometric scan principle',
     tagline: 'Cellular mineral & heavy-metal scan, in 30 seconds.',
     intro:
       'A non-invasive optical scan that quantifies intracellular minerals and heavy metals in real time — surfacing imbalances at the cellular level that blood tests cannot reach.',
@@ -96,7 +96,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
       { k: 'Markers measured', v: '20 minerals + 14 heavy metals' },
       { k: 'Sample', v: 'No blood / no fluids — optical only' },
       { k: 'Duration', v: '30 seconds' },
-      { k: 'Repeatability', v: 'Monthly safe; recommended every 90 days during a programme' },
+      { k: 'Repeatability', v: 'Monthly safe; recommended quarterly during a programme' },
     ],
     related: ['blood-tests', 'genetic-testing', 'biological-clock'],
   },
@@ -177,7 +177,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     name: 'Gut Microbiota — Whole-Genome Sequencing',
     shortName: 'Gut Microbiota',
     category: 'Microbiome',
-    duration: '10 min collection · 21-day report',
+    duration: '10 min collection · 8-week report',
     sampleType: 'Stool sample (at-home kit)',
     heroImg: '/diagnostics/gut-microbiota.jpg',
     heroAlt: 'Microbiome bacteria under electron microscope',
@@ -251,8 +251,8 @@ export const DIAGNOSTICS: Diagnostic[] = [
     category: 'Dermal',
     duration: '5 minutes',
     sampleType: 'Multi-spectral imaging (in-clinic)',
-    heroImg: '/diagnostics/face-scan.jpg',
-    heroAlt: 'Dermal imaging — multi-spectral skin analysis',
+    heroImg: '/diagnostics/face-scan-device.jpg',
+    heroAlt: 'Dermal imaging — laser facial mapping during a Face Scan',
     tagline: 'Skin hydration, elasticity, pigmentation — quantified.',
     intro:
       'High-resolution dermatological imaging that measures skin hydration, elasticity, pigmentation depth and surface texture — the quantitative inputs for an aesthetic-medicine plan.',
@@ -323,7 +323,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     category: 'Cardiovascular',
     duration: '15 minutes',
     sampleType: 'Fingertip cuff (in-clinic)',
-    heroImg: '/diagnostics/endopat.jpg',
+    heroImg: '/diagnostics/endopat-ecg.jpg',
     heroAlt: 'Leaf vein macro — vascular network metaphor',
     tagline: 'The earliest cardiovascular warning signal — years ahead.',
     intro:
@@ -394,7 +394,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     name: 'Blood Tests — 160+ Biomarkers',
     shortName: 'Blood Tests',
     category: 'Metabolic',
-    duration: '20 min collection · 7-day report',
+    duration: '20 min collection · 24-hour report',
     sampleType: 'At-home phlebotomy',
     heroImg: '/diagnostics/blood-tests.jpg',
     heroAlt: 'Lab technician sampling a labelled blood vial',
@@ -413,11 +413,11 @@ export const DIAGNOSTICS: Diagnostic[] = [
       intro:
         'Standard panels are designed to catch disease. Our panel is designed to read your physiology before disease arrives.',
       points: [
-        '160+ markers — five times a typical annual physical',
+        '160+ markers — 3–4 times a typical annual physical',
         'At-home phlebotomy — no clinic visit, no early-morning queue',
         'NABL-accredited laboratory processing',
         'Physician walk-through of every result — not a portal upload',
-        'Repeated at month 9 of your programme so progress is measured',
+        'Re-tested as clinically indicated to verify intervention impact',
       ],
     },
     benefits: [
@@ -457,7 +457,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
       { k: 'Markers', v: '160+ across 6 systems (metabolic / hormonal / cardio / nutritional / inflammation / organ)' },
       { k: 'Lab', v: 'NABL-accredited Indian laboratory' },
       { k: 'Sample', v: 'Venous blood — fasted draw' },
-      { k: 'Re-test', v: 'Repeated at month 9 of every programme' },
+      { k: 'Re-test', v: 'As clinically indicated during a programme' },
     ],
     related: ['oligoscan', 'genetic-testing', 'endopat'],
   },
@@ -468,7 +468,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     category: 'Composition',
     duration: '5 minutes',
     sampleType: 'Bioimpedance scan (in-clinic)',
-    heroImg: '/diagnostics/body-composition.jpg',
+    heroImg: '/diagnostics/bca-tape.jpg',
     heroAlt: 'Torso with measuring tape — body composition analysis',
     tagline: 'Fat, muscle, visceral, hydration — measured beyond the scale.',
     intro:
@@ -544,7 +544,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     heroAlt: 'Skeletal posture — bone health imagery',
     tagline: 'Skeletal health and fracture risk, measured precisely.',
     intro:
-      'DEXA-grade scanning of bone density across the spine, hip and forearm — the clinical standard for diagnosing osteopenia, osteoporosis, and tracking skeletal age over time.',
+      'Precision scanning of bone density across the spine, hip and forearm — the clinical standard for diagnosing osteopenia, osteoporosis, and tracking skeletal age over time.',
     whatItIs: {
       title: 'Why bone is a longevity organ',
       body: [
@@ -633,7 +633,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
         'Three peer-reviewed clocks (GrimAge / PhenoAge / Horvath)',
         '9 million CpG methylation sites analysed',
         'Validated against mortality and disease risk in 100,000+ subjects',
-        'Re-tested at month 9 of your programme — progress made measurable',
+        'Re-tested at programme completion — progress made measurable',
         'Most patients reverse biological age by 5–15 years over 12 months',
       ],
     },
@@ -659,7 +659,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
       {
         n: '03',
         title: 'Reverse',
-        body: 'A precision longevity protocol built around the specific drivers of your accelerated ageing — re-tested at month 9 to confirm reversal.',
+        body: 'A precision longevity protocol built around the specific drivers of your accelerated ageing — re-tested at programme completion to confirm reversal.',
       },
     ],
     whoFor: [
@@ -674,7 +674,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
       { k: 'Clocks run', v: 'GrimAge + PhenoAge + Horvath' },
       { k: 'Sites analysed', v: '9 million CpG methylation sites' },
       { k: 'Sample', v: 'Saliva swab or capillary blood spot' },
-      { k: 'Re-test', v: 'At month 9 of every programme' },
+      { k: 'Re-test', v: 'At programme completion to confirm reversal' },
     ],
     related: ['genetic-testing', 'gut-microbiota', 'blood-tests'],
   },

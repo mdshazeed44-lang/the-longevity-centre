@@ -12,15 +12,15 @@ const ABOUT_META = {
   title: 'About TLC · Founders, Vision & Specialist Team',
   description:
     'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 7,500+ procedures). 20+ years of preventive medicine.',
-  path: '/about',
+  path: '/about-us',
   ogImage: '/og/about.jpg',
   jsonLd: [
     {
       '@context': 'https://schema.org',
       '@type': 'AboutPage',
-      '@id': 'https://thelongevitycentre.com/about#webpage',
-      url: 'https://thelongevitycentre.com/about',
-      name: 'About TAC — Leaders in Preventive & Anti-Aging Medicine, India',
+      '@id': 'https://thelongevitycentre.com/about-us#webpage',
+      url: 'https://thelongevitycentre.com/about-us',
+      name: 'About TLC — Leaders in Preventive & Anti-Aging Medicine, India',
       isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
       about: { '@id': 'https://thelongevitycentre.com/#organization' },
       inLanguage: 'en-IN',
@@ -28,7 +28,7 @@ const ABOUT_META = {
     {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      '@id': 'https://thelongevitycentre.com/about#dr-abhinav-sharma',
+      '@id': 'https://thelongevitycentre.com/about-us#dr-abhinav-sharma',
       name: 'Dr. Abhinav Sharma',
       honorificPrefix: 'Dr.',
       honorificSuffix: 'MBBS, MS',
@@ -47,7 +47,7 @@ const ABOUT_META = {
     {
       '@context': 'https://schema.org',
       '@type': 'Person',
-      '@id': 'https://thelongevitycentre.com/about#dr-bhavna-sharma',
+      '@id': 'https://thelongevitycentre.com/about-us#dr-bhavna-sharma',
       name: 'Dr. Bhavna Sharma',
       honorificPrefix: 'Dr.',
       jobTitle: 'Co-Founder · Reproductive & Sexual Anti-Aging',
@@ -88,7 +88,7 @@ const FOUNDERS = [
 ]
 
 // Specialist team — actual doctors with real portraits cropped from
-// the TAC brochure PDF (pages 10–12). Founders shown in the dedicated
+// the brochure PDF (pages 10–12). Founders shown in the dedicated
 // Founders section above; this list is the wider physician panel.
 //
 // Note: Dr. Karan Mane (Director) appears in the brochure name list but
@@ -152,8 +152,8 @@ const MARQUEE_LINES = [
 const STATS = [
   { val: 20, suffix: '+', label: 'Years in Preventive Medicine' },
   { val: 18500, suffix: '+', label: 'Successful Procedures' },
-  { val: 5, suffix: '', label: 'Centres Pan-India' },
-  { val: 4, suffix: '', label: 'Specialities, One Team' },
+  { val: 8, suffix: '', label: 'Centres Pan-India' },
+  { val: 7, suffix: '', label: 'Specialities, One Team' },
 ]
 
 export function AboutPage() {
@@ -385,7 +385,7 @@ export function AboutPage() {
           <div className="flex items-center gap-3 mb-5">
             <span className="w-7 h-px bg-rust-soft" />
             <span className="text-[11px] tracking-[0.32em] text-rust-soft font-semibold uppercase">
-              About TAC
+              About TLC
             </span>
           </div>
           <h1
@@ -402,7 +402,7 @@ export function AboutPage() {
           </h1>
 
           <p className="mt-6 text-[15px] md:text-[17px] leading-[1.65] text-white/75 max-w-[640px] font-light">
-            Where serenity, aesthetics and sophistication meet — TAC is built
+            Where serenity, aesthetics and sophistication meet — TLC is built
             around personalised care for longevity, metabolic health, gut
             balance, weight loss and elegant anti-aging treatments. Led by a
             team with over twenty years of preventive-medicine experience.
@@ -799,12 +799,13 @@ export function AboutPage() {
                           'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
                       }}
                     />
-                    {/* Floating stat badge — frosted glass over the photo */}
-                    <div className="absolute top-5 left-5 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-4 py-2.5">
+                    {/* Floating stat badge — solid rust pill, fully readable
+                        on the cream/photo background. */}
+                    <div className="absolute top-5 left-5 bg-rust border border-rust-deep/40 rounded-full px-4 py-2.5 shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
                       <div className="font-display font-bold text-[16px] md:text-[18px] text-white tabular-nums tracking-tight leading-none">
                         {f.stat}
                       </div>
-                      <div className="text-[9px] tracking-[0.22em] uppercase text-white/85 font-medium mt-0.5">
+                      <div className="text-[9px] tracking-[0.22em] uppercase text-white/90 font-semibold mt-0.5">
                         {f.statLabel}
                       </div>
                     </div>
@@ -1015,18 +1016,18 @@ export function AboutPage() {
         </div>
         <div
           ref={statsRef}
-          className="max-w-[1280px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
+          className="max-w-[1280px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {STATS.map((s, i) => (
             <div
               key={s.label}
-              className="stat-cell group relative bg-white rounded-2xl border border-mist/70 px-5 py-8 md:px-7 md:py-12 overflow-hidden hover:border-rust/30 transition-colors duration-500"
+              className="stat-cell group relative bg-white rounded-2xl border border-mist/70 px-4 py-7 md:px-6 md:py-10 lg:px-7 lg:py-12 overflow-hidden hover:border-rust/30 transition-colors duration-500"
             >
               <div className="absolute top-3 right-4 text-[10px] tracking-[0.28em] uppercase text-stone/55 tabular-nums font-medium">
                 0{i + 1}
               </div>
               <div
-                className="stat-num font-display font-bold text-[42px] md:text-[60px] lg:text-[68px] text-ink leading-none mb-3 tabular-nums tracking-[-0.025em]"
+                className="stat-num font-display font-bold text-[34px] sm:text-[40px] md:text-[44px] lg:text-[56px] xl:text-[64px] text-ink leading-none mb-3 tabular-nums tracking-[-0.025em]"
                 data-target={s.val}
                 data-suffix={s.suffix}
               >

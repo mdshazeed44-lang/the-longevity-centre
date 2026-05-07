@@ -5,36 +5,42 @@ import { reduceMotion } from '../../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+/**
+ * ScienceCards — Longevity Science section on the homepage.
+ *
+ * Layout the client signed off on (referenced from earlier iteration):
+ *   - Eyebrow: "LONGEVITY SCIENCE"
+ *   - Big headline: "Cutting edge science to reverse aging"
+ *   - Right-aligned intro paragraph
+ *   - Three image-on-top cards with title + short outcome-focused body
+ *
+ * The cards lead with lifestyle outcomes (vitality / prevention /
+ * performance) rather than the underlying tests — visitors see what
+ * TLC delivers before they read the diagnostic depth elsewhere on
+ * the page.
+ */
 export function ScienceCards() {
-  // The three pillars that separate TLC from a generic longevity clinic:
-  // genomic depth (323 genes vs the 99-gene panels most clinics use),
-  // epigenetic measurement (GrimAge + PhenoAge across 9M base pairs),
-  // and whole-genome microbiome sequencing. All three diagnostics are
-  // run through our Netherlands partner laboratory.
   const cards = [
     {
-      n: '01',
-      tag: '323 Genes',
-      title: 'Your genetic blueprint, in full',
+      tag: 'Vitality',
+      title: 'Feel and look great',
       desc:
-        'A 323-gene panel covering metabolism, hormones, cardiovascular risk and longevity pathways. Most clinics test fewer than 99 — we read the whole map.',
-      img: '/diagnostics/dna-helix.jpg',
+        'Stay active and energetic well into your later years — measurably stronger, sharper and more resilient with each year.',
+      img: '/longevity/vitality-mature-woman.jpg',
     },
     {
-      n: '02',
-      tag: 'Epigenetic Clocks',
-      title: "Your true age, not your birthday",
+      tag: 'Prevention',
+      title: 'Prevent disease',
       desc:
-        'GrimAge and PhenoAge analyse DNA methylation across 9 million base pairs — the most accurate measure of biological age, re-tested at month 9 to prove the drop.',
-      img: '/diagnostics/biological-clock.jpg',
+        'Catch age-related disease decades early. Extend your lifespan and your healthspan together — not just years added, but quality years.',
+      img: '/longevity/prevention-clinical-care.jpg',
     },
     {
-      n: '03',
-      tag: 'Whole-Genome Microbiome',
-      title: 'Every microbe in your gut, sequenced',
+      tag: 'Performance',
+      title: 'Improve performance',
       desc:
-        'Shotgun metagenomic sequencing of every microbial species — diversity, imbalances, inflammation pathways. Far beyond the partial 16S panel most clinics rely on.',
-      img: '/diagnostics/microbiome.jpg',
+        'Strengthen your body, sharpen your mind. Better outcomes in sport, work and the decisions that compound over a lifetime.',
+      img: '/longevity/performance-swimmer.jpg',
     },
   ]
   const ref = useRef<HTMLDivElement>(null)
@@ -103,7 +109,7 @@ export function ScienceCards() {
             <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                The TLC Diagnostic Stack
+                Longevity Science
               </span>
             </div>
             <h2
@@ -111,18 +117,17 @@ export function ScienceCards() {
               className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
-                <span>Three diagnostics</span>
+                <span>Decline isn't destiny.</span>
               </span>
               <br />
               <span className="line-mask">
-                <span>most clinics don't run.</span>
+                <span className="text-rust">It's a setting we can change.</span>
               </span>
             </h2>
           </div>
           <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite md:pb-3 max-w-[440px] font-light">
-            Genomic depth, epigenetic age, whole-genome microbiome — all
-            processed through our Netherlands partner laboratory. The three
-            tests that separate a longevity programme from a wellness routine.
+            With evidence-based protocols you can drop your biological age by
+            5 to 15 years and meaningfully slow the rate at which you age.
           </p>
         </div>
 
@@ -134,13 +139,16 @@ export function ScienceCards() {
               className="sci-card group relative bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/60 transition-colors duration-500"
               style={{ willChange: 'transform, opacity' }}
             >
-              {/* Image */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-mist">
+              {/* Image — uses object-contain so the WHOLE photo is shown
+                  (no crop). The aspect-[4/3] container is the closest fit
+                  to typical landscape + portrait sources, so any letterbox
+                  margins stay small and blend with the cream card bg. */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-cream/60">
                 <img
                   src={c.img}
                   alt={c.title}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                 />
                 {/* Soft top-left shade for tag legibility */}
                 <div
@@ -151,22 +159,12 @@ export function ScienceCards() {
                       'linear-gradient(135deg, rgba(27,26,24,0.30) 0%, rgba(27,26,24,0) 35%)',
                   }}
                 />
-                {/* Number + Tag pill (top-left) */}
-                <div className="absolute top-4 left-4 flex items-center gap-2.5 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3 py-1.5">
-                  <span className="font-display text-[11px] font-semibold text-white tabular-nums tracking-tight">
-                    {c.n}
-                  </span>
+                {/* Tag pill (top-left) — VITALITY / PREVENTION / PERFORMANCE */}
+                <div className="absolute top-4 left-4 backdrop-blur-md bg-white/15 border border-white/25 rounded-full px-3.5 py-1.5">
                   <span className="text-[9.5px] tracking-[0.28em] uppercase text-white/90 font-medium">
                     {c.tag}
                   </span>
                 </div>
-                {/* Hover arrow circle (bottom-right) */}
-                <span
-                  aria-hidden
-                  className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-white/0 backdrop-blur-md border border-white/0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 group-hover:bg-white/15 group-hover:border-white/30 transition-all duration-500"
-                >
-                  →
-                </span>
               </div>
 
               {/* Content */}
@@ -190,4 +188,3 @@ export function ScienceCards() {
     </section>
   )
 }
-

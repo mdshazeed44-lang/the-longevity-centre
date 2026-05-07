@@ -180,7 +180,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     category: 'Collagen',
     title: 'Microneedling with Dermapen',
     eyebrow: 'Collagen Induction',
-    image: '/skin-aesthetics/04-microneedling.jpg',
+    image: '/skin-aesthetics/04-microneedling-v2.jpg',
     description:
       "A minimally invasive procedure using tiny needles to create micro-injuries, triggering the skin's natural healing process and stimulating collagen production. The Dermapen 4 offers advanced automated needling with adjustable depth and speed — tailored to each area of your face.",
     treats: [
@@ -229,7 +229,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     category: 'Laser',
     title: 'Laser Hair Reduction',
     eyebrow: 'Quanta Long Pulse · Italy',
-    image: '/skin-aesthetics/05-laser.jpg',
+    image: '/skin-aesthetics/05-laser-v2.jpg',
     description:
       'Permanent hair reduction using the Quanta Long Pulse Laser from Italy — CE (Europe) and FDA approved. Each pulse treats multiple hairs in seconds. Universal compatibility across all skin types (I–VI) and hair types — including fine, coarse, and ingrown hair. No gel required, no risk of burns across skin tones.',
     treats: [
@@ -286,7 +286,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     benefits: [
       'Cellscan Spectrophotometry · micronutrient assessment',
       'State-of-the-art PRP with maximum growth factors',
-      'Advanced Hair Transplant including robotic options',
+      'Advanced Hair Transplant',
       'Plant-based supplementation',
       'Minimal scarring · permanent, natural results',
     ],
@@ -310,7 +310,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '04',
         title: 'Restore (when indicated)',
-        body: 'For genetic pattern baldness past stabilisation, we offer advanced Hair Transplant — including robotic-assisted procedures with minimal scarring.',
+        body: 'For genetic pattern baldness past stabilisation, we offer advanced Hair Transplant with minimal scarring.',
       },
     ],
   },
@@ -320,7 +320,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     category: 'Injectables',
     title: 'Fillers, Botox & Skin Boosters',
     eyebrow: 'Restorative Injectables',
-    image: '/skin-aesthetics/07-mesotherapy.jpg',
+    image: '/skin-aesthetics/07-mesotherapy-v3.jpg',
     description:
       'Three complementary injectable treatments — Botox to relax muscle-driven wrinkles, Dermal Fillers to restore lost volume, and Skin Boosters with hyaluronic acid to deeply hydrate and revitalise. All three can be combined for comprehensive facial rejuvenation. FDA-approved products only.',
     treats: [

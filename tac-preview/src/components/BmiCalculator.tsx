@@ -4,7 +4,7 @@
 //   - variant="selector"  — used on /programs index. Recommends WHICH
 //     programme suits the user based on BMI band.
 //   - variant="program"   — used on individual programme detail pages.
-//     Frames the result as "here's exactly what 12 months of THIS
+//     Frames the result as "here's exactly what 3 months of THIS
 //     programme will change for you".
 //
 // Both variants share the same form, calculator logic, and editorial
@@ -140,6 +140,8 @@ export type BmiCalculatorProps = {
   headline?: string
   /** Sub-copy override. */
   subcopy?: string
+  /** Hide the Gender selector (e.g. on female-only PCOD programme page). */
+  hideGender?: boolean
 }
 
 export function BmiCalculator({
@@ -148,11 +150,12 @@ export function BmiCalculator({
   eyebrow,
   headline,
   subcopy,
+  hideGender = false,
 }: BmiCalculatorProps) {
   const [height, setHeight] = useState<string>('170')
   const [weight, setWeight] = useState<string>('70')
   const [age, setAge] = useState<string>('35')
-  const [gender, setGender] = useState<'male' | 'female'>('male')
+  const [gender, setGender] = useState<'male' | 'female'>(hideGender ? 'female' : 'male')
   const [submitted, setSubmitted] = useState(false)
 
   const bmi = useMemo(() => {
@@ -228,8 +231,8 @@ export function BmiCalculator({
               />
             </div>
 
-            {/* Age + Gender row */}
-            <div className="grid grid-cols-[1fr_1.4fr] gap-4">
+            {/* Age (+ optional Gender) row */}
+            <div className={hideGender ? '' : 'grid grid-cols-[1fr_1.4fr] gap-4'}>
               <Field
                 label="Age"
                 unit="yrs"
@@ -238,27 +241,29 @@ export function BmiCalculator({
                 min={18}
                 max={90}
               />
-              <div>
-                <label className="block text-[10.5px] tracking-[0.28em] uppercase text-graphite font-semibold mb-2">
-                  Gender
-                </label>
-                <div className="grid grid-cols-2 gap-2">
-                  {(['male', 'female'] as const).map((g) => (
-                    <button
-                      key={g}
-                      type="button"
-                      onClick={() => setGender(g)}
-                      className={`py-3 px-3 rounded-full border text-[11.5px] tracking-[0.18em] uppercase font-semibold transition-colors duration-300 ${
-                        gender === g
-                          ? 'bg-ink text-white border-ink'
-                          : 'bg-white text-ink border-ink/15 hover:border-rust'
-                      }`}
-                    >
-                      {g}
-                    </button>
-                  ))}
+              {!hideGender && (
+                <div>
+                  <label className="block text-[10.5px] tracking-[0.28em] uppercase text-graphite font-semibold mb-2">
+                    Gender
+                  </label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(['male', 'female'] as const).map((g) => (
+                      <button
+                        key={g}
+                        type="button"
+                        onClick={() => setGender(g)}
+                        className={`py-3 px-3 rounded-full border text-[11.5px] tracking-[0.18em] uppercase font-semibold transition-colors duration-300 ${
+                          gender === g
+                            ? 'bg-ink text-white border-ink'
+                            : 'bg-white text-ink border-ink/15 hover:border-rust'
+                        }`}
+                      >
+                        {g}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <button
@@ -302,8 +307,9 @@ export function BmiCalculator({
                   Awaiting Your Numbers
                 </div>
                 <p className="text-[14px] leading-[1.6] text-graphite font-light">
-                  Enter height, weight, age and gender — we'll calculate your
-                  BMI and recommend the next step.
+                  {hideGender
+                    ? "Enter height, weight and age — we'll calculate your BMI and recommend the next step."
+                    : "Enter height, weight, age and gender — we'll calculate your BMI and recommend the next step."}
                 </p>
               </div>
             ) : (
@@ -370,7 +376,7 @@ export function BmiCalculator({
                     </div>
                     <h4 className="font-display font-bold text-[16px] md:text-[18px] leading-[1.35] tracking-[-0.01em] text-ink mb-4">
                       {currentProgramName
-                        ? `See exactly what ${currentProgramName} changes in 12 months — for someone with your numbers.`
+                        ? `See exactly what ${currentProgramName} changes in 3 months — for someone with your numbers.`
                         : 'Book a 30-minute consultation — we\'ll review your numbers in clinical depth.'}
                     </h4>
                     <a
@@ -395,34 +401,37 @@ export function BmiCalculator({
           </div>
         </div>
 
-        {/* Footnote — what TLC measures beyond BMI */}
-        <div className="mt-10 md:mt-12 pt-8 border-t border-ink/10 grid sm:grid-cols-3 gap-6 md:gap-8">
-          {[
-            {
-              k: 'Body composition',
-              v: 'Fat / muscle / visceral / hydration measured per limb',
-            },
-            {
-              k: 'Metabolic age',
-              v: 'Three validated epigenetic clocks read from your DNA',
-            },
-            {
-              k: 'Hormone profile',
-              v: 'Thyroid, sex hormones, insulin and inflammation, fully decoded',
-            },
-          ].map((m) => (
-            <div key={m.k}>
-              <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-2">
-                Beyond BMI
+        {/* Footnote — what TLC measures beyond BMI.
+            Single eyebrow at the section top (was repeated per card). */}
+        <div className="mt-10 md:mt-12 pt-8 border-t border-ink/10">
+          <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-6">
+            Beyond BMI
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 md:gap-8">
+            {[
+              {
+                k: 'Body composition',
+                v: 'Fat / muscle / visceral / hydration measured per limb',
+              },
+              {
+                k: 'Metabolic age',
+                v: 'Blood biological age measured with your blood biomarkers',
+              },
+              {
+                k: 'Hormone profile',
+                v: 'Thyroid, sex hormones, insulin and inflammation, fully decoded',
+              },
+            ].map((m) => (
+              <div key={m.k}>
+                <div className="font-display font-bold text-[15px] md:text-[16px] tracking-[-0.01em] text-ink mb-1.5">
+                  {m.k}
+                </div>
+                <p className="text-[13px] leading-[1.55] text-graphite font-light">
+                  {m.v}
+                </p>
               </div>
-              <div className="font-display font-bold text-[15px] md:text-[16px] tracking-[-0.01em] text-ink mb-1.5">
-                {m.k}
-              </div>
-              <p className="text-[13px] leading-[1.55] text-graphite font-light">
-                {m.v}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

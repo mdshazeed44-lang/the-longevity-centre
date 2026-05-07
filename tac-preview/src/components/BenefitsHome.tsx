@@ -21,6 +21,14 @@ type Benefit = {
 const BENEFITS: Benefit[] = [
   {
     n: '01',
+    title: 'Lower biological age',
+    body:
+      'Three validated clocks tracked over time. Most patients reverse their biological age by 5–15 years.',
+    img: '/longevity/brand/mood-forest-light.jpg',
+    alt: 'Forest light — longevity and vitality',
+  },
+  {
+    n: '02',
     title: 'Relieving stress',
     body:
       'Lower cortisol, calmer nervous system. Targeted protocols restore equilibrium so daily pressure stops shaping your biology.',
@@ -28,7 +36,7 @@ const BENEFITS: Benefit[] = [
     alt: 'Zen sand garden — calm and balance',
   },
   {
-    n: '02',
+    n: '03',
     title: 'Ideal body composition',
     body:
       'Optimised fat percentage, preserved lean mass. BCA-tracked, physician-guided — measured beyond the scale.',
@@ -36,7 +44,7 @@ const BENEFITS: Benefit[] = [
     alt: 'Editorial yoga camel pose — lean body composition in motion',
   },
   {
-    n: '03',
+    n: '04',
     title: 'Deeper, restorative sleep',
     body:
       'The undisturbed sleep you deserve. We address circadian rhythm, hormonal balance, and gut health together.',
@@ -44,7 +52,7 @@ const BENEFITS: Benefit[] = [
     alt: 'Water ripple — calm restorative sleep',
   },
   {
-    n: '04',
+    n: '05',
     title: 'Higher energy levels',
     body:
       'Mitochondrial efficiency restored. Stop relying on caffeine — your cellular machinery does the work.',
@@ -52,20 +60,12 @@ const BENEFITS: Benefit[] = [
     alt: 'Bare feet on moss — vitality and grounding',
   },
   {
-    n: '05',
-    title: 'Better sport results',
+    n: '06',
+    title: 'Better performance',
     body:
       'Stronger, more resilient performance. Personalised diagnostics turn training into measurable adaptation.',
-    img: '/longevity/fitness-running.jpg',
-    alt: 'Marathon runner on the road — athletic performance',
-  },
-  {
-    n: '06',
-    title: 'Lower biological age',
-    body:
-      'Three validated clocks tracked over time. Most patients reverse their biological age by 5–15 years.',
-    img: '/longevity/brand/mood-forest-light.jpg',
-    alt: 'Forest light — longevity and vitality',
+    img: '/longevity/performance-cyclist-v2.jpg',
+    alt: 'Cyclist on a country road at golden hour — peak performance',
   },
   {
     n: '07',

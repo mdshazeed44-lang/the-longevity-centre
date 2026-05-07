@@ -29,8 +29,8 @@ const SERVICES: DiagnosticService[] = [
     short: 'Cell-level mineral & metals scan',
     body: 'A non-invasive optical scan that quantifies intracellular minerals and heavy metals in real time — surfacing cellular imbalances that blood tests cannot reach.',
     what: 'Spectrophotometric assay · 30-second hand scan · 20 minerals + 14 toxic metals',
-    img: '/diagnostics/petri-dishes.jpg',
-    alt: 'Lab assay tray with sample wells',
+    img: '/diagnostics/oligoscan-spectrum.jpg',
+    alt: 'Light spectrum refraction — visualising the Oligoscan spectrophotometric scan principle',
   },
   {
     n: '02',
@@ -56,8 +56,8 @@ const SERVICES: DiagnosticService[] = [
     short: 'Skin hydration · elasticity · pigmentation',
     body: 'High-resolution dermatological imaging that measures skin hydration, elasticity, pigmentation depth and surface texture — quantitative inputs for an aesthetic-medicine plan.',
     what: 'Multi-spectral imaging · 7 dermal layers · tracked over time',
-    img: '/longevity/brand/mood-hands-pose.jpg',
-    alt: 'Detailed dermal imaging',
+    img: '/diagnostics/face-scan-device.jpg',
+    alt: 'Laser facial mapping during a Face Scan dermal-imaging diagnostic',
   },
   {
     n: '05',
@@ -65,8 +65,8 @@ const SERVICES: DiagnosticService[] = [
     short: 'Endothelial / vascular function',
     body: 'A 15-minute non-invasive test of endothelial reactivity — the earliest measurable signal of cardiovascular disease, often years before standard markers shift.',
     what: 'Fingertip cuff plethysmography · arterial stiffness index · vascular age',
-    img: '/longevity/blood-test.jpg',
-    alt: 'Vascular function diagnostic',
+    img: '/diagnostics/endopat-ecg.jpg',
+    alt: 'ECG heart-rhythm trace on clinical paper — cardiovascular waveform',
   },
   {
     n: '06',
@@ -83,14 +83,14 @@ const SERVICES: DiagnosticService[] = [
     short: 'Fat · muscle · visceral · hydration',
     body: 'Segmental body composition — fat percentage, lean mass, visceral fat, hydration status — tracked across the programme so transformation is measured beyond the scale.',
     what: 'Multi-frequency bioimpedance · per-limb analysis · re-measured monthly',
-    img: '/diagnostics/bca-silhouette.jpg',
+    img: '/diagnostics/bca-tape.jpg',
     alt: 'Body composition silhouette',
   },
   {
     n: '08',
     name: 'Bone Mineral Density (BMD)',
     short: 'Skeletal health · fracture risk',
-    body: 'DEXA-grade scanning of bone density across the spine, hip and forearm — the standard for diagnosing osteopenia, osteoporosis and tracking skeletal age over time.',
+    body: 'Precision scanning of bone density across the spine, hip and forearm — the standard for diagnosing osteopenia, osteoporosis and tracking skeletal age over time.',
     what: 'Dual-energy x-ray absorptiometry · T-score · Z-score · FRAX risk modelling',
     img: '/longevity/brand/mood-feet-roots.jpg',
     alt: 'Skeletal density imagery',
@@ -100,7 +100,7 @@ const SERVICES: DiagnosticService[] = [
     name: 'Biological Clock',
     short: 'Three validated epigenetic clocks',
     body: 'GrimAge and PhenoAge analysis of DNA methylation across 9 million base pairs — the most accurate measure of true biological age and remaining healthspan.',
-    what: 'Methylation array · GrimAge + PhenoAge + Horvath · re-tested at month 9',
+    what: 'Methylation array · GrimAge + PhenoAge + Horvath · whole-methylome analysis',
     img: '/diagnostics/face-treatment.jpg',
     alt: 'Epigenetic age testing imagery',
   },
@@ -399,8 +399,8 @@ export function DiagnosticsPage() {
                 interventions will move the needle.
               </p>
               <p className="text-ink font-medium">
-                Every measurement is repeated at month 9. Progress is not a
-                feeling. It is a number that has changed.
+                Every measurement is repeated through your programme. Progress
+                is not a feeling. It is a number that has changed.
               </p>
             </div>
           </div>
@@ -519,7 +519,7 @@ export function DiagnosticsPage() {
             </div>
             <h2 className="font-display font-light text-[34px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-white max-w-[760px] mx-auto">
               From baseline to{' '}
-              <span className="font-bold text-rust-soft">protocol — in three weeks.</span>
+              <span className="font-bold text-rust-soft">protocol — in nine weeks.</span>
             </h2>
           </div>
 
@@ -534,13 +534,13 @@ export function DiagnosticsPage() {
               {
                 n: '02',
                 title: 'Decode',
-                duration: 'Day 8–18',
+                duration: 'Day 3–60',
                 body: 'Samples processed across our partner laboratories — including the Netherlands genomic lab. Two physicians independently review every result before your report is built.',
               },
               {
                 n: '03',
                 title: 'Protocol',
-                duration: 'Day 19–21',
+                duration: 'Day 7–65',
                 body: 'A 90-minute walk-through with your lead physician. Every marker explained, every intervention prioritised. You leave with a written protocol you actually understand.',
               },
             ].map((p) => (
@@ -599,8 +599,8 @@ export function DiagnosticsPage() {
                   v: 'Two physicians independently review every result before it reaches you. No automated reports, no template summaries.',
                 },
                 {
-                  k: 'Re-tested at month 9',
-                  v: 'Every diagnostic is repeated at programme end — so progress is measured, not felt. The number that has changed is the proof.',
+                  k: 'Progress, measured',
+                  v: 'Diagnostics are repeated through your programme — so progress is measured, not felt. The number that has changed is the proof.',
                 },
                 {
                   k: 'At-home collection',

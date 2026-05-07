@@ -29,7 +29,7 @@ const TESTIMONIALS: Testimonial[] = [
     metricLabel: 'In Programme',
     quote:
       'I reduced my weight from 87 kg to 72 kg through this programme. Beyond weight loss, I feel more focused and active in my daily life. The personalised approach based on my body and vitals made it easy to follow and effective.',
-    video: '/videos/testimonials/gomez.mp4',
+    video: '/videos/testimonials/gomez-v2.mp4',
     poster: '/videos/testimonials/posters/gomez.png',
     orientation: 'horizontal',
   },
@@ -41,7 +41,7 @@ const TESTIMONIALS: Testimonial[] = [
     metricLabel: 'Plus liver health restored',
     quote:
       'I lost weight from around 85 kg to nearly 71 kg and feel healthier from within. My energy levels have improved, and I feel younger overall. The guidance also helped improve my liver health, making the whole journey practical and sustainable.',
-    video: '/videos/testimonials/abhinav.mp4',
+    video: '/videos/testimonials/abhinav-v2.mp4',
     poster: '/videos/testimonials/posters/abhinav.webp',
     orientation: 'vertical',
   },
@@ -53,7 +53,7 @@ const TESTIMONIALS: Testimonial[] = [
     metricLabel: 'Glucose normalised, −10 kg',
     quote:
       'I reduced around 9–10 kg and my glucose levels improved from diabetic to normal. The progress came faster than I expected. The customised plan and continuous support made it easy to follow and maintain long-term results.',
-    video: '/videos/testimonials/bhushan.mp4',
+    video: '/videos/testimonials/bhushan-v2.mp4',
     poster: '/videos/testimonials/posters/bhushan.png',
     orientation: 'vertical',
   },
@@ -65,7 +65,7 @@ const TESTIMONIALS: Testimonial[] = [
     metricLabel: 'Fasting glucose',
     quote:
       "I've had diabetes for many years, and my sugar levels are now much better controlled. My fasting dropped from around 170–180 to nearly 110, and my medications have reduced. I feel more energetic, and managing my diet and daily health has become much easier and more consistent.",
-    video: '/videos/testimonials/sadhna.mp4',
+    video: '/videos/testimonials/sadhna-v2.mp4',
     poster: '/videos/testimonials/posters/sadhna.png',
     orientation: 'vertical',
   },
@@ -389,13 +389,19 @@ export function VideoTestimonials() {
               aspectRatio: active.orientation === 'horizontal' ? '16/9' : '9/16',
             }}
           >
+            {/* `key` forces a fresh <video> element when the user
+                switches testimonials — without it React reuses the
+                same node and only the first clip ever loads.
+                `object-contain` keeps the whole frame visible (no
+                crop) — the black bg fills any letterbox margin. */}
             <video
+              key={active.id}
               src={active.video}
               poster={active.poster}
               controls
               autoPlay
               playsInline
-              className="absolute inset-0 w-full h-full rounded-[20px] bg-black object-cover"
+              className="absolute inset-0 w-full h-full rounded-[20px] bg-black object-contain"
             />
             <div className="absolute -bottom-14 left-0 right-0 text-center text-white">
               <div className="font-display font-bold text-[20px] md:text-[24px] tracking-tight">

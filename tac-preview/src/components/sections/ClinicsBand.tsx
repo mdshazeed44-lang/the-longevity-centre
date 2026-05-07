@@ -24,31 +24,31 @@ export function ClinicsBand() {
     {
       city: 'Gurgaon',
       region: 'NCR',
-      area: 'Sector 48',
+      area: 'Sector 48 · Sohna Rd',
       phone: '+91 87701 95833',
     },
     {
       city: 'Mumbai',
       region: 'Maharashtra',
-      area: 'Opening soon',
+      area: 'Worli · LIFT × TLC',
       phone: '+91 88268 09123',
     },
     {
       city: 'Pune',
       region: 'Maharashtra',
-      area: 'Hadapsar',
+      area: 'Hadapsar · Amanora',
       phone: '+91 97623 86121',
     },
     {
       city: 'Nagpur',
       region: 'Maharashtra',
-      area: 'Opening soon',
+      area: 'Dharampeth · Asian KHMC',
       phone: '+91 88268 09123',
     },
     {
       city: 'Goa',
       region: 'Goa',
-      area: 'Opening soon',
+      area: 'Dona Paula · LIFT × TLC',
       phone: '+91 88268 09123',
     },
     {
@@ -60,7 +60,7 @@ export function ClinicsBand() {
     {
       city: 'Bangalore',
       region: 'Karnataka',
-      area: 'JP Nagar · Sadashivnagar',
+      area: 'Sadashivanagar · Clinic Next Face',
       phone: '+91 80767 19637',
     },
   ]
@@ -125,20 +125,23 @@ export function ClinicsBand() {
   }, [])
 
   // Pin coordinates as % of the map image's box (left, top).
-  // 'side' decides where the city label sits — chosen per pin to avoid
-  // overlapping with neighbours (Mumbai/Pune/Hyderabad/Goa cluster).
+  // Calibrated against real lat/lon: India spans roughly 8°N–37°N and
+  // 68°E–97°E. Tweaked a touch from raw maths to land each pin visually
+  // on the city dot in the /main-map.webp asset. 'side' decides where
+  // the label pill sits — chosen per pin so the Mumbai/Pune/Hyderabad/
+  // Goa southern cluster doesn't overlap neighbours.
   const pinCoords: Record<
     string,
     { left: string; top: string; side: 'top' | 'bottom' | 'left' | 'right' }
   > = {
-    Delhi:     { left: '46%', top: '32%', side: 'top' },
-    Gurgaon:   { left: '43%', top: '36%', side: 'left' },
-    Nagpur:    { left: '48%', top: '58%', side: 'right' },
-    Mumbai:    { left: '34%', top: '63%', side: 'left' },
-    Pune:      { left: '40%', top: '67%', side: 'right' },
-    Hyderabad: { left: '48%', top: '69%', side: 'right' },
-    Goa:       { left: '36%', top: '74%', side: 'left' },
-    Bangalore: { left: '44%', top: '80%', side: 'bottom' },
+    Delhi:     { left: '49%', top: '30%', side: 'right' },
+    Gurgaon:   { left: '47%', top: '33%', side: 'left' },
+    Nagpur:    { left: '50%', top: '53%', side: 'right' },
+    Mumbai:    { left: '33%', top: '60%', side: 'left' },
+    Pune:      { left: '38%', top: '62%', side: 'bottom' },
+    Hyderabad: { left: '47%', top: '65%', side: 'right' },
+    Goa:       { left: '35%', top: '69%', side: 'left' },
+    Bangalore: { left: '43%', top: '76%', side: 'bottom' },
   }
 
   return (

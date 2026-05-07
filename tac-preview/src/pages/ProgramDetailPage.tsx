@@ -236,7 +236,9 @@ function Hero({ p }: { p: Program }) {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-rust-soft" />
-              <span className="tracking-[0.18em] uppercase">Re-tested at month 9</span>
+              <span className="tracking-[0.18em] uppercase">
+                {p.slug === 'advanced-metabolomics' ? '300+ biomarkers' : '160+ biomarkers'}
+              </span>
             </span>
           </div>
         </div>
@@ -645,7 +647,11 @@ export function ProgramDetailPage() {
       <Hero p={program} />
       <DesignedFor p={program} />
       {showBmi && (
-        <BmiCalculator variant="program" currentProgramName={program.shortTitle} />
+        <BmiCalculator
+          variant="program"
+          currentProgramName={program.shortTitle}
+          hideGender={program.slug === 'pcod-correction'}
+        />
       )}
       <Diagnostics p={program} />
       <CareModel p={program} />

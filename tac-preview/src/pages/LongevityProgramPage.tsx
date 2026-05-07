@@ -33,7 +33,7 @@ const STEPS = [
   },
 ]
 
-// Verified from TAC nav: 9 diagnostic technologies offered
+// Verified from clinic nav: 9 diagnostic technologies offered
 const DIAGNOSTICS = [
   { n: '01', name: 'Cell Scan Test', tag: 'Cellular Function' },
   { n: '02', name: 'Genetic Test', tag: 'DNA Analysis' },
@@ -72,7 +72,7 @@ const LIFESTYLES = [
     n: '04',
     tag: 'Family · Longevity',
     title: 'Wellness-Centred Families',
-    body: "Balancing the health and wellness needs of every family member? TAC supports your family's journey with sustainable healthy habits and long-term wellness strategies.",
+    body: "Balancing the health and wellness needs of every family member? TLC supports your family's journey with sustainable healthy habits and long-term wellness strategies.",
     img: '/longevity/wellness-families.png',
   },
 ]
@@ -95,7 +95,7 @@ const TRUST = [
   },
   {
     title: 'Backed by Clinical Studies',
-    body: "TAC's approach is grounded in scientific research and clinical evidence. From genetic testing to gut-health optimisation, our methods have been refined through rigorous clinical trials.",
+    body: "TLC's approach is grounded in scientific research and clinical evidence. From genetic testing to gut-health optimisation, our methods have been refined through rigorous clinical trials.",
     icon: '/longevity/trust-clinical.png',
   },
 ]
@@ -112,28 +112,28 @@ const HEALTH_CONCERNS = [
 
 const FAQS = [
   {
-    q: "How is TAC's approach different from a regular doctor or health checkup?",
-    a: 'TAC goes beyond traditional health checkups by offering personalised, data-driven diagnostics across metabolic health, genetics and gut microbiome — powered by AI insights and supported by expert medical teams.',
+    q: "How is TLC's approach different from a regular doctor or health checkup?",
+    a: 'TLC goes beyond traditional health checkups by offering personalised, data-driven diagnostics across metabolic health, genetics and gut microbiome — powered by AI insights and supported by expert medical teams.',
   },
   {
     q: 'Will my health plan be personalised to me, or is it a pre-made protocol?',
-    a: 'Your health plan at TAC is fully personalised. We use your individual diagnostics to create a customised programme tailored specifically to your unique biological markers and goals.',
+    a: 'Your health plan at TLC is fully personalised. We use your individual diagnostics to create a customised programme tailored specifically to your unique biological markers and goals.',
   },
   {
-    q: 'How useful is TAC to me if I feel fine?',
-    a: 'Even if you feel fine, TAC helps you uncover hidden health issues that could affect your long-term wellness — such as early metabolic slowdowns, inflammation or genetic risks — so you can prevent future problems before they arise.',
+    q: 'How useful is TLC to me if I feel fine?',
+    a: 'Even if you feel fine, TLC helps you uncover hidden health issues that could affect your long-term wellness — such as early metabolic slowdowns, inflammation or genetic risks — so you can prevent future problems before they arise.',
   },
   {
     q: 'What exactly happens after I take the free longevity assessment?',
     a: 'After taking the free longevity assessment with a senior doctor, who guides you on the right programme, you undergo the tests associated with that programme. Your results are analysed by a senior doctor to create a personalised protocol for you.',
   },
   {
-    q: 'How long does it take to see noticeable results once I start a TAC program?',
+    q: 'How long does it take to see noticeable results once I start a TLC program?',
     a: 'Results may vary for each individual, but some people have experienced changes such as weight loss within 15 days of starting the program.',
   },
   {
     q: 'Is this an in-person or virtual service?',
-    a: 'TAC offers both virtual consultations and in-person visits at select locations, providing flexible options based on your preference and convenience.',
+    a: 'TLC offers both virtual consultations and in-person visits at select locations, providing flexible options based on your preference and convenience.',
   },
   {
     q: 'Is there a consultation fee or initial cost after the free assessment?',
@@ -1044,7 +1044,7 @@ export function LongevityProgramPage() {
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Why TAC</span>
+              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">Why TLC</span>
               <span className="w-7 h-px bg-rust" />
             </div>
             <h2 className="font-display font-bold text-[28px] md:text-[44px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[820px] mx-auto">

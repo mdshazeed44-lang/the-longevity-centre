@@ -12,8 +12,8 @@ export function BrochureCTA() {
         {/* Image side — clean, no overlay text */}
         <div className="relative aspect-[5/4] md:aspect-auto md:h-full bg-mist overflow-hidden md:m-3 md:rounded-[20px]">
           <img
-            src="/tac-photos/clinic-interior-1.jpg"
-            alt="Inside a TAC clinic"
+            src="/clinic-photos/clinic-interior-1.jpg"
+            alt="Inside a TLC clinic"
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
           />
