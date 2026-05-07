@@ -6,31 +6,35 @@ import { reduceMotion } from '../../lib/motion'
 gsap.registerPlugin(ScrollTrigger)
 
 export function ScienceCards() {
-  // Source-aligned: TAC's positioning around longevity, prevention & performance.
+  // The three pillars that separate TLC from a generic longevity clinic:
+  // genomic depth (323 genes vs the 99-gene panels most clinics use),
+  // epigenetic measurement (GrimAge + PhenoAge across 9M base pairs),
+  // and whole-genome microbiome sequencing. All three diagnostics are
+  // run through our Netherlands partner laboratory.
   const cards = [
     {
       n: '01',
-      tag: 'Vitality',
-      title: 'Feel and look great',
+      tag: '323 Genes',
+      title: 'Your genetic blueprint, in full',
       desc:
-        'Stay active and enjoy your life well into your late years — measurably energetic, sharp and resilient.',
-      img: 'https://images.unsplash.com/photo-1505144808419-1957a94ca61e?w=1400&q=85',
+        'A 323-gene panel covering metabolism, hormones, cardiovascular risk and longevity pathways. Most clinics test fewer than 99 — we read the whole map.',
+      img: '/diagnostics/dna-helix.jpg',
     },
     {
       n: '02',
-      tag: 'Prevention',
-      title: 'Prevent disease',
+      tag: 'Epigenetic Clocks',
+      title: "Your true age, not your birthday",
       desc:
-        'Avoid age-related diseases through early detection. Extend your lifespan AND your healthspan together.',
-      img: 'https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=85',
+        'GrimAge and PhenoAge analyse DNA methylation across 9 million base pairs — the most accurate measure of biological age, re-tested at month 9 to prove the drop.',
+      img: '/diagnostics/biological-clock.jpg',
     },
     {
       n: '03',
-      tag: 'Performance',
-      title: 'Improve performance',
+      tag: 'Whole-Genome Microbiome',
+      title: 'Every microbe in your gut, sequenced',
       desc:
-        'Strengthen your body and sharpen your mind for better results in sport, work and life decisions.',
-      img: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1400&q=85',
+        'Shotgun metagenomic sequencing of every microbial species — diversity, imbalances, inflammation pathways. Far beyond the partial 16S panel most clinics rely on.',
+      img: '/diagnostics/microbiome.jpg',
     },
   ]
   const ref = useRef<HTMLDivElement>(null)
@@ -99,7 +103,7 @@ export function ScienceCards() {
             <div className="flex items-center gap-3 mb-5">
               <span className="w-7 h-px bg-rust" />
               <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                Longevity Science
+                The TLC Diagnostic Stack
               </span>
             </div>
             <h2
@@ -107,17 +111,18 @@ export function ScienceCards() {
               className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask">
-                <span>Cutting-edge science</span>
+                <span>Three diagnostics</span>
               </span>
               <br />
               <span className="line-mask">
-                <span>to reverse ageing.</span>
+                <span>most clinics don't run.</span>
               </span>
             </h2>
           </div>
           <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite md:pb-3 max-w-[440px] font-light">
-            With evidence-based protocols, you can improve your biological age
-            by 5 to 15 years and meaningfully slow your rate of ageing.
+            Genomic depth, epigenetic age, whole-genome microbiome — all
+            processed through our Netherlands partner laboratory. The three
+            tests that separate a longevity programme from a wellness routine.
           </p>
         </div>
 

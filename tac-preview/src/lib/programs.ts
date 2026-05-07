@@ -326,7 +326,7 @@ export const PROGRAMS: Program[] = [
     desc:
       'PCOD addressed across the three systems that sustain it — metabolic, hormonal, and microbiome. The most comprehensive PCOD programme in India, with multi-disciplinary care from endocrinology to dermatology to gynaecology.',
     cardImg: '/longevity/brand/mood-yoga-duo.jpg',
-    heroImg: '/longevity/brand/mood-yoga-duo.jpg',
+    heroImg: '/longevity/brand/mood-terracotta.jpg',
     designedFor: [
       'Women diagnosed with PCOD or PCOS',
       'Irregular or absent menstrual cycles',

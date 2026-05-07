@@ -32,8 +32,8 @@ const BENEFITS: Benefit[] = [
     title: 'Ideal body composition',
     body:
       'Optimised fat percentage, preserved lean mass. BCA-tracked, physician-guided — measured beyond the scale.',
-    img: '/longevity/brand/mood-yoga-duo.jpg',
-    alt: 'Yoga duo — body composition and movement',
+    img: '/longevity/brand/mood-hands-pose.jpg',
+    alt: 'Mindful hands pose — body composition and movement',
   },
   {
     n: '03',
@@ -56,8 +56,8 @@ const BENEFITS: Benefit[] = [
     title: 'Better sport results',
     body:
       'Stronger, more resilient performance. Personalised diagnostics turn training into measurable adaptation.',
-    img: '/longevity/fitness.png',
-    alt: 'Cyclist on the road — athletic performance',
+    img: '/longevity/fitness-running.jpg',
+    alt: 'Marathon runner on the road — athletic performance',
   },
   {
     n: '06',
