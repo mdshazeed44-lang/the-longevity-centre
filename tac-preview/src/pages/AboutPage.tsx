@@ -777,9 +777,13 @@ export function AboutPage() {
                       Uses object-contain (not cover) so the whole studio
                       headshot is visible without crop. The cream
                       background fills the letterbox cleanly on either
-                      side / top / bottom of the portrait. */}
+                      side / top / bottom of the portrait.
+                      `min-h-[360px]` is a fallback for older iOS Safari
+                      versions (<15.4) that don't support `aspect-square`
+                      — without it the container collapses to 0 height
+                      and the absolutely-positioned image disappears. */}
                   <div
-                    className={`relative aspect-square md:aspect-auto md:min-h-[520px] overflow-hidden bg-cream/60 ${
+                    className={`relative aspect-square min-h-[360px] md:aspect-auto md:min-h-[520px] overflow-hidden bg-cream/60 ${
                       reverse ? 'md:order-2' : ''
                     }`}
                   >
