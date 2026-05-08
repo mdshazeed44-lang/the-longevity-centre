@@ -139,16 +139,16 @@ export function ScienceCards() {
               className="sci-card group relative bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/60 transition-colors duration-500"
               style={{ willChange: 'transform, opacity' }}
             >
-              {/* Image — uses object-contain so the WHOLE photo is shown
-                  (no crop). The aspect-[4/3] container is the closest fit
-                  to typical landscape + portrait sources, so any letterbox
-                  margins stay small and blend with the cream card bg. */}
+              {/* Image — object-cover fills the aspect-[4/3] frame edge to
+                  edge (acceptable crop for decorative card art). Avoids the
+                  letterbox white-space we'd get with object-contain when
+                  source ratios don't match the card. */}
               <div className="relative aspect-[4/3] overflow-hidden bg-cream/60">
                 <img
                   src={c.img}
                   alt={c.title}
                   loading="lazy"
-                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
                 />
                 {/* Soft top-left shade for tag legibility */}
                 <div

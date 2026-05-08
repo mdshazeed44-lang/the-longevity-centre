@@ -194,10 +194,6 @@ export function CentreDetailPage() {
                 data-magnetic
                 className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                </span>
                 Book Consultation
                 <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
               </a>
@@ -248,7 +244,7 @@ export function CentreDetailPage() {
                     : 'bg-rust/10 text-rust border border-rust/25'
                 }`}
               >
-                <span className={`w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-green-soft animate-pulse' : 'bg-rust'}`} />
+                <span className={`w-1.5 h-1.5 rounded-full ${isOpen ? 'bg-green-soft' : 'bg-rust'}`} />
                 {isOpen ? 'Open Now' : 'Opening 2026'}
               </span>
             </div>
@@ -346,8 +342,146 @@ export function CentreDetailPage() {
               </a>
             </div>
           </div>
+
+          {/* ============== GOOGLE BUSINESS PROFILE PANEL ============== */}
+          {/* Renders only when centre.gmb is populated. Surfaces the verified
+              GMB profile so visitors can read reviews / get directions on the
+              authoritative listing rather than the generic Maps query. */}
+          {centre.gmb && (
+            <div className="mt-8 rounded-[20px] border border-mist bg-mist/30 p-6 md:p-7 flex flex-col md:flex-row md:items-center gap-6">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-3">
+                  <svg
+                    aria-hidden
+                    width="18"
+                    height="18"
+                    viewBox="0 0 48 48"
+                    className="shrink-0"
+                  >
+                    <path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/>
+                    <path fill="#34A853" d="M6.3 14.7l7 5.1C15.1 16.1 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 6.1 29.6 4 24 4 16 4 9.1 8.5 6.3 14.7z"/>
+                    <path fill="#FBBC05" d="M24 44c5.5 0 10.5-1.9 14.4-5.2l-6.6-5.4C29.7 34.9 27 36 24 36c-6 0-11-3.9-12.8-9.4l-7 5.4C7 39.6 14.9 44 24 44z"/>
+                    <path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-1.1 3.2-3.4 5.8-6.4 7.4l6.6 5.4c4.6-3.6 8-9.6 8-17.3 0-1.3-.2-2.7-.5-4z"/>
+                  </svg>
+                  <span className="text-[10px] tracking-[0.32em] uppercase text-stone font-semibold">
+                    Verified on Google
+                  </span>
+                  {centre.gmb.partnership && (
+                    <>
+                      <span className="h-3 w-px bg-mist" />
+                      <span className="text-[10px] tracking-[0.22em] uppercase text-rust font-semibold">
+                        {centre.gmb.partnership}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <h3 className="font-display font-bold text-[20px] md:text-[22px] leading-[1.2] tracking-[-0.015em] text-ink mb-1.5">
+                  {centre.gmb.businessName}
+                </h3>
+                <p className="text-[13px] leading-[1.6] text-graphite font-light max-w-[520px]">
+                  See live reviews, photos, and turn-by-turn directions on the
+                  centre's Google Business Profile.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
+                <a
+                  href={centre.gmb.shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  className="group inline-flex items-center justify-center gap-2 px-5 py-3 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+                >
+                  View Profile
+                  <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">↗</span>
+                </a>
+                <a
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(centre.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-ink/15 text-ink text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
+                >
+                  Get Directions
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
+      {/* ========================== REVIEWS ========================== */}
+      {/* Renders only when centre.reviews is populated. Real, attributed
+          patient reviews (sourced from the partner clinic / GMB), shown
+          as a 3-column card grid on the centre detail page. */}
+      {centre.reviews && centre.reviews.length > 0 && (
+        <section className="relative py-16 md:py-20 px-6 md:px-12 bg-mist/30 overflow-hidden">
+          <div className="relative z-10 max-w-[1180px] mx-auto">
+            <div className="text-center max-w-[680px] mx-auto mb-10 md:mb-14">
+              <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
+                — Patient Reviews —
+              </div>
+              <h2 className="font-display font-light text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink">
+                What patients say about{' '}
+                <span className="font-bold text-rust">{centre.city}.</span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+              {centre.reviews.map((review, i) => (
+                <article
+                  key={`${review.author}-${i}`}
+                  className="bg-white border border-mist rounded-[20px] p-6 md:p-7 flex flex-col"
+                >
+                  <div
+                    className="flex items-center gap-1 mb-4"
+                    aria-label={`${review.rating} out of 5 stars`}
+                  >
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <svg
+                        key={idx}
+                        width="14"
+                        height="14"
+                        viewBox="0 0 20 20"
+                        fill={idx < review.rating ? '#A74B2A' : '#E5E0DB'}
+                        aria-hidden
+                      >
+                        <path d="M10 1.5l2.6 5.3 5.9.86-4.25 4.14 1 5.85L10 14.77l-5.25 2.78 1-5.85L1.5 7.66l5.9-.86L10 1.5z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-[14px] md:text-[14.5px] leading-[1.65] text-graphite font-light flex-1 mb-5">
+                    "{review.text}"
+                  </p>
+                  <div className="pt-4 border-t border-mist flex items-center justify-between gap-3">
+                    <span className="text-[13px] font-semibold text-ink">
+                      {review.author}
+                    </span>
+                    <span className="text-[10px] tracking-[0.22em] uppercase text-stone font-medium">
+                      via {review.source}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            {centre.gmb && (
+              <div className="mt-10 md:mt-12 text-center">
+                <a
+                  href={centre.gmb.shareUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  className="group inline-flex items-center gap-2.5 px-6 py-3.5 border border-ink/20 text-ink text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink hover:text-white transition-colors duration-500"
+                >
+                  Read more reviews on Google
+                  <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">↗</span>
+                </a>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* ============================ HIGHLIGHTS ============================ */}
       <section className="relative py-16 md:py-20 px-6 md:px-12 bg-white overflow-hidden">

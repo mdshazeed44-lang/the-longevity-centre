@@ -536,10 +536,6 @@ export function LongevityProgramPage() {
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a href="#program-cta" data-cursor="hover" className="group inline-flex items-center gap-3 pl-6 pr-7 py-4 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
               Free Longevity Assessment
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>
@@ -874,10 +870,6 @@ export function LongevityProgramPage() {
                           data-magnetic
                           className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                         >
-                          <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                          </span>
                           Explore this path
                           <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
                         </a>
@@ -1175,10 +1167,6 @@ export function LongevityProgramPage() {
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a href="/contact" data-cursor="hover" className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
               Book Free Assessment
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
             </a>

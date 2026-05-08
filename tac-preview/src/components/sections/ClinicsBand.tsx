@@ -124,24 +124,25 @@ export function ClinicsBand() {
     }
   }, [])
 
-  // Pin coordinates as % of the map image's box (left, top).
-  // Calibrated against real lat/lon: India spans roughly 8°N–37°N and
-  // 68°E–97°E. Tweaked a touch from raw maths to land each pin visually
-  // on the city dot in the /main-map.webp asset. 'side' decides where
-  // the label pill sits — chosen per pin so the Mumbai/Pune/Hyderabad/
-  // Goa southern cluster doesn't overlap neighbours.
+  // Pin coordinates as % of the /main-map.webp box (left, top).
+  // Calibrated against real lat/lon and the map's drawn India outline.
+  // Map bounds (visible India): x ≈ 14%–82%, y ≈ 5%–85%.
+  //   1° lat ≈ 2.76%   |   1° lon ≈ 2.34%
+  // Each pin = (lon − 68) × 2.34 + 14 horizontally,
+  //           (37 − lat) × 2.76 + 5 vertically.
+  // Note Gurgaon sits *south* of Delhi (lower lat → larger top%).
   const pinCoords: Record<
     string,
     { left: string; top: string; side: 'top' | 'bottom' | 'left' | 'right' }
   > = {
-    Delhi:     { left: '49%', top: '30%', side: 'right' },
-    Gurgaon:   { left: '47%', top: '33%', side: 'left' },
-    Nagpur:    { left: '50%', top: '53%', side: 'right' },
-    Mumbai:    { left: '33%', top: '60%', side: 'left' },
-    Pune:      { left: '38%', top: '62%', side: 'bottom' },
-    Hyderabad: { left: '47%', top: '65%', side: 'right' },
-    Goa:       { left: '35%', top: '69%', side: 'left' },
-    Bangalore: { left: '43%', top: '76%', side: 'bottom' },
+    Delhi:     { left: '35.5%', top: '28%',   side: 'right'  }, // 28.61°N, 77.23°E
+    Gurgaon:   { left: '35%',   top: '29%',   side: 'left'   }, // 28.46°N, 77.03°E
+    Nagpur:    { left: '40%',   top: '48%',   side: 'right'  }, // 21.15°N, 79.09°E
+    Mumbai:    { left: '25.5%', top: '54.5%', side: 'left'   }, // 19.08°N, 72.88°E
+    Pune:      { left: '27.5%', top: '56%',   side: 'bottom' }, // 18.52°N, 73.86°E
+    Hyderabad: { left: '38.5%', top: '59.5%', side: 'right'  }, // 17.39°N, 78.49°E
+    Goa:       { left: '28.5%', top: '65%',   side: 'left'   }, // 15.30°N, 74.12°E
+    Bangalore: { left: '36.5%', top: '71.5%', side: 'bottom' }, // 12.97°N, 77.59°E
   }
 
   return (
@@ -356,9 +357,10 @@ export function ClinicsBand() {
                         <circle cx="13" cy="13" r="1.6" fill="#945455" />
                       </svg>
 
-                      {/* Label pill */}
+                      {/* Label pill — slightly tighter on mobile so the
+                          Mumbai/Pune/Goa/Hyderabad cluster doesn't overlap. */}
                       <span
-                        className={`absolute ${labelPos[p.side]} px-2 py-[3px] bg-white border border-rust/25 rounded-full text-[9px] tracking-[0.16em] uppercase text-ink font-bold whitespace-nowrap shadow-[0_4px_10px_-3px_rgba(27,26,24,0.15)] group-hover:bg-rust group-hover:text-white group-hover:border-rust transition-colors duration-300`}
+                        className={`absolute ${labelPos[p.side]} px-1.5 py-[2px] md:px-2 md:py-[3px] bg-white border border-rust/25 rounded-full text-[8px] md:text-[9px] tracking-[0.12em] md:tracking-[0.16em] uppercase text-ink font-bold whitespace-nowrap shadow-[0_4px_10px_-3px_rgba(27,26,24,0.15)] group-hover:bg-rust group-hover:text-white group-hover:border-rust transition-colors duration-300`}
                       >
                         {c.city}
                       </span>

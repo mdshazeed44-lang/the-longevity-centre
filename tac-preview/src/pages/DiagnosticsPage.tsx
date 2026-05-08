@@ -65,7 +65,7 @@ const SERVICES: DiagnosticService[] = [
     short: 'Endothelial / vascular function',
     body: 'A 15-minute non-invasive test of endothelial reactivity — the earliest measurable signal of cardiovascular disease, often years before standard markers shift.',
     what: 'Fingertip cuff plethysmography · arterial stiffness index · vascular age',
-    img: '/diagnostics/endopat-ecg.jpg',
+    img: '/diagnostics/endopat-device.webp',
     alt: 'ECG heart-rhythm trace on clinical paper — cardiovascular waveform',
   },
   {
@@ -88,10 +88,10 @@ const SERVICES: DiagnosticService[] = [
   },
   {
     n: '08',
-    name: 'Bone Mineral Density (BMD)',
-    short: 'Skeletal health · fracture risk',
-    body: 'Precision scanning of bone density across the spine, hip and forearm — the standard for diagnosing osteopenia, osteoporosis and tracking skeletal age over time.',
-    what: 'Dual-energy x-ray absorptiometry · T-score · Z-score · FRAX risk modelling',
+    name: 'Bone Mineral Density (Ultrasound BMD)',
+    short: 'Skeletal health · radiation-free',
+    body: 'Quantitative ultrasound assessment of bone strength at the heel — a fast, radiation-free screening that flags early bone loss and tracks the impact of strength, nutrition and hormonal interventions over time.',
+    what: 'Calcaneal quantitative ultrasound · SOS · BUA · Stiffness Index · estimated T-score',
     img: '/longevity/brand/mood-feet-roots.jpg',
     alt: 'Skeletal density imagery',
   },
@@ -294,10 +294,6 @@ export function DiagnosticsPage() {
                 data-magnetic
                 className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                </span>
                 Book Diagnostics
                 <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                   →

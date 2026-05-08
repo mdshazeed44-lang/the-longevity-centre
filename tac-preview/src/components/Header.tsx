@@ -257,7 +257,7 @@ export function Header() {
             className="shrink-0 pl-2 md:pl-3 flex items-center"
             aria-label="The Longevity Centre — home"
           >
-            <Logo variant="dark" size={52} />
+            <Logo variant="dark" size={36} />
           </a>
 
           {/* Desktop nav — UPPERCASE bold links, centered between logo and CTA.
@@ -307,10 +307,6 @@ export function Header() {
               data-magnetic
               className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-ink text-white text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust transition-colors duration-500 whitespace-nowrap"
             >
-              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
               <span className="hidden lg:inline">Arrange a Consultation</span>
               <span className="lg:hidden">Book</span>
             </a>
@@ -364,7 +360,7 @@ export function Header() {
               aria-label="The Longevity Centre — home"
               className="text-ink"
             >
-              <Logo variant="dark" size={56} />
+              <Logo variant="dark" size={40} />
             </a>
             <button
               type="button"

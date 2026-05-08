@@ -302,10 +302,6 @@ export function ContactPage() {
                       data-magnetic
                       className="group inline-flex items-center gap-3 pl-6 pr-8 py-4 bg-ink text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      <span className="relative flex h-2 w-2" aria-hidden>
-                        <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                      </span>
                       {state === 'submitting' ? 'Opening WhatsApp…' : 'Send via WhatsApp'}
                       <span
                         aria-hidden

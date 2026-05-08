@@ -57,10 +57,6 @@ export function BrochureCTA() {
               data-magnetic
               className="group inline-flex items-center gap-3 pl-5 pr-7 py-4 bg-ink text-white text-[11.5px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
               Request a Callback
               <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                 →

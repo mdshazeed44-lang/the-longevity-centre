@@ -1119,10 +1119,6 @@ export function AboutPage() {
                   className="group flex items-center justify-between w-full pl-5 pr-2 py-3 mb-2.5 bg-white text-ink rounded-full text-[11.5px] tracking-[0.22em] font-semibold uppercase hover:bg-rust hover:text-white transition-colors duration-500"
                 >
                   <span className="inline-flex items-center gap-3">
-                    <span className="relative flex h-2 w-2" aria-hidden>
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                    </span>
                     Arrange a Consultation
                   </span>
                   <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-ink text-white group-hover:bg-white group-hover:text-rust transition-colors duration-500" aria-hidden>

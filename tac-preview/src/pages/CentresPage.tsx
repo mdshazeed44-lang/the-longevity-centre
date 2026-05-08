@@ -73,7 +73,6 @@ export function CentresPage() {
   useDocumentMeta(CENTRES_META)
   const heroRef = useRef<HTMLHeadingElement>(null)
   const rowsRef = useRef<HTMLDivElement>(null)
-  const galleryRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -127,29 +126,6 @@ export function CentresPage() {
           t.kill()
         })
       }
-    })
-
-    // Gallery photos parallax
-    const galleryImgs = galleryRef.current?.querySelectorAll<HTMLElement>('.gallery-img')
-    galleryImgs?.forEach((img) => {
-      const t = gsap.fromTo(
-        img,
-        { yPercent: -6 },
-        {
-          yPercent: 6,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: galleryRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2,
-          },
-        }
-      )
-      cleanups.push(() => {
-        t.scrollTrigger?.kill()
-        t.kill()
-      })
     })
 
     return () => cleanups.forEach((fn) => fn())
@@ -437,61 +413,6 @@ export function CentresPage() {
         </div>
       </section>
 
-      {/* THE SPACES — parallax photo gallery */}
-      <section ref={galleryRef} className="bg-white py-16 md:py-20 px-6 md:px-12 overflow-hidden">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-10 md:mb-14">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                The Spaces
-              </span>
-              <span className="w-7 h-px bg-rust" />
-            </div>
-            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
-              Clinical precision, hotel-quality calm.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
-            {[
-              { src: '/clinic-photos/gurugram-exterior.jpg', label: 'Gurugram' },
-              { src: '/clinic-photos/pune-clinic.jpg', label: 'Pune Hadapsar' },
-              { src: '/clinic-photos/delhi-bangalore-clinic.jpg', label: 'Delhi · Bangalore' },
-            ].map((g) => (
-              <figure
-                key={g.src}
-                className="relative overflow-hidden rounded-[20px] bg-mist aspect-[4/3] md:aspect-[5/4]"
-              >
-                <img
-                  src={g.src}
-                  alt={`Inside the TLC ${g.label} clinic`}
-                  loading="lazy"
-                  className="gallery-img absolute inset-0 w-full h-[112%] object-cover"
-                  style={{ willChange: 'transform' }}
-                />
-                <div
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%)',
-                  }}
-                />
-                <figcaption className="absolute bottom-5 left-5 right-5 text-white">
-                  <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/70 font-semibold mb-1">
-                    Inside
-                  </div>
-                  <div className="font-display font-bold text-[18px] md:text-[22px] leading-[1.1] tracking-[-0.02em]">
-                    {g.label}
-                  </div>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FINAL CTA — site signature dark band */}
       <section className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden">
         <div
@@ -527,10 +448,6 @@ export function CentresPage() {
               data-cursor="hover"
               className="group inline-flex items-center gap-3 pl-6 pr-8 py-5 bg-white text-ink text-[12px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
             >
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-              </span>
               Arrange a Consultation
               <span aria-hidden="true" className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                 →

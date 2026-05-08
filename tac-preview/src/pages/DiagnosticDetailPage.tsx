@@ -221,10 +221,6 @@ export function DiagnosticDetailPage() {
                 data-magnetic
                 className="group inline-flex items-center gap-3 pl-5 pr-6 py-3.5 bg-white text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust hover:text-white transition-colors duration-500"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-soft" />
-                </span>
                 Book This Test
                 <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                   →
@@ -302,11 +298,23 @@ export function DiagnosticDetailPage() {
 
       {/* ============================ WHY SUPERIOR ============================ */}
       <section className="relative py-20 md:py-28 px-6 md:px-12 bg-cream/40 overflow-hidden">
+        {/* Soft ambient backdrop */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-60"
+          style={{
+            background:
+              'radial-gradient(900px 500px at 12% 0%, rgba(167,75,42,0.06), transparent 60%), radial-gradient(700px 450px at 92% 100%, rgba(54,73,68,0.04), transparent 60%)',
+          }}
+        />
         <div className="relative z-10 max-w-[1180px] mx-auto">
           <div className="grid md:grid-cols-[1.1fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-16">
             <div>
-              <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-                — Why It's Different —
+              <div className="fade-up flex items-center gap-3 mb-6">
+                <span className="w-7 h-px bg-rust" />
+                <span className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold">
+                  Why It's Different
+                </span>
               </div>
               <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -319,21 +327,25 @@ export function DiagnosticDetailPage() {
             </p>
           </div>
 
-          <ul className="grid md:grid-cols-2 gap-px bg-ink/10 border border-ink/10 rounded-[20px] overflow-hidden">
+          {/* Numbered feature cards — 1col phone, 2col tablet, 3col desktop.
+              Each card has a tabular rust number, hover lift, and subtle accent
+              border that strengthens on hover. Adapts to any number of points. */}
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
             {test.whySuperior.points.map((point, i) => (
               <li
                 key={i}
-                className="fade-up bg-white p-6 md:p-7 flex gap-4 items-start"
+                className="fade-up group relative bg-white border border-mist rounded-[20px] p-6 md:p-7 transition-all duration-500 hover:border-rust/40 hover:-translate-y-0.5"
+                style={{
+                  boxShadow:
+                    '0 1px 0 rgba(255,255,255,0.7) inset, 0 24px 50px -40px rgba(27,26,24,0.18)',
+                }}
               >
-                {/* Rust check icon */}
-                <span
-                  aria-hidden
-                  className="shrink-0 w-7 h-7 rounded-full bg-rust/10 border border-rust/20 flex items-center justify-center mt-0.5"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-rust">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </span>
+                <div className="flex items-baseline gap-3 mb-4">
+                  <span className="font-display text-[28px] md:text-[32px] font-bold text-rust tabular-nums leading-none tracking-tight">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span aria-hidden className="h-px flex-1 bg-mist group-hover:bg-rust/30 transition-colors duration-500" />
+                </div>
                 <p className="text-[14px] md:text-[15px] leading-[1.6] text-ink font-medium">
                   {point}
                 </p>

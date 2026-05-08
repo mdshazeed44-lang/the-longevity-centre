@@ -59,7 +59,8 @@ export function ProgramsHome() {
 
     const cleanups: Array<() => void> = []
     const cards = cardsRef.current.filter(Boolean) as HTMLDivElement[]
-    const pinTop = window.innerWidth >= 768 ? 110 : 90
+    const isDesktop = window.innerWidth >= 768
+    const pinTop = isDesktop ? 110 : 90
 
     cards.forEach((card, i) => {
       const inner = card.querySelector<HTMLElement>('.card-inner')
@@ -68,8 +69,10 @@ export function ProgramsHome() {
 
       const next = cards[i + 1]
 
-      // Stacking pin — same as home Programs.tsx
-      if (next) {
+      // Stacking pin — desktop only. On mobile the cards are tall (image
+      // + content stacked vertically) and pinning produces overlap. We
+      // let mobile flow naturally one card under the next.
+      if (next && isDesktop) {
         const pinST = ScrollTrigger.create({
           trigger: card,
           start: `top top+=${pinTop}`,
@@ -209,7 +212,7 @@ export function ProgramsHome() {
             ref={(el) => {
               cardsRef.current[i] = el
             }}
-            className="programme-card relative mb-[18vh] md:mb-[26vh] last:mb-0"
+            className="programme-card relative mb-6 md:mb-[26vh] last:mb-0"
             style={{
               transformOrigin: 'center top',
               willChange: 'transform, opacity',
@@ -255,10 +258,6 @@ export function ProgramsHome() {
                         data-magnetic
                         className="group inline-flex items-center gap-2.5 pl-4 pr-6 py-3 bg-ink text-white text-[11px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                       >
-                        <span className="relative flex h-1.5 w-1.5">
-                          <span className="absolute inline-flex h-full w-full rounded-full bg-green-soft opacity-75 animate-ping" />
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-soft" />
-                        </span>
                         Arrange a Consultation
                         <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
                           →

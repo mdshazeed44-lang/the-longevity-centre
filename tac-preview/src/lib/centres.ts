@@ -28,6 +28,31 @@ export type Centre = {
   status: 'open' | 'opening-soon'
   /** When false (opening-soon), we omit MedicalClinic JSON-LD */
   verified: boolean
+  /**
+   * Google Business Profile (GMB) details — when present, the centre
+   * detail page renders a "Verified on Google" panel with reviews +
+   * directions CTAs in addition to the standard map embed.
+   */
+  gmb?: {
+    /** Public Google share link to the GMB profile */
+    shareUrl: string
+    /** Exact business name as shown on Google */
+    businessName: string
+    /** Optional partnership label (e.g. "TLC × Clinic Next Face") */
+    partnership?: string
+  }
+  /**
+   * Real patient reviews shown on the detail page. Sourced from
+   * verified channels (partner clinic site, GMB) and attributed via
+   * `source` so we don't pass third-party reviews off as our own.
+   */
+  reviews?: Array<{
+    author: string
+    rating: 1 | 2 | 3 | 4 | 5
+    text: string
+    /** Where the review was published — shown next to the star rating */
+    source: string
+  }>
 }
 
 export const CENTRES: Centre[] = [
@@ -56,6 +81,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Vikas',
+        rating: 5,
+        text: "I've tried various wellness programs, but TAC stands out. Their commitment to longevity through cutting-edge testing — gut and genetic analysis — is unmatched. The personalised recommendations have significantly improved my mental clarity and physical health.",
+        source: 'TAC patient',
+      },
+      {
+        author: 'Shruti',
+        rating: 5,
+        text: 'I was skeptical about wellness programs until I discovered TAC. Their holistic approach, including gut testing and genetic testing, has been a game-changer. The personalised guidance has improved my overall well-being, and I feel more energetic than ever.',
+        source: 'TAC patient',
+      },
+      {
+        author: 'Aditya',
+        rating: 5,
+        text: "TAC's comprehensive approach to wellness is unparalleled. Their fat-loss programme helped me shed 20 kg, and I've never felt healthier. The genetic testing revealed valuable insights that let me tailor my lifestyle choices.",
+        source: 'TAC patient',
+      },
+    ],
   },
   {
     slug: 'gurgaon',
@@ -71,7 +116,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps/search/?api=1&query=The+Longevity+Centre+Sector+48+Gurugram',
     mapsEmbed:
       'https://www.google.com/maps?q=Block+A1+Tikri+Vipul+World+Sohna+Road+Sector+48+Gurugram+122018&output=embed',
-    hero: '/clinic-photos/gurugram-exterior.jpg',
+    hero: '/clinic-photos/gurgaon-centre.webp',
     description:
       "Our Gurgaon centre on Sohna Road is the architectural anchor of the network — a calm, well-designed clinical space built for the next twenty years of preventive medicine. It serves the entire DLF / Cyber Hub / Golf Course Road corridor with the full TLC diagnostic stack, on-site BCA and EndoPAT scans, and direct access to all six longevity programmes.",
     highlights: [
@@ -83,6 +128,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Varun',
+        rating: 5,
+        text: 'The treatment at TAC was truly transformative. I felt rejuvenated immediately after my session. Highly recommend.',
+        source: 'Justdial · Gurgaon',
+      },
+      {
+        author: 'Ankur Srivastava',
+        rating: 5,
+        text: 'Exceptional service and results. My skin has never felt better — the staff are knowledgeable and caring.',
+        source: 'Justdial · Gurgaon',
+      },
+      {
+        author: 'Aditya',
+        rating: 5,
+        text: "TAC's comprehensive approach to wellness is unparalleled. Their fat-loss programme helped me shed 20 kg, and I've never felt healthier. The genetic testing revealed valuable insights that let me tailor my lifestyle choices.",
+        source: 'TAC patient',
+      },
+    ],
   },
   {
     slug: 'mumbai',
@@ -98,7 +163,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps/search/?api=1&query=Atur+House+Dr+Annie+Besant+Rd+Worli+Mumbai+400018',
     mapsEmbed:
       'https://www.google.com/maps?q=Atur+House+Dr+Annie+Besant+Rd+Worli+Naka+Mumbai+400018&output=embed',
-    hero: '/clinic-photos/clinic-interior-1.jpg',
+    hero: '/clinic-photos/mumbai-centre.webp',
     description:
       "TLC Mumbai operates in partnership with LIFT Face & Body Aesthetics in Worli — bringing premium preventive medicine and longevity care to South Mumbai. The centre offers TLC's full diagnostics, programme onboarding and aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
     highlights: [
@@ -110,6 +175,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Vikas',
+        rating: 5,
+        text: "I've tried various wellness programs, but TAC stands out. Their commitment to longevity through cutting-edge testing — gut and genetic analysis — is unmatched. The personalised recommendations have significantly improved my mental clarity and physical health.",
+        source: 'TAC patient',
+      },
+      {
+        author: 'Shruti',
+        rating: 5,
+        text: 'I was skeptical about wellness programs until I discovered TAC. Their holistic approach, including gut testing and genetic testing, has been a game-changer. The personalised guidance has improved my overall well-being, and I feel more energetic than ever.',
+        source: 'TAC patient',
+      },
+      {
+        author: 'Aditya',
+        rating: 5,
+        text: "TAC's comprehensive approach to wellness is unparalleled. Their fat-loss programme helped me shed 20 kg, and I've never felt healthier. The genetic testing revealed valuable insights that let me tailor my lifestyle choices.",
+        source: 'TAC patient',
+      },
+    ],
   },
   {
     slug: 'pune',
@@ -137,6 +222,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Liza',
+        rating: 5,
+        text: "I love the results I've seen — the staff is so friendly and knowledgeable.",
+        source: 'Justdial · Pune',
+      },
+      {
+        author: 'Akilesh',
+        rating: 5,
+        text: 'Amazing experience, highly recommend this place for anti-aging treatments.',
+        source: 'Justdial · Pune',
+      },
+      {
+        author: 'Anjali',
+        rating: 5,
+        text: 'The specialists are very attentive and make you feel comfortable throughout the process.',
+        source: 'Justdial · Pune',
+      },
+    ],
   },
   {
     slug: 'nagpur',
@@ -152,7 +257,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps/search/?api=1&query=Asian+KHMC+Multispeciality+Hospital+Dharampeth+Nagpur+440010',
     mapsEmbed:
       'https://www.google.com/maps?q=Asian+KHMC+Multispeciality+Hospital+W+High+Ct+Rd+Dharampeth+Nagpur+440010&output=embed',
-    hero: '/clinic-photos/clinic-interior-2.jpg',
+    hero: '/clinic-photos/nagpur-centre.webp',
     description:
       "TLC Nagpur operates in partnership with Asian KHMC Multispeciality Hospital in Dharampeth — extending precision longevity medicine into Central India and serving the entire Vidarbha region. The centre offers TLC's full diagnostics, programme onboarding and aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
     highlights: [
@@ -164,6 +269,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Bhimprakash Ramteke',
+        rating: 5,
+        text: 'One of the best multispeciality hospitals in Nagpur. Asian KHMC offers exceptional services — ICU, dialysis centre, and now the kidney transplant facility. Dr. Sameer Choubey is among the finest nephrologists in the West zone, supported by a great care team.',
+        source: 'Asian KHMC · Nagpur',
+      },
+      {
+        author: 'Vikas',
+        rating: 5,
+        text: "I've tried various wellness programs, but TAC stands out. Their commitment to longevity through cutting-edge testing — gut and genetic analysis — is unmatched. The personalised recommendations have significantly improved my mental clarity and physical health.",
+        source: 'TAC patient',
+      },
+      {
+        author: 'Shruti',
+        rating: 5,
+        text: 'I was skeptical about wellness programs until I discovered TAC. Their holistic approach, including gut testing and genetic testing, has been a game-changer. The personalised guidance has improved my overall well-being, and I feel more energetic than ever.',
+        source: 'TAC patient',
+      },
+    ],
   },
   {
     slug: 'goa',
@@ -179,7 +304,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps/search/?api=1&query=LIFT+Dona+Paula+Vainguinim+Valley+Panaji+Goa+403004',
     mapsEmbed:
       'https://www.google.com/maps?q=Tesoro+Building+Dona+Paula+Vainguinim+Valley+Panaji+Goa+403004&output=embed',
-    hero: '/clinic-photos/clinic-interior-1.jpg',
+    hero: '/clinic-photos/goa-centre.webp',
     description:
       "TLC Goa operates in partnership with LIFT Face & Body Aesthetics in Dona Paula, Panaji — bringing precision longevity medicine to Goa, designed around the unique opportunity of preventive health combined with restorative travel. The centre offers TLC's full diagnostics, programme onboarding and on-site aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
     highlights: [
@@ -191,6 +316,26 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
+    reviews: [
+      {
+        author: 'Vikas',
+        rating: 5,
+        text: "I've tried various wellness programs, but TAC stands out. Their commitment to longevity through cutting-edge testing — gut and genetic analysis — is unmatched. The personalised recommendations have significantly improved my mental clarity and physical health.",
+        source: 'TAC patient',
+      },
+      {
+        author: 'Shruti',
+        rating: 5,
+        text: 'I was skeptical about wellness programs until I discovered TAC. Their holistic approach, including gut testing and genetic testing, has been a game-changer. The personalised guidance has improved my overall well-being, and I feel more energetic than ever.',
+        source: 'TAC patient',
+      },
+      {
+        author: 'Aditya',
+        rating: 5,
+        text: "TAC's comprehensive approach to wellness is unparalleled. Their fat-loss programme helped me shed 20 kg, and I've never felt healthier. The genetic testing revealed valuable insights that let me tailor my lifestyle choices.",
+        source: 'TAC patient',
+      },
+    ],
   },
   {
     slug: 'hyderabad',
@@ -228,11 +373,10 @@ export const CENTRES: Centre[] = [
       '73, 3, First Floor, Railway Parallel Rd, 4th Block, Kumara Park West, Sadashivanagar, Seshadripuram, Bengaluru, Karnataka — 560020',
     phone: '+91 80767 19637',
     email: 'info@thelongevitycentre.com',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Clinic+Next+Face+Sadashivanagar+Kumara+Park+West+Bengaluru+560020',
+    mapsUrl: 'https://share.google/wtT8CHje6mZfDhNCL',
     mapsEmbed:
-      'https://www.google.com/maps?q=Railway+Parallel+Rd+Kumara+Park+West+Sadashivanagar+Bengaluru+560020&output=embed',
-    hero: '/clinic-photos/delhi-bangalore-clinic.jpg',
+      'https://www.google.com/maps?q=Clinic+Next+Face+Skin+Hair+Aesthetic+Clinic+Sadashivanagar+Kumara+Park+West+Bengaluru&output=embed',
+    hero: '/clinic-photos/bangalore-centre.webp',
     description:
       "TLC Bangalore operates in partnership with Clinic Next Face at Sadashivanagar — bringing premium preventive medicine and longevity care to North Bengaluru, with city-wide coverage from Malleshwaram and Sankey to Whitefield and Yelahanka. The centre offers TLC's full diagnostics, programme onboarding and aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
     highlights: [
@@ -244,6 +388,31 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    gmb: {
+      shareUrl: 'https://share.google/wtT8CHje6mZfDhNCL',
+      businessName: 'Clinic Next Face — Skin, Hair & Aesthetic Clinic',
+      partnership: 'TLC × Clinic Next Face',
+    },
+    reviews: [
+      {
+        author: 'Vasundhra K.',
+        rating: 5,
+        text: 'Doctor is very nice and suggests the right type of post-care services after the treatment. My skin looks way better now. The best skin-care clinic in Bangalore.',
+        source: 'Clinic Next Face',
+      },
+      {
+        author: 'Vinod K.',
+        rating: 5,
+        text: 'I had gone to consult about the hair-fall problem I was having due to COVID. The condition of my hair was a nightmare for me. Clinic Next Face helped me regrow them and made them even better than before.',
+        source: 'Clinic Next Face',
+      },
+      {
+        author: 'Reema L.',
+        rating: 5,
+        text: 'One of the best places in Bangalore for hydrafacials and Korean glass-skin treatments. Love their therapists — and now, my skin.',
+        source: 'Clinic Next Face',
+      },
+    ],
   },
 ]
 
