@@ -162,8 +162,8 @@ export const PROGRAMS: Program[] = [
       'Full biological transformation across metabolism, gut, hormones, genes, and epigenetics — measured across three validated biological age clocks.',
     desc:
       'Our flagship 12-month protocol. Three biological age clocks tracked, 323 genes decoded, GrimAge + PhenoAge epigenetic analysis, whole-genomic gut sequencing — every measurable pillar of aging, addressed together.',
-    cardImg: '/longevity/milind-soman.jpg',
-    heroImg: '/longevity/milind-soman.jpg',
+    cardImg: '/longevity/stillness-meditation.jpg',
+    heroImg: '/longevity/stillness-meditation.jpg',
     designedFor: [
       'Those seeking measurable reduction in biological age',
       'Men experiencing fatigue, hormonal decline, loss of vitality, or metabolic shift',
@@ -221,8 +221,8 @@ export const PROGRAMS: Program[] = [
       'High-resolution biochemical profiling — analysing thousands of metabolites to surface sub-clinical dysfunction long before disease declares itself.',
     desc:
       'Thousands of metabolites analysed in a single panel — sub-clinical dysfunction surfaced years before standard tests flag concern. The deepest diagnostic lens available, designed for those whose normal tests don\'t match how they feel.',
-    cardImg: '/longevity/metabolomics-glassware.jpg',
-    heroImg: '/longevity/metabolomics-glassware.jpg',
+    cardImg: '/longevity/microscope-analyst.jpg',
+    heroImg: '/longevity/microscope-analyst.jpg',
     designedFor: [
       'High-performance individuals optimising function — not just avoiding disease',
       'Those with unresolved health concerns standard testing has failed to explain',
