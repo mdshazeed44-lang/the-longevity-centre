@@ -11,7 +11,7 @@ import { ScienceCards } from '../components/sections/ScienceCards'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { Editorial } from '../components/sections/Editorial'
 import { ClinicsBand } from '../components/sections/ClinicsBand'
-import { BrochureCTA } from '../components/sections/BrochureCTA'
+import { Faq } from '../components/sections/Faq'
 import { CtaBand } from '../components/sections/CtaBand'
 import { useDocumentMeta } from '../lib/seo'
 
@@ -49,7 +49,7 @@ export function HomePage() {
       <Editorial />
       <VideoTestimonials />
       <ClinicsBand />
-      <BrochureCTA />
+      <Faq />
       <CtaBand />
     </>
   )

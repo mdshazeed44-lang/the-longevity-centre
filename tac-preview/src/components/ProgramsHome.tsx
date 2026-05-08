@@ -230,12 +230,12 @@ export function ProgramsHome() {
                 {/* Content */}
                 <div className="relative px-8 py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 flex flex-col justify-between">
                   {/* Top row — number + tag + counter */}
-                  <div className="flex items-center justify-between gap-6">
-                    <div className="flex items-center gap-4">
-                      <span className="font-display text-[18px] md:text-[20px] text-rust font-semibold tabular-nums tracking-tight">
+                  <div className="flex items-center justify-between gap-4 md:gap-6">
+                    <div className="flex items-center gap-3 md:gap-4 min-w-0">
+                      <span className="shrink-0 font-display text-[18px] md:text-[20px] text-rust font-semibold tabular-nums tracking-tight whitespace-nowrap">
                         {p.cat}
                       </span>
-                      <span className="h-px w-10 bg-rust/40" />
+                      <span aria-hidden className="shrink-0 h-px w-6 md:w-10 bg-rust/40" />
                       <span className="text-[10px] tracking-[0.3em] uppercase text-stone font-medium">
                         {p.tag}
                       </span>
