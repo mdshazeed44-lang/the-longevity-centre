@@ -318,15 +318,22 @@ export function Hero() {
         )
       })}
 
-      {/* Cinematic overlays — kept light so the underlying footage
-          stays sharp. Top + bottom darken just enough to hold the
-          eyebrow / CTA contrast; left wash carries the headline. */}
+      {/* Cinematic overlays — calibrated so the headline + eyebrow
+          + CTAs stay legible across ALL four brand-reel clips. The
+          previous values (0.45 top, 0.55 left) were too light when
+          the bright wellness/facial clip played; text would
+          partially disappear against the white towel and lit
+          subject. Bumped left wash to 0.75 at the edge with a
+          slightly slower falloff so the right side of the video
+          (where the subject sits in most clips) stays clean. Top
+          and bottom darken bumped a touch too, behind the eyebrow
+          row and the CTA pills. */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(10,8,7,0.45) 0%, rgba(10,8,7,0.05) 28%, rgba(10,8,7,0.25) 72%, rgba(10,8,7,0.7) 100%)',
+            'linear-gradient(180deg, rgba(10,8,7,0.6) 0%, rgba(10,8,7,0.12) 28%, rgba(10,8,7,0.32) 72%, rgba(10,8,7,0.78) 100%)',
         }}
       />
       <div
@@ -334,7 +341,7 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(90deg, rgba(10,8,7,0.55) 0%, rgba(10,8,7,0.2) 45%, rgba(10,8,7,0.0) 70%)',
+            'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.32) 45%, rgba(10,8,7,0.0) 72%)',
         }}
       />
       {/* Whisper-thin grain — was 0.06 with mix-blend-overlay which
