@@ -62,7 +62,7 @@ export function Editorial() {
             </p>
           </div>
           <a
-            href="#"
+            href="/diagnostics"
             data-cursor="hover"
             className="inline-flex items-center gap-2 mt-10 text-[11px] tracking-[0.25em] text-ink uppercase font-medium hover:text-rust transition-colors group"
           >
