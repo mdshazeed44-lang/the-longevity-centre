@@ -159,15 +159,39 @@ export function Hero() {
     const vids = videoRefs.current
     const nextIdx = (activeClip + 1) % HERO_CLIPS.length
 
+    // Helper that asks the browser to start playing, and if that
+    // fails (iOS Safari is picky — sometimes rejects the first
+    // .play() because metadata isn't loaded yet), waits for the
+    // `canplay` event and retries once. This is what makes the
+    // hero auto-start on iPhone without a tap.
+    const tryPlay = (v: HTMLVideoElement) => {
+      // muted + playsInline must be set before play(). They are
+      // set on the JSX, but we re-assert here in case React reused
+      // a node and the attributes got out of sync.
+      v.muted = true
+      v.playsInline = true
+      const p = v.play()
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {
+          // Wait for the next 'canplay' tick and retry. We listen
+          // once so we don't pile up handlers across clip changes.
+          const onCanPlay = () => {
+            v.removeEventListener('canplay', onCanPlay)
+            v.play().catch(() => { /* still blocked — poster stays */ })
+          }
+          v.addEventListener('canplay', onCanPlay, { once: true })
+        })
+      }
+    }
+
     vids.forEach((v, i) => {
       if (!v) return
       if (i === activeClip) {
-        // Active: load + play. catch() because some browsers block
-        // autoplay until user interaction — the poster remains in
-        // place if that happens.
+        // Active: load + try to play. The retry-on-canplay logic
+        // inside tryPlay() is what unblocks iOS Safari.
         try { v.load() } catch { /* noop */ }
         v.currentTime = 0
-        v.play().catch(() => { /* autoplay blocked */ })
+        tryPlay(v)
       } else if (i === nextIdx) {
         // Pre-warm the next clip's first frames so the cross-fade
         // doesn't start on a black/loading frame.
@@ -231,16 +255,30 @@ export function Hero() {
           the same reason. */}
       {HERO_CLIPS.map((src, i) => {
         const isActive = i === activeClip
+        const nextIdx = (activeClip + 1) % HERO_CLIPS.length
+        const isNext = i === nextIdx
         return (
           <video
             key={src}
             ref={(el) => { videoRefs.current[i] = el }}
             className="absolute inset-0 w-full h-full object-cover will-change-transform transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
             poster="/videos/hero-poster.jpg"
+            // autoPlay + muted + playsInline is the ONLY combination
+            // iOS Safari treats as "may autoplay without user gesture".
+            // Removing autoPlay (we tried) made the hero need a tap on
+            // iPhone — kept here as a belt-and-suspenders alongside the
+            // imperative .play() in the activation effect.
+            autoPlay
             loop
             muted
             playsInline
-            preload="none"
+            // preload="metadata" gives iOS just enough to satisfy its
+            // "video is playable" gate (without it, the first .play()
+            // call rejects synchronously). It's only a few KB per clip
+            // so the LCP impact is negligible — and the active clip
+            // gets a proper preload="auto" since we want the bytes
+            // ready before we cross-fade in.
+            preload={isActive ? 'auto' : isNext ? 'metadata' : 'none'}
             aria-hidden="true"
             style={{
               opacity: isActive ? 1 : 0,
