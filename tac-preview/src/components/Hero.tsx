@@ -11,20 +11,21 @@ import { reduceMotion } from '../lib/motion'
 // first paint so they don't compete with the LCP).
 //
 // Brand reel — four pillars of TLC's longevity proposition:
-//   science (DNA helix) · vitality (cycling) · wellness (beach yoga
-//   at sunrise) · clinical (clinic interior).
-// All four sources are HD or higher (DNA is true 4K 3840×2160,
-// wellness is 1080p 60fps for buttery motion, cycling and clinic
-// are 1080p 30fps). The render treatment is tuned for sharpness
-// (Ken Burns held to 1.02, gradients light, contrast/saturation
-// lift on the <video>). Cache-bust `?v=4` because cellular.mp4
-// and swimming.mp4 were retired this round in favour of dna.mp4
-// and wellness.mp4.
+//   science (DNA helix) · vitality (cycling) · longevity (elderly
+//   couple holding hands as they walk) · clinical (clinic interior).
+// The longevity pillar replaced an earlier beach-yoga clip — the new
+// clip is more directly on-message (it literally shows what living
+// long together looks like) and ships as true 4K 3840×2160, matching
+// the DNA clip's resolution.
+// All four sources are HD or higher. Render treatment is tuned for
+// sharpness (Ken Burns held to 1.02, light gradients, contrast +
+// saturation lift on the <video>). Cache-bust `?v=5` because
+// wellness.mp4 was retired this round in favour of longevity.mp4.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=4',      // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=4',  // outdoor cycling — vitality
-  '/videos/hero-clips/wellness.mp4?v=4', // beach yoga sunrise — wellness
-  '/videos/hero-clips/clinic.mp4?v=4',   // premium clinic — clinical
+  '/videos/hero-clips/dna.mp4?v=5',       // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=5',   // outdoor cycling — vitality
+  '/videos/hero-clips/longevity.mp4?v=5', // elderly couple walking 4K — longevity
+  '/videos/hero-clips/clinic.mp4?v=5',    // premium clinic — clinical
 ] as const
 const CLIP_DURATION_MS = 5500
 
