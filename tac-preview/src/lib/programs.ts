@@ -164,15 +164,16 @@ export const PROGRAMS: Program[] = [
       'Our flagship 12-month protocol. Three biological age clocks tracked, 323 genes decoded, GrimAge + PhenoAge epigenetic analysis, whole-genomic gut sequencing — every measurable pillar of aging, addressed together.',
     // Image journey on this slot:
     //   1. stillness-meditation.jpg (yoga tree pose) — retired
-    //   2. mood-forest-light.jpg (misty forest sun-shafts) — also
-    //      retired (user wanted something more programme-specific)
-    //   3. longevity-plus-tree.jpg ← current
-    //      A single iconic tree in golden-hour light — a longevity
-    //      metaphor (rooted, stood for decades) without putting a
-    //      person in frame. Editorially distinct from the lab and
-    //      DNA imagery used elsewhere on the homepage.
-    cardImg: '/longevity/longevity-plus-tree.jpg',
-    heroImg: '/longevity/longevity-plus-tree.jpg',
+    //   2. mood-forest-light.jpg (misty forest sun-shafts) — retired
+    //   3. longevity-plus-tree.jpg (single iconic tree) — retired
+    //   4. longevity-plus-fitness.jpg ← current
+    //      Editorial side view of a woman in orange leggings doing
+    //      core work, backlit window, low-angle from the gym floor.
+    //      Warm orange ties to TLC's rust palette; the magazine-
+    //      cover framing matches the editorial register elsewhere
+    //      on the site.
+    cardImg: '/longevity/longevity-plus-fitness.jpg',
+    heroImg: '/longevity/longevity-plus-fitness.jpg',
     designedFor: [
       'Those seeking measurable reduction in biological age',
       'Men experiencing fatigue, hormonal decline, loss of vitality, or metabolic shift',
