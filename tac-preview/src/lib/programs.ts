@@ -56,7 +56,7 @@ export const PROGRAMS: Program[] = [
       'Low energy and metabolic sluggishness',
       'Insulin resistance and unfavourable body composition',
       'Repeated short-term results from diet-only attempts',
-      'Men and women seeking a more sophisticated solution',
+      'Men and women seeking a more sophisticated solution for weight loss',
     ],
     diagnostics: [
       'Comprehensive metabolic blood panel — 160+ markers',
