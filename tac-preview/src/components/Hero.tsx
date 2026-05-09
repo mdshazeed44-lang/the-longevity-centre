@@ -318,22 +318,30 @@ export function Hero() {
         )
       })}
 
-      {/* Cinematic overlays — calibrated so the headline + eyebrow
-          + CTAs stay legible across ALL four brand-reel clips. The
-          previous values (0.45 top, 0.55 left) were too light when
-          the bright wellness/facial clip played; text would
-          partially disappear against the white towel and lit
-          subject. Bumped left wash to 0.75 at the edge with a
-          slightly slower falloff so the right side of the video
-          (where the subject sits in most clips) stays clean. Top
-          and bottom darken bumped a touch too, behind the eyebrow
-          row and the CTA pills. */}
+      {/* Cinematic overlays — calibrated for the four-clip brand
+          reel where ONE clip (wellness / facial) is bright enough
+          that the previous 0.75 left wash still let white text
+          disappear into a white towel. The right answer turned out
+          to be three layers, not two:
+            (1) a top→bottom vignette that darkens behind the
+                eyebrow row and the CTA pills,
+            (2) a strong left→right text-readability wash that
+                covers the LEFT 65% of the screen and falls off
+                completely on the right so the video subject
+                stays clean,
+            (3) a soft elliptical "spotlight" behind the text
+                block itself — this is what catches the worst-
+                case bright frames where the left wash alone
+                still wasn't enough.
+          Combined with text-shadow on every hero text element
+          (added in the JSX further down), the headline + body +
+          spec pills + CTAs read across all four clips. */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(10,8,7,0.6) 0%, rgba(10,8,7,0.12) 28%, rgba(10,8,7,0.32) 72%, rgba(10,8,7,0.78) 100%)',
+            'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.18) 28%, rgba(10,8,7,0.4) 72%, rgba(10,8,7,0.82) 100%)',
         }}
       />
       <div
@@ -341,7 +349,19 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.32) 45%, rgba(10,8,7,0.0) 72%)',
+            'linear-gradient(90deg, rgba(10,8,7,0.92) 0%, rgba(10,8,7,0.65) 30%, rgba(10,8,7,0.28) 55%, rgba(10,8,7,0.0) 78%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          // Soft elliptical spotlight behind the text block —
+          // catches worst-case bright frames (the wellness facial
+          // clip) so the headline + paragraph never get washed
+          // into a white towel.
+          background:
+            'radial-gradient(60% 70% at 25% 55%, rgba(10,8,7,0.55) 0%, rgba(10,8,7,0.0) 75%)',
         }}
       />
       {/* Whisper-thin grain — was 0.06 with mix-blend-overlay which
@@ -356,11 +376,21 @@ export function Hero() {
         }}
       />
 
-      {/* Content — left aligned, premium hero layout */}
+      {/* Content — left aligned, premium hero layout.
+          `textShadow` style is applied via the `tlc-hero-shadow` CSS
+          class (defined inline below) so the headline + paragraph
+          stay readable even on the brightest clip frames. */}
+      <style>{`
+        .tlc-hero-shadow {
+          text-shadow:
+            0 2px 14px rgba(10,8,7,0.85),
+            0 1px 3px rgba(10,8,7,0.55);
+        }
+      `}</style>
       <div className="relative z-10 min-h-screen min-h-[100svh] flex flex-col justify-center md:justify-end pt-24 pb-10 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
         {/* Eyebrow + phone pill row */}
         <div ref={eyebrow} className="flex flex-wrap items-center gap-3 md:gap-4 mb-3 md:mb-5">
-          <span className="text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">
+          <span className="tlc-hero-shadow text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white">
             Premium Longevity Clinics · India
           </span>
           <a
@@ -386,16 +416,18 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-display font-bold text-[34px] sm:text-[50px] md:text-[68px] xl:text-[92px] leading-[1.0] md:leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-4 md:mb-6">
+        <h1 className="tlc-hero-shadow font-display font-bold text-[34px] sm:text-[50px] md:text-[68px] xl:text-[92px] leading-[1.0] md:leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-4 md:mb-6">
           <MaskedReveal text="Age should" delay={0.55} charClassName="text-white/95" />
           <br />
           <MaskedReveal text="never define you." delay={0.7} charClassName="text-white" />
         </h1>
 
-        {/* Description */}
+        {/* Description — bumped to text-white/95 (was /80) so even
+            with the dark wash beneath, the body copy reads at full
+            brightness across all four clips. */}
         <p
           ref={para}
-          className="text-[14px] md:text-[17px] leading-[1.55] md:leading-[1.6] text-white/80 max-w-[560px] mb-4 md:mb-6 font-light"
+          className="tlc-hero-shadow text-[14px] md:text-[17px] leading-[1.55] md:leading-[1.6] text-white/95 max-w-[560px] mb-4 md:mb-6 font-light"
         >
           Explore TLC's innovative, personalised preventive medicine for a
           vibrant and fulfilling life — at any stage.
