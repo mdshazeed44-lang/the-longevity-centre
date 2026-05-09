@@ -329,7 +329,7 @@ export const PROGRAMS: Program[] = [
     title: 'PCOD Correction Programme',
     shortTitle: 'PCOD Correction',
     tag: 'Multi-System Restoration',
-    duration: '6 Months',
+    duration: '3–6 Months',
     price: '₹45,000',
     focus:
       'Multi-system correction — metabolic, hormonal, and microbiome addressed together. The most comprehensive PCOD programme in India.',
