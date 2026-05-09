@@ -10,23 +10,28 @@ import { reduceMotion } from '../lib/motion'
 // /public/videos/hero-clips/ (~55 MB total, lazy-loaded after
 // first paint so they don't compete with the LCP).
 //
-// Brand reel — four pillars of TLC's longevity proposition:
-//   science (DNA helix) · vitality (cycling) · wellness (premium
-//   facial / skincare ritual) · clinical (lab pipette in motion).
-// The wellness slot used to be a beach-yoga clip, then an elderly-
-// couple-walking clip, both retired at the client's request. The
-// clinical slot used to be a slow clinic-interior shot — replaced
-// here with a pipette-dropping clip for more visual energy.
-// DNA stays at 4K (3840×2160); the other three are 1080p HD.
+// Brand reel — five pillars of TLC's longevity proposition:
+//   1. science      — DNA helix (4K animation)
+//   2. vitality     — outdoor cycling
+//   3. mindfulness  — yoga in a dark studio (single seated pose,
+//                     light streaming through a window). Added at
+//                     the user's request as a 5th slot to balance
+//                     the active-vitality clip with a calmer,
+//                     introspective frame. Average 48/255
+//                     brightness so the headline still reads.
+//   4. wellness     — premium facial / skincare ritual
+//   5. circulation  — blood cells flowing through a vein (3D)
+// DNA stays at 4K (3840×2160); the other four are 1080p / 720p HD.
 // Render treatment is tuned for sharpness (Ken Burns held to 1.02,
-// light gradients, contrast + saturation lift on the <video>).
-// Cache-bust `?v=6` because the wellness and clinical files were
-// retired this round.
+// uniform 0.42 dark wash, contrast + saturation lift on the active
+// <video>, only the active clip decoding frames). Cache-bust
+// `?v=8` because yoga.mp4 was added.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=6',      // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=6',  // outdoor cycling — vitality
-  '/videos/hero-clips/wellness.mp4?v=6', // facial / skincare — wellness
-  '/videos/hero-clips/lab.mp4?v=6',      // lab pipette — clinical
+  '/videos/hero-clips/dna.mp4?v=8',         // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=8',     // outdoor cycling — vitality
+  '/videos/hero-clips/yoga.mp4?v=8',        // dark studio yoga — mindfulness
+  '/videos/hero-clips/wellness.mp4?v=8',    // facial / skincare — wellness
+  '/videos/hero-clips/circulation.mp4?v=8', // blood cells in vein — circulation
 ] as const
 const CLIP_DURATION_MS = 5500
 
@@ -318,30 +323,39 @@ export function Hero() {
         )
       })}
 
-      {/* Cinematic overlays — calibrated for the four-clip brand
-          reel where ONE clip (wellness / facial) is bright enough
-          that the previous 0.75 left wash still let white text
-          disappear into a white towel. The right answer turned out
-          to be three layers, not two:
-            (1) a top→bottom vignette that darkens behind the
-                eyebrow row and the CTA pills,
-            (2) a strong left→right text-readability wash that
-                covers the LEFT 65% of the screen and falls off
-                completely on the right so the video subject
-                stays clean,
-            (3) a soft elliptical "spotlight" behind the text
-                block itself — this is what catches the worst-
-                case bright frames where the left wash alone
-                still wasn't enough.
-          Combined with text-shadow on every hero text element
-          (added in the JSX further down), the headline + body +
-          spec pills + CTAs read across all four clips. */}
+      {/* Cinematic overlays — modelled on healthylongevityclinic.cz,
+          where the WHOLE video is uniformly dimmed so white text
+          reads everywhere instead of just on the left side.
+          Three layers, in order from bottom to top:
+            (1) Solid translucent dark wash covering the whole
+                hero (rgba 0.42). This is the "translucent video"
+                effect — a flat darken that dims every clip,
+                including the bright wellness/facial frame, by
+                about 40% so the white headline holds anywhere
+                it lands.
+            (2) Soft top→bottom vignette — adds a touch more
+                weight behind the eyebrow row and CTA pills.
+                Lightened from the previous bigger numbers
+                because the uniform wash already does the
+                heavy lifting.
+            (3) Subtle left→right gradient — just a hint, so the
+                left half (where text sits) is a few % darker
+                than the right (where the video subject sits).
+                Far softer than the old 0.92 wash.
+          Combined with text-shadow on every hero text element,
+          the headline + body + spec pills + CTAs read across
+          all four clips while the video stays watchable. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'rgba(10,8,7,0.42)' }}
+      />
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.18) 28%, rgba(10,8,7,0.4) 72%, rgba(10,8,7,0.82) 100%)',
+            'linear-gradient(180deg, rgba(10,8,7,0.35) 0%, rgba(10,8,7,0.0) 22%, rgba(10,8,7,0.0) 70%, rgba(10,8,7,0.5) 100%)',
         }}
       />
       <div
@@ -349,19 +363,7 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(90deg, rgba(10,8,7,0.92) 0%, rgba(10,8,7,0.65) 30%, rgba(10,8,7,0.28) 55%, rgba(10,8,7,0.0) 78%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          // Soft elliptical spotlight behind the text block —
-          // catches worst-case bright frames (the wellness facial
-          // clip) so the headline + paragraph never get washed
-          // into a white towel.
-          background:
-            'radial-gradient(60% 70% at 25% 55%, rgba(10,8,7,0.55) 0%, rgba(10,8,7,0.0) 75%)',
+            'linear-gradient(90deg, rgba(10,8,7,0.28) 0%, rgba(10,8,7,0.08) 50%, rgba(10,8,7,0.0) 80%)',
         }}
       />
       {/* Whisper-thin grain — was 0.06 with mix-blend-overlay which
@@ -377,14 +379,18 @@ export function Hero() {
       />
 
       {/* Content — left aligned, premium hero layout.
-          `textShadow` style is applied via the `tlc-hero-shadow` CSS
-          class (defined inline below) so the headline + paragraph
-          stay readable even on the brightest clip frames. */}
+          Whisper-soft text-shadow modelled on healthylongevityclinic
+          .cz: `1px 1px 12px rgba(0,0,0,0.15)` — only 15% opacity,
+          1px offset, 12px blur. Almost invisible to the eye but
+          adds just enough edge contrast that white text stays
+          legible on every clip. The previous attempt (85% opacity,
+          14px blur) was too heavy — letters looked fuzzy and the
+          shadow got clipped by the masked-reveal per-character
+          overflow-hidden wrappers, making descenders look nibbled.
+          At 15% opacity the per-char clipping is imperceptible. */}
       <style>{`
         .tlc-hero-shadow {
-          text-shadow:
-            0 2px 14px rgba(10,8,7,0.85),
-            0 1px 3px rgba(10,8,7,0.55);
+          text-shadow: 1px 1px 12px rgba(0,0,0,0.15);
         }
       `}</style>
       <div className="relative z-10 min-h-screen min-h-[100svh] flex flex-col justify-center md:justify-end pt-24 pb-10 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
@@ -445,7 +451,11 @@ export function Hero() {
               className="inline-flex items-center gap-2 md:gap-3 backdrop-blur-md bg-white/[0.06] hover:bg-white/[0.10] transition-colors duration-500 border border-white/15 rounded-full pl-3 pr-3.5 md:pl-4 md:pr-5 py-1.5 md:py-2.5 shadow-[0_18px_40px_-25px_rgba(0,0,0,0.6)]"
             >
               <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust-soft shrink-0" />
-              <span className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-white/60 font-semibold whitespace-nowrap">
+              {/* Spec pill label (CENTRES / EXPERIENCE / SPECIALITIES)
+                  was text-white/60 — too dim against the dimmed video.
+                  Bumped to /90 so the eyebrow tracking-out copy reads
+                  cleanly across all four clips. */}
+              <span className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-white/90 font-semibold whitespace-nowrap">
                 {s.k}
               </span>
               <span className="text-[11.5px] md:text-[13px] tracking-[-0.005em] text-white font-semibold whitespace-nowrap">
@@ -464,7 +474,7 @@ export function Hero() {
             className="group inline-flex items-center gap-3 md:gap-4 pl-5 pr-3 md:pl-6 md:pr-4 py-2.5 md:py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[210px] md:min-w-[240px]"
           >
             <div className="text-left">
-              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-0.5 md:mb-1">
+              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/90 font-medium mb-0.5 md:mb-1">
                 Book Now
               </div>
               <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
@@ -482,7 +492,7 @@ export function Hero() {
             className="group inline-flex items-center gap-3 md:gap-4 pl-5 pr-3 md:pl-6 md:pr-4 py-2.5 md:py-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/20 transition-colors duration-300 min-w-[210px] md:min-w-[240px]"
           >
             <div className="text-left">
-              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/60 font-medium mb-0.5 md:mb-1">
+              <div className="text-[9.5px] md:text-[10px] tracking-[0.28em] uppercase text-white/90 font-medium mb-0.5 md:mb-1">
                 Explore
               </div>
               <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
