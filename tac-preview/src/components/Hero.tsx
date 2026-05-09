@@ -11,21 +11,22 @@ import { reduceMotion } from '../lib/motion'
 // first paint so they don't compete with the LCP).
 //
 // Brand reel — four pillars of TLC's longevity proposition:
-//   science (DNA helix) · vitality (cycling) · longevity (elderly
-//   couple holding hands as they walk) · clinical (clinic interior).
-// The longevity pillar replaced an earlier beach-yoga clip — the new
-// clip is more directly on-message (it literally shows what living
-// long together looks like) and ships as true 4K 3840×2160, matching
-// the DNA clip's resolution.
-// All four sources are HD or higher. Render treatment is tuned for
-// sharpness (Ken Burns held to 1.02, light gradients, contrast +
-// saturation lift on the <video>). Cache-bust `?v=5` because
-// wellness.mp4 was retired this round in favour of longevity.mp4.
+//   science (DNA helix) · vitality (cycling) · wellness (premium
+//   facial / skincare ritual) · clinical (lab pipette in motion).
+// The wellness slot used to be a beach-yoga clip, then an elderly-
+// couple-walking clip, both retired at the client's request. The
+// clinical slot used to be a slow clinic-interior shot — replaced
+// here with a pipette-dropping clip for more visual energy.
+// DNA stays at 4K (3840×2160); the other three are 1080p HD.
+// Render treatment is tuned for sharpness (Ken Burns held to 1.02,
+// light gradients, contrast + saturation lift on the <video>).
+// Cache-bust `?v=6` because the wellness and clinical files were
+// retired this round.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=5',       // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=5',   // outdoor cycling — vitality
-  '/videos/hero-clips/longevity.mp4?v=5', // elderly couple walking 4K — longevity
-  '/videos/hero-clips/clinic.mp4?v=5',    // premium clinic — clinical
+  '/videos/hero-clips/dna.mp4?v=6',      // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=6',  // outdoor cycling — vitality
+  '/videos/hero-clips/wellness.mp4?v=6', // facial / skincare — wellness
+  '/videos/hero-clips/lab.mp4?v=6',      // lab pipette — clinical
 ] as const
 const CLIP_DURATION_MS = 5500
 
