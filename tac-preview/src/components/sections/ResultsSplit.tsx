@@ -133,9 +133,13 @@ export function ResultsSplit() {
         {/* RIGHT — editorial brand imagery only */}
         <div className="md:sticky md:top-28">
           <div className="relative aspect-[4/5] sm:aspect-[1/1] md:aspect-[4/5] overflow-hidden rounded-[18px] bg-mist max-h-[560px]">
+            {/* Was reformed-life.jpg (yoga back-bend in a studio) —
+                retired at the user's request. Mood-feet-roots reads
+                as "results that hold" / "grounded outcome" without
+                putting a yoga subject in the frame. */}
             <img
-              src="/longevity/reformed-life.jpg"
-              alt="Restored vitality — strength and capability returned"
+              src="/longevity/brand/mood-feet-roots.jpg"
+              alt="Restored vitality — grounded, lasting results"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />

@@ -162,8 +162,12 @@ export const PROGRAMS: Program[] = [
       'Full biological transformation across metabolism, gut, hormones, genes, and epigenetics — measured across three validated biological age clocks.',
     desc:
       'Our flagship 12-month protocol. Three biological age clocks tracked, 323 genes decoded, GrimAge + PhenoAge epigenetic analysis, whole-genomic gut sequencing — every measurable pillar of aging, addressed together.',
-    cardImg: '/longevity/stillness-meditation.jpg',
-    heroImg: '/longevity/stillness-meditation.jpg',
+    // Was stillness-meditation.jpg (yoga tree pose on a misty mountain)
+    // — retired at the user's request along with every other yoga
+    // image on the homepage. Forest-light reads as "serene
+    // transformation" without putting a person in frame.
+    cardImg: '/longevity/brand/mood-forest-light.jpg',
+    heroImg: '/longevity/brand/mood-forest-light.jpg',
     designedFor: [
       'Those seeking measurable reduction in biological age',
       'Men experiencing fatigue, hormonal decline, loss of vitality, or metabolic shift',

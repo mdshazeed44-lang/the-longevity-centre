@@ -659,7 +659,7 @@ export function LongevityProgramPage() {
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-yoga-duo.jpg" alt="Yoga movement" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-body-mind-soul.jpg" alt="Body, mind and soul — TLC's whole-person framing" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>

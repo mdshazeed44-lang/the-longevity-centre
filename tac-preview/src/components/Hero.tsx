@@ -252,7 +252,7 @@ export function Hero() {
           single most important image on the site. The video covers
           the poster as soon as it can play. */}
       <img
-        src="/videos/hero-poster.jpg"
+        src="/videos/hero-poster.jpg?v=3"
         alt=""
         aria-hidden="true"
         width={1280}
@@ -282,7 +282,7 @@ export function Hero() {
             key={src}
             ref={(el) => { videoRefs.current[i] = el }}
             className="absolute inset-0 w-full h-full object-cover will-change-transform transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-            poster="/videos/hero-poster.jpg"
+            poster="/videos/hero-poster.jpg?v=3"
             // autoPlay + muted + playsInline is the ONLY combination
             // iOS Safari treats as "may autoplay without user gesture".
             // Removing autoPlay (we tried) made the hero need a tap on

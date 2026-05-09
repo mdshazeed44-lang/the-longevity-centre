@@ -41,7 +41,7 @@ const BENEFITS: Benefit[] = [
     body:
       'Optimised fat percentage, preserved lean mass. BCA-tracked, physician-guided — measured beyond the scale.',
     img: '/longevity/body-composition-pose.jpg',
-    alt: 'Editorial yoga camel pose — lean body composition in motion',
+    alt: 'Editorial athletic shot — lean body composition in motion',
   },
   {
     n: '04',
