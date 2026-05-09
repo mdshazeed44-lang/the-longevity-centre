@@ -134,9 +134,32 @@ export function Hero() {
       setActiveClip((i) => (i + 1) % HERO_CLIPS.length)
     }, CLIP_DURATION_MS)
 
+    // iOS Safari fallback: if Low Power Mode is on, or the page is
+    // restored from bfcache, or any other reason the muted-autoplay
+    // policy didn't kick in, the browser will leave the videos
+    // paused and the user sees the static poster. The standard
+    // workaround is to listen for the FIRST user interaction
+    // (touch / scroll / click anywhere) and call .play() on every
+    // hero video then. Safari counts that interaction as the
+    // gesture-trigger autoplay needs.
+    const kickPlayOnFirstInteraction = () => {
+      videoRefs.current.forEach((v) => {
+        if (v && v.paused) v.play().catch(() => { /* poster stays */ })
+      })
+    }
+    const opts = { once: true, passive: true } as const
+    document.addEventListener('touchstart', kickPlayOnFirstInteraction, opts)
+    document.addEventListener('touchend', kickPlayOnFirstInteraction, opts)
+    document.addEventListener('click', kickPlayOnFirstInteraction, opts)
+    window.addEventListener('scroll', kickPlayOnFirstInteraction, opts)
+
     return () => {
       tl.kill()
       window.clearInterval(cycle)
+      document.removeEventListener('touchstart', kickPlayOnFirstInteraction)
+      document.removeEventListener('touchend', kickPlayOnFirstInteraction)
+      document.removeEventListener('click', kickPlayOnFirstInteraction)
+      window.removeEventListener('scroll', kickPlayOnFirstInteraction)
     }
   }, [])
 
@@ -157,27 +180,26 @@ export function Hero() {
   useEffect(() => {
     const reduced = reduceMotion()
     const vids = videoRefs.current
-    const nextIdx = (activeClip + 1) % HERO_CLIPS.length
 
-    // Helper that asks the browser to start playing, and if that
-    // fails (iOS Safari is picky — sometimes rejects the first
-    // .play() because metadata isn't loaded yet), waits for the
-    // `canplay` event and retries once. This is what makes the
-    // hero auto-start on iPhone without a tap.
+    // Helper: try to play a video, retry once on canplay if iOS
+    // rejected the first attempt because metadata wasn't ready.
+    // Note we deliberately do NOT call .load() or reset .currentTime
+    // — both are expensive on iOS Safari and were the actual cause
+    // of the "video doesn't play at all on iPhone" report. The
+    // browser's own autoplay flow (autoplay + muted + playsInline
+    // + preload="metadata" on the JSX) handles the initial play;
+    // we only need to flip play/pause as activeClip rotates.
     const tryPlay = (v: HTMLVideoElement) => {
-      // muted + playsInline must be set before play(). They are
-      // set on the JSX, but we re-assert here in case React reused
-      // a node and the attributes got out of sync.
+      // Re-assert iOS-required attrs — React may reuse a DOM node
+      // and lose them between renders.
       v.muted = true
       v.playsInline = true
       const p = v.play()
       if (p && typeof p.catch === 'function') {
         p.catch(() => {
-          // Wait for the next 'canplay' tick and retry. We listen
-          // once so we don't pile up handlers across clip changes.
           const onCanPlay = () => {
             v.removeEventListener('canplay', onCanPlay)
-            v.play().catch(() => { /* still blocked — poster stays */ })
+            v.play().catch(() => { /* poster stays */ })
           }
           v.addEventListener('canplay', onCanPlay, { once: true })
         })
@@ -187,18 +209,15 @@ export function Hero() {
     vids.forEach((v, i) => {
       if (!v) return
       if (i === activeClip) {
-        // Active: load + try to play. The retry-on-canplay logic
-        // inside tryPlay() is what unblocks iOS Safari.
-        try { v.load() } catch { /* noop */ }
-        v.currentTime = 0
+        // Active: ensure playing (idempotent — if already playing,
+        // .play() is a no-op).
         tryPlay(v)
-      } else if (i === nextIdx) {
-        // Pre-warm the next clip's first frames so the cross-fade
-        // doesn't start on a black/loading frame.
-        try { v.load() } catch { /* noop */ }
-        v.pause()
       } else {
-        // Far-from-active clips: pause to stop frame decoding.
+        // Everything else (including `next`) stays paused. iOS only
+        // has to decode one stream at a time. The `next` clip's
+        // preload="metadata" attribute (set in the JSX below) makes
+        // sure it has metadata + first frame buffered, so the
+        // cross-fade-in still starts on a real frame instead of black.
         v.pause()
       }
     })
@@ -275,10 +294,12 @@ export function Hero() {
             // preload="metadata" gives iOS just enough to satisfy its
             // "video is playable" gate (without it, the first .play()
             // call rejects synchronously). It's only a few KB per clip
-            // so the LCP impact is negligible — and the active clip
-            // gets a proper preload="auto" since we want the bytes
-            // ready before we cross-fade in.
-            preload={isActive ? 'auto' : isNext ? 'metadata' : 'none'}
+            // so the LCP impact is negligible. We deliberately do NOT
+            // bump the active clip to "auto" — on cellular iPhones
+            // that means the browser tries to download the full
+            // 15-19 MB clip before starting playback, which manifests
+            // as "video doesn't play at all on iPhone".
+            preload={isActive || isNext ? 'metadata' : 'none'}
             aria-hidden="true"
             style={{
               opacity: isActive ? 1 : 0,
