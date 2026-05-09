@@ -153,6 +153,8 @@ export const PROGRAMS: Program[] = [
       'Improved energy, mental clarity, and mood',
       'Stronger, more resilient immune function',
       'Healthier skin from within',
+      'Significant weight loss and improved body composition',
+      'Nutrient deficiency correction',
       'Sustainable metabolic improvement through the gut–metabolism axis',
     ],
     difference:
