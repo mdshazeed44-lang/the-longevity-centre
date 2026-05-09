@@ -224,7 +224,7 @@ export const PROGRAMS: Program[] = [
       'Measurably reduced biological age — across all three clocks',
       'Optimised hormonal balance — male and female',
       'Restored gut microbiome — gut age improved and documented',
-      'Improved epigenetic profile — gene expression optimised',
+      'Reduction in epigenetic age',
       'Genetic blueprint decoded — informing lifelong decisions',
       'Reduced systemic inflammation and chronic disease risk',
       'Enhanced energy, cognitive clarity, sleep quality, and skin health',
