@@ -19,7 +19,9 @@ export function Editorial() {
         trigger: sectionRef.current,
         start: 'top bottom',
         end: 'bottom top',
-        scrub: true,
+        // 0.8s scrub lerp — keeps the parallax glide buttery
+        // rather than locked to the wheel.
+        scrub: 0.8,
       },
     })
   }, [])

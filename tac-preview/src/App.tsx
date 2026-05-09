@@ -28,13 +28,23 @@ gsap.registerPlugin(ScrollTrigger)
 function App({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (reduceMotion()) return
-    // Longer duration + softer easing = buttery scroll feel; makes
-    // scroll-tied scrub animations glide instead of snap.
+    // Lerp-based smoothing (each frame moves 9% toward the target
+    // scroll position). Replaces the older duration:1.8 / easing:
+    // function setup, which felt scripted and slow — the rate-based
+    // lerp reads as a continuous, silky glide instead.
+    //
+    // wheelMultiplier 1.0 keeps the input feel exactly native; the
+    // smoothing comes purely from the lerp interpolation. touch
+    // smoothing is intentionally OFF — iOS Safari's native momentum
+    // scroll is the gold standard, and Lenis's syncTouch can
+    // interfere with it (jitter on flick scrolls). On mobile we get
+    // native momentum; on desktop we get lerp-smoothed wheel scroll.
     const lenis = new Lenis({
-      duration: 1.8,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -12 * t)),
+      lerp: 0.09,
       smoothWheel: true,
-      wheelMultiplier: 0.95,
+      wheelMultiplier: 1.0,
+      syncTouch: false,
+      touchMultiplier: 1.5,
     })
     // Expose for in-page anchor scroll + debug (typed in src/types/globals.d.ts)
     window.__lenis = lenis

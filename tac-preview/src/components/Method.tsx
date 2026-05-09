@@ -106,7 +106,10 @@ export function Method() {
           trigger: stepsRef.current,
           start: 'top 50%',
           end: 'bottom 60%',
-          scrub: true,
+          // Smooth scrub (0.6s lerp) instead of locked scrub:true.
+          // Keeps the bar gliding with the page scroll instead of
+          // tracking the wheel pixel-perfect, which felt jumpy.
+          scrub: 0.6,
         },
       })
       cleanups.push(() => {
