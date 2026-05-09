@@ -39,6 +39,11 @@ Thumbs.db
 docs/
 **/scratch/
 
+# Internal session log — kept LOCAL only as a running engineering diary.
+# Useful when picking up a session in a fresh Claude window, but should
+# never be pushed to GitHub (private notes, large file, churns every day).
+claudeconversation.txt
+
 # Reference PDFs that the client uploaded into /public for designer reference.
 # Per user instruction (5 May 2026): "isko hatana mat", but never push to git.
 # These are huge (>100 MB) and would break Netlify deploy if shipped.
