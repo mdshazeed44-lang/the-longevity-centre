@@ -1,16 +1,42 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { reduceMotion } from '../lib/motion'
+
+/**
+ * Detect a pointer-coarse (touch) device. We render the cursor only
+ * on devices that have a fine pointer — phones / tablets get the
+ * native touch handling and no custom cursor at all.
+ *
+ * Earlier versions bailed out of the useEffect on touch devices but
+ * still rendered the three cursor <div>s at `position:fixed; top:0;
+ * left:0`. With no JS to move them, the pink dot + ring + glow stayed
+ * stacked in the upper-left corner of every mobile page. Returning
+ * null at the component boundary fixes that for good.
+ */
+function useFinePointer(): boolean {
+  const [fine, setFine] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return window.matchMedia('(pointer: fine)').matches
+  })
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: fine)')
+    const handler = (e: MediaQueryListEvent) => setFine(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+  return fine
+}
 
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null)
   const ring = useRef<HTMLDivElement>(null)
   const glow = useRef<HTMLDivElement>(null)
+  const finePointer = useFinePointer()
 
   useEffect(() => {
+    if (!finePointer) return
     if (reduceMotion()) return
     if (typeof window === 'undefined') return
-    if (window.matchMedia('(pointer: coarse)').matches) return
 
     // Three layers, three speeds — gives a smooth lerp/trail feel
     const xDot = gsap.quickTo(dot.current, 'x', { duration: 0.08, ease: 'power3.out' })
@@ -78,7 +104,12 @@ export function Cursor() {
       document.removeEventListener('mouseout', leave, true)
       document.body.classList.remove('has-custom-cursor')
     }
-  }, [])
+  }, [finePointer])
+
+  // Touch devices: skip the whole render so no cursor div ever
+  // mounts. This is what kept three pink/glow divs stuck at the
+  // top-left of every mobile page.
+  if (!finePointer) return null
 
   return (
     <>
