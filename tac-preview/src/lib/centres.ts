@@ -29,6 +29,20 @@ export type Centre = {
   /** When false (opening-soon), we omit MedicalClinic JSON-LD */
   verified: boolean
   /**
+   * Geographic coordinates for this centre — used by the LocalBusiness /
+   * MedicalClinic JSON-LD on the detail page, by the homepage map pins,
+   * and by the site-wide JSON-LD in index.html. Approximate to the
+   * area / postal code (street-level fidelity is unnecessary and would
+   * leak more PII than needed for a marketing site). For opening-soon
+   * centres we still emit a coordinate so the city pin renders on the
+   * map; the JSON-LD just won't claim the location is a fully open
+   * MedicalClinic.
+   */
+  geo: {
+    lat: number
+    lon: number
+  }
+  /**
    * Google Business Profile (GMB) details — when present, the centre
    * detail page renders a "Verified on Google" panel with reviews +
    * directions CTAs in addition to the standard map embed.
@@ -81,6 +95,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 28.5456, lon: 77.2417 }, // Greater Kailash-1, New Delhi
     reviews: [
       {
         author: 'Vikas',
@@ -128,6 +143,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 28.4126, lon: 77.0382 }, // Sector 48 / Sohna Road, Gurugram
     reviews: [
       {
         author: 'Varun',
@@ -175,6 +191,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 19.0628, lon: 72.8302 }, // Bandra West, Mumbai
     reviews: [
       {
         author: 'Vikas',
@@ -222,6 +239,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 18.5089, lon: 73.9259 }, // Hadapsar / Amanora, Pune
     reviews: [
       {
         author: 'Liza',
@@ -269,6 +287,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 21.1458, lon: 79.0882 }, // Civil Lines, Nagpur
     reviews: [
       {
         author: 'Bhimprakash Ramteke',
@@ -316,6 +335,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 15.5524, lon: 73.7508 }, // Panaji, Goa
     reviews: [
       {
         author: 'Vikas',
@@ -362,6 +382,7 @@ export const CENTRES: Centre[] = [
     timings: 'Opening 2026 · Remote onboarding available now',
     status: 'opening-soon',
     verified: false,
+    geo: { lat: 17.4239, lon: 78.4738 }, // Banjara Hills, Hyderabad
   },
   {
     slug: 'bangalore',
@@ -388,6 +409,7 @@ export const CENTRES: Centre[] = [
     timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
+    geo: { lat: 12.9352, lon: 77.6245 }, // Koramangala, Bengaluru
     gmb: {
       shareUrl: 'https://share.google/wtT8CHje6mZfDhNCL',
       businessName: 'Clinic Next Face — Skin, Hair & Aesthetic Clinic',

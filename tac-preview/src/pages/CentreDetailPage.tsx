@@ -13,7 +13,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CENTRES, getCentreBySlug } from '../lib/centres'
 import { CtaBand } from '../components/sections/CtaBand'
 
@@ -48,32 +48,110 @@ export function CentreDetailPage() {
   const centre = getCentreBySlug(slug)
 
   useDocumentMeta({
+    // City-led title for local SEO (matches search intent like
+    // "longevity clinic in Bangalore" / "anti-aging Pune").
     title: centre
-      ? `${centre.city} Centre · TLC — The Longevity Centre`
+      ? `Longevity Clinic in ${centre.city} · ${centre.area} · TLC`
       : 'Centre · TLC',
     description: centre
-      ? `${centre.city}: ${centre.description.substring(0, 155)}…`
+      ? `TLC ${centre.city} — doctor-led longevity, metabolic & aesthetics programmes at ${centre.area}. ${centre.description.substring(0, 110)}…`
       : 'TLC clinic location.',
     path: `/centres/${slug}`,
     jsonLd: centre && centre.verified
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'MedicalClinic',
-          '@id': `https://thelongevitycentre.com/centres/${centre.slug}#clinic`,
-          name: `TLC ${centre.city}`,
-          parentOrganization: { '@id': 'https://thelongevitycentre.com/#organization' },
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: centre.address,
-            addressLocality: centre.city,
-            addressRegion: centre.state,
-            addressCountry: 'IN',
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalClinic',
+            '@id': `https://thelongevitycentre.com/centres/${centre.slug}#clinic`,
+            name: `TLC ${centre.city} · ${centre.area}`,
+            alternateName: `The Longevity Centre ${centre.city}`,
+            description: centre.description,
+            parentOrganization: {
+              '@id': 'https://thelongevitycentre.com/#organization',
+            },
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: centre.address,
+              addressLocality: centre.city,
+              addressRegion: centre.state,
+              addressCountry: 'IN',
+            },
+            geo: {
+              '@type': 'GeoCoordinates',
+              latitude: centre.geo.lat,
+              longitude: centre.geo.lon,
+            },
+            telephone: centre.phone.replace(/\s+/g, ''),
+            email: centre.email,
+            url: `https://thelongevitycentre.com/centres/${centre.slug}`,
+            image: `${SITE_URL}${centre.hero}`,
+            priceRange: '₹₹₹',
+            openingHoursSpecification: [
+              {
+                '@type': 'OpeningHoursSpecification',
+                dayOfWeek: [
+                  'Monday',
+                  'Tuesday',
+                  'Wednesday',
+                  'Thursday',
+                  'Friday',
+                  'Saturday',
+                ],
+                opens: '09:00',
+                closes: '20:00',
+              },
+            ],
+            areaServed: [
+              { '@type': 'City', name: centre.city },
+              ...(centre.region !== centre.city
+                ? [{ '@type': 'AdministrativeArea', name: centre.region }]
+                : []),
+            ],
+            medicalSpecialty: [
+              'PreventiveMedicine',
+              'Geriatric',
+              'Dermatology',
+              'Nutrition',
+            ],
+            availableService: [
+              {
+                '@type': 'MedicalProcedure',
+                name: 'Longevity Plus Programme',
+                procedureType: 'Lifestyle',
+              },
+              {
+                '@type': 'MedicalProcedure',
+                name: 'Metabolic & Weight-Loss Programme',
+                procedureType: 'Lifestyle',
+              },
+              {
+                '@type': 'MedicalProcedure',
+                name: 'Diabetes & Fatty-Liver Reversal',
+                procedureType: 'Therapeutic',
+              },
+              {
+                '@type': 'MedicalProcedure',
+                name: 'Body Composition Analysis (BCA)',
+                procedureType: 'Diagnostic',
+              },
+              {
+                '@type': 'MedicalProcedure',
+                name: 'EndoPAT Endothelial Function Test',
+                procedureType: 'Diagnostic',
+              },
+              {
+                '@type': 'MedicalProcedure',
+                name: 'Bone Mineral Density (Ultrasound BMD)',
+                procedureType: 'Diagnostic',
+              },
+            ],
           },
-          telephone: centre.phone.replace(/\s+/g, ''),
-          email: centre.email,
-          url: `https://thelongevitycentre.com/centres/${centre.slug}`,
-          openingHours: 'Mo-Sa 09:00-20:00',
-        }
+          breadcrumbList([
+            { name: 'Home', url: '/' },
+            { name: 'Centres', url: '/centres' },
+            { name: centre.city, url: `/centres/${centre.slug}` },
+          ]),
+        ]
       : undefined,
   })
 

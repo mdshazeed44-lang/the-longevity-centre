@@ -18,10 +18,12 @@
     <title>TLC — The Longevity Centre · Precision Longevity Medicine, India</title>
     <meta
       name="description"
-      content="The Longevity Centre (TLC) — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided programmes across longevity, metabolic, gut, weight and biological-age reversal. Twenty-plus years of clinical experience, six centres pan-India."
+      content="The Longevity Centre (TLC) — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Eight centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad."
     />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
     <meta name="author" content="The Longevity Centre" />
+    <meta name="geo.region" content="IN" />
+    <meta name="geo.placename" content="India · 8 cities" />
     <link rel="canonical" href="https://thelongevitycentre.com/" />
 
     <!-- Open Graph -->
@@ -31,17 +33,20 @@
     <meta property="og:title" content="TLC — The Longevity Centre · Precision Longevity Medicine, India" />
     <meta
       property="og:description"
-      content="India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic and biological-age reversal."
+      content="India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across 8 centres in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad."
     />
     <meta property="og:url" content="https://thelongevitycentre.com/" />
     <meta property="og:image" content="https://thelongevitycentre.com/og/default.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Longevity Centre — Precision longevity medicine, India" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="TLC — The Longevity Centre · Precision Longevity Medicine, India" />
     <meta
       name="twitter:description"
-      content="India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic and biological-age reversal."
+      content="India's first doctor-led personalised longevity programme. 8 centres pan-India across Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad."
     />
     <meta name="twitter:image" content="https://thelongevitycentre.com/og/default.jpg" />
 
@@ -96,41 +101,75 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://cdn.fontshare.com" />
 
-    <!-- Site-wide JSON-LD: MedicalBusiness with founders, services and locations -->
+    <!-- Site-wide JSON-LD #1: MedicalBusiness — full org card with
+         founders, all 8 location pins (with geo), service catalog,
+         and hours. Crawlers + AI engines (Google AI Overview,
+         ChatGPT, Perplexity, Bing Chat) read this on first paint.
+         Single source of truth for the site's identity. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalBusiness",
       "@id": "https://thelongevitycentre.com/#organization",
       "name": "The Longevity Centre",
-      "alternateName": "TLC",
+      "alternateName": ["TLC", "The Longevity Centre India"],
+      "slogan": "Practising medicine, not marketing.",
       "url": "https://thelongevitycentre.com/",
-      "logo": "https://thelongevitycentre.com/tlc-logo.png",
-      "image": "https://thelongevitycentre.com/tlc-logo.png",
-      "description": "Premium preventive medicine and anti-aging clinic offering personalised longevity, metabolic, gut, weight-loss and aesthetics programmes across India.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thelongevitycentre.com/tlc-logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://thelongevitycentre.com/og/default.jpg",
+      "description": "India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight-loss, biological-age reversal and aesthetic dermatology. Eight centres pan-India in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad.",
+      "foundingDate": "2003",
       "telephone": "+91-88268-09123",
       "email": "info@thelongevitycentre.com",
-      "areaServed": {
-        "@type": "Country",
-        "name": "India"
-      },
+      "priceRange": "₹₹₹",
+      "areaServed": [
+        { "@type": "Country", "name": "India" },
+        { "@type": "City", "name": "Delhi" },
+        { "@type": "City", "name": "Gurugram" },
+        { "@type": "City", "name": "Mumbai" },
+        { "@type": "City", "name": "Pune" },
+        { "@type": "City", "name": "Nagpur" },
+        { "@type": "City", "name": "Panaji" },
+        { "@type": "City", "name": "Bengaluru" },
+        { "@type": "City", "name": "Hyderabad" }
+      ],
       "medicalSpecialty": [
         "PreventiveMedicine",
         "Geriatric",
         "Dermatology",
-        "Nutrition"
+        "Nutrition",
+        "Endocrinology"
       ],
       "knowsAbout": [
         "Longevity Medicine",
         "Anti-Aging Medicine",
+        "Biological Age Reversal",
+        "Epigenetic Age Testing",
+        "GrimAge",
+        "PhenoAge",
         "Metabolic Health",
         "Gut Microbiome",
+        "PCOD / PCOS Correction",
+        "Diabetes Reversal",
+        "Fatty Liver Reversal",
         "Weight Loss",
-        "Diabetes Management",
         "Hormone Replacement Therapy",
         "Body Composition Analysis",
         "Genetic Testing",
-        "Aesthetic Dermatology"
+        "Whole Genome Sequencing",
+        "Bone Mineral Density Ultrasound",
+        "EndoPAT Endothelial Function Testing",
+        "Oligoscan Mineral & Heavy Metal Analysis",
+        "Aesthetic Dermatology",
+        "PRP Skin Therapy",
+        "Hydrafacial",
+        "Laser Hair Reduction",
+        "Microneedling Dermapen"
       ],
       "founder": [
         {
@@ -138,19 +177,48 @@
           "name": "Dr. Abhinav Sharma",
           "honorificPrefix": "Dr.",
           "honorificSuffix": "MBBS, MS",
-          "jobTitle": "Co-Founder · Anti-Aging & Preventive Medicine"
+          "jobTitle": "Co-Founder · Anti-Aging & Preventive Medicine",
+          "worksFor": { "@id": "https://thelongevitycentre.com/#organization" }
         },
         {
           "@type": "Person",
           "name": "Dr. Bhavna Sharma",
           "honorificPrefix": "Dr.",
-          "jobTitle": "Co-Founder · Reproductive & Sexual Anti-Aging"
+          "jobTitle": "Co-Founder · Reproductive & Sexual Anti-Aging",
+          "worksFor": { "@id": "https://thelongevitycentre.com/#organization" }
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+          "opens": "09:00",
+          "closes": "20:00"
         }
       ],
       "location": [
         {
           "@type": "MedicalClinic",
-          "name": "TLC Gurgaon",
+          "@id": "https://thelongevitycentre.com/centres/delhi#clinic",
+          "name": "TLC Delhi · Greater Kailash-1",
+          "url": "https://thelongevitycentre.com/centres/delhi",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "S-79, Ground Floor, Greater Kailash-1",
+            "addressLocality": "New Delhi",
+            "addressRegion": "Delhi",
+            "postalCode": "110048",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 28.5456, "longitude": 77.2417 },
+          "telephone": "+91-80-473-60047",
+          "areaServed": ["Delhi", "South Delhi", "NCR"]
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://thelongevitycentre.com/centres/gurgaon#clinic",
+          "name": "TLC Gurgaon · Sector 48",
+          "url": "https://thelongevitycentre.com/centres/gurgaon",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "Block A1, Tikri, Vipul World, Sohna Road, Sector 48",
@@ -159,11 +227,30 @@
             "postalCode": "122018",
             "addressCountry": "IN"
           },
-          "telephone": "+91-11-408-44848"
+          "geo": { "@type": "GeoCoordinates", "latitude": 28.4126, "longitude": 77.0382 },
+          "telephone": "+91-11-408-44848",
+          "areaServed": ["Gurugram", "DLF", "Cyber City", "Golf Course Road", "NCR"]
         },
         {
           "@type": "MedicalClinic",
-          "name": "TLC Pune Hadapsar",
+          "@id": "https://thelongevitycentre.com/centres/mumbai#clinic",
+          "name": "TLC Mumbai · Bandra West",
+          "url": "https://thelongevitycentre.com/centres/mumbai",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Mumbai",
+            "addressRegion": "Maharashtra",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 19.0628, "longitude": 72.8302 },
+          "telephone": "+91-88268-09123",
+          "areaServed": ["Mumbai", "Bandra", "Andheri", "Juhu"]
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://thelongevitycentre.com/centres/pune#clinic",
+          "name": "TLC Pune · Hadapsar",
+          "url": "https://thelongevitycentre.com/centres/pune",
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "2nd Floor, Kumar Prism, Amanora Road, Hadapsar",
@@ -172,24 +259,89 @@
             "postalCode": "411028",
             "addressCountry": "IN"
           },
-          "telephone": "+91-11-408-44840"
+          "geo": { "@type": "GeoCoordinates", "latitude": 18.5089, "longitude": 73.9259 },
+          "telephone": "+91-11-408-44840",
+          "areaServed": ["Pune", "Hadapsar", "Amanora", "Magarpatta"]
         },
         {
           "@type": "MedicalClinic",
-          "name": "TLC Delhi GK-1",
+          "@id": "https://thelongevitycentre.com/centres/nagpur#clinic",
+          "name": "TLC Nagpur",
+          "url": "https://thelongevitycentre.com/centres/nagpur",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "S-79, Ground Floor, Greater Kailash-1",
-            "addressLocality": "New Delhi",
-            "postalCode": "110048",
+            "addressLocality": "Nagpur",
+            "addressRegion": "Maharashtra",
             "addressCountry": "IN"
           },
-          "telephone": "+91-80-473-60047"
+          "geo": { "@type": "GeoCoordinates", "latitude": 21.1458, "longitude": 79.0882 },
+          "telephone": "+91-88268-09123",
+          "areaServed": ["Nagpur", "Vidarbha"]
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://thelongevitycentre.com/centres/goa#clinic",
+          "name": "TLC Goa · Panaji",
+          "url": "https://thelongevitycentre.com/centres/goa",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Panaji",
+            "addressRegion": "Goa",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 15.5524, "longitude": 73.7508 },
+          "telephone": "+91-88268-09123",
+          "areaServed": ["Goa", "Panaji", "North Goa", "South Goa"]
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://thelongevitycentre.com/centres/bangalore#clinic",
+          "name": "TLC Bangalore · Koramangala",
+          "url": "https://thelongevitycentre.com/centres/bangalore",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bengaluru",
+            "addressRegion": "Karnataka",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 12.9352, "longitude": 77.6245 },
+          "telephone": "+91-88268-09123",
+          "areaServed": ["Bengaluru", "Koramangala", "Indiranagar", "HSR Layout"]
+        },
+        {
+          "@type": "MedicalClinic",
+          "@id": "https://thelongevitycentre.com/centres/hyderabad#clinic",
+          "name": "TLC Hyderabad · Banjara Hills (opening 2026)",
+          "url": "https://thelongevitycentre.com/centres/hyderabad",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Hyderabad",
+            "addressRegion": "Telangana",
+            "addressCountry": "IN"
+          },
+          "geo": { "@type": "GeoCoordinates", "latitude": 17.4239, "longitude": 78.4738 },
+          "telephone": "+91-88268-09123",
+          "areaServed": ["Hyderabad", "Banjara Hills", "Jubilee Hills"]
         }
       ],
       "sameAs": [
         "https://wa.me/918826809123"
       ]
+    }
+    </script>
+
+    <!-- Site-wide JSON-LD #2: WebSite with SearchAction (sitelinks
+         search box) — helps Google show a search box under the
+         brand result, and gives AI engines a clear site identity. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://thelongevitycentre.com/#website",
+      "url": "https://thelongevitycentre.com/",
+      "name": "The Longevity Centre",
+      "publisher": { "@id": "https://thelongevitycentre.com/#organization" },
+      "inLanguage": "en-IN"
     }
     </script>
   </head>
