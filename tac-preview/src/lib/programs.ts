@@ -162,12 +162,17 @@ export const PROGRAMS: Program[] = [
       'Full biological transformation across metabolism, gut, hormones, genes, and epigenetics — measured across three validated biological age clocks.',
     desc:
       'Our flagship 12-month protocol. Three biological age clocks tracked, 323 genes decoded, GrimAge + PhenoAge epigenetic analysis, whole-genomic gut sequencing — every measurable pillar of aging, addressed together.',
-    // Was stillness-meditation.jpg (yoga tree pose on a misty mountain)
-    // — retired at the user's request along with every other yoga
-    // image on the homepage. Forest-light reads as "serene
-    // transformation" without putting a person in frame.
-    cardImg: '/longevity/brand/mood-forest-light.jpg',
-    heroImg: '/longevity/brand/mood-forest-light.jpg',
+    // Image journey on this slot:
+    //   1. stillness-meditation.jpg (yoga tree pose) — retired
+    //   2. mood-forest-light.jpg (misty forest sun-shafts) — also
+    //      retired (user wanted something more programme-specific)
+    //   3. longevity-plus-tree.jpg ← current
+    //      A single iconic tree in golden-hour light — a longevity
+    //      metaphor (rooted, stood for decades) without putting a
+    //      person in frame. Editorially distinct from the lab and
+    //      DNA imagery used elsewhere on the homepage.
+    cardImg: '/longevity/longevity-plus-tree.jpg',
+    heroImg: '/longevity/longevity-plus-tree.jpg',
     designedFor: [
       'Those seeking measurable reduction in biological age',
       'Men experiencing fatigue, hormonal decline, loss of vitality, or metabolic shift',
