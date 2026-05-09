@@ -90,6 +90,14 @@ export function Hero() {
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const [activeClip, setActiveClip] = useState(0)
 
+  // ────────────────────────────────────────────────────────────
+  // Mount-only effect: text reveal + start the rotation cycle.
+  // The video playback / Ken Burns are handled in a SEPARATE
+  // effect keyed on `activeClip` (further down) so that only the
+  // visible video is actually decoding frames at any moment.
+  // Decoding all four 4K/1080p clips in parallel was the cause of
+  // the choppy hero playback.
+  // ────────────────────────────────────────────────────────────
   useEffect(() => {
     if (reduceMotion()) return
 
@@ -121,51 +129,7 @@ export function Hero() {
         '-=0.5'
       )
 
-    // Very subtle Ken Burns — kept tight (1.02 → 1.0) so we don't
-    // upscale 1080p source past native pixel density on the viewport,
-    // which is what was making the footage read as soft. The scale
-    // budget is intentionally small; cinematic depth comes from the
-    // cross-fades, not the zoom.
-    videoRefs.current.forEach((v) => {
-      if (!v) return
-      gsap.fromTo(
-        v,
-        { scale: 1.02 },
-        {
-          scale: 1.0,
-          duration: 22,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
-        }
-      )
-    })
-
-    // Lazy-load the hero clips AFTER first paint. preload="none" on
-    // each <video> so bytes don't compete with the LCP; once the page
-    // is interactive we kick all four off in parallel. Poster image
-    // remains painted until the first clip can render.
-    let idleHandle: number | null = null
-    let timeoutHandle: number | null = null
-    const startVideos = () => {
-      videoRefs.current.forEach((v) => {
-        if (!v) return
-        v.load()
-        v.play().catch(() => {
-          /* autoplay blocked — fine, poster remains visible */
-        })
-      })
-    }
-    const ric =
-      (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
-        .requestIdleCallback
-    if (typeof ric === 'function') {
-      idleHandle = ric(startVideos)
-    } else {
-      timeoutHandle = window.setTimeout(startVideos, 800)
-    }
-
-    // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS
+    // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS.
     const cycle = window.setInterval(() => {
       setActiveClip((i) => (i + 1) % HERO_CLIPS.length)
     }, CLIP_DURATION_MS)
@@ -173,15 +137,64 @@ export function Hero() {
     return () => {
       tl.kill()
       window.clearInterval(cycle)
-      if (timeoutHandle !== null) window.clearTimeout(timeoutHandle)
-      if (idleHandle !== null) {
-        const cic = (
-          window as unknown as { cancelIdleCallback?: (h: number) => void }
-        ).cancelIdleCallback
-        if (typeof cic === 'function') cic(idleHandle)
-      }
     }
   }, [])
+
+  // ────────────────────────────────────────────────────────────
+  // Per-clip activation effect — runs on every activeClip change
+  // AND once on mount.
+  //
+  // 1. Only the active clip is told to .load() + .play(); the other
+  //    three are paused, which stops the browser from decoding
+  //    their frames in the background. This was the single biggest
+  //    perf win on the hero.
+  // 2. Ken Burns scale runs ONLY on the active clip and is restarted
+  //    each cycle, so we never have four parallel infinite tweens
+  //    fighting for GPU.
+  // 3. We also pre-warm the NEXT clip (load metadata only) so the
+  //    cross-fade starts on a clip that already has some buffer.
+  // ────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const reduced = reduceMotion()
+    const vids = videoRefs.current
+    const nextIdx = (activeClip + 1) % HERO_CLIPS.length
+
+    vids.forEach((v, i) => {
+      if (!v) return
+      if (i === activeClip) {
+        // Active: load + play. catch() because some browsers block
+        // autoplay until user interaction — the poster remains in
+        // place if that happens.
+        try { v.load() } catch { /* noop */ }
+        v.currentTime = 0
+        v.play().catch(() => { /* autoplay blocked */ })
+      } else if (i === nextIdx) {
+        // Pre-warm the next clip's first frames so the cross-fade
+        // doesn't start on a black/loading frame.
+        try { v.load() } catch { /* noop */ }
+        v.pause()
+      } else {
+        // Far-from-active clips: pause to stop frame decoding.
+        v.pause()
+      }
+    })
+
+    if (reduced) return
+    const active = vids[activeClip]
+    if (!active) return
+    // Restart Ken Burns on the newly active clip; kill any existing
+    // tween on it so we don't stack.
+    gsap.killTweensOf(active)
+    gsap.set(active, { scale: 1.02 })
+    const kb = gsap.to(active, {
+      scale: 1.0,
+      // Slightly longer than CLIP_DURATION_MS so the zoom keeps moving
+      // through the cross-fade tail.
+      duration: (CLIP_DURATION_MS + 1500) / 1000,
+      ease: 'sine.inOut',
+    })
+    return () => { kb.kill() }
+  }, [activeClip])
 
   return (
     <section
@@ -207,35 +220,43 @@ export function Hero() {
       />
 
       {/* Background brand-reel — 4 clips stacked, only the active one
-          is opacity:1; rest fade out via CSS transition. Each clip
-          plays muted on loop and is lazy-loaded after first paint
-          (see startVideos in useEffect). The poster <img> covers all
-          four until the first one can render. */}
-      {HERO_CLIPS.map((src, i) => (
-        <video
-          key={src}
-          ref={(el) => { videoRefs.current[i] = el }}
-          className="absolute inset-0 w-full h-full object-cover will-change-transform transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-          poster="/videos/hero-poster.jpg"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="none"
-          aria-hidden="true"
-          style={{
-            opacity: i === activeClip ? 1 : 0,
-            zIndex: i === activeClip ? 2 : 1,
-            // Tiny contrast + saturation lift makes HD source read as
-            // crisp on viewports that upscale past native (1440p+).
-            // Keep this conservative — anything above 1.08 starts to
-            // posterise the swimming-pool tones.
-            filter: 'contrast(1.06) saturate(1.08)',
-          }}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
-      ))}
+          is opacity:1 AND playing. The other three are paused so the
+          browser is not decoding their frames in the background; the
+          activation useEffect above orchestrates load / play / pause
+          on every activeClip change.
+          We deliberately do NOT set `autoPlay` — earlier we did, and
+          all four <video> elements would start decoding simultaneously
+          which made the visible clip stutter on weaker GPUs. The
+          contrast filter is also only painted on the active video for
+          the same reason. */}
+      {HERO_CLIPS.map((src, i) => {
+        const isActive = i === activeClip
+        return (
+          <video
+            key={src}
+            ref={(el) => { videoRefs.current[i] = el }}
+            className="absolute inset-0 w-full h-full object-cover will-change-transform transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+            poster="/videos/hero-poster.jpg"
+            loop
+            muted
+            playsInline
+            preload="none"
+            aria-hidden="true"
+            style={{
+              opacity: isActive ? 1 : 0,
+              zIndex: isActive ? 2 : 1,
+              // Tiny contrast + saturation lift makes HD source read as
+              // crisp on viewports that upscale past native (1440p+).
+              // Keep this conservative — anything above 1.08 starts to
+              // posterise the swimming-pool tones. Only applied to the
+              // active video so the GPU isn't filtering hidden frames.
+              filter: isActive ? 'contrast(1.06) saturate(1.08)' : 'none',
+            }}
+          >
+            <source src={src} type="video/mp4" />
+          </video>
+        )
+      })}
 
       {/* Cinematic overlays — kept light so the underlying footage
           stays sharp. Top + bottom darken just enough to hold the
