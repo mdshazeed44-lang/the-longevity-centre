@@ -31,7 +31,10 @@ const TESTIMONIALS: Testimonial[] = [
       'I reduced my weight from 87 kg to 72 kg through this programme. Beyond weight loss, I feel more focused and active in my daily life. The personalised approach based on my body and vitals made it easy to follow and effective.',
     video: '/videos/testimonials/gomez-v2.mp4',
     poster: '/videos/testimonials/posters/gomez.png',
-    orientation: 'horizontal',
+    // Source clip is actually 406×720 (9:16), not landscape — tagging
+    // it horizontal made the lightbox open a 16:9 frame and letterbox
+    // the portrait video small in the middle.
+    orientation: 'vertical',
   },
   {
     id: 'abhinav',
@@ -309,9 +312,7 @@ export function VideoTestimonials() {
                   onClick={() => setActiveIdx(i)}
                   aria-label={`View ${t.name}'s story`}
                   aria-current={isActive}
-                  className={`group relative text-left transition-all duration-500 ${
-                    isActive ? 'scale-100' : 'scale-95 opacity-70 hover:opacity-100 hover:scale-100'
-                  }`}
+                  className="group relative text-left transition-all duration-500"
                 >
                   <div
                     className={`relative aspect-[4/5] w-full overflow-hidden rounded-[12px] bg-mist border-2 transition-all duration-500 ${
@@ -382,11 +383,28 @@ export function VideoTestimonials() {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
+          {/* Modal frame — sized so the WHOLE video is always visible
+              inside the viewport. Earlier we had `max-w-[640px] w-full`
+              with `aspectRatio: 9/16`, which on a vertical clip computed
+              to 1138px tall on a 640px-wide modal — taller than most
+              laptop viewports, so the browser centred it and the top of
+              the frame (the subject's head) got clipped above the
+              viewport edge.
+              The `min()` here picks whichever is smaller: a hard pixel
+              cap, 92% of the viewport width, or whatever width keeps
+              the frame within 82vh tall. That guarantees the
+              full-height head-to-shoulders portrait fits no matter the
+              screen size. We also leave room (~14vh) for the title
+              caption + close button + bottom system UI on mobile. */}
           <div
-            className="relative max-w-[640px] w-full"
+            className="relative"
             onClick={(e) => e.stopPropagation()}
             style={{
               aspectRatio: active.orientation === 'horizontal' ? '16/9' : '9/16',
+              width:
+                active.orientation === 'horizontal'
+                  ? 'min(960px, 92vw, calc(82vh * 16 / 9))'
+                  : 'min(460px, 92vw, calc(82vh * 9 / 16))',
             }}
           >
             {/* `key` forces a fresh <video> element when the user

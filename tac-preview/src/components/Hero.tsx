@@ -1,7 +1,32 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
+
+// Hero brand-reel — cross-fades between 4 themed clips on a 5.5s
+// cycle to give the page the same multi-shot cinematic open as
+// healthylongevity.clinic. All four clips are landscape Full-HD
+// (1920x1080) MP4s downloaded from Pexels and bundled in
+// /public/videos/hero-clips/ (~55 MB total, lazy-loaded after
+// first paint so they don't compete with the LCP).
+//
+// Brand reel — four pillars of TLC's longevity proposition:
+//   science (DNA helix) · vitality (cycling) · wellness (beach yoga
+//   at sunrise) · clinical (clinic interior).
+// All four sources are HD or higher (DNA is true 4K 3840×2160,
+// wellness is 1080p 60fps for buttery motion, cycling and clinic
+// are 1080p 30fps). The render treatment is tuned for sharpness
+// (Ken Burns held to 1.02, gradients light, contrast/saturation
+// lift on the <video>). Cache-bust `?v=4` because cellular.mp4
+// and swimming.mp4 were retired this round in favour of dna.mp4
+// and wellness.mp4.
+const HERO_CLIPS = [
+  '/videos/hero-clips/dna.mp4?v=4',      // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=4',  // outdoor cycling — vitality
+  '/videos/hero-clips/wellness.mp4?v=4', // beach yoga sunrise — wellness
+  '/videos/hero-clips/clinic.mp4?v=4',   // premium clinic — clinical
+] as const
+const CLIP_DURATION_MS = 5500
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -61,7 +86,8 @@ export function Hero() {
   const eyebrow = useRef<HTMLDivElement>(null)
   const para = useRef<HTMLParagraphElement>(null)
   const ctas = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
+  const [activeClip, setActiveClip] = useState(0)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -94,47 +120,58 @@ export function Hero() {
         '-=0.5'
       )
 
-    // Subtle Ken Burns scale on the video for cinematic depth
-    if (videoRef.current) {
+    // Very subtle Ken Burns — kept tight (1.02 → 1.0) so we don't
+    // upscale 1080p source past native pixel density on the viewport,
+    // which is what was making the footage read as soft. The scale
+    // budget is intentionally small; cinematic depth comes from the
+    // cross-fades, not the zoom.
+    videoRefs.current.forEach((v) => {
+      if (!v) return
       gsap.fromTo(
-        videoRef.current,
-        { scale: 1.06 },
+        v,
+        { scale: 1.02 },
         {
           scale: 1.0,
-          duration: 18,
+          duration: 22,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
         }
       )
-    }
+    })
 
-    // Lazy-load the hero video AFTER first paint. preload="none" on the
-    // <video> tag means the bytes don't get fetched during page load —
-    // the poster <img> takes the LCP slot. We trigger load() once the
-    // browser is idle (or after 800 ms fallback) so video starts
-    // streaming without blocking the initial paint.
+    // Lazy-load the hero clips AFTER first paint. preload="none" on
+    // each <video> so bytes don't compete with the LCP; once the page
+    // is interactive we kick all four off in parallel. Poster image
+    // remains painted until the first clip can render.
     let idleHandle: number | null = null
     let timeoutHandle: number | null = null
-    const startVideo = () => {
-      const v = videoRef.current
-      if (!v) return
-      v.load()
-      v.play().catch(() => {
-        /* autoplay blocked — fine, poster remains visible */
+    const startVideos = () => {
+      videoRefs.current.forEach((v) => {
+        if (!v) return
+        v.load()
+        v.play().catch(() => {
+          /* autoplay blocked — fine, poster remains visible */
+        })
       })
     }
     const ric =
       (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
         .requestIdleCallback
     if (typeof ric === 'function') {
-      idleHandle = ric(startVideo)
+      idleHandle = ric(startVideos)
     } else {
-      timeoutHandle = window.setTimeout(startVideo, 800)
+      timeoutHandle = window.setTimeout(startVideos, 800)
     }
+
+    // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS
+    const cycle = window.setInterval(() => {
+      setActiveClip((i) => (i + 1) % HERO_CLIPS.length)
+    }, CLIP_DURATION_MS)
 
     return () => {
       tl.kill()
+      window.clearInterval(cycle)
       if (timeoutHandle !== null) window.clearTimeout(timeoutHandle)
       if (idleHandle !== null) {
         const cic = (
@@ -168,30 +205,46 @@ export function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Background video — full-bleed cinematic, plays muted on loop.
-          preload="none" so we don't block the LCP; once the page is
-          interactive the useEffect below tells the video to load.
-          The poster <img> stays painted until the video can render. */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover will-change-transform"
-        poster="/videos/hero-poster.jpg"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="none"
-      >
-        <source src="/videos/hero.mp4" type="video/mp4" />
-      </video>
+      {/* Background brand-reel — 4 clips stacked, only the active one
+          is opacity:1; rest fade out via CSS transition. Each clip
+          plays muted on loop and is lazy-loaded after first paint
+          (see startVideos in useEffect). The poster <img> covers all
+          four until the first one can render. */}
+      {HERO_CLIPS.map((src, i) => (
+        <video
+          key={src}
+          ref={(el) => { videoRefs.current[i] = el }}
+          className="absolute inset-0 w-full h-full object-cover will-change-transform transition-opacity duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          poster="/videos/hero-poster.jpg"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="none"
+          aria-hidden="true"
+          style={{
+            opacity: i === activeClip ? 1 : 0,
+            zIndex: i === activeClip ? 2 : 1,
+            // Tiny contrast + saturation lift makes HD source read as
+            // crisp on viewports that upscale past native (1440p+).
+            // Keep this conservative — anything above 1.08 starts to
+            // posterise the swimming-pool tones.
+            filter: 'contrast(1.06) saturate(1.08)',
+          }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ))}
 
-      {/* Cinematic overlays — vignette + bottom gradient + left text gradient */}
+      {/* Cinematic overlays — kept light so the underlying footage
+          stays sharp. Top + bottom darken just enough to hold the
+          eyebrow / CTA contrast; left wash carries the headline. */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.2) 30%, rgba(10,8,7,0.45) 75%, rgba(10,8,7,0.85) 100%)',
+            'linear-gradient(180deg, rgba(10,8,7,0.45) 0%, rgba(10,8,7,0.05) 28%, rgba(10,8,7,0.25) 72%, rgba(10,8,7,0.7) 100%)',
         }}
       />
       <div
@@ -199,13 +252,15 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(90deg, rgba(10,8,7,0.7) 0%, rgba(10,8,7,0.35) 45%, rgba(10,8,7,0.0) 70%)',
+            'linear-gradient(90deg, rgba(10,8,7,0.55) 0%, rgba(10,8,7,0.2) 45%, rgba(10,8,7,0.0) 70%)',
         }}
       />
-      {/* Subtle grain for premium film feel */}
+      {/* Whisper-thin grain — was 0.06 with mix-blend-overlay which
+          was visibly softening the footage; dropped to 0.025 so the
+          film feel stays without eating sharpness. */}
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-[0.06] mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none opacity-[0.025] mix-blend-overlay"
         style={{
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.85'/></svg>\")",
