@@ -21,6 +21,15 @@ export type Program = {
   duration: string
   price: string
   priceNote?: string
+  /**
+   * Headline biomarker count shown on the bottom info strip of
+   * each programme detail page. Falls back to '160+ biomarkers'
+   * when omitted (the standard panel size). Programmes that ship
+   * additional panels (gut microbiome, epigenetic clocks, etc.)
+   * override with a higher number — keep the format
+   * '<number>+ biomarkers' so the cell width stays consistent.
+   */
+  biomarkers?: string
   focus: string       // one-line focus statement
   desc: string        // 2-3 sentence description
   cardImg: string     // image used on home stacking deck + index grid
@@ -95,6 +104,9 @@ export const PROGRAMS: Program[] = [
     tag: '4–6 Months · Microbiome + Metabolic',
     duration: '4–6 Months',
     price: '₹80,000',
+    // Standard ~160 blood markers + the full whole-genomic gut
+    // microbiome panel = 600+ data points reported.
+    biomarkers: '600+ biomarkers',
     focus:
       'Genomic-level gut microbiome restoration paired with metabolic correction — the gut–metabolism axis treated together.',
     desc:
@@ -150,6 +162,9 @@ export const PROGRAMS: Program[] = [
 
   // 03 — LONGEVITY PLUS
   {
+    // Longevity Plus is the flagship 12-month programme: full
+    // metabolomics + gut + GrimAge / PhenoAge clocks + 323-gene
+    // genomic decode = 1000+ data points reported.
     slug: 'longevity-plus',
     cat: '03',
     title: 'Longevity Plus Programme',
@@ -158,6 +173,7 @@ export const PROGRAMS: Program[] = [
     duration: '12 Months',
     price: 'From ₹1,80,000',
     priceNote: 'Starter ₹1,80,000 · Complete ₹2,50,000',
+    biomarkers: '1000+ biomarkers',
     focus:
       'Full biological transformation across metabolism, gut, hormones, genes, and epigenetics — measured across three validated biological age clocks.',
     desc:
@@ -227,6 +243,8 @@ export const PROGRAMS: Program[] = [
     tag: 'High-Resolution Biochemistry',
     duration: 'Bespoke',
     price: '₹75,000',
+    // Single high-resolution metabolite panel reports 300+ analytes.
+    biomarkers: '300+ biomarkers',
     focus:
       'High-resolution biochemical profiling — analysing thousands of metabolites to surface sub-clinical dysfunction long before disease declares itself.',
     desc:

@@ -233,16 +233,11 @@ function Hero({ p }: { p: Program }) {
             <span className="inline-flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-rust-soft" />
               <span className="tracking-[0.18em] uppercase">
-                {/* Per-programme biomarker count for the bottom info
-                    strip. Gut & Metabolic includes the full whole-
-                    genomic gut microbiome panel on top of the
-                    standard blood markers, so the headline number is
-                    much higher than the other programmes. */}
-                {p.slug === 'advanced-metabolomics'
-                  ? '300+ biomarkers'
-                  : p.slug === 'gut-metabolic'
-                    ? '600+ biomarkers'
-                    : '160+ biomarkers'}
+                {/* Biomarker count is per-programme — set as the
+                    optional `biomarkers` field on the programme
+                    record in src/lib/programs.ts. Falls back to
+                    160+ (the standard blood panel) when omitted. */}
+                {p.biomarkers ?? '160+ biomarkers'}
               </span>
             </span>
           </div>
