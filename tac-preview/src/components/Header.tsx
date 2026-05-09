@@ -235,16 +235,16 @@ export function Header() {
         } ${scrolled ? 'top-2 md:top-3' : 'top-3 md:top-5'}`}
         style={{ willChange: 'transform' }}
       >
-        {/* Shape:
-              • mobile + tablet (default + md): rounded-full → premium capsule pill
-              • desktop (lg+): rounded-[22px] → editorial rectangle with a soft
-                radius. The rectangle reads more authoritative for the wider
-                desktop bar (logo + 5 nav items + phone + CTA), while the
-                capsule keeps the compact mobile header friendly.
-            Padding bumps slightly on lg+ so the rectangle has presence and the
-            internal spacing doesn't look tight against the squarer corners. */}
+        {/* Shape: editorial rectangle with a soft 18-22px radius across
+              all viewports (per user request). On mobile we hold the
+              radius slightly tighter (rounded-[18px]) so the bar stays
+              compact next to the iPhone notch / dynamic island; lg+
+              expands to rounded-[22px] for the wider desktop bar.
+            Padding scales with viewport so the rectangle has consistent
+            presence at every size and the internal spacing never crowds
+            the corners. */}
         <div
-          className={`w-full max-w-[1400px] flex items-center gap-4 md:gap-6 lg:gap-8 pl-2 pr-2 md:pl-3 md:pr-3 lg:pl-5 lg:pr-4 py-2 md:py-2.5 lg:py-3 rounded-full lg:rounded-[22px] transition-all duration-500 bg-white border border-mist/60 ${
+          className={`w-full max-w-[1400px] flex items-center gap-4 md:gap-6 lg:gap-8 pl-2 pr-2 md:pl-3 md:pr-3 lg:pl-5 lg:pr-4 py-2 md:py-2.5 lg:py-3 rounded-[18px] lg:rounded-[22px] transition-all duration-500 bg-white border border-mist/60 ${
             scrolled
               ? 'shadow-[0_18px_50px_-15px_rgba(27,26,24,0.18)]'
               : 'shadow-[0_12px_40px_-15px_rgba(27,26,24,0.12)]'
