@@ -26,6 +26,31 @@ export function CtaBand() {
       <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-ink/8" />
 
       <div className="relative z-10 max-w-[1180px] mx-auto">
+        {/* Inspiration block — Milind Soman as an editorial visual
+            anchor for the "Age should never define you" headline below.
+            Small framed portrait, centred, with a single italic line
+            tying him to the CTA. Site-wide consistency: this is the
+            one and only celebrity face on the site, appearing once
+            per page through the shared CtaBand. */}
+        <div className="flex flex-col items-center mb-10 md:mb-12">
+          <div className="relative w-[112px] h-[112px] md:w-[128px] md:h-[128px] rounded-full overflow-hidden ring-1 ring-rust/30 shadow-[0_18px_40px_-22px_rgba(27,26,24,0.30)]">
+            <img
+              src="/longevity/milind-soman.jpg"
+              alt="Milind Soman — Indian icon of fitness and longevity"
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{ objectPosition: 'center 22%' }}
+            />
+          </div>
+          <div className="mt-4 text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold">
+            What ageing well looks like
+          </div>
+          <p className="mt-2 font-display italic text-ink text-[15px] md:text-[17px] leading-[1.4]">
+            Milind Soman <span className="text-stone/70 not-italic font-light">&middot; 58</span>
+          </p>
+        </div>
+
         {/* Eyebrow row */}
         <div className="flex items-center justify-center gap-3 mb-7">
           <span className="w-7 h-px bg-rust" />
