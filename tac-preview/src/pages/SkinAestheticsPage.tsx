@@ -1,5 +1,5 @@
 // SkinAestheticsPage — /skin-aesthetics
-// Editorial INDEX page covering TLC's seven aesthetic treatments.
+// Editorial INDEX page covering TLC's eight aesthetic treatments.
 // Each row is a teaser linking to its dedicated detail page at
 // /skin-aesthetics/[slug]. Content sourced from
 // theantiagingcentre.com via the shared lib/skin-treatments module.

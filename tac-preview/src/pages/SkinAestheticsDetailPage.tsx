@@ -1,5 +1,5 @@
 // SkinAestheticsDetailPage — single template that renders any of the
-// 7 aesthetic treatments by slug. Reads slug from window.location.
+// 8 aesthetic treatments by slug. Reads slug from window.location.
 //
 // Sections:
 //  1. Hero — eyebrow + title + description + CTAs + image

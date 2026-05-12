@@ -315,6 +315,60 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     ],
   },
   {
+    // Hair Transplant — the surgical tier of TLC's hair-loss
+    // protocol. Hair Loss Solutions (above) handles diagnosis +
+    // PRP + supplementation; this page is the dedicated detail
+    // page for the transplant procedure itself. Slot 08 follows
+    // the existing 01-07 numeric image naming pattern.
+    slug: 'hair-transplant',
+    shortName: 'Hair Transplant',
+    category: 'Hair',
+    title: 'Hair Transplant',
+    eyebrow: 'Advanced FUE · Permanent Restoration',
+    image: '/skin-aesthetics/08-hair-transplant.jpg',
+    description:
+      'A doctor-led hair-transplant programme for permanent restoration of androgenetic hair loss. Advanced follicular-unit extraction (FUE) with minimal scarring, natural hairline design, and the same diagnostics-led workup that anchors every TLC protocol — micronutrient correction, hormonal screen, scalp trichoscopy — before a single graft is harvested.',
+    treats: [
+      'Androgenetic alopecia (male-pattern baldness, Norwood II–VI)',
+      'Female-pattern hair thinning (Ludwig I–III)',
+      'Receding hairline · temple recession · crown thinning',
+      'Eyebrow / beard / moustache restoration',
+      'Scar revision (post-surgical or post-trauma)',
+    ],
+    benefits: [
+      'Permanent, natural-looking results — transplanted follicles are genetically resistant to DHT',
+      'Minimal scarring — punctate FUE marks, no linear strip scar',
+      'Out-patient procedure under local anaesthesia',
+      'Hairline designed in consultation, frame-accurate to your face',
+      'Lifetime growth — most patients see full coverage by month 9–12',
+    ],
+    duration: 'Single-day procedure · Visible growth by month 4 · Final result month 9–12',
+    note:
+      'Transplant is offered only after diagnostics confirm pattern baldness has stabilised. We don\'t operate on active shedding — that\'s what the Hair Loss Solutions protocol corrects first.',
+    process: [
+      {
+        n: '01',
+        title: 'Assess',
+        body: 'Trichoscopy, hormonal panels (DHT, ferritin, thyroid), Cellscan Spectrophotometry and Norwood / Ludwig scaling. We confirm pattern baldness has stabilised — and rule out reversible causes like deficiency or telogen effluvium — before recommending surgery.',
+      },
+      {
+        n: '02',
+        title: 'Design',
+        body: 'Hairline drawn in consultation. We use facial proportion landmarks (frontal hairline 7–9 cm above the glabella, temple-point geometry) so the result looks natural at 25 and at 65 — never a thick artificial line.',
+      },
+      {
+        n: '03',
+        title: 'Extract & implant',
+        body: 'Single-day FUE under local anaesthesia. Donor follicles harvested from the occipital scalp with sub-millimetre punches, then implanted graft-by-graft into recipient sites at angles matched to surrounding native hair. No linear scar, no stitches.',
+      },
+      {
+        n: '04',
+        title: 'Recover',
+        body: 'Scabs shed by day 10. Transplanted hair sheds at week 2–4 (this is expected — the follicle stays, only the visible shaft falls). Regrowth begins month 3, density visible by month 6, final density by month 9–12.',
+      },
+    ],
+  },
+  {
     slug: 'fillers-botox-skin-boosters',
     shortName: 'Fillers, Botox & Boosters',
     category: 'Injectables',

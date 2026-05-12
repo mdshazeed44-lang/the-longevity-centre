@@ -52,7 +52,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: 'Skin & Aesthetics',
     href: '/skin-aesthetics',
-    panelEyebrow: 'Seven Treatments',
+    panelEyebrow: 'Eight Treatments',
     panelLine: 'Dermatology-led, physician-performed.',
     panelCta: 'View all treatments →',
     children: SKIN_TREATMENTS.map((t) => ({
