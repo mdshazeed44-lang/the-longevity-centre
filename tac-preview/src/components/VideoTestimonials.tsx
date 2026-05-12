@@ -163,16 +163,6 @@ export function VideoTestimonials() {
         <div className="grid md:grid-cols-[1fr_1fr] gap-8 md:gap-12 items-center">
           {/* LEFT — Video frame with outcome metric chip */}
           <div className="relative">
-            {/* Outcome metric chip — floats top-left, smaller and tighter */}
-            <div className="absolute -top-3 -left-2 md:-top-4 md:-left-3 z-20 bg-white rounded-[14px] px-4 py-3 md:px-5 md:py-3.5 shadow-[0_18px_36px_-20px_rgba(148,84,85,0.40)] border border-mist/60">
-              <div className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-1">
-                {active.metricLabel}
-              </div>
-              <div className="font-display font-bold text-[22px] md:text-[28px] leading-[1.0] tracking-[-0.02em] text-rust tabular-nums">
-                {active.metric}
-              </div>
-            </div>
-
             {/* Video frame — fixed aspect across all testimonials so
                 heights never jump as the user switches stories.
                 Vertical clips don't get ugly black bars: a blurred,
@@ -182,7 +172,12 @@ export function VideoTestimonials() {
                 Clicking the play disc starts playback IN PLACE
                 (no popup / lightbox — client preference). Once
                 playback starts the overlay fades out and the
-                video's native controls take over. */}
+                video's native controls take over.
+                The outcome metric chip is nested INSIDE this frame
+                so its `bottom-3 left-3` positioning is relative to
+                the video frame, not the outer LEFT column (which
+                would push the chip out into the prev/next nav row
+                below). */}
             <div
               className="group relative block w-full overflow-hidden rounded-[16px] border border-mist/60 max-h-[440px] mx-auto"
               style={{
@@ -235,6 +230,24 @@ export function VideoTestimonials() {
                 onEnded={() => setIsPlaying(false)}
                 className="relative w-full h-full object-contain"
               />
+
+              {/* Outcome metric chip — anchored at the BOTTOM-LEFT
+                  of the frame. Slim, minimal layout: bold metric on
+                  top, tiny tracking-out caption below. Frosted-glass
+                  backdrop so the chip reads cleanly on any patient
+                  photo behind it without being a heavy solid white
+                  block. Sits INSIDE the frame so its absolute
+                  positioning is relative to the video, not the outer
+                  column. z-30 to sit above the video and the
+                  play-disc overlay's tint. */}
+              <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-30 bg-white/92 backdrop-blur-md rounded-[10px] px-3 py-2 md:px-3.5 md:py-2.5 shadow-[0_12px_24px_-14px_rgba(27,26,24,0.35)] border border-white/70 pointer-events-none">
+                <div className="font-display font-bold text-[15px] md:text-[17px] leading-none tracking-[-0.01em] text-rust tabular-nums">
+                  {active.metric}
+                </div>
+                <div className="text-[8px] md:text-[8.5px] tracking-[0.28em] uppercase text-stone/85 font-medium mt-1">
+                  {active.metricLabel}
+                </div>
+              </div>
 
               {/* Play-disc overlay — only shown while paused. Once
                   the user clicks, it fades out and the video's
