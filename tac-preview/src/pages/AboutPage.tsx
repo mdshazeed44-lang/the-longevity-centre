@@ -547,9 +547,14 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* MISSION — Blue Zones / live well to one hundred (brochure verbatim) */}
+      {/* MISSION — Blue Zones / live well to one hundred (brochure verbatim).
+          Layout: heading (left) + body (right) on top, full-width family image
+          band beneath spans the section and carries the italic tagline as its
+          caption — visual + verbal anchor reading as one unit. */}
       <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
-        <div className="max-w-[1100px] mx-auto">
+        <div className="max-w-[1180px] mx-auto">
+          {/* Top row — heading + body copy, no image yet so columns can size
+              honestly to their content. */}
           <div className="grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-20 items-start">
             <div>
               <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
@@ -567,19 +572,6 @@ export function AboutPage() {
                   <span className="font-bold text-rust">all the way to one hundred.</span>
                 </span>
               </h2>
-              {/* Three-generation Indian family — emotional anchor for the
-                  Blue-Zones "a long life, fully lived" promise. */}
-              <div className="mt-8 md:mt-10 overflow-hidden rounded-[14px] shadow-[0_18px_40px_-22px_rgba(0,0,0,0.25)]">
-                <img
-                  src="/longevity/family-three-generations.jpg"
-                  alt="Indian family across three generations laughing while playing Ludo together at home"
-                  loading="lazy"
-                  decoding="async"
-                  width={1536}
-                  height={1024}
-                  className="w-full h-auto object-cover"
-                />
-              </div>
             </div>
             <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
               <p>
@@ -599,11 +591,38 @@ export function AboutPage() {
                 clinical care to help our patients achieve what the Blue Zones
                 demonstrate is possible: a long life, fully lived.
               </p>
-              <p className="font-display italic text-rust text-[18px] md:text-[22px] leading-[1.4] pt-3">
-                Not just more years. A well-lived hundred.
-              </p>
             </div>
           </div>
+
+          {/* Full-width image band with italic tagline overlaid bottom-left —
+              emotional close-out for the section. Multi-generation Indian
+              family laughing over a board game, framed by a soft inner shadow
+              and a rust caption that echoes the heading colour. */}
+          <figure className="mt-12 md:mt-16 relative overflow-hidden rounded-[18px] shadow-[0_28px_60px_-30px_rgba(0,0,0,0.32)]">
+            <img
+              src="/longevity/family-three-generations.jpg"
+              alt="Indian family across three generations laughing while playing Ludo together at home"
+              loading="lazy"
+              decoding="async"
+              width={1536}
+              height={1024}
+              className="w-full h-auto object-cover aspect-[16/9] md:aspect-[21/9]"
+            />
+            {/* Bottom gradient + caption */}
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(27,26,24,0.62) 0%, rgba(27,26,24,0.18) 55%, rgba(27,26,24,0) 100%)',
+              }}
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 px-6 md:px-10 pb-6 md:pb-8">
+              <p className="font-display italic text-white text-[18px] md:text-[26px] xl:text-[30px] leading-[1.3] tracking-[-0.01em] max-w-[680px]">
+                Not just more years.{' '}
+                <span className="text-rust/95 not-italic font-display italic">A well-lived hundred.</span>
+              </p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
