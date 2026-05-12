@@ -24,23 +24,95 @@ function accentBg(a: Program['accent']) {
   return 'bg-green'
 }
 
-// Hero — premium white-background editorial hero. Magazine-masthead
-// register: hairline eyebrow, big display type with a rust-accented
-// emphasis word, restrained paragraph, three stat tiles in a hairline
-// grid. Subtle warm radial gradients (rust + cream) keep the canvas
-// from feeling sterile. min-h-screen so it commands the viewport.
+// Hero — redesigned with motion. Cycling-word headline, cursor-tracked
+// rust glow, animated stat counters and a slow programme-name marquee
+// at the bottom give the page kinetic energy without breaking the
+// site's editorial restraint.
 const HERO_STATS = [
-  { k: 'Programmes', v: '6' },
-  { k: 'Duration', v: '3–12 mo' },
-  { k: 'Specialists', v: 'Per protocol' },
+  { k: 'Programmes', v: '6', display: '6' },
+  { k: 'Duration', v: '3–12 mo', display: '3–12 mo' },
+  { k: 'Specialists', v: 'Per protocol', display: 'Per protocol' },
+]
+
+// Cycling words for the rotating headline — drawn from the 6 programme
+// themes so the kinetic word actually reflects what the page sells.
+const CYCLE_WORDS = [
+  'longevity.',
+  'metabolism.',
+  'gut health.',
+  'weight loss.',
+  'PCOD care.',
+  'metabolomics.',
 ]
 
 function Hero() {
   const ref = useRef<HTMLElement>(null)
+  const cycleRef = useRef<HTMLSpanElement>(null)
+  const blobRef = useRef<HTMLDivElement>(null)
+  const counterRef = useRef<HTMLDivElement>(null)
+
+  // Cycling word — vertical mask flip through CYCLE_WORDS on a timed
+  // loop. We render all words stacked, then GSAP shifts a y-translate
+  // index every ~2.5s so the visible word changes with a smooth slide.
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = cycleRef.current
+    if (!el) return
+    const items = el.querySelectorAll<HTMLElement>('[data-word]')
+    if (!items.length) return
+
+    // Initial — first word in place, others below the mask.
+    gsap.set(items[0], { yPercent: 0 })
+    for (let i = 1; i < items.length; i++) {
+      gsap.set(items[i], { yPercent: 110 })
+    }
+
+    let active = 0
+    const tick = () => {
+      const next = (active + 1) % items.length
+      gsap.to(items[active], {
+        yPercent: -110,
+        duration: 0.85,
+        ease: 'expo.inOut',
+      })
+      gsap.fromTo(
+        items[next],
+        { yPercent: 110 },
+        { yPercent: 0, duration: 0.85, ease: 'expo.inOut' },
+      )
+      active = next
+    }
+    const id = window.setInterval(tick, 2400)
+    return () => window.clearInterval(id)
+  }, [])
+
+  // Mouse-following soft rust glow — gives the white canvas a living,
+  // breathing feel as the visitor moves. Lerp via gsap.quickTo so it
+  // trails smoothly rather than locking to the cursor.
+  useEffect(() => {
+    if (reduceMotion()) return
+    const blob = blobRef.current
+    const el = ref.current
+    if (!blob || !el) return
+
+    const x = gsap.quickTo(blob, 'x', { duration: 1.2, ease: 'power3.out' })
+    const y = gsap.quickTo(blob, 'y', { duration: 1.2, ease: 'power3.out' })
+
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect()
+      x(e.clientX - r.left)
+      y(e.clientY - r.top)
+    }
+    el.addEventListener('mousemove', onMove)
+    return () => el.removeEventListener('mousemove', onMove)
+  }, [])
+
+  // Headline + fade entrance + stat number count-up.
   useEffect(() => {
     if (reduceMotion()) return
     const el = ref.current
     if (!el) return
+
     const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
     gsap.set(lines, { yPercent: 110 })
     gsap.to(lines, {
@@ -50,6 +122,7 @@ function Hero() {
       stagger: 0.1,
       delay: 0.3,
     })
+
     const fade = el.querySelectorAll<HTMLElement>('.fade-up')
     gsap.set(fade, { opacity: 0, y: 16 })
     gsap.to(fade, {
@@ -60,86 +133,206 @@ function Hero() {
       stagger: 0.08,
       delay: 0.6,
     })
+
+    // Count-up on the "6" Programmes stat — the others are non-numeric.
+    const counter = counterRef.current?.querySelector<HTMLElement>('[data-count]')
+    if (counter) {
+      const target = Number(counter.dataset.count ?? '0')
+      const obj = { v: 0 }
+      gsap.to(obj, {
+        v: target,
+        duration: 1.4,
+        ease: 'power3.out',
+        delay: 1.0,
+        onUpdate: () => {
+          counter.textContent = String(Math.round(obj.v))
+        },
+      })
+    }
   }, [])
+
   return (
     <section
       ref={ref}
-      className="relative bg-white text-ink pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center"
+      className="relative bg-white text-ink pt-32 md:pt-40 pb-24 md:pb-28 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex flex-col justify-center"
     >
-      {/* Soft warm wash — barely-there rust + cream radial gradients
-          so the white canvas has depth without going clinical. */}
+      {/* Mouse-following rust glow — sits behind everything else and
+          softly trails the cursor. */}
+      <div
+        ref={blobRef}
+        aria-hidden
+        className="absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 will-change-transform"
+        style={{
+          left: 0,
+          top: 0,
+          width: '700px',
+          height: '700px',
+          background:
+            'radial-gradient(circle at center, rgba(148,84,85,0.16) 0%, rgba(148,84,85,0.06) 35%, transparent 70%)',
+          filter: 'blur(20px)',
+        }}
+      />
+
+      {/* Soft static warm wash — keeps the canvas alive when no cursor
+          motion is happening (touch devices, idle state). */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(900px 600px at 12% 18%, rgba(148,84,85,0.06), transparent 60%), radial-gradient(800px 500px at 88% 82%, rgba(238,230,219,0.55), transparent 60%)',
+            'radial-gradient(900px 600px at 12% 18%, rgba(148,84,85,0.05), transparent 60%), radial-gradient(800px 500px at 88% 82%, rgba(238,230,219,0.55), transparent 60%)',
         }}
       />
-      {/* Hairline frame — top + bottom rule pulls the section into a
-          quiet editorial frame. */}
-      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-[88px] md:top-[104px] h-px bg-ink/10" />
-      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-ink/10" />
 
-      <div className="relative max-w-[1280px] mx-auto w-full grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 items-end">
-        {/* Left — eyebrow + headline */}
+      {/* Diagonal pinstripe texture — barely-there editorial grain. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.025]"
+        style={{
+          background:
+            'repeating-linear-gradient(135deg, transparent 0, transparent 2px, rgba(27,26,24,0.8) 2px, rgba(27,26,24,0.8) 3px)',
+        }}
+      />
+
+      {/* Hairline editorial frame */}
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-[88px] md:top-[104px] h-px bg-ink/10" />
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-[68px] md:bottom-[72px] h-px bg-ink/10" />
+
+      <div className="relative max-w-[1280px] mx-auto w-full grid lg:grid-cols-[1.55fr_1fr] gap-10 lg:gap-16 items-end">
+        {/* Left — eyebrow + cycling-word headline */}
         <div>
           <div className="fade-up flex items-center gap-3 mb-8">
             <span className="w-9 h-px bg-rust" />
             <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
-              Six Flagship Programmes
+              Six Flagship Programmes · One Promise
             </span>
+            <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-rust animate-pulse" />
           </div>
+
           <h1 className="font-display text-[44px] sm:text-[60px] md:text-[80px] xl:text-[96px] leading-[0.98] tracking-[-0.04em] text-ink">
             <span className="line-mask inline-block overflow-hidden align-bottom">
-              <span className="inline-block font-light">A programme</span>
+              <span className="inline-block font-light">Designed for your</span>
             </span>
             <br />
-            <span className="line-mask inline-block overflow-hidden align-bottom">
-              <span className="inline-block font-bold text-rust">
-                for every chapter.
-              </span>
+            {/* Cycling word — fixed-width mask, vertical word flip. */}
+            <span
+              ref={cycleRef}
+              aria-live="polite"
+              className="relative inline-block overflow-hidden align-bottom font-bold text-rust italic"
+              style={{ height: '1.05em', minWidth: '8ch' }}
+            >
+              {CYCLE_WORDS.map((w) => (
+                <span
+                  key={w}
+                  data-word
+                  className="absolute inset-0 whitespace-nowrap will-change-transform"
+                >
+                  {w}
+                </span>
+              ))}
             </span>
           </h1>
+
+          <p className="fade-up mt-8 md:mt-10 text-[15px] md:text-[17px] lg:text-[18px] leading-[1.7] text-graphite font-light max-w-[560px]">
+            Each programme is led by a dedicated specialist, but all run inside
+            one shared medical record — diagnostics-led, physician-guided, and
+            continuously refined.
+          </p>
         </div>
 
-        {/* Right — paragraph + stat tiles. Sits at the baseline of the
-            headline on desktop for that magazine-spread alignment. */}
-        <div className="lg:pb-3">
-          <p className="fade-up text-[15px] md:text-[17px] lg:text-[18px] leading-[1.7] text-graphite font-light max-w-[440px]">
-            Each programme is led by a dedicated specialist, but all run
-            inside one shared medical record — diagnostics-led,
-            physician-guided, and continuously refined.
-          </p>
+        {/* Right — stat tiles with animated count-up and a kinetic
+            programme list peeking through. Sits at the baseline of the
+            headline column on desktop. */}
+        <div className="lg:pb-4">
+          <div
+            ref={counterRef}
+            className="fade-up grid grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[520px]"
+          >
+            {HERO_STATS.map((s) => {
+              const isNumeric = /^\d+$/.test(s.v)
+              return (
+                <div
+                  key={s.k}
+                  className="bg-white px-4 py-5 md:px-5 md:py-6 text-left transition-colors duration-500 hover:bg-cream/40"
+                >
+                  <div className="font-display font-bold text-[22px] md:text-[28px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
+                    {isNumeric ? (
+                      <span data-count={s.v}>0</span>
+                    ) : (
+                      s.display
+                    )}
+                  </div>
+                  <div className="text-[9.5px] tracking-[0.26em] uppercase text-graphite font-semibold leading-[1.4]">
+                    {s.k}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
 
-          {/* Stat tiles — hairline grid (no backdrop-blur; this is white
-              bg). Editorial tile pattern with rust accent number on top
-              + uppercase tracking-out label below. */}
-          <div className="fade-up mt-10 grid grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[480px]">
-            {HERO_STATS.map((s) => (
-              <div
-                key={s.k}
-                className="bg-white px-4 py-5 md:px-5 md:py-6 text-left"
+          {/* Quick-jump programme dial — tiny clickable chips to each
+              detail page right from the hero. Adds energy and gives
+              the right column a second purpose beyond stats. */}
+          <div className="fade-up mt-6 flex flex-wrap gap-1.5 max-w-[520px]">
+            {PROGRAMS.map((p, i) => (
+              <a
+                key={p.slug}
+                href={`/programs/${p.slug}`}
+                data-cursor="hover"
+                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-ink/12 hover:border-rust/60 hover:bg-rust/[0.04] transition-colors duration-500"
               >
-                <div className="font-display font-bold text-[20px] md:text-[24px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
-                  {s.v}
-                </div>
-                <div className="text-[9.5px] tracking-[0.26em] uppercase text-graphite font-semibold leading-[1.4]">
-                  {s.k}
-                </div>
-              </div>
+                <span className="text-[9.5px] tracking-[0.22em] uppercase font-bold text-rust tabular-nums">
+                  0{i + 1}
+                </span>
+                <span className="text-[11.5px] text-ink font-medium group-hover:text-rust transition-colors duration-500">
+                  {p.shortTitle}
+                </span>
+              </a>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Scroll-to-explore indicator — desktop only, sits between the
-          hairline rule and the section content baseline. */}
-      <div className="fade-up hidden md:flex absolute bottom-7 left-1/2 -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.32em] uppercase text-stone font-semibold">
+      {/* Programme-name marquee — slow infinite scroll across the
+          bottom edge of the hero. Pulls every programme tag past the
+          eye, adds kinetic energy without distracting from the
+          headline above. */}
+      <div
+        aria-hidden
+        className="absolute bottom-[16px] md:bottom-[20px] inset-x-0 overflow-hidden pointer-events-none select-none"
+      >
+        <div className="programs-hero-marquee flex gap-12 whitespace-nowrap text-[11px] md:text-[12px] tracking-[0.32em] uppercase text-stone/50 font-semibold">
+          {[...PROGRAMS, ...PROGRAMS].map((p, i) => (
+            <span key={i} className="inline-flex items-center gap-3">
+              <span className="text-rust">●</span>
+              {p.shortTitle}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll cue — desktop only */}
+      <div className="fade-up hidden md:flex absolute bottom-9 left-1/2 -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.32em] uppercase text-stone font-semibold pointer-events-none">
         <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
         <span>Explore programmes</span>
-        <span aria-hidden>↓</span>
+        <span aria-hidden className="animate-bounce">↓</span>
       </div>
+
+      {/* Inline keyframes — marquee animation lives next to the
+          component so all section-specific styles stay co-located. */}
+      <style>{`
+        .programs-hero-marquee {
+          width: max-content;
+          animation: programs-hero-marquee 38s linear infinite;
+        }
+        @keyframes programs-hero-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .programs-hero-marquee { animation: none; }
+        }
+      `}</style>
     </section>
   )
 }
