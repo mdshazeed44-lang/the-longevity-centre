@@ -16,6 +16,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { MilindAnchor } from '../components/sections/MilindAnchor'
 import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -374,6 +375,7 @@ export function SkinAestheticsPage() {
         </div>
       </section>
 
+      <MilindAnchor />
       <CtaBand />
     </div>
   )

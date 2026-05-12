@@ -16,6 +16,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CENTRES, getCentreBySlug } from '../lib/centres'
 import { CtaBand } from '../components/sections/CtaBand'
+import { MilindAnchor } from '../components/sections/MilindAnchor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -662,6 +663,7 @@ export function CentreDetailPage() {
       </section>
 
       {/* CTA */}
+      <MilindAnchor />
       <CtaBand />
     </div>
   )

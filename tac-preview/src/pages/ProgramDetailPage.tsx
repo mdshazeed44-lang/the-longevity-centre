@@ -21,6 +21,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { getProgramBySlug, PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
+import { MilindAnchor } from '../components/sections/MilindAnchor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -658,6 +659,7 @@ export function ProgramDetailPage() {
       <Outcomes p={program} />
       <Difference p={program} />
       <Related p={program} />
+      <MilindAnchor />
       <FinalCta p={program} />
     </>
   )

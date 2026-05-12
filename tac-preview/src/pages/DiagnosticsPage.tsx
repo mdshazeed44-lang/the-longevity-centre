@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { MilindAnchor } from '../components/sections/MilindAnchor'
 import { DIAGNOSTICS } from '../lib/diagnostics'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -618,6 +619,7 @@ export function DiagnosticsPage() {
       </section>
 
       {/* ====================== CTA ====================== */}
+      <MilindAnchor />
       <CtaBand />
     </div>
   )

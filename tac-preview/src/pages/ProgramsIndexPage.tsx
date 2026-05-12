@@ -9,6 +9,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
+import { MilindAnchor } from '../components/sections/MilindAnchor'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,6 +23,17 @@ function accentBg(a: Program['accent']) {
   if (a === 'iguana') return 'bg-iguana'
   return 'bg-green'
 }
+
+// Hero — premium white-background editorial hero. Magazine-masthead
+// register: hairline eyebrow, big display type with a rust-accented
+// emphasis word, restrained paragraph, three stat tiles in a hairline
+// grid. Subtle warm radial gradients (rust + cream) keep the canvas
+// from feeling sterile. min-h-screen so it commands the viewport.
+const HERO_STATS = [
+  { k: 'Programmes', v: '6' },
+  { k: 'Duration', v: '3–12 mo' },
+  { k: 'Specialists', v: 'Per protocol' },
+]
 
 function Hero() {
   const ref = useRef<HTMLElement>(null)
@@ -45,30 +57,88 @@ function Hero() {
       y: 0,
       duration: 1.0,
       ease: 'power3.out',
-      stagger: 0.1,
+      stagger: 0.08,
       delay: 0.6,
     })
   }, [])
   return (
     <section
       ref={ref}
-      className="relative pt-36 md:pt-44 pb-16 md:pb-20 px-6 md:px-12 bg-white overflow-hidden"
+      className="relative bg-white text-ink pt-32 md:pt-40 pb-16 md:pb-20 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center"
     >
-      <div className="max-w-[1180px] mx-auto text-center">
-        <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-7">
-          — Six Flagship Programmes —
+      {/* Soft warm wash — barely-there rust + cream radial gradients
+          so the white canvas has depth without going clinical. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(900px 600px at 12% 18%, rgba(148,84,85,0.06), transparent 60%), radial-gradient(800px 500px at 88% 82%, rgba(238,230,219,0.55), transparent 60%)',
+        }}
+      />
+      {/* Hairline frame — top + bottom rule pulls the section into a
+          quiet editorial frame. */}
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-[88px] md:top-[104px] h-px bg-ink/10" />
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-ink/10" />
+
+      <div className="relative max-w-[1280px] mx-auto w-full grid lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-16 items-end">
+        {/* Left — eyebrow + headline */}
+        <div>
+          <div className="fade-up flex items-center gap-3 mb-8">
+            <span className="w-9 h-px bg-rust" />
+            <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
+              Six Flagship Programmes
+            </span>
+          </div>
+          <h1 className="font-display text-[44px] sm:text-[60px] md:text-[80px] xl:text-[96px] leading-[0.98] tracking-[-0.04em] text-ink">
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block font-light">A programme</span>
+            </span>
+            <br />
+            <span className="line-mask inline-block overflow-hidden align-bottom">
+              <span className="inline-block font-bold text-rust">
+                for every chapter.
+              </span>
+            </span>
+          </h1>
         </div>
-        <h1 className="font-display font-light text-[40px] sm:text-[58px] md:text-[78px] xl:text-[92px] leading-[1.0] tracking-[-0.035em] text-ink mb-7">
-          <span className="line-mask inline-block overflow-hidden align-bottom">
-            <span className="inline-block">A programme</span>
-          </span>{' '}
-          <span className="line-mask inline-block overflow-hidden align-bottom">
-            <span className="inline-block font-bold text-rust">for every chapter.</span>
-          </span>
-        </h1>
-        <p className="fade-up text-[15px] md:text-[17px] leading-[1.7] text-graphite font-light max-w-[620px] mx-auto">
-          Each programme is led by a dedicated specialist, but all run inside one shared medical record — diagnostics-led, physician-guided, and continuously refined.
-        </p>
+
+        {/* Right — paragraph + stat tiles. Sits at the baseline of the
+            headline on desktop for that magazine-spread alignment. */}
+        <div className="lg:pb-3">
+          <p className="fade-up text-[15px] md:text-[17px] lg:text-[18px] leading-[1.7] text-graphite font-light max-w-[440px]">
+            Each programme is led by a dedicated specialist, but all run
+            inside one shared medical record — diagnostics-led,
+            physician-guided, and continuously refined.
+          </p>
+
+          {/* Stat tiles — hairline grid (no backdrop-blur; this is white
+              bg). Editorial tile pattern with rust accent number on top
+              + uppercase tracking-out label below. */}
+          <div className="fade-up mt-10 grid grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[480px]">
+            {HERO_STATS.map((s) => (
+              <div
+                key={s.k}
+                className="bg-white px-4 py-5 md:px-5 md:py-6 text-left"
+              >
+                <div className="font-display font-bold text-[20px] md:text-[24px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
+                  {s.v}
+                </div>
+                <div className="text-[9.5px] tracking-[0.26em] uppercase text-graphite font-semibold leading-[1.4]">
+                  {s.k}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll-to-explore indicator — desktop only, sits between the
+          hairline rule and the section content baseline. */}
+      <div className="fade-up hidden md:flex absolute bottom-7 left-1/2 -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.32em] uppercase text-stone font-semibold">
+        <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
+        <span>Explore programmes</span>
+        <span aria-hidden>↓</span>
       </div>
     </section>
   )
@@ -206,6 +276,7 @@ export function ProgramsIndexPage() {
       <Hero />
       <ProgrammesGrid />
       <BmiCalculator variant="selector" />
+      <MilindAnchor />
       <CtaBand />
     </>
   )
