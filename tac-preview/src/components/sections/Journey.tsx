@@ -124,16 +124,12 @@ const ACTS: Act[] = [
   },
 ]
 
-// Helper — Roman numerals for chapter marks. Only need 1-6 here.
-const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI']
-
 export function Journey() {
   const sectionRef = useRef<HTMLElement>(null)
   const stripRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
-  const chapterLabelRef = useRef<HTMLSpanElement>(null)
-  const chapterEraRef = useRef<HTMLSpanElement>(null)
+  const eraLabelRef = useRef<HTMLSpanElement>(null)
   const dotsRef = useRef<HTMLDivElement[]>([])
 
   const setCardRef = (i: number) => (el: HTMLDivElement | null) => {
@@ -191,8 +187,7 @@ export function Journey() {
         })
         updateScales()
 
-        // Progress rail, chapter-dot tracker, and updating "Chapter
-        // II · Mastery" header label as scroll advances.
+        // Progress rail + dot tracker + active-era label update.
         const n = ACTS.length
         ScrollTrigger.create({
           trigger: sectionRef.current,
@@ -203,11 +198,8 @@ export function Journey() {
             const p = st.progress
             const idx = Math.min(n - 1, Math.floor(p * n))
             const act = ACTS[idx]
-            if (chapterLabelRef.current && chapterLabelRef.current.textContent !== `Chapter ${ROMAN[idx]}`) {
-              chapterLabelRef.current.textContent = `Chapter ${ROMAN[idx]}`
-            }
-            if (chapterEraRef.current && chapterEraRef.current.textContent !== act.era) {
-              chapterEraRef.current.textContent = act.era
+            if (eraLabelRef.current && eraLabelRef.current.textContent !== act.era) {
+              eraLabelRef.current.textContent = act.era
             }
             if (indicatorRef.current) {
               indicatorRef.current.style.left = `${p * ((n - 1) / n) * 100}%`
@@ -354,29 +346,13 @@ export function Journey() {
                     </div>
                   </div>
 
-                  {/* Editorial right column. Ghost Roman numeral sits
-                      behind the chapter mark as a decorative bookplate. */}
+                  {/* Editorial right column — era marker + year + body. */}
                   <div className="relative">
-                    {/* Ghost numeral — barely-there rust Roman in the
-                        background, like a chapter heading on an old
-                        printed page. */}
-                    <div
-                      aria-hidden
-                      className="absolute -top-10 -left-3 font-display font-light text-rust/[0.07] leading-none select-none pointer-events-none tracking-[-0.04em]"
-                      style={{ fontSize: 'clamp(160px, 18vw, 280px)' }}
-                    >
-                      {ROMAN[i]}
-                    </div>
-
                     <div className="relative">
-                      {/* Chapter mark — Roman numeral + era */}
+                      {/* Era marker — hairline rule + small tracked label */}
                       <div className="flex items-center gap-3 mb-4">
                         <span className="w-7 h-px bg-rust/60" />
                         <span className="text-[10px] tracking-[0.42em] uppercase text-rust font-medium">
-                          Chapter {ROMAN[i]}
-                        </span>
-                        <span aria-hidden className="text-rust/30">·</span>
-                        <span className="text-[10px] tracking-[0.42em] uppercase text-rust/80 font-medium">
                           {a.era}
                         </span>
                       </div>
@@ -430,28 +406,21 @@ export function Journey() {
           </div>
         </div>
 
-        {/* Bottom progress rail — editorial: active chapter label on
-            left, hairline track with 6 dot markers, current chapter
-            highlighted, no naked "01 / 06" counter. */}
+        {/* Bottom progress rail — active era label on the left, a
+            hairline track with six dot markers, current dot
+            highlighted. Clean and minimal, no counter clutter. */}
         <div className="hidden md:flex absolute bottom-10 left-12 right-12 items-center gap-8 pointer-events-none z-10">
-          {/* Active chapter label */}
-          <div className="flex items-baseline gap-3 min-w-[200px]">
+          {/* Active era label */}
+          <div className="min-w-[160px]">
             <span
-              ref={chapterLabelRef}
-              className="font-display italic text-rust text-[16px] leading-none"
-            >
-              Chapter I
-            </span>
-            <span aria-hidden className="text-rust/30 text-[10px]">·</span>
-            <span
-              ref={chapterEraRef}
-              className="text-[10px] tracking-[0.42em] uppercase text-rust font-medium"
+              ref={eraLabelRef}
+              className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-medium"
             >
               Roots
             </span>
           </div>
 
-          {/* Rail with travelling pill + chapter dots */}
+          {/* Rail with travelling pill + dot markers */}
           <div className="flex-1 relative h-px bg-ink/10">
             <div
               ref={indicatorRef}
@@ -468,12 +437,6 @@ export function Journey() {
                 />
               ))}
             </div>
-          </div>
-
-          {/* Roman of VI counter */}
-          <div className="flex items-baseline gap-1.5 text-rust font-display tabular-nums shrink-0">
-            <span className="text-[10px] tracking-[0.32em] uppercase opacity-60 font-medium">of</span>
-            <span className="text-[18px] font-light leading-none">VI</span>
           </div>
         </div>
       </div>
