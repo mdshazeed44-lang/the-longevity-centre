@@ -105,7 +105,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     name: 'Genetic Testing — 323 Genes',
     shortName: 'Genetic Testing',
     category: 'Genomic',
-    duration: '5 min collection · 14-day report',
+    duration: '5 min collection · 8-week report',
     sampleType: 'Saliva swab',
     heroImg: '/diagnostics/genetic-testing.jpg',
     heroAlt: 'DNA double helix on dark rust backdrop — genetic testing',
