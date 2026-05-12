@@ -66,24 +66,21 @@ const ABOUT_META = {
   ],
 }
 
+// Founders unified into a single editorial card — client request to show
+// Dr. Abhinav & Dr. Bhavna together (one portrait, one combined bio)
+// rather than two parallel cards. `stats` is an array so we can render
+// both doctors' headline numbers as stacked pills on the portrait.
 const FOUNDERS = [
   {
-    name: 'Dr. Abhinav Sharma',
-    creds: 'MBBS · MS',
-    role: 'Co-Founder · Anti-Aging & Preventive Medicine',
-    bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness — blending expertise with innovation for holistic care.',
-    img: '/team/dr-abhinav.jpg',
-    stat: '11,000+',
-    statLabel: 'Successful Surgeries',
-  },
-  {
-    name: 'Dr. Bhavna Sharma',
-    creds: 'IVF Specialist',
-    role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
-    bio: "Leading IVF specialist with over 8,000 successful pregnancies. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT — blending compassion with cutting-edge fertility solutions, empowering women on their unique health journeys.",
-    img: '/team/dr-bhavna-2026.jpg',
-    stat: '8,000+',
-    statLabel: 'IVF Pregnancies',
+    name: 'Dr. Abhinav & Dr. Bhavna Sharma',
+    creds: 'MBBS (MAMC, Delhi) · MS Surgery, PGI Chandigarh · IVF Specialist',
+    role: 'Co-Founders · The Longevity Centre',
+    bio: "Educated at Maulana Azad Medical College, Delhi University, both Dr. Abhinav Sharma and Dr. Bhavna Sharma completed their MBBS at this premier institution, with Dr. Bhavna also pursuing her postgraduation there and Dr. Abhinav completing his at PGI Chandigarh, one of India's most acclaimed postgraduate centers. Together, they have pioneered science-driven anti-aging and longevity clinics in India, integrating metabolic, hormonal, and reproductive health to reverse biological aging. A leading IVF specialist credited with over 8,000 IVF babies, Dr. Bhavna now extends her expertise to hormonal and reproductive anti-aging, helping patients preserve fertility, balance hormones, and optimize long-term healthspan.",
+    img: '/team/founderboth.jpg',
+    stats: [
+      { stat: '11,000+', statLabel: 'Successful Surgeries' },
+      { stat: '8,000+', statLabel: 'IVF Pregnancies' },
+    ],
   },
 ]
 
@@ -815,7 +812,7 @@ export function AboutPage() {
                       — without it the container collapses to 0 height
                       and the absolutely-positioned image disappears. */}
                   <div
-                    className={`relative aspect-square min-h-[360px] md:aspect-auto md:min-h-[520px] overflow-hidden bg-cream/60 ${
+                    className={`relative aspect-[3/4] min-h-[420px] md:aspect-auto md:min-h-[640px] overflow-hidden bg-cream/60 ${
                       reverse ? 'md:order-2' : ''
                     }`}
                   >
@@ -823,8 +820,8 @@ export function AboutPage() {
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-                      style={{ objectPosition: 'center bottom' }}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                      style={{ objectPosition: 'center center' }}
                     />
                     {/* Bottom dark gradient — keeps the stat badge readable */}
                     <div
@@ -835,15 +832,23 @@ export function AboutPage() {
                           'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
                       }}
                     />
-                    {/* Floating stat badge — solid rust pill, fully readable
+                    {/* Floating stat pills — one per stat in `f.stats`,
+                        stacked top-left. Solid rust pills, fully readable
                         on the cream/photo background. */}
-                    <div className="absolute top-5 left-5 bg-rust border border-rust-deep/40 rounded-full px-4 py-2.5 shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
-                      <div className="font-display font-bold text-[16px] md:text-[18px] text-white tabular-nums tracking-tight leading-none">
-                        {f.stat}
-                      </div>
-                      <div className="text-[9px] tracking-[0.22em] uppercase text-white/90 font-semibold mt-0.5">
-                        {f.statLabel}
-                      </div>
+                    <div className="absolute top-5 left-5 flex flex-col gap-2.5">
+                      {f.stats.map((s) => (
+                        <div
+                          key={s.statLabel}
+                          className="bg-rust border border-rust-deep/40 rounded-full px-4 py-2.5 shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]"
+                        >
+                          <div className="font-display font-bold text-[16px] md:text-[18px] text-white tabular-nums tracking-tight leading-none">
+                            {s.stat}
+                          </div>
+                          <div className="text-[9px] tracking-[0.22em] uppercase text-white/90 font-semibold mt-0.5">
+                            {s.statLabel}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
