@@ -429,15 +429,19 @@ function StaircaseVariant() {
 }
 
 // ────────────────────────────────────────────────────────────────────
-// 06 — Horizontal Slide-In Hero Timeline
-// Section pins. As you scroll, each act slides IN from the right and
-// the active card grows to full size at the centre; the previous act
-// slides out to the left at smaller scale. One image is hero at a
-// time — past → present → future, each gets its big-stage moment.
+// 06 — True Horizontal Scroll Filmstrip
+// Section pins to the viewport. As the user scrolls DOWN, the page-
+// scroll is converted into HORIZONTAL movement inside the section: a
+// filmstrip of three large cards translates from right to left. Each
+// card scales UP when it reaches viewport centre and shrinks slightly
+// when it drifts to the edges, so the active image always feels like
+// the hero. Once the strip has fully translated, the page unpins and
+// continues normally below.
 // ────────────────────────────────────────────────────────────────────
 
 function VerticalTimelineVariant() {
   const sectionRef = useRef<HTMLElement>(null)
+  const stripRef = useRef<HTMLDivElement>(null)
   const cardsRef = useRef<HTMLDivElement[]>([])
   const indicatorRef = useRef<HTMLDivElement>(null)
   const indexLabelRef = useRef<HTMLSpanElement>(null)
@@ -448,98 +452,81 @@ function VerticalTimelineVariant() {
 
   useEffect(() => {
     if (reduceMotion()) return
-    if (!sectionRef.current) return
+    if (!sectionRef.current || !stripRef.current) return
 
     const mm = gsap.matchMedia()
 
-    // Desktop only — sticky pin + slide-in sequence. Mobile falls
-    // back to a simple vertical stack with fade-up per card.
     mm.add('(min-width: 768px)', () => {
       const ctx = gsap.context(() => {
-        // Initial — card 0 centred at full scale, cards 1 & 2 parked
-        // off-screen to the right at a smaller scale.
-        gsap.set(cardsRef.current[0], { xPercent: 0, scale: 1, autoAlpha: 1 })
-        gsap.set(cardsRef.current[1], { xPercent: 120, scale: 0.82, autoAlpha: 0 })
-        gsap.set(cardsRef.current[2], { xPercent: 120, scale: 0.82, autoAlpha: 0 })
+        const strip = stripRef.current!
 
-        const tl = gsap.timeline({
+        // Total horizontal distance the strip needs to travel so the
+        // last card ends flush with the viewport right edge.
+        const getDistance = () =>
+          Math.max(0, strip.scrollWidth - window.innerWidth)
+
+        // MAIN — convert vertical page scroll into horizontal strip
+        // translation. `scrub` ties it directly to the scrollbar so
+        // the user feels their scroll wheel drive horizontal motion.
+        gsap.to(strip, {
+          x: () => -getDistance(),
+          ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 0.7,
+            scrub: 0.6,
+            invalidateOnRefresh: true,
           },
-          defaults: { ease: 'power3.inOut' },
         })
 
-        // PHASE 1 — Past → Present (between 28% and 48% of scroll).
-        // Card 0 slides out to the left while shrinking, card 1
-        // enters from the right and grows to full size.
-        tl.to(
-          cardsRef.current[0],
-          { xPercent: -120, scale: 0.82, autoAlpha: 0, duration: 0.20 },
-          0.28,
-        )
-          .fromTo(
-            cardsRef.current[1],
-            { xPercent: 120, scale: 0.82, autoAlpha: 0 },
-            { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.20 },
-            0.28,
-          )
-
-        // PHASE 2 — Present → Future (between 64% and 84%).
-        tl.to(
-          cardsRef.current[1],
-          { xPercent: -120, scale: 0.82, autoAlpha: 0, duration: 0.20 },
-          0.64,
-        )
-          .fromTo(
-            cardsRef.current[2],
-            { xPercent: 120, scale: 0.82, autoAlpha: 0 },
-            { xPercent: 0, scale: 1, autoAlpha: 1, duration: 0.20 },
-            0.64,
-          )
-
-        // Make sure the timeline's effective duration is exactly 1 so
-        // the scrubbed mapping covers the full section scroll. Set a
-        // zero-duration tween at position 1 as an anchor.
-        tl.set({}, {}, 1)
-
-        // Progress indicator — rust pill that travels along a bottom
-        // track 1/3 → 2/3 → 3/3 across the section.
-        if (indicatorRef.current) {
-          gsap.fromTo(
-            indicatorRef.current,
-            { left: '0%', xPercent: 0 },
-            {
-              left: '66.66%',
-              xPercent: 0,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 0.7,
-              },
-            },
-          )
-        }
-
-        // Index label swap — "01" → "02" → "03"
-        if (indexLabelRef.current) {
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            onUpdate: (st) => {
-              const p = st.progress
-              const idx = p < 0.40 ? 0 : p < 0.74 ? 1 : 2
-              const label = `0${idx + 1}`
-              if (indexLabelRef.current && indexLabelRef.current.textContent !== label) {
-                indexLabelRef.current.textContent = label
-              }
-            },
+        // SCALE — each card scales up as it approaches viewport
+        // centre, scales down as it drifts away. We recompute on
+        // every scroll tick from the live bounding rect rather than
+        // pre-baking a timeline; this stays in sync with the strip
+        // animation no matter how the layout reflows.
+        const updateScales = () => {
+          const vw = window.innerWidth
+          const center = vw / 2
+          cardsRef.current.forEach((card) => {
+            if (!card) return
+            const r = card.getBoundingClientRect()
+            const cardCenter = r.left + r.width / 2
+            const dist = Math.abs(center - cardCenter) / vw
+            // dist 0 → scale 1.0, dist 0.5 → scale 0.86, capped.
+            const scale = Math.max(0.84, 1 - dist * 0.32)
+            gsap.set(card, { scale })
           })
+        }
+        const updater = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          onUpdate: updateScales,
+        })
+        // Run once for the initial state so card 0 starts at scale 1.
+        updateScales()
+
+        // PROGRESS RAIL — rust pill travels left → right.
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.6,
+          onUpdate: (st) => {
+            const p = st.progress
+            const idx = p < 0.34 ? 0 : p < 0.68 ? 1 : 2
+            if (indexLabelRef.current && indexLabelRef.current.textContent !== `0${idx + 1}`) {
+              indexLabelRef.current.textContent = `0${idx + 1}`
+            }
+            if (indicatorRef.current) {
+              indicatorRef.current.style.left = `${p * 66.66}%`
+            }
+          },
+        })
+
+        return () => {
+          updater.kill()
         }
       }, sectionRef)
 
@@ -552,88 +539,102 @@ function VerticalTimelineVariant() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-cream/40 overflow-hidden md:h-[280vh] py-12 md:py-0"
+      className="relative bg-cream/40 md:h-[280vh] overflow-hidden py-12 md:py-0"
     >
-      {/* Sticky pin on desktop; natural stack on mobile. */}
-      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden flex md:items-center px-6 md:px-12">
-        <div className="relative max-w-[1280px] mx-auto w-full md:h-[78vh]">
-          {/* Stage — three absolutely-stacked cards on desktop, normal
-              flow on mobile. */}
-          <div className="md:absolute md:inset-0 md:flex md:items-center space-y-12 md:space-y-0">
-            {ACTS.map((a, i) => (
-              <article
-                key={a.year}
-                ref={setCardRef(i)}
-                className="md:absolute md:inset-0 md:flex md:items-center will-change-transform"
-              >
-                <div className="grid md:grid-cols-[1.15fr_1fr] gap-8 md:gap-12 lg:gap-16 items-center w-full">
-                  {/* Image — hero, large */}
-                  <div className="relative aspect-[5/6] md:aspect-[4/5] rounded-[20px] overflow-hidden bg-mist shadow-[0_30px_70px_-30px_rgba(27,26,24,0.40)]">
-                    <img
-                      src={a.img}
-                      alt={a.era}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    {/* Year overlay — bottom-left of the image */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-                      style={{
-                        background:
-                          'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
-                      }}
-                    />
-                    <div className="absolute bottom-5 left-5 md:bottom-7 md:left-7">
-                      <div className="text-[10px] tracking-[0.34em] uppercase text-white/85 font-semibold mb-1.5">
-                        {a.era}
-                      </div>
-                      <div className="font-display font-bold text-white tabular-nums leading-none tracking-[-0.04em]" style={{ fontSize: 'clamp(48px, 6vw, 84px)' }}>
-                        {a.year}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Text block — sits beside the hero image */}
-                  <div>
-                    <div className="text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
+      {/* Sticky pin on desktop. Mobile gets natural vertical stack. */}
+      <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden flex md:items-center relative">
+        {/* The horizontal filmstrip. md:flex makes it a row of fixed-
+            width cards; on mobile it collapses to a normal vertical
+            stack via space-y. */}
+        <div
+          ref={stripRef}
+          className="md:flex md:items-center md:gap-10 lg:gap-14 md:pl-[12vw] md:pr-[12vw] md:will-change-transform space-y-12 md:space-y-0 w-full md:w-auto"
+        >
+          {ACTS.map((a, i) => (
+            <article
+              key={a.year}
+              ref={setCardRef(i)}
+              className="md:shrink-0 md:w-[76vw] lg:w-[70vw] xl:w-[64vw] will-change-transform"
+            >
+              <div className="grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 lg:gap-16 items-center">
+                {/* Hero image — large, dominant */}
+                <div className="relative aspect-[5/6] md:aspect-[4/5] rounded-[20px] overflow-hidden bg-mist shadow-[0_30px_70px_-30px_rgba(27,26,24,0.40)]">
+                  <img
+                    src={a.img}
+                    alt={a.era}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                    style={{
+                      background:
+                        'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
+                    }}
+                  />
+                  <div className="absolute bottom-5 left-5 md:bottom-7 md:left-7">
+                    <div className="text-[10px] tracking-[0.34em] uppercase text-white/85 font-semibold mb-1.5">
                       {a.era}
                     </div>
-                    <h3 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.04] tracking-[-0.025em] text-ink mb-5">
-                      {a.headline}
-                    </h3>
-                    <p className="text-[14.5px] md:text-[16.5px] text-graphite font-light leading-[1.72] max-w-[440px]">
-                      {a.body}
-                    </p>
+                    <div
+                      className="font-display font-bold text-white tabular-nums leading-none tracking-[-0.04em]"
+                      style={{ fontSize: 'clamp(48px, 6vw, 84px)' }}
+                    >
+                      {a.year}
+                    </div>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
 
-          {/* Bottom progress strip — desktop only. Tiny rust pill
-              travels left → right across a hairline rail, marks the
-              active act number to the right. */}
-          <div className="hidden md:flex absolute bottom-2 left-0 right-0 items-center gap-6 pointer-events-none">
-            <div className="flex-1 relative h-px bg-rust/15">
-              <div
-                ref={indicatorRef}
-                className="absolute -top-[5px] h-2.5 w-[33.33%] bg-rust/85 rounded-full"
-                style={{ left: '0%' }}
-              />
-            </div>
-            <div className="flex items-baseline gap-2 text-rust font-semibold font-display tabular-nums">
-              <span ref={indexLabelRef} className="text-[24px] leading-none">01</span>
-              <span className="text-[11px] tracking-[0.32em] uppercase opacity-70">/ 03</span>
-            </div>
-          </div>
+                {/* Text block — sits to the right of the hero image */}
+                <div>
+                  <div className="text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
+                    {a.era}
+                  </div>
+                  <h3 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.04] tracking-[-0.025em] text-ink mb-5">
+                    {a.headline}
+                  </h3>
+                  <p className="text-[14.5px] md:text-[16.5px] text-graphite font-light leading-[1.72] max-w-[440px]">
+                    {a.body}
+                  </p>
+                  <div className="mt-6 inline-flex items-baseline gap-2">
+                    <span className="font-display font-bold text-rust text-[28px] md:text-[34px] leading-none tabular-nums">
+                      0{i + 1}
+                    </span>
+                    <span className="text-[10px] tracking-[0.32em] uppercase text-rust/70 font-semibold">
+                      / 03
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
 
-          {/* Scroll cue — desktop only */}
-          <div className="hidden md:flex absolute top-2 right-0 items-center gap-3 text-[9.5px] tracking-[0.32em] uppercase text-stone font-semibold pointer-events-none">
-            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
-            <span>Scroll to advance</span>
-            <span aria-hidden className="animate-bounce">↓</span>
+        {/* Bottom progress rail — fixed inside the sticky pin */}
+        <div className="hidden md:flex absolute bottom-6 left-12 right-12 items-center gap-6 pointer-events-none z-10">
+          <div className="flex-1 relative h-px bg-rust/15">
+            <div
+              ref={indicatorRef}
+              className="absolute -top-[5px] h-2.5 w-[33.33%] bg-rust/85 rounded-full transition-[left] duration-100"
+              style={{ left: '0%' }}
+            />
           </div>
+          <div className="flex items-baseline gap-2 text-rust font-semibold font-display tabular-nums">
+            <span ref={indexLabelRef} className="text-[24px] leading-none">
+              01
+            </span>
+            <span className="text-[11px] tracking-[0.32em] uppercase opacity-70">
+              / 03
+            </span>
+          </div>
+        </div>
+
+        {/* Top-right scroll cue */}
+        <div className="hidden md:flex absolute top-6 right-12 items-center gap-3 text-[9.5px] tracking-[0.32em] uppercase text-stone font-semibold pointer-events-none z-10">
+          <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
+          <span>Scroll &rarr; horizontal</span>
+          <span aria-hidden className="animate-pulse">→</span>
         </div>
       </div>
     </section>
@@ -785,8 +786,8 @@ export function JourneyPreviewPage() {
 
       <PreviewLabel
         n={6}
-        name="The Timeline (Horizontal Slide-In Hero)"
-        desc="Section pins. Scroll down — the next act slides IN from the right and the active image grows to full hero size at the centre; the previous act slides out to the left at smaller scale. Past → Present → Future, one big image at a time. The most cinematic option."
+        name="The Timeline (True Horizontal Scroll)"
+        desc="Section pins. Your vertical scroll is converted into horizontal motion — a filmstrip of three large cards travels from right to left inside the section. Each card scales UP when it reaches viewport centre (hero size) and shrinks slightly at the edges. The page only continues vertically once the strip has finished its run."
       />
       <VerticalTimelineVariant />
 
