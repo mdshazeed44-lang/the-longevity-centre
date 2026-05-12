@@ -413,7 +413,7 @@ export function ContactPage() {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-px bg-ink/10 max-w-[1080px] mx-auto rounded-2xl overflow-hidden border border-ink/10">
           {[
             { k: '8', l: 'Centres pan-India' },
-            { k: '60+ yrs', l: 'In preventive medicine' },
+            { k: '20+ years', l: 'In preventive medicine' },
             { k: '1000+', l: 'Biomarkers per patient' },
             { k: '3', l: 'Biological ages — Epigenetic · Blood · Gut' },
           ].map((s) => (

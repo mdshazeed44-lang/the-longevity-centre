@@ -612,7 +612,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     name: 'Biological Clock — Epigenetic Age',
     shortName: 'Biological Clock',
     category: 'Epigenomic',
-    duration: '5 min collection · 28-day report',
+    duration: '5 min collection · 8-week report',
     sampleType: 'Saliva or blood spot',
     heroImg: '/diagnostics/biological-clock.jpg',
     heroAlt: 'Man with clock and world-map tattoo — biological age',
