@@ -429,69 +429,171 @@ function StaircaseVariant() {
 }
 
 // ────────────────────────────────────────────────────────────────────
-// 06 — Vertical Timeline
-// A vertical rust line with 3 nodes. Image on alternating sides. Acts
-// fade-up on scroll. Classic, narrative-friendly.
+// 06 — Horizontal Scroll-Pinned Timeline
+// Section pins to the viewport. As you scroll down, three cards reveal
+// one by one along a horizontal rust line, then the page unpins and
+// continues. Cinematic and narrative-friendly. Mobile falls back to a
+// simple stacked layout (no pin, no scroll-jack).
 // ────────────────────────────────────────────────────────────────────
 
 function VerticalTimelineVariant() {
-  const ref = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const cardsRef = useRef<HTMLDivElement[]>([])
+  const dotsRef = useRef<HTMLDivElement[]>([])
+  const progressBarRef = useRef<HTMLDivElement>(null)
+  const travellingDotRef = useRef<HTMLDivElement>(null)
+
+  const setCardRef = (i: number) => (el: HTMLDivElement | null) => {
+    if (el) cardsRef.current[i] = el
+  }
+  const setDotRef = (i: number) => (el: HTMLDivElement | null) => {
+    if (el) dotsRef.current[i] = el
+  }
+
   useEffect(() => {
     if (reduceMotion()) return
-    if (!ref.current) return
-    const rows = ref.current.querySelectorAll('.vt-row')
-    rows.forEach((row) => {
-      gsap.from(row.querySelectorAll('[data-vt-anim]'), {
-        y: 30,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'expo.out',
-        stagger: 0.1,
-        scrollTrigger: { trigger: row, start: 'top 78%' },
-      })
+    if (!sectionRef.current) return
+
+    const mm = gsap.matchMedia()
+
+    // Desktop only — sticky pin + reveal sequence.
+    mm.add('(min-width: 768px)', () => {
+      const ctx = gsap.context(() => {
+        // Initial state — only card 0 is fully visible, the other two
+        // are dim, slightly lifted and faded so the row is balanced
+        // visually but it's obvious they haven't "arrived" yet.
+        gsap.set(cardsRef.current[1], { autoAlpha: 0.18, y: 30 })
+        gsap.set(cardsRef.current[2], { autoAlpha: 0.18, y: 30 })
+        gsap.set(dotsRef.current[1], { scale: 0.45, opacity: 0.45 })
+        gsap.set(dotsRef.current[2], { scale: 0.45, opacity: 0.45 })
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.7,
+          },
+          defaults: { ease: 'power2.inOut' },
+        })
+
+        // The rust track fills left-to-right as scroll progresses.
+        tl.fromTo(
+          progressBarRef.current,
+          { scaleX: 0 },
+          { scaleX: 1, duration: 1, ease: 'none' },
+          0,
+        )
+
+        // Travelling dot follows the progress bar tip.
+        tl.fromTo(
+          travellingDotRef.current,
+          { left: '0%' },
+          { left: '100%', duration: 1, ease: 'none' },
+          0,
+        )
+
+        // Reveal card 2 between 30-42% scroll.
+        tl.to(cardsRef.current[1], { autoAlpha: 1, y: 0, duration: 0.12 }, 0.30)
+          .to(dotsRef.current[1], { scale: 1, opacity: 1, duration: 0.10 }, 0.30)
+
+        // Reveal card 3 between 65-78% scroll.
+        tl.to(cardsRef.current[2], { autoAlpha: 1, y: 0, duration: 0.12 }, 0.65)
+          .to(dotsRef.current[2], { scale: 1, opacity: 1, duration: 0.10 }, 0.65)
+      }, sectionRef)
+
+      return () => ctx.revert()
     })
+
+    return () => mm.revert()
   }, [])
+
   return (
-    <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
-      <div ref={ref} className="relative max-w-[980px] mx-auto">
-        {/* Center vertical line */}
-        <div aria-hidden className="absolute left-1/2 top-0 bottom-0 w-px bg-rust/30 hidden md:block" />
-        <div className="space-y-12 md:space-y-20">
-          {ACTS.map((a, i) => {
-            const right = i % 2 === 1
-            return (
+    <section
+      ref={sectionRef}
+      className="relative bg-cream/40 overflow-hidden md:h-[200vh] py-12 md:py-0"
+    >
+      {/* Sticky pin on desktop; natural flow on mobile. */}
+      <div className="md:sticky md:top-0 md:h-screen flex flex-col justify-center px-6 md:px-12">
+        <div className="max-w-[1240px] mx-auto w-full">
+          {/* Horizontal progress timeline — track, fill, dots, year labels */}
+          <div className="relative max-w-[920px] mx-auto mb-16 md:mb-20">
+            {/* Track */}
+            <div className="relative h-px bg-rust/15">
               <div
-                key={a.year}
-                className={`vt-row grid md:grid-cols-2 gap-6 md:gap-12 items-center ${right ? '' : ''}`}
-              >
-                {/* Image — alternates sides */}
-                <div
-                  data-vt-anim
-                  className={`relative aspect-[5/4] rounded-[16px] overflow-hidden bg-mist shadow-[0_22px_50px_-26px_rgba(27,26,24,0.28)] ${right ? 'md:order-2' : ''}`}
-                >
-                  <img src={a.img} alt={a.era} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
-                  <div aria-hidden className="absolute hidden md:block w-3 h-3 rounded-full bg-rust ring-4 ring-cream/40" style={{ top: '50%', [right ? 'right' : 'left']: '-22px', transform: 'translateY(-50%)' }} />
+                ref={progressBarRef}
+                className="absolute inset-y-0 left-0 right-0 bg-rust origin-left"
+                style={{ transform: 'scaleX(0)' }}
+              />
+            </div>
+
+            {/* Year-marker dots */}
+            <div className="absolute inset-x-0 -top-[8px] flex justify-between">
+              {ACTS.map((a, i) => (
+                <div key={a.year} className="flex flex-col items-center">
+                  <div
+                    ref={setDotRef(i)}
+                    className="w-4 h-4 rounded-full bg-rust ring-4 ring-cream"
+                  />
+                  <div className="mt-3 text-[10px] tracking-[0.32em] uppercase text-rust font-semibold whitespace-nowrap">
+                    {a.year}
+                  </div>
                 </div>
-                {/* Text */}
-                <div data-vt-anim className={right ? 'md:order-1 md:text-right' : ''}>
-                  <div className={`inline-flex items-baseline gap-2 mb-2 ${right ? 'md:flex-row-reverse' : ''}`}>
-                    <span className="font-display font-bold text-rust text-[36px] md:text-[48px] leading-none tabular-nums tracking-[-0.03em]">
+              ))}
+            </div>
+
+            {/* Travelling dot — follows the scroll progress along the
+                track. Hidden on mobile where the timeline collapses. */}
+            <div
+              ref={travellingDotRef}
+              aria-hidden
+              className="hidden md:block absolute -top-[5px] w-2.5 h-2.5 rounded-full bg-rust-deep ring-4 ring-cream/80 -translate-x-1/2 will-change-transform"
+              style={{ left: '0%' }}
+            />
+          </div>
+
+          {/* Three horizontal cards */}
+          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+            {ACTS.map((a, i) => (
+              <article
+                key={a.year}
+                ref={setCardRef(i)}
+                className="bg-white rounded-[16px] overflow-hidden border border-mist/70 shadow-[0_22px_50px_-26px_rgba(27,26,24,0.25)]"
+              >
+                <div className="relative aspect-[5/4] overflow-hidden bg-mist">
+                  <img
+                    src={a.img}
+                    alt={a.era}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 left-3 backdrop-blur-md bg-white/85 border border-white rounded-full px-3 py-1">
+                    <span className="text-[9.5px] tracking-[0.28em] uppercase font-bold text-rust tabular-nums">
                       {a.year}
                     </span>
-                    <span className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold">
-                      {a.era}
-                    </span>
                   </div>
-                  <h3 className="font-display font-light text-[22px] md:text-[28px] leading-[1.1] text-ink mb-3">
+                </div>
+                <div className="p-5">
+                  <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-2">
+                    {a.era}
+                  </div>
+                  <h3 className="font-display font-light text-[20px] md:text-[22px] leading-[1.15] text-ink mb-2">
                     {a.headline}
                   </h3>
-                  <p className="text-[13.5px] md:text-[15px] text-graphite font-light leading-[1.7] max-w-[420px] md:inline-block">
+                  <p className="text-[12.5px] md:text-[13.5px] text-graphite font-light leading-[1.6]">
                     {a.body}
                   </p>
                 </div>
-              </div>
-            )
-          })}
+              </article>
+            ))}
+          </div>
+
+          {/* Scroll cue — only visible while pinned on desktop */}
+          <div className="hidden md:flex justify-center mt-10 gap-3 items-center text-[9.5px] tracking-[0.32em] uppercase text-stone font-semibold pointer-events-none">
+            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
+            <span>Scroll to reveal</span>
+            <span aria-hidden className="animate-bounce">↓</span>
+          </div>
         </div>
       </div>
     </section>
@@ -643,8 +745,8 @@ export function JourneyPreviewPage() {
 
       <PreviewLabel
         n={6}
-        name="The Timeline"
-        desc="Classic vertical rust line with image/text rows alternating left-right. Most narrative-friendly — great for long-form storytelling."
+        name="The Timeline (Horizontal Scroll-Pinned)"
+        desc="Section pins to the viewport. As you scroll down, the three cards reveal one-by-one along a horizontal rust line — a tiny rust dot travels the track from 2019 → 2026 → 2030+. Once all three have arrived, the page unpins and continues. Cinematic and narrative-rich."
       />
       <VerticalTimelineVariant />
 
