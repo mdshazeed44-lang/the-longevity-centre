@@ -218,6 +218,10 @@ export function VideoTestimonials() {
                   the poster + duration without speculatively pulling
                   the whole 10-24 MB clip. Native controls appear once
                   playback starts. */}
+              {/* No `bg-black` on the <video> — that was painting the
+                  side gaps (for vertical 9:16 clips in a 16:10 frame)
+                  solid black. We want the blurred poster backdrop
+                  layered behind to bleed through instead. */}
               <video
                 key={active.id}
                 ref={videoRef}
@@ -229,7 +233,7 @@ export function VideoTestimonials() {
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => setIsPlaying(false)}
-                className="relative w-full h-full object-contain bg-black"
+                className="relative w-full h-full object-contain"
               />
 
               {/* Play-disc overlay — only shown while paused. Once
@@ -267,28 +271,22 @@ export function VideoTestimonials() {
               )}
             </div>
 
-            {/* Inline prev / next navigation — sits directly under
-                the video frame so the user can switch stories
-                without scrolling to the thumbnail strip below.
-                Story counter in the middle, arrow buttons on either
-                side. Echoes the same setActiveIdx handlers as the
-                thumbnail-strip navigation — both stay in sync. */}
-            <div className="mt-5 md:mt-6 flex items-center justify-between gap-3">
+            {/* Inline prev / next navigation — minimal arrow-only
+                pattern per client preference. Just two circular icon
+                buttons either side of the story counter — no PREVIOUS
+                / NEXT labels. Stays in sync with the thumbnail strip
+                below via the shared setActiveIdx handlers. */}
+            <div className="mt-5 md:mt-6 flex items-center justify-center gap-6 md:gap-8">
               <button
                 type="button"
                 onClick={() => setActiveIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
                 aria-label="Previous story"
                 data-cursor="hover"
-                className="group inline-flex items-center gap-2 pl-2 pr-4 py-2 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink transition-colors duration-300"
+                className="w-11 h-11 rounded-full border border-mist text-ink hover:border-rust hover:bg-rust hover:text-white flex items-center justify-center transition-colors duration-300"
               >
-                <span className="w-8 h-8 rounded-full bg-cream/60 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-300">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </span>
-                <span className="text-[10.5px] tracking-[0.28em] uppercase font-semibold">
-                  Previous
-                </span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
               </button>
 
               <div className="text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold tabular-nums">
@@ -300,16 +298,11 @@ export function VideoTestimonials() {
                 onClick={() => setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)}
                 aria-label="Next story"
                 data-cursor="hover"
-                className="group inline-flex items-center gap-2 pl-4 pr-2 py-2 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink transition-colors duration-300"
+                className="w-11 h-11 rounded-full border border-mist text-ink hover:border-rust hover:bg-rust hover:text-white flex items-center justify-center transition-colors duration-300"
               >
-                <span className="text-[10.5px] tracking-[0.28em] uppercase font-semibold">
-                  Next
-                </span>
-                <span className="w-8 h-8 rounded-full bg-cream/60 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-300">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 18l6-6-6-6" />
-                  </svg>
-                </span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
               </button>
             </div>
           </div>
