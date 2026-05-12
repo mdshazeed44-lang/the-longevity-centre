@@ -89,6 +89,7 @@ export function CentreDetailPage() {
             openingHoursSpecification: [
               {
                 '@type': 'OpeningHoursSpecification',
+                // Open all days — Sunday added at client's request.
                 dayOfWeek: [
                   'Monday',
                   'Tuesday',
@@ -96,6 +97,7 @@ export function CentreDetailPage() {
                   'Thursday',
                   'Friday',
                   'Saturday',
+                  'Sunday',
                 ],
                 opens: '09:00',
                 closes: '20:00',

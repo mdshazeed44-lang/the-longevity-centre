@@ -92,7 +92,7 @@ export const CENTRES: Centre[] = [
       'On-site dermatology and aesthetic-medicine suite',
       'Weekly physician availability across endocrinology, gastroenterology, dermatology',
     ],
-    timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
+    timings: 'Open all days · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 28.5456, lon: 77.2417 }, // Greater Kailash-1, New Delhi
@@ -140,7 +140,7 @@ export const CENTRES: Centre[] = [
       'Dedicated parking and ground-floor accessibility',
       'Walk-in availability for follow-up consultations',
     ],
-    timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
+    timings: 'Open all days · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 28.4126, lon: 77.0382 }, // Sector 48 / Sohna Road, Gurugram
@@ -188,7 +188,7 @@ export const CENTRES: Centre[] = [
       'Convenient South Mumbai location at Worli Naka',
       'Shared medical record with the wider TLC network',
     ],
-    timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
+    timings: 'Open all days · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 19.0628, lon: 72.8302 }, // Bandra West, Mumbai
@@ -236,7 +236,7 @@ export const CENTRES: Centre[] = [
       'Direct gut-microbiome sample handoff to Netherlands lab',
       'Convenient parking · ground-floor access',
     ],
-    timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
+    timings: 'Open all days · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 18.5089, lon: 73.9259 }, // Hadapsar / Amanora, Pune
@@ -284,7 +284,7 @@ export const CENTRES: Centre[] = [
       'Central Nagpur location at Shankar Nagar Square, Dharampeth',
       'Shared medical record with the wider TLC network',
     ],
-    timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
+    timings: 'Open all days · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 21.1458, lon: 79.0882 }, // Civil Lines, Nagpur
@@ -332,7 +332,7 @@ export const CENTRES: Centre[] = [
       'Coordinated wellness-retreat integration across Goa',
       'Shared medical record with the wider TLC network',
     ],
-    timings: 'Mon–Sat · 10:00 AM to 7:00 PM',
+    timings: 'Open all days · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 15.5524, lon: 73.7508 }, // Panaji, Goa
@@ -406,7 +406,7 @@ export const CENTRES: Centre[] = [
       'Convenient North Bengaluru location off Railway Parallel Road',
       'Shared medical record with the wider TLC network',
     ],
-    timings: 'Mon–Sat · 9:00 AM to 8:00 PM',
+    timings: 'Open all days · 9:00 AM to 8:00 PM',
     status: 'open',
     verified: true,
     geo: { lat: 12.9352, lon: 77.6245 }, // Koramangala, Bengaluru
