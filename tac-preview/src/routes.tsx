@@ -58,6 +58,13 @@ const SkinAestheticsDetailPage = lazy(() =>
     default: m.SkinAestheticsDetailPage,
   }))
 )
+// Internal preview page — design options for the journey section.
+// Not linked from navigation; reachable only via direct URL.
+const JourneyPreviewPage = lazy(() =>
+  import('./pages/JourneyPreviewPage').then((m) => ({
+    default: m.JourneyPreviewPage,
+  }))
+)
 
 type AnyComponent = ComponentType | LazyExoticComponent<ComponentType>
 
@@ -92,6 +99,8 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/programs/', prefix: true }, Component: ProgramDetailPage },
   { match: { path: '/diagnostics' }, Component: DiagnosticsPage },
   { match: { path: '/diagnostics/', prefix: true }, Component: DiagnosticDetailPage },
+  // Internal — journey section design preview
+  { match: { path: '/journey-preview' }, Component: JourneyPreviewPage },
 ]
 
 /**
