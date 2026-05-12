@@ -355,8 +355,15 @@ export const PROGRAMS: Program[] = [
       'Multi-system correction — metabolic, hormonal, and microbiome addressed together. The most comprehensive PCOD programme in India.',
     desc:
       'PCOD addressed across the three systems that sustain it — metabolic, hormonal, and microbiome. The most comprehensive PCOD programme in India, with multi-disciplinary care from endocrinology to dermatology to gynaecology.',
-    cardImg: '/longevity/pcod-ultrasound.jpg',
-    heroImg: '/longevity/pcod-ultrasound.jpg',
+    // Was pcod-ultrasound.jpg — the image showed a generic
+    // abdominal-ultrasound monitor (NOT a pelvic / ovarian scan
+    // which PCOD diagnostics actually uses). Client flagged it
+    // as misleading. Replaced with a premium editorial close-up
+    // of a female clinician with a stethoscope — clinical
+    // signal for the women's-health audience without claiming
+    // any specific test.
+    cardImg: '/longevity/pcod-care.jpg',
+    heroImg: '/longevity/pcod-care.jpg',
     designedFor: [
       'Women diagnosed with PCOD or PCOS',
       'Irregular or absent menstrual cycles',
