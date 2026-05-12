@@ -20,50 +20,100 @@ import { reduceMotion } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Full six-act TLC journey — used by Option 06 (the horizontal scroll
+// hero filmstrip). The other variants only need a three-act subset to
+// demonstrate their design language, so they use ACTS_TRIAD below.
 const ACTS = [
   {
-    era: 'Origins',
-    year: '2018',
-    headline: 'Where it began.',
-    lede: 'A single clinic. A twenty-year clinical legacy carried forward.',
-    body: 'Dr. Bhavna and Dr. Abhinav Sharma open the first Longevity Centre in Delhi — born from one conviction: that modern medicine waits too long, and India deserves more centenarians. The clinic was small. The ambition was not.',
+    era: 'Roots',
+    year: '~2000',
+    headline: 'Where the story starts.',
+    lede: 'Two doctors. One conviction — that India deserves more centenarians.',
+    body: 'Dr. Bhavna and Dr. Abhinav Sharma meet at Maulana Azad Medical College, Delhi — India’s premier teaching institution. Dr. Bhavna continues her postgraduation there; Dr. Abhinav completes his MS at PGI Chandigarh. The conviction is already clear: prevention will beat treatment, every time.',
     highlights: [
-      'First TLC centre opens in Delhi',
-      'Diagnostics-first preventive philosophy',
-      'Founders’ 20-year clinical legacy',
+      'MBBS · Maulana Azad Medical College',
+      'MS Surgery · PGI Chandigarh',
+      'A shared vision takes root',
     ],
     img: '/team/founderboth.jpg',
-    caption: 'Dr. Bhavna &amp; Dr. Abhinav Sharma · co-founders',
+    caption: 'Dr. Bhavna &amp; Dr. Abhinav Sharma',
+  },
+  {
+    era: 'Mastery',
+    year: '2005 – 17',
+    headline: 'A craft, perfected.',
+    lede: 'Two decades. Two of India’s most demanding specialties.',
+    body: 'Dr. Abhinav becomes one of India’s most accomplished minimally-invasive surgeons — over 11,000 successful procedures. Dr. Bhavna emerges as a leading IVF specialist, credited with more than 8,000 successful pregnancies. The same conviction underwrites both: precision medicine, delivered with care.',
+    highlights: [
+      '11,000+ minimally-invasive surgeries',
+      '8,000+ IVF pregnancies',
+      'Two decades of clinical leadership',
+    ],
+    img: '/longevity/microscope-analyst.jpg',
+    caption: 'Two specialties. One philosophy.',
+  },
+  {
+    era: 'The Pivot',
+    year: '2018',
+    headline: 'The Longevity Centre opens.',
+    lede: 'Born from one belief — modern medicine waits too long.',
+    body: 'The first Longevity Centre opens in Delhi. The model is unlike anything India has seen — a doctor-led clinic built on full-body diagnostics, hormone optimisation, microbiome work and biological-age tracking. The clinic was small. The ambition was not.',
+    highlights: [
+      'First TLC centre · Delhi',
+      'Diagnostics-first preventive model',
+      'The brand is born',
+    ],
+    img: '/skin-aesthetics/08-hair-transplant.jpg',
+    caption: 'Inside the first TLC clinic, Delhi',
+  },
+  {
+    era: 'Network',
+    year: '2019 – 24',
+    headline: 'From Delhi, outward.',
+    lede: 'Eight cities. One shared medical record.',
+    body: 'Centres open in Gurgaon, Pune, Bangalore, Mumbai, Nagpur, Goa and Hyderabad. Thousands of patients are now read at the molecular level for the first time. Programmes mature into six flagship offerings — longevity, metabolism, gut, weight, PCOD and metabolomics.',
+    highlights: [
+      'Eight centres across India',
+      'Six flagship programmes',
+      'A pan-India patient record',
+    ],
+    img: '/longevity/family-three-generations.jpg',
+    caption: 'The families we serve',
   },
   {
     era: 'Today',
     year: '2026',
     headline: 'Where we stand.',
-    lede: 'Eight centres. A thousand biomarkers. One promise.',
-    body: 'Patients across Delhi, Gurgaon, Pune, Bangalore, Mumbai, Nagpur, Goa and Hyderabad are now measured — not managed. Three biological-age clocks. A partner laboratory in the Netherlands. Six flagship programmes designed by doctors, refined by data.',
+    lede: 'A thousand biomarkers. Three biological-age clocks. One promise.',
+    body: 'TLC now runs the deepest diagnostic stack in Indian medicine — 1000+ biomarkers per patient, three biological-age clocks (epigenetic, blood, gut) and a partner laboratory in the Netherlands. Patients are measured, not managed.',
     highlights: [
-      '8 centres pan-India',
-      '1000+ biomarkers · 3 age clocks',
+      '1000+ biomarkers per patient',
+      '3 age clocks · Epigenetic · Blood · Gut',
       'European laboratory partnership',
     ],
-    img: '/longevity/family-three-generations.jpg',
-    caption: 'Three generations · the families we serve today',
+    img: '/longevity/vitality-mature-woman.jpg',
+    caption: 'Indian Originals · the patients we measure',
   },
   {
     era: 'Tomorrow',
     year: '2030+',
     headline: 'Where we’re headed.',
     lede: 'A generation that ages on its own terms.',
-    body: 'Twenty-five centres across South Asia. AI-personalised longevity protocols built on the region’s largest biological-age dataset. Our mission — turn the longevity gap between India and the world into a longevity lead.',
+    body: 'Twenty-five centres across South Asia. AI-personalised longevity protocols built on the region’s largest biological-age dataset. Population-scale prevention. Our mission — turn the longevity gap between India and the world into a longevity lead.',
     highlights: [
       '25+ centres across South Asia',
       'AI-personalised protocols',
-      'Active centenarians, at scale',
+      'A generation of active centenarians',
     ],
     img: '/longevity/milind-soman.jpg',
     caption: 'Milind Soman · 58 · what ageing well looks like',
   },
 ]
+
+// Compact 3-act subset for variants whose layouts are designed around
+// exactly three cards (Polaroid, Staircase, Filmstrip, etc.). Picks
+// the cleanest past/present/future triad — Roots, Pivot, Tomorrow.
+const ACTS_TRIAD = [ACTS[0], ACTS[2], ACTS[5]]
 
 // ────────────────────────────────────────────────────────────────────
 // Shared helpers
@@ -120,7 +170,7 @@ function FilmstripVariant() {
   return (
     <section className="bg-cream/30 py-12 md:py-16 px-6 md:px-12">
       <div ref={ref} className="max-w-[1240px] mx-auto grid md:grid-cols-3 gap-5 md:gap-6">
-        {ACTS.map((a) => (
+        {ACTS_TRIAD.map((a) => (
           <article
             key={a.year}
             className="fs-card group bg-white rounded-[18px] overflow-hidden border border-mist/70 shadow-[0_18px_36px_-24px_rgba(27,26,24,0.20)] transition-transform duration-500 hover:-translate-y-1.5"
@@ -201,7 +251,7 @@ function StickyCrossfadeVariant() {
         {/* Sticky image stack */}
         <div className="md:sticky md:top-24 md:self-start">
           <div className="relative aspect-[4/5] rounded-[18px] overflow-hidden bg-mist shadow-[0_28px_60px_-30px_rgba(27,26,24,0.32)]">
-            {ACTS.map((a, i) => (
+            {ACTS_TRIAD.map((a, i) => (
               <img
                 key={a.year}
                 ref={setImgRef(i)}
@@ -217,7 +267,7 @@ function StickyCrossfadeVariant() {
 
         {/* Scrolling acts */}
         <div className="space-y-12 md:space-y-20">
-          {ACTS.map((a) => (
+          {ACTS_TRIAD.map((a) => (
             <div key={a.year} className="sx-act">
               <div className="flex items-baseline gap-3 mb-3">
                 <span className="font-display font-bold text-rust text-[42px] md:text-[64px] leading-none tabular-nums tracking-[-0.03em]">
@@ -252,7 +302,7 @@ function PolaroidVariant() {
     <section className="bg-[#F3EDE2] py-16 md:py-20 px-6 md:px-12 overflow-hidden">
       <div className="max-w-[1100px] mx-auto">
         <div className="polaroid-group flex flex-col md:flex-row items-center justify-center gap-6 md:gap-3">
-          {ACTS.map((a, i) => (
+          {ACTS_TRIAD.map((a, i) => (
             <article
               key={a.year}
               className="polaroid-card group relative bg-white p-3 pb-4 shadow-[0_18px_40px_-18px_rgba(27,26,24,0.30)] transition-transform duration-500 cursor-default"
@@ -302,7 +352,7 @@ function TabCarouselVariant() {
   const [active, setActive] = useState(0)
   const imgRef = useRef<HTMLImageElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
-  const a = ACTS[active]
+  const a = ACTS_TRIAD[active]
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -360,7 +410,7 @@ function TabCarouselVariant() {
 
           {/* Tab nav */}
           <div className="grid grid-cols-3 gap-px bg-cream/15 rounded-[14px] overflow-hidden">
-            {ACTS.map((t, i) => (
+            {ACTS_TRIAD.map((t, i) => (
               <button
                 key={t.year}
                 onClick={() => setActive(i)}
@@ -411,7 +461,7 @@ function StaircaseVariant() {
         ref={ref}
         className="relative max-w-[1100px] mx-auto h-[640px] md:h-[560px]"
       >
-        {ACTS.map((a, i) => {
+        {ACTS_TRIAD.map((a, i) => {
           const positions = [
             { left: '0%', top: '0%', rot: '-2deg' },
             { left: '28%', top: '14%', rot: '1.5deg' },
@@ -530,7 +580,10 @@ function VerticalTimelineVariant() {
         // Run once for the initial state so card 0 starts at scale 1.
         updateScales()
 
-        // PROGRESS RAIL — rust pill travels left → right.
+        // PROGRESS RAIL — rust pill travels left → right. Index label
+        // updates as the user moves through the six-act journey;
+        // boundaries pick the nearest act based on scroll progress.
+        const n = ACTS.length // 6
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top',
@@ -538,12 +591,15 @@ function VerticalTimelineVariant() {
           scrub: 0.6,
           onUpdate: (st) => {
             const p = st.progress
-            const idx = p < 0.34 ? 0 : p < 0.68 ? 1 : 2
-            if (indexLabelRef.current && indexLabelRef.current.textContent !== `0${idx + 1}`) {
-              indexLabelRef.current.textContent = `0${idx + 1}`
+            const idx = Math.min(n - 1, Math.floor(p * n))
+            const label = `0${idx + 1}`
+            if (indexLabelRef.current && indexLabelRef.current.textContent !== label) {
+              indexLabelRef.current.textContent = label
             }
             if (indicatorRef.current) {
-              indicatorRef.current.style.left = `${p * 66.66}%`
+              // Pill width on the rail is 1/n, so it travels from 0%
+              // to (1 - 1/n) * 100% as scroll completes.
+              indicatorRef.current.style.left = `${p * ((n - 1) / n) * 100}%`
             }
           },
         })
@@ -562,25 +618,29 @@ function VerticalTimelineVariant() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-cream/40 md:h-[300vh] py-12 md:py-0"
+      className="relative bg-cream/40 md:h-[420vh] py-12 md:py-0"
     >
       {/* Sticky pin on desktop. Mobile gets natural vertical stack.
           NOTE: overflow-hidden lives here, NOT on the parent section —
           a parent with `overflow: hidden` breaks position:sticky. The
-          sticky container clips the wide horizontal strip on its own. */}
+          sticky container clips the wide horizontal strip on its own.
+          Section height is 420vh because we now have 6 cards: 6 × ~58vw
+          + padding = ~360vw strip, ~260vw translation, ~320vh of pinned
+          scroll keeps the horizontal motion feeling unhurried. */}
       <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden flex md:items-center relative">
         {/* The horizontal filmstrip. md:flex makes it a row of fixed-
             width cards; on mobile it collapses to a normal vertical
-            stack via space-y. */}
+            stack via space-y. Card widths are smaller than the 3-card
+            version so all six cards fit a comfortable scroll length. */}
         <div
           ref={stripRef}
-          className="md:flex md:items-center md:gap-10 lg:gap-14 md:pl-[12vw] md:pr-[12vw] md:will-change-transform space-y-12 md:space-y-0 w-full md:w-auto"
+          className="md:flex md:items-center md:gap-8 lg:gap-12 md:pl-[10vw] md:pr-[10vw] md:will-change-transform space-y-12 md:space-y-0 w-full md:w-auto"
         >
           {ACTS.map((a, i) => (
             <article
               key={a.year}
               ref={setCardRef(i)}
-              className="md:shrink-0 md:w-[78vw] lg:w-[72vw] xl:w-[66vw] will-change-transform"
+              className="md:shrink-0 md:w-[68vw] lg:w-[58vw] xl:w-[52vw] will-change-transform"
             >
               <div className="grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 lg:gap-16 items-center">
                 {/* Hero image — large, dominant. Year + era overlaid
@@ -659,7 +719,7 @@ function VerticalTimelineVariant() {
                       0{i + 1}
                     </span>
                     <span className="text-[10px] tracking-[0.32em] uppercase text-rust/70 font-semibold">
-                      / 03
+                      / 06
                     </span>
                   </div>
                 </div>
@@ -673,7 +733,7 @@ function VerticalTimelineVariant() {
           <div className="flex-1 relative h-px bg-rust/15">
             <div
               ref={indicatorRef}
-              className="absolute -top-[5px] h-2.5 w-[33.33%] bg-rust/85 rounded-full transition-[left] duration-100"
+              className="absolute -top-[5px] h-2.5 w-[16.66%] bg-rust/85 rounded-full transition-[left] duration-100"
               style={{ left: '0%' }}
             />
           </div>
@@ -682,7 +742,7 @@ function VerticalTimelineVariant() {
               01
             </span>
             <span className="text-[11px] tracking-[0.32em] uppercase opacity-70">
-              / 03
+              / 06
             </span>
           </div>
         </div>
@@ -708,7 +768,7 @@ function CardFlipVariant() {
   return (
     <section className="bg-white py-14 md:py-20 px-6 md:px-12">
       <div className="max-w-[1200px] mx-auto grid md:grid-cols-3 gap-5 md:gap-6">
-        {ACTS.map((a, i) => (
+        {ACTS_TRIAD.map((a, i) => (
           <div
             key={a.year}
             className="flip-card group cursor-pointer"
@@ -843,8 +903,8 @@ export function JourneyPreviewPage() {
 
       <PreviewLabel
         n={6}
-        name="The Timeline (True Horizontal Scroll)"
-        desc="Section pins. Your vertical scroll is converted into horizontal motion — a filmstrip of three large cards travels from right to left inside the section. Each card scales UP when it reaches viewport centre (hero size) and shrinks slightly at the edges. The page only continues vertically once the strip has finished its run."
+        name="The Timeline (Six-Act Horizontal Scroll)"
+        desc="The full TLC journey — six acts, told as a horizontal filmstrip. The section pins, your vertical scroll converts to horizontal motion, and each card grows to hero size as it reaches the viewport centre. Roots → Mastery → Pivot → Network → Today → Tomorrow. Real brand images for every act. This is the option built for actual production use."
       />
       <VerticalTimelineVariant />
 
