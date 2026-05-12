@@ -567,6 +567,19 @@ export function AboutPage() {
                   <span className="font-bold text-rust">all the way to one hundred.</span>
                 </span>
               </h2>
+              {/* Three-generation Indian family — emotional anchor for the
+                  Blue-Zones "a long life, fully lived" promise. */}
+              <div className="mt-8 md:mt-10 overflow-hidden rounded-[14px] shadow-[0_18px_40px_-22px_rgba(0,0,0,0.25)]">
+                <img
+                  src="/longevity/family-three-generations.jpg"
+                  alt="Indian family across three generations laughing while playing Ludo together at home"
+                  loading="lazy"
+                  decoding="async"
+                  width={1536}
+                  height={1024}
+                  className="w-full h-auto object-cover"
+                />
+              </div>
             </div>
             <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
               <p>
