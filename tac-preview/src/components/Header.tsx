@@ -399,13 +399,12 @@ export function Header() {
                 }}
               >
                 <div className="flex items-center justify-between">
-                  {/* Mobile-menu item — moved from font-bold to
-                      font-light. Cabinet Grotesk at 300 weight reads
-                      as an editorial / magazine display rather than
-                      a heavy nav-bar shout. Tracking tightened a
-                      hair (-0.03em) so the lighter weight still
-                      feels grounded. */}
-                  <span className="font-display font-light text-[34px] sm:text-[40px] leading-[1.05] tracking-[-0.03em] text-ink group-hover:text-rust transition-colors duration-500">
+                  {/* Mobile-menu item — Cabinet Grotesk Light (300)
+                      at a slightly smaller display size. The previous
+                      34/40px felt shouty even at light weight; 28/32px
+                      reads as a quieter editorial nav. Tracking stays
+                      at -0.03em to keep the airy thin face grounded. */}
+                  <span className="font-display font-light text-[28px] sm:text-[32px] leading-[1.1] tracking-[-0.03em] text-ink group-hover:text-rust transition-colors duration-500">
                     {it.label}
                   </span>
                   <span className="text-[11px] tracking-[0.3em] uppercase text-stone tabular-nums font-medium">
