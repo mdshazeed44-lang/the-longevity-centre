@@ -539,9 +539,12 @@ function VerticalTimelineVariant() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-cream/40 md:h-[280vh] overflow-hidden py-12 md:py-0"
+      className="relative bg-cream/40 md:h-[300vh] py-12 md:py-0"
     >
-      {/* Sticky pin on desktop. Mobile gets natural vertical stack. */}
+      {/* Sticky pin on desktop. Mobile gets natural vertical stack.
+          NOTE: overflow-hidden lives here, NOT on the parent section —
+          a parent with `overflow: hidden` breaks position:sticky. The
+          sticky container clips the wide horizontal strip on its own. */}
       <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden flex md:items-center relative">
         {/* The horizontal filmstrip. md:flex makes it a row of fixed-
             width cards; on mobile it collapses to a normal vertical
