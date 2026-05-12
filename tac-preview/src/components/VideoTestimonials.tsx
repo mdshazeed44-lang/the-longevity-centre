@@ -76,42 +76,54 @@ const TESTIMONIALS: Testimonial[] = [
 
 export function VideoTestimonials() {
   const [activeIdx, setActiveIdx] = useState(0)
-  const [openLightbox, setOpenLightbox] = useState(false)
+  // `isPlaying` toggles the play-button overlay on/off. The video
+  // itself stays mounted; we just hide the overlay (and reveal the
+  // native controls) once playback starts.
+  const [isPlaying, setIsPlaying] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const active = TESTIMONIALS[activeIdx]
 
-  // When active story changes, reset video element
+  // When the active story changes, reset the inline video to the
+  // poster frame in the paused state. The user explicitly tapped
+  // prev / next, so they want to see the new story's poster — not
+  // have the previous clip keep playing or the next one autoplay.
   useEffect(() => {
     const v = videoRef.current
-    if (v) {
-      v.muted = true
-      v.currentTime = 0
-      v.play().catch(() => {})
-    }
+    if (!v) return
+    v.pause()
+    try { v.currentTime = 0 } catch { /* metadata not ready yet */ }
+    setIsPlaying(false)
   }, [activeIdx])
 
-  // Lock body scroll when lightbox open
-  useEffect(() => {
-    if (openLightbox) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [openLightbox])
-
-  // Keyboard nav (← / →)
+  // Keyboard nav (← / →) — works whether or not the inline video
+  // is currently playing.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (openLightbox) {
-        if (e.key === 'Escape') setOpenLightbox(false)
-        return
-      }
       if (e.key === 'ArrowRight') setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)
       if (e.key === 'ArrowLeft') setActiveIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [openLightbox])
+  }, [])
+
+  // Tap handler for the play disc — kicks off playback. Sound is
+  // ON by default since the patient is speaking; if the browser
+  // blocks unmuted autoplay we fall back to muted playback so the
+  // user still sees the video (and can unmute with the controls).
+  const handlePlayClick = () => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = false
+    const p = v.play()
+    if (p && typeof p.catch === 'function') {
+      p.catch(() => {
+        // Browser blocked unmuted play — retry muted so at least
+        // the video is rolling. Native controls let the user unmute.
+        v.muted = true
+        v.play().catch(() => { /* nothing more we can do */ })
+      })
+    }
+  }
 
   return (
     <section
@@ -161,26 +173,27 @@ export function VideoTestimonials() {
               </div>
             </div>
 
-            {/* Video frame — fixed aspect across all testimonials so heights
-                never jump as the user switches stories.
-                Vertical clips no longer show ugly black bars: a blurred,
-                desaturated copy of the poster fills the side gaps in a
-                cream-toned ambient wash, with a subtle rust radial overlay
-                to keep things on-brand. Horizontal videos fill the frame. */}
-            <button
-              type="button"
-              onClick={() => setOpenLightbox(true)}
-              aria-label={`Watch ${active.name}'s full story`}
-              className="group relative block w-full overflow-hidden rounded-[16px] border border-mist/60 cursor-pointer max-h-[440px] mx-auto"
+            {/* Video frame — fixed aspect across all testimonials so
+                heights never jump as the user switches stories.
+                Vertical clips don't get ugly black bars: a blurred,
+                desaturated copy of the poster fills the side gaps
+                in a cream-toned ambient wash, with a subtle rust
+                radial overlay to keep things on-brand.
+                Clicking the play disc starts playback IN PLACE
+                (no popup / lightbox — client preference). Once
+                playback starts the overlay fades out and the
+                video's native controls take over. */}
+            <div
+              className="group relative block w-full overflow-hidden rounded-[16px] border border-mist/60 max-h-[440px] mx-auto"
               style={{
                 aspectRatio: '16/10',
-                backgroundColor: '#EEE6DB', // nougat fallback
+                backgroundColor: '#EEE6DB',
                 boxShadow:
                   '0 24px 50px -30px rgba(27,26,24,0.28), 0 10px 24px -20px rgba(27,26,24,0.12)',
               }}
             >
-              {/* Blurred poster fill — covers the entire frame so vertical
-                  videos don't sit on black. */}
+              {/* Blurred poster fill — covers the entire frame so
+                  vertical videos don't sit on black. */}
               <img
                 key={`backdrop-${active.id}`}
                 src={active.poster}
@@ -188,8 +201,7 @@ export function VideoTestimonials() {
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover scale-[1.15] blur-2xl opacity-55 saturate-[0.85]"
               />
-              {/* Soft cream-rust ambient wash on top of the blur — keeps
-                  the brand colour signature even when the poster is cool-toned. */}
+              {/* Soft cream-rust ambient wash on top of the blur */}
               <div
                 aria-hidden
                 className="absolute inset-0 pointer-events-none"
@@ -198,46 +210,62 @@ export function VideoTestimonials() {
                     'radial-gradient(circle at 50% 50%, rgba(238,230,219,0.30), transparent 70%), radial-gradient(circle at 80% 90%, rgba(148,84,85,0.10), transparent 60%)',
                 }}
               />
-              {/* Inline preview is a STATIC poster image, not a <video>.
-                  The actual video only mounts when the user clicks
-                  "Play" (the modal at the bottom of this component).
-                  This saves ~6 MB of speculative metadata fetches on
-                  the homepage — the four testimonial mp4s are 10-24 MB
-                  each, and `preload="metadata"` was downloading enough
-                  of each to populate duration / first frame. */}
-              <img
+
+              {/* Inline <video> — plays in place. Keyed by active.id
+                  so React mounts a fresh node when the user clicks
+                  Previous / Next (which resets playback to the new
+                  story's poster). `preload="metadata"` is enough for
+                  the poster + duration without speculatively pulling
+                  the whole 10-24 MB clip. Native controls appear once
+                  playback starts. */}
+              <video
                 key={active.id}
-                src={active.poster}
-                alt={`${active.name} testimonial`}
-                width={active.orientation === 'horizontal' ? 1280 : 720}
-                height={active.orientation === 'horizontal' ? 720 : 1280}
-                loading="lazy"
-                decoding="async"
-                className="relative w-full h-full object-contain"
+                ref={videoRef}
+                src={active.video}
+                poster={active.poster}
+                preload="metadata"
+                playsInline
+                controls={isPlaying}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                onEnded={() => setIsPlaying(false)}
+                className="relative w-full h-full object-contain bg-black"
               />
-              {/* Hidden ref consumer so existing controls compile. */}
-              <video ref={videoRef} className="hidden" preload="none" muted playsInline />
-              {/* Subtle bottom shade for play-button legibility (smaller area) */}
-              <div
-                aria-hidden
-                className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-                style={{
-                  background:
-                    'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)',
-                }}
-              />
-              {/* Play disc — bottom-right of video */}
-              <div className="absolute bottom-4 right-4 flex items-center gap-3">
-                <span className="text-[10px] tracking-[0.28em] uppercase text-white/90 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  Watch full story
-                </span>
-                <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-105">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="white" className="ml-0.5">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-              </div>
-            </button>
+
+              {/* Play-disc overlay — only shown while paused. Once
+                  the user clicks, it fades out and the video's
+                  native controls take over. */}
+              {!isPlaying && (
+                <button
+                  type="button"
+                  onClick={handlePlayClick}
+                  aria-label={`Play ${active.name}'s story`}
+                  data-cursor="hover"
+                  className="absolute inset-0 flex items-end justify-end p-4 cursor-pointer"
+                >
+                  {/* Subtle bottom shade for play-button legibility */}
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                    style={{
+                      background:
+                        'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%)',
+                    }}
+                  />
+                  {/* Play disc + hover label */}
+                  <span className="relative flex items-center gap-3">
+                    <span className="text-[10px] tracking-[0.28em] uppercase text-white/90 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      Tap to play
+                    </span>
+                    <span className="w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center transition-all duration-500 group-hover:bg-rust group-hover:border-rust group-hover:scale-105">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="white" className="ml-0.5">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </span>
+                </button>
+              )}
+            </div>
 
             {/* Inline prev / next navigation — sits directly under
                 the video frame so the user can switch stories
@@ -412,72 +440,10 @@ export function VideoTestimonials() {
         }
       `}</style>
 
-      {/* LIGHTBOX MODAL */}
-      {openLightbox && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/85 backdrop-blur-md"
-          onClick={() => setOpenLightbox(false)}
-        >
-          <button
-            type="button"
-            onClick={() => setOpenLightbox(false)}
-            aria-label="Close testimonial"
-            className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/30 hover:bg-white/10 flex items-center justify-center text-white transition-colors"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-          {/* Modal frame — sized so the WHOLE video is always visible
-              inside the viewport. Earlier we had `max-w-[640px] w-full`
-              with `aspectRatio: 9/16`, which on a vertical clip computed
-              to 1138px tall on a 640px-wide modal — taller than most
-              laptop viewports, so the browser centred it and the top of
-              the frame (the subject's head) got clipped above the
-              viewport edge.
-              The `min()` here picks whichever is smaller: a hard pixel
-              cap, 92% of the viewport width, or whatever width keeps
-              the frame within 82vh tall. That guarantees the
-              full-height head-to-shoulders portrait fits no matter the
-              screen size. We also leave room (~14vh) for the title
-              caption + close button + bottom system UI on mobile. */}
-          <div
-            className="relative"
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              aspectRatio: active.orientation === 'horizontal' ? '16/9' : '9/16',
-              width:
-                active.orientation === 'horizontal'
-                  ? 'min(960px, 92vw, calc(82vh * 16 / 9))'
-                  : 'min(460px, 92vw, calc(82vh * 9 / 16))',
-            }}
-          >
-            {/* `key` forces a fresh <video> element when the user
-                switches testimonials — without it React reuses the
-                same node and only the first clip ever loads.
-                `object-contain` keeps the whole frame visible (no
-                crop) — the black bg fills any letterbox margin. */}
-            <video
-              key={active.id}
-              src={active.video}
-              poster={active.poster}
-              controls
-              autoPlay
-              playsInline
-              className="absolute inset-0 w-full h-full rounded-[20px] bg-black object-contain"
-            />
-            <div className="absolute -bottom-14 left-0 right-0 text-center text-white">
-              <div className="font-display font-bold text-[20px] md:text-[24px] tracking-tight">
-                {active.name}
-              </div>
-              <div className="text-[10px] tracking-[0.28em] uppercase text-white/65 font-medium mt-1">
-                {active.programme} · {active.metric}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Lightbox modal removed — the client preferred in-place
+          playback (no popup overlay). The inline <video> in the
+          featured-story block above handles play / pause / native
+          controls right where the poster used to be. */}
     </section>
   )
 }
