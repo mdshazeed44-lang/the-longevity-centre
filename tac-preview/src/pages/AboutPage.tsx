@@ -823,33 +823,13 @@ export function AboutPage() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                       style={{ objectPosition: 'center center' }}
                     />
-                    {/* Bottom dark gradient — keeps the stat badge readable */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background:
-                          'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.5) 100%)',
-                      }}
-                    />
-                    {/* Floating stat pills — one per stat in `f.stats`,
-                        stacked top-left. Solid rust pills, fully readable
-                        on the cream/photo background. */}
-                    <div className="absolute top-5 left-5 flex flex-col gap-2.5">
-                      {f.stats.map((s) => (
-                        <div
-                          key={s.statLabel}
-                          className="bg-rust border border-rust-deep/40 rounded-full px-4 py-2.5 shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]"
-                        >
-                          <div className="font-display font-bold text-[16px] md:text-[18px] text-white tabular-nums tracking-tight leading-none">
-                            {s.stat}
-                          </div>
-                          <div className="text-[9px] tracking-[0.22em] uppercase text-white/90 font-semibold mt-0.5">
-                            {s.statLabel}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    {/* Stat pills removed per client feedback — the
+                        11,000+/8,000+ pills overlaid on the founders'
+                        portrait competed with the photo and felt
+                        promotional. The same numbers still live in the
+                        Founders' section pull-quote ("Eighteen-thousand
+                        procedures between them") and in the dedicated
+                        stats band lower down the page. */}
                   </div>
 
                   {/* Content — role · name · creds · bio */}
