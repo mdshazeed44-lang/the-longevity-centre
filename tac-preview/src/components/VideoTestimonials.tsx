@@ -238,6 +238,52 @@ export function VideoTestimonials() {
                 </span>
               </div>
             </button>
+
+            {/* Inline prev / next navigation — sits directly under
+                the video frame so the user can switch stories
+                without scrolling to the thumbnail strip below.
+                Story counter in the middle, arrow buttons on either
+                side. Echoes the same setActiveIdx handlers as the
+                thumbnail-strip navigation — both stay in sync. */}
+            <div className="mt-5 md:mt-6 flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => setActiveIdx((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                aria-label="Previous story"
+                data-cursor="hover"
+                className="group inline-flex items-center gap-2 pl-2 pr-4 py-2 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink transition-colors duration-300"
+              >
+                <span className="w-8 h-8 rounded-full bg-cream/60 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-300">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </span>
+                <span className="text-[10.5px] tracking-[0.28em] uppercase font-semibold">
+                  Previous
+                </span>
+              </button>
+
+              <div className="text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold tabular-nums">
+                {String(activeIdx + 1).padStart(2, '0')} / {String(TESTIMONIALS.length).padStart(2, '0')}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)}
+                aria-label="Next story"
+                data-cursor="hover"
+                className="group inline-flex items-center gap-2 pl-4 pr-2 py-2 rounded-full border border-mist hover:border-rust hover:bg-rust hover:text-white text-ink transition-colors duration-300"
+              >
+                <span className="text-[10.5px] tracking-[0.28em] uppercase font-semibold">
+                  Next
+                </span>
+                <span className="w-8 h-8 rounded-full bg-cream/60 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-300">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* RIGHT — Pull quote + attribution */}
