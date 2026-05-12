@@ -78,8 +78,11 @@ const ACTS: Act[] = [
       'Six flagship programmes',
       'A pan-India patient record',
     ],
-    img: '/longevity/family-three-generations.jpg',
-    caption: 'The families we serve',
+    // Gurgaon TLC centre interior — chosen here because Gurgaon was
+    // among the first cities the model expanded to, and the photo
+    // shows the actual clinic environment patients walk into.
+    img: '/clinic-photos/gurgaon-centre.webp',
+    caption: 'TLC Gurgaon · the network expands',
   },
   {
     era: 'Today',
@@ -268,28 +271,34 @@ export function Journey() {
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
+                    {/* Softer gradient — lighter touch, lower opacity
+                        so the image stays the star of the plate. */}
                     <div
                       aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-[42%] pointer-events-none"
+                      className="absolute inset-x-0 bottom-0 h-[38%] pointer-events-none"
                       style={{
                         background:
-                          'linear-gradient(to top, rgba(27,26,24,0.72) 0%, rgba(27,26,24,0) 100%)',
+                          'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
                       }}
                     />
+                    {/* Overlay text — deliberately thinner / quieter
+                        than before. Era is a fine tracked label, year
+                        is a light-weight display numeral (was bold),
+                        caption sits below a hairline. */}
                     <div className="absolute bottom-6 left-6 right-6 md:bottom-7 md:left-7 md:right-7">
-                      <div className="text-[9.5px] tracking-[0.34em] uppercase text-white/80 font-semibold mb-2">
+                      <div className="text-[9px] tracking-[0.42em] uppercase text-white/65 font-medium mb-2.5">
                         {a.era}
                       </div>
                       <div
-                        className="font-display font-bold text-white tabular-nums leading-[0.9] tracking-[-0.04em]"
-                        style={{ fontSize: 'clamp(40px, 4.5vw, 64px)' }}
+                        className="font-display font-light text-white/95 tabular-nums leading-[0.95] tracking-[-0.025em]"
+                        style={{ fontSize: 'clamp(34px, 3.8vw, 54px)' }}
                       >
                         {a.year}
                       </div>
                       <div className="mt-3 flex items-center gap-2.5">
-                        <span aria-hidden className="w-5 h-px bg-rust-soft" />
+                        <span aria-hidden className="w-4 h-px bg-white/40" />
                         <span
-                          className="font-display italic text-white/80 text-[11.5px] md:text-[13px] leading-[1.25]"
+                          className="font-display italic text-white/65 text-[11px] md:text-[12.5px] leading-[1.25] font-light"
                           dangerouslySetInnerHTML={{ __html: a.caption }}
                         />
                       </div>
