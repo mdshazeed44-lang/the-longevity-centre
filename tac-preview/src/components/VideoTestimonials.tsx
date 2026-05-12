@@ -231,23 +231,11 @@ export function VideoTestimonials() {
                 className="relative w-full h-full object-contain"
               />
 
-              {/* Outcome metric chip — anchored at the BOTTOM-LEFT
-                  of the frame. Slim, minimal layout: bold metric on
-                  top, tiny tracking-out caption below. Frosted-glass
-                  backdrop so the chip reads cleanly on any patient
-                  photo behind it without being a heavy solid white
-                  block. Sits INSIDE the frame so its absolute
-                  positioning is relative to the video, not the outer
-                  column. z-30 to sit above the video and the
-                  play-disc overlay's tint. */}
-              <div className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-30 bg-white/92 backdrop-blur-md rounded-[10px] px-3 py-2 md:px-3.5 md:py-2.5 shadow-[0_12px_24px_-14px_rgba(27,26,24,0.35)] border border-white/70 pointer-events-none">
-                <div className="font-display font-bold text-[15px] md:text-[17px] leading-none tracking-[-0.01em] text-rust tabular-nums">
-                  {active.metric}
-                </div>
-                <div className="text-[8px] md:text-[8.5px] tracking-[0.28em] uppercase text-stone/85 font-medium mt-1">
-                  {active.metricLabel}
-                </div>
-              </div>
+              {/* Outcome metric chip removed per client feedback — it
+                  sat in the blurred backdrop area of the video frame
+                  and read as a half-cropped artefact rather than a
+                  clean stat. The metric is still presented as the
+                  hero stat in the right-hand column. */}
 
               {/* Play-disc overlay — only shown while paused. Once
                   the user clicks, it fades out and the video's
