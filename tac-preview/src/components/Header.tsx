@@ -120,52 +120,71 @@ function NavDropdown({ item }: { item: NavItem }) {
         />
       </a>
 
-      {/* Dropdown panel */}
-      <div
-        className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 z-50 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'
-        }`}
-        role="menu"
-      >
-        <div className="w-[440px] bg-white rounded-[18px] border border-mist/70 shadow-[0_30px_60px_-25px_rgba(27,26,24,0.35)] overflow-hidden">
-          <div className="px-6 pt-5 pb-4 border-b border-mist/60">
-            <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-1">
-              {item.panelEyebrow ?? 'Menu'}
-            </div>
-            <div className="text-[12px] text-graphite font-light">
-              {item.panelLine ?? ''}
-            </div>
-          </div>
-          <div className="py-2 max-h-[60vh] overflow-y-auto">
-            {item.children?.map((c) => (
-              <a
-                key={c.href}
-                href={c.href}
-                role="menuitem"
-                data-cursor="hover"
-                className="group flex items-baseline justify-between gap-4 px-6 py-2.5 hover:bg-cream transition-colors duration-300"
-              >
-                <span className="text-[13.5px] font-display font-medium text-ink group-hover:text-rust transition-colors duration-300 tracking-tight">
-                  {c.label}
-                </span>
-                {c.tag && (
-                  <span className="text-[10px] tracking-[0.22em] uppercase text-stone/70 font-medium whitespace-nowrap">
-                    {c.tag}
-                  </span>
-                )}
-              </a>
-            ))}
-          </div>
-          <a
-            href={item.href}
-            data-cursor="hover"
-            role="menuitem"
-            className="block px-6 py-3.5 bg-cream/60 hover:bg-rust hover:text-white text-[10.5px] tracking-[0.28em] uppercase text-rust font-semibold border-t border-mist/60 transition-colors duration-300"
+      {/* Dropdown panel — adapts to child count: ≤5 items renders a
+          tight single column, 6+ uses a wider two-column grid so
+          long menus (Diagnostics 9, Skin 8, Programmes 6) don't
+          force a scrollbar and stay scannable at a glance. */}
+      {(() => {
+        const childCount = item.children?.length ?? 0
+        const twoCol = childCount > 5
+        return (
+          <div
+            className={`absolute left-1/2 top-full -translate-x-1/2 pt-4 z-50 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              open ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-1 pointer-events-none'
+            }`}
+            role="menu"
           >
-            {item.panelCta ?? 'View all →'}
-          </a>
-        </div>
-      </div>
+            <div
+              className={`${
+                twoCol ? 'w-[640px]' : 'w-[440px]'
+              } bg-white rounded-[18px] border border-mist/70 shadow-[0_30px_60px_-25px_rgba(27,26,24,0.35)] overflow-hidden`}
+            >
+              <div className="px-6 pt-5 pb-4 border-b border-mist/60">
+                <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-1">
+                  {item.panelEyebrow ?? 'Menu'}
+                </div>
+                <div className="text-[12px] text-graphite font-light">
+                  {item.panelLine ?? ''}
+                </div>
+              </div>
+              <div
+                className={`py-2 ${
+                  twoCol ? 'grid grid-cols-2 gap-x-1 px-2' : ''
+                }`}
+              >
+                {item.children?.map((c) => (
+                  <a
+                    key={c.href}
+                    href={c.href}
+                    role="menuitem"
+                    data-cursor="hover"
+                    className={`group flex items-baseline justify-between gap-3 ${
+                      twoCol ? 'px-3.5 py-2' : 'px-6 py-2.5'
+                    } rounded-[8px] hover:bg-cream transition-colors duration-300`}
+                  >
+                    <span className="text-[13.5px] font-display font-medium text-ink group-hover:text-rust transition-colors duration-300 tracking-tight truncate">
+                      {c.label}
+                    </span>
+                    {c.tag && (
+                      <span className="text-[9.5px] tracking-[0.22em] uppercase text-stone/65 font-medium whitespace-nowrap">
+                        {c.tag}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+              <a
+                href={item.href}
+                data-cursor="hover"
+                role="menuitem"
+                className="block px-6 py-3.5 bg-cream/60 hover:bg-rust hover:text-white text-[10.5px] tracking-[0.28em] uppercase text-rust font-semibold border-t border-mist/60 transition-colors duration-300"
+              >
+                {item.panelCta ?? 'View all →'}
+              </a>
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }
