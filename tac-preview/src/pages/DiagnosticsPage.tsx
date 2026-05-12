@@ -114,7 +114,7 @@ const DOMAINS = [
   'Cardiovascular',
   'Microbiome',
   'Nutritional',
-  'Composition',
+  'Body Composition',
   'Skeletal',
 ]
 
@@ -312,7 +312,7 @@ export function DiagnosticsPage() {
           {/* Floating credential chip — bottom-right (md+) */}
           <div className="hidden md:flex absolute bottom-10 right-6 md:right-12 items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] tracking-[0.28em] uppercase text-white font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-rust-soft animate-pulse" />
-            9 M Base Pairs · 323 Genes · 163 Biomarkers
+            9 M Base Pairs · 323 Genes · 1000+ Biomarkers
           </div>
         </div>
       </section>
@@ -323,7 +323,7 @@ export function DiagnosticsPage() {
           {/* 4-stat grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden">
             {[
-              { k: '163', l: 'Biomarkers per patient' },
+              { k: '1000+', l: 'Biomarkers per patient' },
               { k: '9 M', l: 'DNA base pairs analysed' },
               { k: '323', l: 'Genes tested' },
               { k: '6', l: 'Diagnostic domains' },
@@ -389,7 +389,7 @@ export function DiagnosticsPage() {
                 endothelium — and standard medicine doesn't measure them.
               </p>
               <p>
-                Our diagnostic stack — 163 blood parameters, 323 genes, 9 M
+                Our diagnostic stack — 1000+ biomarkers, 323 genes, 9 M
                 base pairs of methylation, complete metagenomic microbiome —
                 produces a picture of how your body is ageing and exactly which
                 interventions will move the needle.

@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger)
 const ABOUT_META = {
   title: 'About TLC · Founders, Vision & Specialist Team',
   description:
-    'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 7,500+ procedures). 20+ years of preventive medicine.',
+    'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 8,000+ pregnancies). 20+ years of preventive medicine.',
   path: '/about-us',
   ogImage: '/og/about.jpg',
   jsonLd: [
@@ -52,7 +52,7 @@ const ABOUT_META = {
       honorificPrefix: 'Dr.',
       jobTitle: 'Co-Founder · Reproductive & Sexual Anti-Aging',
       description:
-        "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT.",
+        "Leading IVF specialist with over 8,000 successful pregnancies. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT.",
       image: 'https://thelongevitycentre.com/team/dr-bhavna-2026.jpg',
       worksFor: { '@id': 'https://thelongevitycentre.com/#organization' },
       knowsAbout: [
@@ -80,10 +80,10 @@ const FOUNDERS = [
     name: 'Dr. Bhavna Sharma',
     creds: 'IVF Specialist',
     role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
-    bio: "Leading IVF specialist with over 7,500 successful procedures. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT — blending compassion with cutting-edge fertility solutions, empowering women on their unique health journeys.",
+    bio: "Leading IVF specialist with over 8,000 successful pregnancies. Specialises in reproductive and sexual anti-aging, women's health, oocyte preservation and HRT — blending compassion with cutting-edge fertility solutions, empowering women on their unique health journeys.",
     img: '/team/dr-bhavna-2026.jpg',
-    stat: '7,500+',
-    statLabel: 'IVF Procedures',
+    stat: '8,000+',
+    statLabel: 'IVF Pregnancies',
   },
 ]
 
