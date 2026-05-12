@@ -4,11 +4,13 @@
 // section that the client can scroll through and pick from. Each option
 // is sized small (~500-600px) so all six fit on a single preview page.
 //
-// Every variant uses the same triad of brand-relevant images so the
-// client can judge by composition + motion, not by stock-photo choice:
-//   Past    — /longevity/microscope-analyst.jpg  (origins / lab)
-//   Present — /longevity/family-three-generations.jpg  (today / family)
-//   Future  — /longevity/milind-soman.jpg  (icon of ageing well)
+// Story arc — three acts that map to the brand's real journey:
+//   Past    — Founders open the first TLC clinic in Delhi (founderboth.jpg)
+//   Present — Eight centres, thousands of biomarkers, families served
+//             (family-three-generations.jpg)
+//   Future  — A generation that ages on its own terms — represented by
+//             Milind Soman, India's icon of healthy ageing
+//             (milind-soman.jpg)
 //
 // Not linked from nav — direct URL only.
 import { useEffect, useRef, useState } from 'react'
@@ -21,24 +23,45 @@ gsap.registerPlugin(ScrollTrigger)
 const ACTS = [
   {
     era: 'Origins',
-    year: '2019',
+    year: '2018',
     headline: 'Where it began.',
-    body: 'We opened our first centre with one conviction — that modern medicine was arriving too late.',
-    img: '/longevity/microscope-analyst.jpg',
+    lede: 'A single clinic. A twenty-year clinical legacy carried forward.',
+    body: 'Dr. Bhavna and Dr. Abhinav Sharma open the first Longevity Centre in Delhi — born from one conviction: that modern medicine waits too long, and India deserves more centenarians. The clinic was small. The ambition was not.',
+    highlights: [
+      'First TLC centre opens in Delhi',
+      'Diagnostics-first preventive philosophy',
+      'Founders’ 20-year clinical legacy',
+    ],
+    img: '/team/founderboth.jpg',
+    caption: 'Dr. Bhavna &amp; Dr. Abhinav Sharma · co-founders',
   },
   {
     era: 'Today',
     year: '2026',
     headline: 'Where we stand.',
-    body: 'Eight centres pan-India. A thousand biomarkers per patient. Patients measured, not managed.',
+    lede: 'Eight centres. A thousand biomarkers. One promise.',
+    body: 'Patients across Delhi, Gurgaon, Pune, Bangalore, Mumbai, Nagpur, Goa and Hyderabad are now measured — not managed. Three biological-age clocks. A partner laboratory in the Netherlands. Six flagship programmes designed by doctors, refined by data.',
+    highlights: [
+      '8 centres pan-India',
+      '1000+ biomarkers · 3 age clocks',
+      'European laboratory partnership',
+    ],
     img: '/longevity/family-three-generations.jpg',
+    caption: 'Three generations · the families we serve today',
   },
   {
     era: 'Tomorrow',
     year: '2030+',
     headline: 'Where we’re headed.',
-    body: 'AI-personalised longevity protocols. A generation of active centenarians.',
+    lede: 'A generation that ages on its own terms.',
+    body: 'Twenty-five centres across South Asia. AI-personalised longevity protocols built on the region’s largest biological-age dataset. Our mission — turn the longevity gap between India and the world into a longevity lead.',
+    highlights: [
+      '25+ centres across South Asia',
+      'AI-personalised protocols',
+      'Active centenarians, at scale',
+    ],
     img: '/longevity/milind-soman.jpg',
+    caption: 'Milind Soman · 58 · what ageing well looks like',
   },
 ]
 
@@ -557,10 +580,13 @@ function VerticalTimelineVariant() {
             <article
               key={a.year}
               ref={setCardRef(i)}
-              className="md:shrink-0 md:w-[76vw] lg:w-[70vw] xl:w-[64vw] will-change-transform"
+              className="md:shrink-0 md:w-[78vw] lg:w-[72vw] xl:w-[66vw] will-change-transform"
             >
               <div className="grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 lg:gap-16 items-center">
-                {/* Hero image — large, dominant */}
+                {/* Hero image — large, dominant. Year + era overlaid
+                    bottom-left, with a thin rust hairline + italic
+                    photo caption above so each image reads as an
+                    editorial plate, not just a stock shot. */}
                 <div className="relative aspect-[5/6] md:aspect-[4/5] rounded-[20px] overflow-hidden bg-mist shadow-[0_30px_70px_-30px_rgba(27,26,24,0.40)]">
                   <img
                     src={a.img}
@@ -570,37 +596,65 @@ function VerticalTimelineVariant() {
                   />
                   <div
                     aria-hidden
-                    className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                    className="absolute inset-x-0 bottom-0 h-2/5 pointer-events-none"
                     style={{
                       background:
-                        'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
+                        'linear-gradient(to top, rgba(27,26,24,0.70) 0%, rgba(27,26,24,0) 100%)',
                     }}
                   />
-                  <div className="absolute bottom-5 left-5 md:bottom-7 md:left-7">
+                  <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 right-6 md:right-8">
                     <div className="text-[10px] tracking-[0.34em] uppercase text-white/85 font-semibold mb-1.5">
                       {a.era}
                     </div>
                     <div
                       className="font-display font-bold text-white tabular-nums leading-none tracking-[-0.04em]"
-                      style={{ fontSize: 'clamp(48px, 6vw, 84px)' }}
+                      style={{ fontSize: 'clamp(52px, 6.5vw, 92px)' }}
                     >
                       {a.year}
+                    </div>
+                    <div className="mt-3 flex items-center gap-2.5">
+                      <span aria-hidden className="w-6 h-px bg-rust-soft" />
+                      <span
+                        className="font-display italic text-white/85 text-[12px] md:text-[14px] leading-[1.25]"
+                        dangerouslySetInnerHTML={{ __html: a.caption }}
+                      />
                     </div>
                   </div>
                 </div>
 
-                {/* Text block — sits to the right of the hero image */}
+                {/* Text block — eyebrow + headline + italic lede +
+                    body + highlight bullets + numbered index. */}
                 <div>
-                  <div className="text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
-                    {a.era}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="w-7 h-px bg-rust" />
+                    <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
+                      {a.era}
+                    </span>
                   </div>
-                  <h3 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.04] tracking-[-0.025em] text-ink mb-5">
+                  <h3 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.04] tracking-[-0.025em] text-ink mb-3">
                     {a.headline}
                   </h3>
-                  <p className="text-[14.5px] md:text-[16.5px] text-graphite font-light leading-[1.72] max-w-[440px]">
+                  <p className="font-display italic text-rust text-[16px] md:text-[20px] xl:text-[22px] leading-[1.35] mb-5 max-w-[480px]">
+                    {a.lede}
+                  </p>
+                  <p className="text-[14px] md:text-[15.5px] text-graphite font-light leading-[1.7] mb-6 max-w-[480px]">
                     {a.body}
                   </p>
-                  <div className="mt-6 inline-flex items-baseline gap-2">
+                  <ul className="space-y-2 mb-7 max-w-[440px]">
+                    {a.highlights.map((h) => (
+                      <li
+                        key={h}
+                        className="flex items-start gap-2.5 text-[12.5px] md:text-[14px] text-ink/85 font-medium"
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-[7px] w-1.5 h-1.5 rounded-full bg-rust shrink-0"
+                        />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="inline-flex items-baseline gap-2">
                     <span className="font-display font-bold text-rust text-[28px] md:text-[34px] leading-none tabular-nums">
                       0{i + 1}
                     </span>
