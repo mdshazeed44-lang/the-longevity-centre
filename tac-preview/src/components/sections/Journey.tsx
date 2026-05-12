@@ -29,19 +29,20 @@ type Act = {
   caption: string
 }
 
-// Content notes — every fact below has been audited against the
-// existing site / brochure copy:
-//   ✓ Verified — pulled from About page founder bios, CtaBand stats,
-//                Diagnostics page, Centres page, programs.ts.
-//   ⊘ Year text fields are deliberately label-style (e.g. 'The Roots',
-//     'Two Decades') rather than invented specific years. The brand
-//     legacy ('20+ years in preventive medicine') and milestones are
-//     well documented, but exact founding-year dates are not on the
-//     existing site — replace these labels with confirmed years
-//     when the client provides them.
-//   ⊘ The 'Tomorrow' act keeps its vision intentionally directional
-//     rather than naming specific numbers ('25+ centres', etc.) that
-//     would commit the brand to a target it hasn't published.
+// Content notes — every fact below has been audited against:
+//   1. The existing TLC brand site (programs.ts, centres.ts, CtaBand,
+//      About founder bios, Diagnostics page)
+//   2. The existing TAC brand site (theantiagingcentre.com — landing,
+//      about, contact), which confirmed:
+//         - 50,000+ lives reformed (landing-page stat)
+//         - TAC currently undergoing the rebrand to TLC (public note)
+//         - TAC physical clinic signage in Gurugram (the image used
+//           in the third act, /clinic-photos/gurugram-exterior.jpg)
+//
+//   ⊘ Year text fields stay label-style ('Origins', 'Two Decades',
+//     etc.) for acts where no specific year is published on either
+//     brand site. Replace with confirmed dates when the client
+//     provides them.
 const ACTS: Act[] = [
   {
     era: 'Roots',
@@ -64,23 +65,23 @@ const ACTS: Act[] = [
     highlights: [
       '11,000+ minimally-invasive surgeries',
       '8,000+ IVF pregnancies',
-      '20+ years in preventive medicine',
+      '50,000+ lives reformed by the team',
     ],
     img: '/longevity/microscope-analyst.jpg',
     caption: 'Two specialties. One philosophy.',
   },
   {
-    era: 'The Pivot',
-    year: 'The Founding',
-    headline: 'The Longevity Centre opens.',
+    era: 'The Anti-Aging Centre',
+    year: 'TAC Opens',
+    headline: 'India’s first dedicated anti-aging clinic.',
     lede: 'Born from one belief — modern medicine waits too long.',
     highlights: [
-      'First TLC centre · Delhi',
+      'TAC opens · Delhi NCR',
       'Diagnostics-first preventive model',
-      'Six flagship programmes designed',
+      '20+ years of preventive-medicine practice',
     ],
-    img: '/skin-aesthetics/08-hair-transplant.jpg',
-    caption: 'Inside the first TLC clinic, Delhi',
+    img: '/clinic-photos/gurugram-exterior.jpg',
+    caption: 'TAC · The Anti-Aging Centre, Gurugram',
   },
   {
     era: 'Network',
@@ -90,23 +91,23 @@ const ACTS: Act[] = [
     highlights: [
       'Delhi · Gurgaon · Mumbai · Pune',
       'Bangalore · Nagpur · Goa · Hyderabad',
-      'A pan-India patient record',
+      'Six flagship programmes designed',
     ],
     img: '/clinic-photos/gurgaon-centre.webp',
     caption: 'TLC Gurgaon · the network expands',
   },
   {
-    era: 'Today',
+    era: 'The Longevity Centre',
     year: '2026',
-    headline: 'Where we stand.',
-    lede: 'A thousand biomarkers. Three biological-age clocks. One promise.',
+    headline: 'A new brand. A deeper science.',
+    lede: 'The Anti-Aging Centre becomes The Longevity Centre.',
     highlights: [
       '1000+ biomarkers per patient',
       '3 age clocks · Epigenetic · Blood · Gut',
       'European laboratory partnership',
     ],
-    img: '/longevity/vitality-mature-woman.jpg',
-    caption: 'The patients we measure',
+    img: '/skin-aesthetics/08-hair-transplant.jpg',
+    caption: 'Inside TLC · the next chapter',
   },
   {
     era: 'Tomorrow',
