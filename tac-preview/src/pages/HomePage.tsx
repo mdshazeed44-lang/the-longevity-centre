@@ -8,6 +8,7 @@ import { Method } from '../components/Method'
 import { VideoTestimonials } from '../components/VideoTestimonials'
 import { PressStrip } from '../components/sections/PressStrip'
 import { ScienceCards } from '../components/sections/ScienceCards'
+import { Journey } from '../components/sections/Journey'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
 import { ClinicsBand } from '../components/sections/ClinicsBand'
@@ -72,6 +73,7 @@ export function HomePage() {
       <Programs />
       <PressStrip />
       <ScienceCards />
+      <Journey />
       <Method />
       <ResultsSplit />
       <FoundersNote />
