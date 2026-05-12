@@ -29,10 +29,23 @@ type Act = {
   caption: string
 }
 
+// Content notes — every fact below has been audited against the
+// existing site / brochure copy:
+//   ✓ Verified — pulled from About page founder bios, CtaBand stats,
+//                Diagnostics page, Centres page, programs.ts.
+//   ⊘ Year text fields are deliberately label-style (e.g. 'The Roots',
+//     'Two Decades') rather than invented specific years. The brand
+//     legacy ('20+ years in preventive medicine') and milestones are
+//     well documented, but exact founding-year dates are not on the
+//     existing site — replace these labels with confirmed years
+//     when the client provides them.
+//   ⊘ The 'Tomorrow' act keeps its vision intentionally directional
+//     rather than naming specific numbers ('25+ centres', etc.) that
+//     would commit the brand to a target it hasn't published.
 const ACTS: Act[] = [
   {
     era: 'Roots',
-    year: '~2000',
+    year: 'Origins',
     headline: 'Where the story starts.',
     lede: 'Two doctors. One conviction — that India deserves more centenarians.',
     highlights: [
@@ -45,38 +58,38 @@ const ACTS: Act[] = [
   },
   {
     era: 'Mastery',
-    year: '2005 – 17',
+    year: 'Two Decades',
     headline: 'A craft, perfected.',
-    lede: 'Two decades. Two of India’s most demanding specialties.',
+    lede: 'Two decades in two of India’s most demanding specialties.',
     highlights: [
       '11,000+ minimally-invasive surgeries',
       '8,000+ IVF pregnancies',
-      'Two decades of clinical leadership',
+      '20+ years in preventive medicine',
     ],
     img: '/longevity/microscope-analyst.jpg',
     caption: 'Two specialties. One philosophy.',
   },
   {
     era: 'The Pivot',
-    year: '2018',
+    year: 'The Founding',
     headline: 'The Longevity Centre opens.',
     lede: 'Born from one belief — modern medicine waits too long.',
     highlights: [
       'First TLC centre · Delhi',
       'Diagnostics-first preventive model',
-      'The brand is born',
+      'Six flagship programmes designed',
     ],
     img: '/skin-aesthetics/08-hair-transplant.jpg',
     caption: 'Inside the first TLC clinic, Delhi',
   },
   {
     era: 'Network',
-    year: '2019 – 24',
+    year: 'Pan-India',
     headline: 'From Delhi, outward.',
     lede: 'Eight cities. One shared medical record.',
     highlights: [
-      'Eight centres across India',
-      'Six flagship programmes',
+      'Delhi · Gurgaon · Mumbai · Pune',
+      'Bangalore · Nagpur · Goa · Hyderabad',
       'A pan-India patient record',
     ],
     img: '/clinic-photos/gurgaon-centre.webp',
@@ -97,16 +110,16 @@ const ACTS: Act[] = [
   },
   {
     era: 'Tomorrow',
-    year: '2030+',
+    year: 'The Vision',
     headline: 'Where we’re headed.',
     lede: 'A generation that ages on its own terms.',
     highlights: [
-      '25+ centres across South Asia',
-      'AI-personalised protocols',
+      'An expanded longevity network',
+      'Deeper diagnostics, finer protocols',
       'A generation of active centenarians',
     ],
     img: '/longevity/milind-soman.jpg',
-    caption: 'Milind Soman · 58 · ageing on his own terms',
+    caption: 'Milind Soman · ageing on his own terms',
   },
 ]
 
