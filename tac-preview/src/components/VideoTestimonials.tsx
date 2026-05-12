@@ -379,18 +379,25 @@ export function VideoTestimonials() {
                   onClick={() => setActiveIdx(i)}
                   aria-label={`View ${t.name}'s story`}
                   aria-current={isActive}
-                  className="group relative text-left transition-all duration-500"
+                  data-cursor="hover"
+                  /* `cursor-pointer` + the inner-tile hover styles below
+                     give the thumbnail a clear clickable affordance —
+                     previously the tiles were buttons but looked static,
+                     so the client thought they weren't interactive. */
+                  className="group relative text-left cursor-pointer transition-all duration-500 hover:-translate-y-1"
                 >
                   <div
                     className={`relative aspect-[4/5] w-full overflow-hidden rounded-[12px] bg-mist border-2 transition-all duration-500 ${
-                      isActive ? 'border-rust shadow-[0_18px_30px_-18px_rgba(148,84,85,0.45)]' : 'border-transparent'
+                      isActive
+                        ? 'border-rust shadow-[0_18px_30px_-18px_rgba(148,84,85,0.45)]'
+                        : 'border-transparent group-hover:border-rust/60 group-hover:shadow-[0_14px_24px_-14px_rgba(148,84,85,0.35)]'
                     }`}
                   >
                     <img
                       src={t.poster}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
                     />
                     <div
                       aria-hidden
