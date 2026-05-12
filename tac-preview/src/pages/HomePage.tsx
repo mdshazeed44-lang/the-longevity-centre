@@ -10,6 +10,7 @@ import { PressStrip } from '../components/sections/PressStrip'
 import { ScienceCards } from '../components/sections/ScienceCards'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { Editorial } from '../components/sections/Editorial'
+import { FoundersNote } from '../components/sections/FoundersNote'
 import { ClinicsBand } from '../components/sections/ClinicsBand'
 import { Faq } from '../components/sections/Faq'
 import { CtaBand } from '../components/sections/CtaBand'
@@ -75,6 +76,7 @@ export function HomePage() {
       <Method />
       <ResultsSplit />
       <Editorial />
+      <FoundersNote />
       <VideoTestimonials />
       <ClinicsBand />
       <Faq />
