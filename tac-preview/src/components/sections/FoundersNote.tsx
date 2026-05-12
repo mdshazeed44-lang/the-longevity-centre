@@ -13,6 +13,7 @@ export function FoundersNote() {
   const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
+  const shlokaRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -38,6 +39,17 @@ export function FoundersNote() {
           ease: 'power3.out',
           stagger: 0.07,
           scrollTrigger: { trigger: bodyRef.current, start: 'top 80%' },
+        })
+      }
+
+      // Shloka block fades up gently — quiet, no horizontal motion.
+      if (shlokaRef.current) {
+        gsap.from(shlokaRef.current, {
+          y: 22,
+          opacity: 0,
+          duration: 1.0,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: shlokaRef.current, start: 'top 84%' },
         })
       }
     }, sectionRef)
@@ -78,6 +90,37 @@ export function FoundersNote() {
             live longer and live better, together.
           </p>
         </div>
+
+        {/* Shloka block — Atharvaveda Prithvi Sukta verse invoked by
+            PM Modi, used here as the spiritual anchor of the brand's
+            "ancient wisdom + modern medicine" thesis. Restrained
+            treatment: thin rust hairlines top/bottom, devanagari in
+            serif display, italic English meaning, single-line
+            attribution. Sits between the heading and the letter so
+            it reads as a quiet epigraph. */}
+        <figure
+          ref={shlokaRef}
+          className="mb-12 md:mb-16 mx-auto max-w-[820px] text-center border-y border-rust/15 py-10 md:py-12"
+        >
+          <p
+            lang="sa"
+            className="font-display text-ink text-[19px] md:text-[24px] xl:text-[26px] leading-[1.55] tracking-[-0.005em]"
+            style={{ fontFeatureSettings: '"liga", "calt"' }}
+          >
+            उपस्थास्ते अनमीवा अयक्ष्मा अस्मभ्यं सन्तु पृथिवि प्रसूताः।
+            <br />
+            दीर्घं न आयुः प्रतिबुध्यमाना वयं तुभ्यं बलिहृतः स्याम॥
+          </p>
+          <p className="mt-5 md:mt-6 font-display italic text-graphite text-[14.5px] md:text-[16px] leading-[1.6] max-w-[640px] mx-auto">
+            &ldquo;May we rise from this Earth free from disease and free from
+            sickness; may we, awakening, attain a long life and offer
+            ourselves in service to thee.&rdquo;
+          </p>
+          <figcaption className="mt-5 text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold">
+            Atharvaveda &middot; Prithvi Sukta &middot; Invoked by Prime
+            Minister Shri Narendra Modi
+          </figcaption>
+        </figure>
 
         {/* Portrait + letter — quiet two-column layout */}
         <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-16 items-start">
