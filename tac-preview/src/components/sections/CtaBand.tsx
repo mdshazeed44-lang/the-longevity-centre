@@ -88,7 +88,7 @@ export function CtaBand() {
             { k: '8', l: 'Centres pan-India' },
             { k: '20+ years', l: 'In preventive medicine' },
             { k: '1000+', l: 'Biomarkers per patient' },
-            { k: '3', l: 'Biological ages — Epigenetic · Blood · Gut' },
+            { k: '3', l: 'Biological-age clocks' },
           ].map((s) => (
             <div
               key={s.l}

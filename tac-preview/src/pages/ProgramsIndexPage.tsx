@@ -246,16 +246,16 @@ function Hero() {
         <div className="lg:pb-4">
           <div
             ref={counterRef}
-            className="fade-up grid grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[520px]"
+            className="fade-up grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[520px]"
           >
             {HERO_STATS.map((s) => {
               const isNumeric = /^\d+$/.test(s.v)
               return (
                 <div
                   key={s.k}
-                  className="bg-white px-4 py-5 md:px-5 md:py-6 text-left transition-colors duration-500 hover:bg-cream/40"
+                  className="bg-white px-4 py-4 sm:py-5 md:px-5 md:py-6 text-left transition-colors duration-500 hover:bg-cream/40"
                 >
-                  <div className="font-display font-bold text-[22px] md:text-[28px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
+                  <div className="font-display font-bold text-[24px] sm:text-[22px] md:text-[28px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
                     {isNumeric ? (
                       <span data-count={s.v}>0</span>
                     ) : (

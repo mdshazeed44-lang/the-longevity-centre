@@ -638,7 +638,7 @@ export function LongevityProgramPage() {
             </div>
 
             {/* Right — dense masonry of brand-guide mood imagery */}
-            <div ref={moodRef} className="grid grid-cols-3 gap-2 md:gap-3 auto-rows-[110px] md:auto-rows-[120px]">
+            <div ref={moodRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3 auto-rows-[140px] sm:auto-rows-[110px] md:auto-rows-[120px]">
               <div className="mood-tile row-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-feet-moss.jpg" alt="Bare feet on moss" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
@@ -840,7 +840,7 @@ export function LongevityProgramPage() {
               >
                 <div className="grid md:grid-cols-[1.05fr_1fr] min-h-[480px] md:min-h-[560px]">
                   {/* Content */}
-                  <div className="relative px-9 py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 flex flex-col justify-between">
+                  <div className="relative px-5 py-8 sm:px-9 sm:py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 flex flex-col justify-between">
                     {/* top row — number + tag */}
                     <div className="flex items-center justify-between gap-6">
                       <div className="flex items-center gap-4">

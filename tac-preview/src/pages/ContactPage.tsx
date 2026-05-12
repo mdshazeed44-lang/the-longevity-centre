@@ -243,7 +243,7 @@ export function ContactPage() {
                     <label className="block text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold mb-3">
                       Preferred way to reach you
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {[
                         { v: 'Phone', l: 'Phone' },
                         { v: 'WhatsApp', l: 'WhatsApp' },

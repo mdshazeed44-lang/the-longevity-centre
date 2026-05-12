@@ -228,7 +228,7 @@ export function ProgramsHome() {
             >
               <div className="grid md:grid-cols-[1.05fr_1fr] min-h-[400px] md:min-h-[460px]">
                 {/* Content */}
-                <div className="relative px-8 py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 flex flex-col justify-between">
+                <div className="relative px-5 py-7 sm:px-8 sm:py-10 md:px-12 md:py-12 lg:px-14 lg:py-14 flex flex-col justify-between">
                   {/* Top row — number + tag + counter */}
                   <div className="flex items-center justify-between gap-4 md:gap-6">
                     <div className="flex items-center gap-3 md:gap-4 min-w-0">
