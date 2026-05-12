@@ -91,7 +91,7 @@ const ACTS: Act[] = [
     highlights: [
       'Delhi · Gurgaon · Mumbai · Pune',
       'Bangalore · Nagpur · Goa · Hyderabad',
-      'Six flagship programmes designed',
+      'Seven open · Hyderabad opening 2026',
     ],
     img: '/clinic-photos/gurgaon-centre.webp',
     caption: 'TLC Gurgaon · the network expands',
@@ -102,9 +102,9 @@ const ACTS: Act[] = [
     headline: 'A new brand. A deeper science.',
     lede: 'The Anti-Aging Centre becomes The Longevity Centre.',
     highlights: [
-      '1000+ biomarkers per patient',
-      '3 age clocks · Epigenetic · Blood · Gut',
-      'European laboratory partnership',
+      '1000+ biomarkers · 3 biological-age clocks',
+      '6 flagship programmes · 9 diagnostic services',
+      'European laboratory partnership · Netherlands',
     ],
     img: '/skin-aesthetics/08-hair-transplant.jpg',
     caption: 'Inside TLC · the next chapter',
@@ -115,8 +115,8 @@ const ACTS: Act[] = [
     headline: 'Where we’re headed.',
     lede: 'A generation that ages on its own terms.',
     highlights: [
-      'An expanded longevity network',
-      'Deeper diagnostics, finer protocols',
+      'A deeper national longevity network',
+      'AI-augmented personalised protocols',
       'A generation of active centenarians',
     ],
     img: '/longevity/milind-soman.jpg',
