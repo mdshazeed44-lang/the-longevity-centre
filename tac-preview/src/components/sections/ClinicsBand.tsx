@@ -125,24 +125,28 @@ export function ClinicsBand() {
   }, [])
 
   // Pin coordinates as % of the /main-map.webp box (left, top).
-  // Calibrated visually against the actual drawn India outline in
-  // main-map.webp — the previous lat/lon formula didn't match the
-  // map's projection (Mumbai / Pune were ~4% too far east, Delhi
-  // was ~3% too far south). Each pair below was checked against the
-  // city's location on the drawn map, not against a generic
-  // equirectangular projection.
+  // Recalibrated against a reference political map (mapsofindia.com)
+  // by computing each city's position relative to India's bounding
+  // box on the reference map, then projecting that ratio onto the
+  // stylised outline's bounding box (left 14%, right 80%, top 10%,
+  // bottom 90%).
+  //
+  // E.g. Delhi sits at (38%, 21%) on the reference map, which inside
+  // India's bounding box translates to (0.40, 0.18). Applied to the
+  // stylised map's box: 14 + 0.40·66 = 40.4% left,
+  // 10 + 0.18·80 = 24.4% top.
   const pinCoords: Record<
     string,
     { left: string; top: string; side: 'top' | 'bottom' | 'left' | 'right' }
   > = {
-    Delhi:     { left: '37%',   top: '24%', side: 'right'  }, // 28.61°N, 77.23°E
-    Gurgaon:   { left: '36%',   top: '25%', side: 'left'   }, // 28.46°N, 77.03°E
-    Nagpur:    { left: '40.5%', top: '48%', side: 'right'  }, // 21.15°N, 79.09°E
-    Mumbai:    { left: '22%',   top: '55%', side: 'left'   }, // 19.08°N, 72.88°E
-    Pune:      { left: '25%',   top: '57%', side: 'bottom' }, // 18.52°N, 73.86°E
-    Hyderabad: { left: '38%',   top: '60%', side: 'right'  }, // 17.39°N, 78.49°E
-    Goa:       { left: '25.5%', top: '67%', side: 'left'   }, // 15.30°N, 74.12°E
-    Bangalore: { left: '34%',   top: '78%', side: 'bottom' }, // 12.97°N, 77.59°E
+    Delhi:     { left: '40%',   top: '24%', side: 'right'  }, // 28.61°N, 77.23°E
+    Gurgaon:   { left: '39%',   top: '26%', side: 'left'   }, // 28.46°N, 77.03°E
+    Nagpur:    { left: '42%',   top: '50%', side: 'right'  }, // 21.15°N, 79.09°E
+    Mumbai:    { left: '23%',   top: '54%', side: 'left'   }, // 19.08°N, 72.88°E
+    Pune:      { left: '27%',   top: '56%', side: 'bottom' }, // 18.52°N, 73.86°E
+    Hyderabad: { left: '42%',   top: '62%', side: 'right'  }, // 17.39°N, 78.49°E
+    Goa:       { left: '27%',   top: '67%', side: 'left'   }, // 15.30°N, 74.12°E
+    Bangalore: { left: '35%',   top: '75%', side: 'bottom' }, // 12.97°N, 77.59°E
   }
 
   return (
