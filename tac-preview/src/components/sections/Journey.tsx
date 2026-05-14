@@ -80,8 +80,8 @@ const ACTS: Act[] = [
       'Diagnostics-first preventive model',
       '20+ years of preventive-medicine practice',
     ],
-    img: '/clinic-photos/gurugram-exterior.jpg',
-    caption: 'TAC · The Anti-Aging Centre, Gurugram',
+    img: '/clinic-photos/delhi-bangalore-clinic.jpg',
+    caption: 'TAC reception · Delhi flagship',
   },
   {
     era: 'Network',
