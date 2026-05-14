@@ -1,22 +1,63 @@
 /**
  * CtaBand — site signature bottom-of-page CTA surface used on every
  * page. Combines the "what ageing well looks like" Milind portrait
- * (was previously a separate MilindAnchor section sitting just above
- * this one — the two have been merged into a single editorial
- * close-out so the page doesn't end with two stacked dark/white
- * pieces saying the same headline).
+ * with a compact inline appointment form so visitors can request a
+ * consultation without leaving the page.
  *
  * Layout
  *   - Eyebrow centred at top
- *   - 2-col grid: Milind portrait left + headline / body / CTA pills
- *     stack right
- *   - Stats grid (8 / 20+ / 1000+ / 3) full-width below
+ *   - 2-col grid: Milind portrait left + compact form right
+ *   - Alternative contact pills (WhatsApp / phone) below the form
+ *   - Stats grid (8 / 20+ / 1000+ / 3) full-width at the bottom
  *
- * No GSAP — entrance animations come from the global fade-up
- * observer in index.css. Keeping it static makes it a safe drop-in
- * footer-of-page component for every route.
+ * Form submission mirrors the ContactPage pattern — the values are
+ * packaged into a pre-formatted WhatsApp message and opened in a new
+ * tab so the clinic team can reply from their WhatsApp business
+ * inbox. No backend / email setup needed.
  */
+import { useState } from 'react'
+import { PROGRAMS } from '../../lib/programs'
+
+type FormState = 'idle' | 'submitting' | 'success'
+
+const WHATSAPP_NUMBER = '%2B918826809123'
+
 export function CtaBand() {
+  const [state, setState] = useState<FormState>('idle')
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setState('submitting')
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    // Honeypot — bots fill `botcheck`; drop silently.
+    if (data.get('botcheck')) {
+      setState('success')
+      return
+    }
+
+    const name = (data.get('name') as string) || ''
+    const phone = (data.get('phone') as string) || ''
+    const programme =
+      (data.get('programme') as string) || 'Not specified'
+
+    const lines = [
+      'Hello TLC team — new consultation request from the website.',
+      '',
+      `*Name:* ${name}`,
+      `*Phone:* ${phone}`,
+      `*Programme of interest:* ${programme}`,
+    ]
+
+    const text = encodeURIComponent(lines.join('\n'))
+    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
+
+    window.open(url, '_blank', 'noopener,noreferrer')
+    setState('success')
+    form.reset()
+  }
+
   return (
     <section
       id="cta"
@@ -45,14 +86,11 @@ export function CtaBand() {
           <span className="w-7 h-px bg-rust" />
         </div>
 
-        {/* Main 2-col layout — Milind portrait left, CTA stack right.
-            Mobile collapses to portrait-on-top, content-below.
-            Card uses 4:3 landscape aspect to match the source image's
-            native 3:2 framing — avoids the aggressive side-crop that
-            a 4:5 portrait forced on a landscape photo. */}
+        {/* Main 2-col layout — Milind portrait LEFT, headline + form
+            stack RIGHT. Mobile collapses to portrait-on-top, content-
+            below. */}
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center mb-14 md:mb-16">
-          {/* Milind portrait card — the "what ageing well looks like"
-              visual anchor. Caption sits at the bottom of the photo. */}
+          {/* Milind portrait card */}
           <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-cream shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
             <img
               src="/longevity/milind-soman.jpg"
@@ -62,7 +100,6 @@ export function CtaBand() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: '40% center' }}
             />
-            {/* Soft bottom gradient keeps the caption legible. */}
             <div
               aria-hidden
               className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
@@ -84,49 +121,121 @@ export function CtaBand() {
             </div>
           </div>
 
-          {/* Right column — headline, body, CTA pills */}
-          <div className="text-center md:text-left">
-            <h2 className="font-display font-light text-[32px] md:text-[48px] xl:text-[58px] leading-[1.04] tracking-[-0.03em] text-ink mb-5">
+          {/* Right column — headline + inline appointment form */}
+          <div>
+            <h2 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.05] tracking-[-0.03em] text-ink mb-4 text-center md:text-left">
               Age should never{' '}
               <span className="font-bold italic text-rust">define you.</span>
             </h2>
-
-            <p className="text-[14.5px] md:text-[16.5px] text-graphite leading-[1.7] max-w-[520px] mx-auto md:mx-0 mb-8 font-light">
-              Strength, clarity and energy aren&rsquo;t the privileges of
-              youth — they&rsquo;re the rewards of measurement, intention and
-              the right medical partnership. Speak with our team for a
-              30-minute personalised conversation. No commitment. Just
-              clarity.
+            <p className="text-[13.5px] md:text-[15px] text-graphite leading-[1.6] max-w-[480px] mx-auto md:mx-0 mb-6 font-light text-center md:text-left">
+              Request a 30-minute conversation with our medical team. No
+              commitment. We&rsquo;ll reply within an hour.
             </p>
 
-            {/* CTA pills */}
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
-              <a
-                href="/contact"
-                data-cursor="hover"
-                data-magnetic
-                className="group inline-flex items-center gap-3 pl-5 pr-7 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
+            {state === 'success' ? (
+              <FormSuccess />
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="space-y-3"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
-                </span>
-                Arrange a Consultation
-                <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
-                  →
-                </span>
-              </a>
+                {/* Honeypot — invisible to humans, bots fill it. */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] opacity-0 pointer-events-none"
+                />
+
+                {/* Name + Phone in a row on md+, stacked on mobile */}
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Your name"
+                    className="w-full bg-white/80 border border-ink/12 rounded-full px-5 py-3 text-[13.5px] text-ink placeholder:text-stone/55 font-light focus:border-rust focus:outline-none focus:ring-2 focus:ring-rust/15 transition-all duration-300"
+                  />
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="Phone (with country code)"
+                    className="w-full bg-white/80 border border-ink/12 rounded-full px-5 py-3 text-[13.5px] text-ink placeholder:text-stone/55 font-light focus:border-rust focus:outline-none focus:ring-2 focus:ring-rust/15 transition-all duration-300"
+                  />
+                </div>
+
+                {/* Programme dropdown */}
+                <select
+                  name="programme"
+                  defaultValue=""
+                  className="w-full bg-white/80 border border-ink/12 rounded-full px-5 py-3 text-[13.5px] text-ink font-light focus:border-rust focus:outline-none focus:ring-2 focus:ring-rust/15 transition-all duration-300 appearance-none cursor-pointer"
+                  style={{
+                    backgroundImage:
+                      "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23945455' d='M6 8L0 0h12z'/%3E%3C/svg%3E\")",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'right 20px center',
+                  }}
+                >
+                  <option value="">Programme of interest (optional)</option>
+                  {PROGRAMS.map((p) => (
+                    <option key={p.slug} value={p.shortTitle}>
+                      {p.shortTitle}
+                    </option>
+                  ))}
+                  <option value="Not sure yet">Not sure yet — advise me</option>
+                </select>
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  data-cursor="hover"
+                  data-magnetic
+                  disabled={state === 'submitting'}
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 pl-5 pr-3 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink disabled:opacity-60 transition-colors duration-500"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-white/80 opacity-75 animate-ping" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                  </span>
+                  {state === 'submitting' ? 'Sending…' : 'Request Consultation'}
+                  <span
+                    aria-hidden
+                    className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white text-rust group-hover:bg-rust group-hover:text-white transition-colors duration-500"
+                  >
+                    →
+                  </span>
+                </button>
+
+                {/* Tiny privacy note */}
+                <p className="text-[10.5px] tracking-[0.04em] text-stone/65 font-light leading-[1.5] pt-1">
+                  Submits to our medical team via WhatsApp.{' '}
+                  <span className="text-stone/50">No spam, ever.</span>
+                </p>
+              </form>
+            )}
+
+            {/* Alternative contact pills — for visitors who prefer
+                a direct line instead of the form. */}
+            <div className="flex flex-wrap items-center gap-3 mt-6 pt-5 border-t border-ink/8 justify-center md:justify-start">
+              <span className="text-[10px] tracking-[0.32em] uppercase text-stone/65 font-medium">
+                Or
+              </span>
               <a
                 href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
                 data-cursor="hover"
-                className="inline-flex items-center gap-2 px-5 py-3.5 border border-ink/15 text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
+                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300"
               >
                 WhatsApp
               </a>
+              <span aria-hidden className="text-ink/20">·</span>
               <a
                 href="tel:+918826809123"
                 data-cursor="hover"
-                className="inline-flex items-center gap-2 px-5 py-3.5 border border-ink/15 text-ink text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
+                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300"
               >
                 +91 88268 09123
               </a>
@@ -157,5 +266,37 @@ export function CtaBand() {
         </div>
       </div>
     </section>
+  )
+}
+
+/**
+ * Success state — shown after the form opens WhatsApp. Tells the
+ * user what just happened and gives them a way to do it again or
+ * jump to the dedicated /contact page if WhatsApp didn't open.
+ */
+function FormSuccess() {
+  return (
+    <div className="bg-cream/60 border border-rust/20 rounded-[18px] p-5 md:p-6">
+      <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
+        Almost there
+      </div>
+      <h3 className="font-display text-ink text-[18px] md:text-[20px] leading-[1.3] mb-2 font-light">
+        We&rsquo;ve opened WhatsApp with your details pre-filled.
+      </h3>
+      <p className="text-[13.5px] text-graphite font-light leading-[1.55] mb-4">
+        Just hit <em>send</em> and our medical team will reply — usually
+        within an hour. If WhatsApp didn&rsquo;t open in a new tab, tap
+        below.
+      </p>
+      <a
+        href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cursor="hover"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+      >
+        Open WhatsApp
+      </a>
+    </div>
   )
 }
