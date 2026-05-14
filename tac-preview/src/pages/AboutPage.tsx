@@ -5,8 +5,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
-
 gsap.registerPlugin(ScrollTrigger)
 
 const ABOUT_META = {
@@ -1066,12 +1064,6 @@ export function AboutPage() {
           ))}
         </div>
       </section>
-
-      {/* Milind brand anchor — recurring "what ageing well looks
-          like" beat shared across every page, sits right before the
-          final CTA. */}
-      <MilindAnchor />
-
       {/* FINAL CTA — refined editorial close. Tighter heights, asymmetric
           two-column layout (headline left, contact stack right) so the
           section reads like a proper closing card, not a billboard. */}

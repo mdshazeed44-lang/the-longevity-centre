@@ -9,8 +9,6 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
-
 gsap.registerPlugin(ScrollTrigger)
 
 function accentText(a: Program['accent']) {
@@ -469,7 +467,6 @@ export function ProgramsIndexPage() {
       <Hero />
       <ProgrammesGrid />
       <BmiCalculator variant="selector" />
-      <MilindAnchor />
       <CtaBand />
     </>
   )

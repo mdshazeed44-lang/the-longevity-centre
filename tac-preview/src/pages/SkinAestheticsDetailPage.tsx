@@ -14,7 +14,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
 import {
   SKIN_TREATMENTS,
   getSkinTreatmentBySlug,
@@ -394,8 +393,6 @@ export function SkinAestheticsDetailPage() {
           </div>
         </div>
       </section>
-
-      <MilindAnchor />
       <CtaBand />
     </div>
   )

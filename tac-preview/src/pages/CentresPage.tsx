@@ -11,8 +11,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CENTRES as CENTRES_DATA } from '../lib/centres'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
-
 gsap.registerPlugin(ScrollTrigger)
 
 // Display numbering — 01, 02, … 08
@@ -413,11 +411,6 @@ export function CentresPage() {
           })}
         </div>
       </section>
-
-      {/* Milind brand anchor — recurring "what ageing well looks like"
-          beat shared across every page, sits right before the final CTA. */}
-      <MilindAnchor />
-
       {/* FINAL CTA — site signature dark band */}
       <section className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden">
         <div

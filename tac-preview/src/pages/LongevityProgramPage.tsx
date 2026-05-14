@@ -9,8 +9,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
-
 gsap.registerPlugin(ScrollTrigger)
 
 const STEPS = [
@@ -1138,11 +1136,6 @@ export function LongevityProgramPage() {
           </ul>
         </div>
       </section>
-
-      {/* Milind brand anchor — recurring "what ageing well looks like"
-          beat shared across every page, sits right before the final CTA. */}
-      <MilindAnchor />
-
       {/* FINAL CTA — health-concern chips + free assessment */}
       <section id="program-cta" className="relative bg-ink py-12 md:py-16 px-6 md:px-12 overflow-hidden">
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)' }} />

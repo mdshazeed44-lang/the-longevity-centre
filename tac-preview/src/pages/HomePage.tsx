@@ -13,7 +13,6 @@ import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
 import { ClinicsBand } from '../components/sections/ClinicsBand'
 import { Faq } from '../components/sections/Faq'
-import { MilindAnchor } from '../components/sections/MilindAnchor'
 import { CtaBand } from '../components/sections/CtaBand'
 import { useDocumentMeta } from '../lib/seo'
 
@@ -81,7 +80,6 @@ export function HomePage() {
       <VideoTestimonials />
       <ClinicsBand />
       <Faq />
-      <MilindAnchor />
       <CtaBand />
     </>
   )
