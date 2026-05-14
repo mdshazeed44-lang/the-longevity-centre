@@ -227,7 +227,7 @@ export function Journey() {
     <section
       ref={sectionRef}
       id="journey"
-      className="relative bg-cream/50 md:h-[440vh] py-14 md:py-0"
+      className="relative bg-cream/50 md:h-[380vh] py-14 md:py-0"
     >
       {/* Ambient warm wash + paper-like horizontal scanline at very
           low opacity gives the section an editorial 'page' feel. */}
@@ -250,22 +250,21 @@ export function Journey() {
 
       {/* Sticky pin on desktop. */}
       <div className="md:sticky md:top-0 md:h-screen md:overflow-hidden flex flex-col relative z-10">
-        {/* Section header — three-line editorial opener. Stays
-            visible throughout the pinned scroll. */}
-        <div className="hidden md:flex pt-12 lg:pt-14 px-12 z-20 relative justify-center">
+        {/* Section header — compact centred opener. */}
+        <div className="hidden md:flex pt-10 lg:pt-12 px-12 z-20 relative justify-center">
           <div className="text-center">
-            <div className="inline-flex items-center gap-3 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-rust" />
-              <span className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold">
+            <div className="inline-flex items-center gap-3 mb-2.5">
+              <span className="w-1 h-1 rounded-full bg-rust" />
+              <span className="text-[9.5px] tracking-[0.42em] uppercase text-rust font-medium">
                 Our Story
               </span>
             </div>
-            <h2 className="font-display italic font-light text-ink text-[26px] lg:text-[32px] xl:text-[36px] leading-[1.05] tracking-[-0.02em] mb-2">
+            <h2 className="font-display italic font-light text-ink text-[20px] lg:text-[24px] xl:text-[26px] leading-[1.1] tracking-[-0.015em] mb-1.5">
               The Journey.
             </h2>
-            <p className="text-[11.5px] md:text-[12.5px] tracking-[0.04em] text-stone/80 font-light max-w-[480px] mx-auto leading-[1.55]">
-              Six chapters. Six images. One conviction —{' '}
-              <span className="italic text-rust">
+            <p className="text-[10.5px] md:text-[11.5px] tracking-[0.04em] text-stone/70 font-light max-w-[440px] mx-auto leading-[1.55]">
+              Six chapters. One conviction —{' '}
+              <span className="italic text-rust/85">
                 that India deserves more centenarians.
               </span>
             </p>
@@ -295,15 +294,15 @@ export function Journey() {
         <div className="flex-1 flex md:items-center min-h-0 md:pt-2">
           <div
             ref={stripRef}
-            className="md:flex md:items-center md:gap-12 lg:gap-16 md:pl-[13vw] md:pr-[13vw] md:will-change-transform space-y-16 md:space-y-0 w-full md:w-auto px-6 md:px-0"
+            className="md:flex md:items-center md:gap-10 lg:gap-14 md:pl-[15vw] md:pr-[15vw] md:will-change-transform space-y-16 md:space-y-0 w-full md:w-auto px-6 md:px-0"
           >
             {ACTS.map((a, i) => (
               <article
                 key={a.year}
                 ref={setCardRef(i)}
-                className="md:shrink-0 md:w-[72vw] lg:w-[62vw] xl:w-[54vw] will-change-transform"
+                className="md:shrink-0 md:w-[60vw] lg:w-[50vw] xl:w-[44vw] will-change-transform"
               >
-                <div className="grid md:grid-cols-[1fr_1fr] gap-8 md:gap-14 lg:gap-20 items-center">
+                <div className="grid md:grid-cols-[1fr_1fr] gap-6 md:gap-10 lg:gap-14 items-center">
                   {/* Image plate — cinematic letterbox bars top/bottom,
                       minimal caption only. */}
                   <div className="relative aspect-[4/5] rounded-[14px] overflow-hidden bg-mist shadow-[0_24px_60px_-32px_rgba(27,26,24,0.40)]">
@@ -346,59 +345,49 @@ export function Journey() {
                     </div>
                   </div>
 
-                  {/* Editorial right column — era marker + year + body. */}
+                  {/* Editorial right column — era marker, year, body.
+                      All type held at quiet weights so the section
+                      reads as a refined caption page, not a banner. */}
                   <div className="relative">
-                    <div className="relative">
-                      {/* Era marker — hairline rule + small tracked label */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="w-7 h-px bg-rust/60" />
-                        <span className="text-[10px] tracking-[0.42em] uppercase text-rust font-medium">
-                          {a.era}
-                        </span>
-                      </div>
-
-                      {/* Year — hero numeral, light weight, big */}
-                      <div
-                        className="font-display font-light text-rust tabular-nums leading-[0.85] tracking-[-0.04em] mb-5"
-                        style={{ fontSize: 'clamp(48px, 5.5vw, 76px)' }}
-                      >
-                        {a.year}
-                      </div>
-
-                      {/* Headline */}
-                      <h3 className="font-display font-light text-ink text-[24px] md:text-[30px] xl:text-[36px] leading-[1.1] tracking-[-0.02em] mb-6">
-                        {a.headline}
-                      </h3>
-
-                      {/* Lede — hanging quotation mark + italic block */}
-                      <div className="relative pl-7 md:pl-9 mb-8 max-w-[440px]">
-                        <span
-                          aria-hidden
-                          className="absolute -left-1 top-[-22px] font-display font-light text-rust/30 leading-none select-none"
-                          style={{ fontSize: 'clamp(56px, 5vw, 80px)' }}
-                        >
-                          &ldquo;
-                        </span>
-                        <p className="font-display italic text-graphite text-[15px] md:text-[18px] xl:text-[20px] leading-[1.45]">
-                          {a.lede}
-                        </p>
-                      </div>
-
-                      {/* Highlights — magazine-style numbered list with
-                          tiny 01/02/03 prefix instead of bullets. */}
-                      <ol className="space-y-3 max-w-[420px]">
-                        {a.highlights.map((h, idx) => (
-                          <li key={h} className="flex items-start gap-4">
-                            <span className="text-[10px] tracking-[0.32em] uppercase text-rust/75 font-semibold tabular-nums shrink-0 mt-[6px]">
-                              0{idx + 1}
-                            </span>
-                            <span className="text-[13.5px] md:text-[14.5px] text-graphite font-light leading-[1.55]">
-                              {h}
-                            </span>
-                          </li>
-                        ))}
-                      </ol>
+                    {/* Era marker — hairline rule + small tracked label */}
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <span className="w-6 h-px bg-rust/55" />
+                      <span className="text-[9.5px] tracking-[0.42em] uppercase text-rust font-medium">
+                        {a.era}
+                      </span>
                     </div>
+
+                    {/* Year — light serif, restrained scale */}
+                    <div
+                      className="font-display font-light text-rust tabular-nums leading-[0.95] tracking-[-0.025em] mb-4"
+                      style={{ fontSize: 'clamp(28px, 3vw, 42px)' }}
+                    >
+                      {a.year}
+                    </div>
+
+                    {/* Headline — thinner, smaller */}
+                    <h3 className="font-display font-light text-ink text-[18px] md:text-[22px] xl:text-[26px] leading-[1.2] tracking-[-0.015em] mb-4">
+                      {a.headline}
+                    </h3>
+
+                    {/* Lede — italic, compact, no oversize hanging quote */}
+                    <p className="font-display italic text-graphite/85 text-[13px] md:text-[14.5px] xl:text-[15.5px] leading-[1.5] mb-6 max-w-[400px] pl-3 border-l-2 border-rust/30">
+                      {a.lede}
+                    </p>
+
+                    {/* Highlights — numbered list, small + thin */}
+                    <ol className="space-y-2 max-w-[400px]">
+                      {a.highlights.map((h, idx) => (
+                        <li key={h} className="flex items-start gap-3">
+                          <span className="text-[9px] tracking-[0.3em] uppercase text-rust/65 font-medium tabular-nums shrink-0 mt-[5px]">
+                            0{idx + 1}
+                          </span>
+                          <span className="text-[12px] md:text-[12.5px] text-graphite/85 font-light leading-[1.55]">
+                            {h}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 </div>
               </article>
