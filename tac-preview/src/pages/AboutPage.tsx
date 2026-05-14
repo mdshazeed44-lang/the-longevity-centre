@@ -1060,31 +1060,34 @@ export function AboutPage() {
             </h2>
           </div>
 
-          {/* 2-col closer — Milind portrait LEFT, stats + sub-CTA RIGHT */}
-          <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-14 lg:gap-20 items-center">
+          {/* 2-col closer — Milind portrait LEFT, stats + sub-CTA
+              RIGHT. Card uses 4:3 landscape aspect (matches source
+              image native 3:2) and 40%/center crop so Milind's face
+              sits properly in frame rather than left-shifted. */}
+          <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center">
             {/* Milind portrait card */}
-            <div className="relative aspect-[4/5] rounded-[18px] overflow-hidden bg-ink shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]">
+            <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-ink shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] mx-auto w-full max-w-[520px]">
               <img
                 src="/longevity/milind-soman.jpg"
                 alt="Milind Soman — Indian icon of fitness and longevity"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: 'center 22%' }}
+                style={{ objectPosition: '40% center' }}
               />
               <div
                 aria-hidden
-                className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
                 style={{
                   background:
                     'linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)',
                 }}
               />
-              <div className="absolute inset-x-0 bottom-0 px-6 md:px-8 pb-6 md:pb-7">
+              <div className="absolute inset-x-0 bottom-0 px-5 md:px-6 pb-5 md:pb-6">
                 <div className="text-[10px] tracking-[0.34em] uppercase text-white/80 font-semibold mb-1.5">
                   What ageing well looks like
                 </div>
-                <div className="font-display italic text-white text-[18px] md:text-[22px] leading-[1.2]">
+                <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
                   Milind Soman
                   <span className="text-white/60 not-italic font-light ml-2">
                     &middot; 58
