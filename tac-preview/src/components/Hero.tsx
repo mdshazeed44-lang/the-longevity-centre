@@ -25,13 +25,14 @@ import { reduceMotion } from '../lib/motion'
 // Render treatment is tuned for sharpness (Ken Burns held to 1.02,
 // uniform 0.42 dark wash, contrast + saturation lift on the active
 // <video>, only the active clip decoding frames). Cache-bust
-// `?v=8` because yoga.mp4 was added.
+// `?v=9` — cycling.mp4 replaced with an Indian-subject campus shot
+// (was a Western fitness cyclist; brand reel now reads on-audience).
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=8',         // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=8',     // outdoor cycling — vitality
-  '/videos/hero-clips/yoga.mp4?v=8',        // dark studio yoga — mindfulness
-  '/videos/hero-clips/wellness.mp4?v=8',    // facial / skincare — wellness
-  '/videos/hero-clips/circulation.mp4?v=8', // blood cells in vein — circulation
+  '/videos/hero-clips/dna.mp4?v=9',         // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=9',     // outdoor cycling — vitality
+  '/videos/hero-clips/yoga.mp4?v=9',        // dark studio yoga — mindfulness
+  '/videos/hero-clips/wellness.mp4?v=9',    // facial / skincare — wellness
+  '/videos/hero-clips/circulation.mp4?v=9', // blood cells in vein — circulation
 ] as const
 const CLIP_DURATION_MS = 5500
 
