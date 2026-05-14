@@ -318,7 +318,7 @@ export function ClinicsBand() {
                       {/* Vibrating glow halo — radiating soft rust pulse */}
                       <span
                         aria-hidden
-                        className="pin-glow absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-[20%] w-10 h-10 rounded-full"
+                        className="pin-glow absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-[20%] w-7 h-7 rounded-full"
                         style={{
                           background:
                             'radial-gradient(circle, rgba(148,84,85,0.55) 0%, rgba(148,84,85,0.20) 45%, transparent 75%)',
@@ -327,14 +327,17 @@ export function ClinicsBand() {
                         }}
                       />
 
-                      {/* Teardrop pin — SVG with rust fill + white core */}
+                      {/* Teardrop pin — SVG with rust fill + white core.
+                          Sized down ~30% from the previous 26×34 so the
+                          cluster of pins in west / south India doesn't
+                          crowd the map. */}
                       <svg
-                        width="26"
-                        height="34"
+                        width="18"
+                        height="24"
                         viewBox="0 0 26 34"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        className="pin-bob relative block drop-shadow-[0_4px_8px_rgba(27,26,24,0.35)] group-hover:drop-shadow-[0_6px_12px_rgba(148,84,85,0.55)] transition-all duration-300"
+                        className="pin-bob relative block drop-shadow-[0_3px_6px_rgba(27,26,24,0.32)] group-hover:drop-shadow-[0_5px_10px_rgba(148,84,85,0.5)] transition-all duration-300"
                         style={{ animationDelay: `${i * 0.18}s` }}
                       >
                         {/* Outer subtle ring around pin head for definition */}
