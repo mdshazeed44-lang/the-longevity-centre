@@ -139,8 +139,8 @@ export function ClinicsBand() {
     string,
     { left: string; top: string; side: 'top' | 'bottom' | 'left' | 'right' }
   > = {
-    Delhi:     { left: '39%',   top: '26%', side: 'right'  }, // 28.61°N, 77.23°E
-    Gurgaon:   { left: '37%',   top: '28%', side: 'left'   }, // 28.46°N, 77.03°E
+    Delhi:     { left: '39%',   top: '29%', side: 'right'  }, // 28.61°N, 77.23°E
+    Gurgaon:   { left: '37%',   top: '31%', side: 'left'   }, // 28.46°N, 77.03°E
     Nagpur:    { left: '39%',   top: '48%', side: 'right'  }, // 21.15°N, 79.09°E
     Mumbai:    { left: '23%',   top: '54%', side: 'left'   }, // 19.08°N, 72.88°E
     Pune:      { left: '27%',   top: '56%', side: 'bottom' }, // 18.52°N, 73.86°E
