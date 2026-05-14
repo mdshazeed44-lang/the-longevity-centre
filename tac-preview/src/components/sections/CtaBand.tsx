@@ -90,15 +90,18 @@ export function CtaBand() {
             stack RIGHT. Mobile collapses to portrait-on-top, content-
             below. */}
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center mb-14 md:mb-16">
-          {/* Milind portrait card */}
-          <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-cream shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
+          {/* Milind portrait card. Square aspect + object-position
+              ~20% horizontal frames Milind's face in the centre and
+              crops out the empty cream backdrop that runs down the
+              right side of the source photo. */}
+          <div className="relative aspect-square rounded-[18px] overflow-hidden bg-cream shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
             <img
               src="/longevity/milind-soman.jpg"
               alt="Milind Soman — Indian icon of fitness and longevity"
               loading="lazy"
               decoding="async"
               className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: '40% center' }}
+              style={{ objectPosition: '22% center' }}
             />
             <div
               aria-hidden
