@@ -303,8 +303,7 @@ export function Journey() {
                 className="md:shrink-0 md:w-[60vw] lg:w-[50vw] xl:w-[44vw] will-change-transform"
               >
                 <div className="grid md:grid-cols-[1fr_1fr] gap-6 md:gap-10 lg:gap-14 items-center">
-                  {/* Image plate — cinematic letterbox bars top/bottom,
-                      minimal caption only. */}
+                  {/* Image plate — bottom-gradient caption only. */}
                   <div className="relative aspect-[4/5] rounded-[14px] overflow-hidden bg-mist shadow-[0_24px_60px_-32px_rgba(27,26,24,0.40)]">
                     <img
                       src={a.img}
@@ -320,17 +319,6 @@ export function Journey() {
                         background:
                           'linear-gradient(to top, rgba(27,26,24,0.50) 0%, rgba(27,26,24,0) 100%)',
                       }}
-                    />
-                    {/* Cinematic letterbox bar at top + bottom — adds
-                        the 'film still' feel without losing image
-                        content (the bars are over the image). */}
-                    <div
-                      aria-hidden
-                      className="absolute inset-x-0 top-0 h-[6px] bg-ink/85 mix-blend-multiply"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-x-0 bottom-0 h-[6px] bg-ink/85 mix-blend-multiply"
                     />
                     {/* Minimal caption — italic + thin rule, light
                         weight. The image is the hero here. */}
