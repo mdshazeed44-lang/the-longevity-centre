@@ -1018,169 +1018,160 @@ export function AboutPage() {
           /centres + the Clinics band on the homepage. Avoiding duplication
           on the About page keeps the narrative focused on team + philosophy. */}
 
-      {/* STATS strip */}
-      <section className="bg-cream/40 py-14 md:py-20 px-6 md:px-12">
-        <div className="max-w-[1280px] mx-auto">
-          <div className="text-center mb-14 md:mb-20">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <span className="w-7 h-px bg-rust" />
-              <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
-                By the Numbers
-              </span>
-              <span className="w-7 h-px bg-rust" />
-            </div>
-            <h2 className="font-display font-bold text-[32px] md:text-[48px] leading-[1.0] tracking-[-0.03em] text-ink max-w-[760px] mx-auto">
-              Two decades of measured care.
-            </h2>
-          </div>
-        </div>
-        <div
-          ref={statsRef}
-          className="max-w-[1280px] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
-        >
-          {STATS.map((s, i) => (
-            <div
-              key={s.label}
-              className="stat-cell group relative bg-white rounded-2xl border border-mist/70 px-4 py-7 md:px-6 md:py-10 lg:px-7 lg:py-12 overflow-hidden hover:border-rust/30 transition-colors duration-500"
-            >
-              <div className="absolute top-3 right-4 text-[10px] tracking-[0.28em] uppercase text-stone/55 tabular-nums font-medium">
-                0{i + 1}
-              </div>
-              <div
-                className="stat-num font-display font-bold text-[34px] sm:text-[40px] md:text-[44px] lg:text-[56px] xl:text-[64px] text-ink leading-none mb-3 tabular-nums tracking-[-0.025em]"
-                data-target={s.val}
-                data-suffix={s.suffix}
-              >
-                0{s.suffix}
-              </div>
-              <span
-                aria-hidden
-                className="block h-px w-9 bg-rust mb-3 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-              />
-              <div className="text-[11.5px] md:text-[12.5px] text-graphite leading-snug font-light">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      {/* FINAL CTA — refined editorial close. Tighter heights, asymmetric
-          two-column layout (headline left, contact stack right) so the
-          section reads like a proper closing card, not a billboard. */}
-      <section className="relative bg-ink py-16 md:py-20 px-6 md:px-12 overflow-hidden">
+      {/* UNIFIED CLOSER — 'By the Numbers' stats + 'Speak with our
+          team' CTA + Milind portrait merged into one editorial dark
+          section so the page ends on a single confident close-out
+          instead of two stacked panels.
+          Layout:
+            top  — centred eyebrow + headline 'Two decades of
+                   measured care.'
+            mid  — 2-col: Milind portrait LEFT, stats grid (2×2) +
+                   sub-CTA stack RIGHT */}
+      <section className="relative bg-ink py-16 md:py-24 px-6 md:px-12 overflow-hidden">
         {/* Ambient warm glow */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.22), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.14), transparent 60%)',
+              'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.20), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)',
           }}
         />
-        {/* Subtle grain */}
         <div
           aria-hidden
           className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay hero-grain"
         />
-        {/* Editorial hairline rules */}
         <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-0 h-px bg-white/10" />
         <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-white/10" />
 
         <div className="relative z-10 max-w-[1280px] mx-auto">
-          {/* 2-column grid: copy left, contact card right */}
-          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-16 items-center">
-            {/* LEFT — eyebrow + headline + copy */}
+          {/* Top — eyebrow + main headline (centred) */}
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-flex items-center gap-3 mb-5">
+              <span className="w-7 h-px bg-rust-soft" />
+              <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold">
+                By the Numbers
+              </span>
+              <span className="w-7 h-px bg-rust-soft" />
+            </div>
+            <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.03em] text-white max-w-[800px] mx-auto">
+              Two decades of{' '}
+              <span className="font-bold italic text-rust-soft">measured care.</span>
+            </h2>
+          </div>
+
+          {/* 2-col closer — Milind portrait LEFT, stats + sub-CTA RIGHT */}
+          <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-14 lg:gap-20 items-center">
+            {/* Milind portrait card */}
+            <div className="relative aspect-[4/5] rounded-[18px] overflow-hidden bg-ink shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)]">
+              <img
+                src="/longevity/milind-soman.jpg"
+                alt="Milind Soman — Indian icon of fitness and longevity"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ objectPosition: 'center 22%' }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)',
+                }}
+              />
+              <div className="absolute inset-x-0 bottom-0 px-6 md:px-8 pb-6 md:pb-7">
+                <div className="text-[10px] tracking-[0.34em] uppercase text-white/80 font-semibold mb-1.5">
+                  What ageing well looks like
+                </div>
+                <div className="font-display italic text-white text-[18px] md:text-[22px] leading-[1.2]">
+                  Milind Soman
+                  <span className="text-white/60 not-italic font-light ml-2">
+                    &middot; 58
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right — stats grid (2×2) + sub-CTA stack */}
             <div>
-              <div className="inline-flex items-center gap-3 mb-6">
-                <span className="w-7 h-px bg-rust-soft" />
-                <span className="text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold">
+              {/* Stats grid */}
+              <div
+                ref={statsRef}
+                className="grid grid-cols-2 gap-3 md:gap-4 mb-10 md:mb-12"
+              >
+                {STATS.map((s, i) => (
+                  <div
+                    key={s.label}
+                    className="stat-cell group relative bg-white/[0.05] backdrop-blur-sm rounded-[14px] border border-white/15 px-4 py-5 md:px-5 md:py-6 overflow-hidden hover:border-rust-soft/40 transition-colors duration-500"
+                  >
+                    <div className="absolute top-3 right-4 text-[9px] tracking-[0.28em] uppercase text-white/40 tabular-nums font-medium">
+                      0{i + 1}
+                    </div>
+                    <div
+                      className="stat-num font-display font-light text-[28px] md:text-[34px] xl:text-[42px] text-white leading-none mb-2 tabular-nums tracking-[-0.02em]"
+                      data-target={s.val}
+                      data-suffix={s.suffix}
+                    >
+                      0{s.suffix}
+                    </div>
+                    <span
+                      aria-hidden
+                      className="block h-px w-7 bg-rust-soft mb-2 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                    />
+                    <div className="text-[10.5px] md:text-[11.5px] text-white/65 leading-snug font-light">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Sub-eyebrow + sub-headline + CTAs */}
+              <div className="inline-flex items-center gap-3 mb-3">
+                <span className="w-6 h-px bg-rust-soft" />
+                <span className="text-[10px] tracking-[0.42em] uppercase text-rust-soft font-semibold">
                   Begin Your Journey
                 </span>
               </div>
-              <h2 className="font-display font-light text-[34px] md:text-[48px] xl:text-[58px] leading-[1.02] tracking-[-0.03em] text-white mb-5">
+              <h3 className="font-display font-light text-[26px] md:text-[34px] xl:text-[40px] leading-[1.05] tracking-[-0.025em] text-white mb-4">
                 Speak with{' '}
-                <span className="font-bold text-rust-soft">our team.</span>
-              </h2>
-              <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-white/75 max-w-[520px] font-light mb-7">
+                <span className="font-bold italic text-rust-soft">our team.</span>
+              </h3>
+              <p className="text-[13.5px] md:text-[15px] leading-[1.65] text-white/70 max-w-[480px] font-light mb-6">
                 A 30-minute conversation with our specialists. No commitment.
                 Just clarity on which programme suits your goals.
               </p>
 
-              {/* Inline trust strip */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10.5px] tracking-[0.28em] uppercase text-white/55 font-semibold">
-                <span className="inline-flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-rust-soft" />
-                  30-Minute Specialist Call
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-rust-soft" />
-                  No Commitment · No Charge
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-rust-soft" />
-                  Eight Clinics Pan-India
-                </span>
-              </div>
-            </div>
-
-            {/* RIGHT — frosted contact card */}
-            <div className="relative">
-              <div className="relative bg-white/[0.05] backdrop-blur-sm border border-white/15 rounded-[20px] p-6 md:p-7 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]">
-                <div className="text-[10px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-4">
-                  Choose Your Path
-                </div>
-
-                {/* Primary — Arrange a Consultation */}
+              {/* CTA pills */}
+              <div className="flex flex-wrap items-center gap-2.5">
                 <a
                   href="/contact"
                   data-cursor="hover"
                   data-magnetic
-                  className="group flex items-center justify-between w-full pl-5 pr-2 py-3 mb-2.5 bg-white text-ink rounded-full text-[11.5px] tracking-[0.22em] font-semibold uppercase hover:bg-rust hover:text-white transition-colors duration-500"
+                  className="group inline-flex items-center gap-3 pl-5 pr-3 py-3 bg-white text-ink rounded-full text-[11px] tracking-[0.22em] font-semibold uppercase hover:bg-rust hover:text-white transition-colors duration-500"
                 >
-                  <span className="inline-flex items-center gap-3">
-                    Arrange a Consultation
-                  </span>
-                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-ink text-white group-hover:bg-white group-hover:text-rust transition-colors duration-500" aria-hidden>
+                  Arrange a Consultation
+                  <span
+                    aria-hidden
+                    className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-ink text-white group-hover:bg-white group-hover:text-rust transition-colors duration-500"
+                  >
                     →
                   </span>
                 </a>
-
-                {/* Secondary — WhatsApp + Phone in compact row */}
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
-                    data-cursor="hover"
-                    className="group inline-flex items-center justify-center gap-2 px-3 py-3 border border-white/20 text-white text-[11px] tracking-[0.18em] font-semibold uppercase rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-500"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" className="text-rust-soft group-hover:text-white transition-colors duration-500" aria-hidden>
-                      <path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.71.3 1.262.48 1.694.629.712.227 1.36.195 1.871.121.571-.091 1.758-.721 2.006-1.413.255-.69.255-1.29.18-1.414-.074-.124-.27-.21-.57-.345m-5.446 7.443h-.016a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.465 3.488" />
-                    </svg>
-                    WhatsApp
-                  </a>
-                  <a
-                    href="tel:+918826809123"
-                    data-cursor="hover"
-                    className="group inline-flex items-center justify-center gap-2 px-3 py-3 border border-white/20 text-white text-[11px] tracking-[0.18em] font-semibold uppercase rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-500"
-                  >
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rust-soft group-hover:text-white transition-colors duration-500" aria-hidden>
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
-                    Call Direct
-                  </a>
-                </div>
-
-                {/* Phone number readout */}
-                <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
-                  <div className="text-[9.5px] tracking-[0.32em] uppercase text-white/45 font-semibold">
-                    Direct Line
-                  </div>
-                  <a
-                    href="tel:+918826809123"
-                    className="font-display font-bold text-[14px] md:text-[15px] text-white tabular-nums tracking-tight hover:text-rust-soft transition-colors duration-300"
-                  >
-                    +91 88268 09123
-                  </a>
-                </div>
+                <a
+                  href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
+                  data-cursor="hover"
+                  className="inline-flex items-center gap-2 px-4 py-3 border border-white/20 text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-500"
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href="tel:+918826809123"
+                  data-cursor="hover"
+                  className="inline-flex items-center gap-2 px-4 py-3 border border-white/20 text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white/10 hover:border-white/40 transition-colors duration-500"
+                >
+                  +91 88268 09123
+                </a>
               </div>
             </div>
           </div>
