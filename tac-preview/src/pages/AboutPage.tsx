@@ -65,21 +65,24 @@ const ABOUT_META = {
   ],
 }
 
-// Founders unified into a single editorial card — client request to show
-// Dr. Abhinav & Dr. Bhavna together (one portrait, one combined bio)
-// rather than two parallel cards. `stats` is an array so we can render
-// both doctors' headline numbers as stacked pills on the portrait.
+// Founders — two separate editorial cards (client reverted the
+// merged single-card version back to individual pics + write-ups).
+// The render loop alternates portrait sides (Abhinav: image left,
+// Bhavna: image right) for an editorial spread feel.
 const FOUNDERS = [
   {
-    name: 'Dr. Abhinav & Dr. Bhavna Sharma',
-    creds: 'MBBS (MAMC, Delhi) · MS Surgery, PGI Chandigarh · IVF Specialist',
-    role: 'Co-Founders · The Longevity Centre',
-    bio: "Educated at Maulana Azad Medical College, Delhi University, both Dr. Abhinav Sharma and Dr. Bhavna Sharma completed their MBBS at this premier institution, with Dr. Bhavna also pursuing her postgraduation there and Dr. Abhinav completing his at PGI Chandigarh, one of India's most acclaimed postgraduate centers. Together, they have pioneered science-driven anti-aging and longevity clinics in India, integrating metabolic, hormonal, and reproductive health to reverse biological aging. A leading IVF specialist credited with over 8,000 IVF babies, Dr. Bhavna now extends her expertise to hormonal and reproductive anti-aging, helping patients preserve fertility, balance hormones, and optimize long-term healthspan.",
-    img: '/team/founderboth.jpg',
-    stats: [
-      { stat: '11,000+', statLabel: 'Successful Surgeries' },
-      { stat: '8,000+', statLabel: 'IVF Pregnancies' },
-    ],
+    name: 'Dr. Abhinav Sharma',
+    creds: 'MBBS · MS · PGI Chandigarh',
+    role: 'Co-Founder · Anti-Aging & Preventive Medicine',
+    bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. Educated at Maulana Azad Medical College, Delhi, with postgraduate training at PGI Chandigarh — one of India’s most acclaimed centres. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness, blending clinical expertise with innovation for holistic, root-cause care.',
+    img: '/team/dr-abhinav.jpg',
+  },
+  {
+    name: 'Dr. Bhavna Sharma',
+    creds: 'MBBS · MAMC, Delhi · IVF Specialist',
+    role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
+    bio: 'A leading IVF specialist credited with over 8,000 IVF babies. Educated at Maulana Azad Medical College, Delhi, where she also completed her postgraduation. She now extends her expertise to hormonal and reproductive anti-aging, women’s health, oocyte preservation and HRT — helping patients preserve fertility, balance hormones and optimise long-term healthspan with compassion and cutting-edge science.',
+    img: '/team/dr-bhavna-2026.jpg',
   },
 ]
 
