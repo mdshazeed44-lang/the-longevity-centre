@@ -103,6 +103,14 @@ export function CtaBand() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{ objectPosition: '22% center' }}
             />
+            {/* Brand-ambassador badge — mandatory attribution that
+                must appear on every use of Milind's image. */}
+            <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
+              <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
+                Brand Ambassador &middot; TLC
+              </span>
+            </div>
             <div
               aria-hidden
               className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
@@ -118,7 +126,7 @@ export function CtaBand() {
               <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
                 Milind Soman
                 <span className="text-white/65 not-italic font-light ml-2">
-                  &middot; 58
+                  &middot; Brand Ambassador, TLC
                 </span>
               </div>
             </div>

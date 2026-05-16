@@ -120,7 +120,7 @@ const ACTS: Act[] = [
       'A generation of active centenarians',
     ],
     img: '/longevity/milind-soman.jpg',
-    caption: 'Milind Soman · ageing on his own terms',
+    caption: 'Milind Soman · Brand Ambassador, TLC',
   },
 ]
 
@@ -311,6 +311,17 @@ export function Journey() {
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
                     />
+                    {/* Brand-ambassador badge — mandatory wherever
+                        Milind's image is used. Only renders on his
+                        card (the Tomorrow act). */}
+                    {a.img === '/longevity/milind-soman.jpg' && (
+                      <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-rust text-white px-3 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
+                        <span className="w-1 h-1 rounded-full bg-white/90" />
+                        <span className="text-[8.5px] md:text-[9.5px] tracking-[0.24em] uppercase font-semibold">
+                          Brand Ambassador &middot; TLC
+                        </span>
+                      </div>
+                    )}
                     {/* Bottom soft gradient for caption legibility */}
                     <div
                       aria-hidden
