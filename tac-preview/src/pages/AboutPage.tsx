@@ -804,17 +804,15 @@ export function AboutPage() {
                   className="founder-card group bg-cream/40 hover:bg-cream rounded-[24px] overflow-hidden border border-mist/70 transition-colors duration-500 grid md:grid-cols-2 items-stretch"
                   style={{ willChange: 'transform, opacity', transformStyle: 'preserve-3d' }}
                 >
-                  {/* Portrait — square on mobile, full-height on desktop.
-                      Uses object-contain (not cover) so the whole studio
-                      headshot is visible without crop. The cream
-                      background fills the letterbox cleanly on either
-                      side / top / bottom of the portrait.
-                      `min-h-[360px]` is a fallback for older iOS Safari
-                      versions (<15.4) that don't support `aspect-square`
-                      — without it the container collapses to 0 height
-                      and the absolutely-positioned image disappears. */}
+                  {/* Portrait — shorter card with object-contain so the
+                      whole studio headshot is visible without cropping
+                      (heads were getting cut off with object-cover). The
+                      cream background fills the letterbox cleanly around
+                      the photo. min-h values are fallbacks for older iOS
+                      Safari (<15.4) that doesn't support aspect-* +
+                      absolutely-positioned children. */}
                   <div
-                    className={`relative aspect-[3/4] min-h-[420px] md:aspect-auto md:min-h-[640px] overflow-hidden bg-cream/60 ${
+                    className={`relative aspect-[4/3] min-h-[320px] md:aspect-auto md:min-h-[460px] overflow-hidden bg-cream/60 ${
                       reverse ? 'md:order-2' : ''
                     }`}
                   >
@@ -822,7 +820,7 @@ export function AboutPage() {
                       src={f.img}
                       alt={f.name}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                      className="absolute inset-0 w-full h-full object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                       style={{ objectPosition: 'center center' }}
                     />
                     {/* Stat pills removed per client feedback — the
