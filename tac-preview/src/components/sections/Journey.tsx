@@ -119,7 +119,7 @@ const ACTS: Act[] = [
       'AI-augmented personalised protocols',
       'A generation of active centenarians',
     ],
-    img: '/longevity/milind-soman.jpg',
+    img: '/longevity/milind-skin.webp',
     caption: 'Milind Soman · Brand Ambassador, TLC',
   },
 ]
@@ -303,18 +303,29 @@ export function Journey() {
                 className="md:shrink-0 md:w-[60vw] lg:w-[50vw] xl:w-[44vw] will-change-transform"
               >
                 <div className="grid md:grid-cols-[1fr_1fr] gap-6 md:gap-10 lg:gap-14 items-center">
-                  {/* Image plate — bottom-gradient caption only. */}
-                  <div className="relative aspect-[4/5] rounded-[14px] overflow-hidden bg-mist shadow-[0_24px_60px_-32px_rgba(27,26,24,0.40)]">
+                  {/* Image plate — bottom-gradient caption only.
+                      Milind's white studio shot uses object-contain on
+                      a white plate so the full landscape frame shows;
+                      the other five chapter photos stay object-cover. */}
+                  <div
+                    className={`relative aspect-[4/5] rounded-[14px] overflow-hidden shadow-[0_24px_60px_-32px_rgba(27,26,24,0.40)] ${
+                      a.img === '/longevity/milind-skin.webp' ? 'bg-white' : 'bg-mist'
+                    }`}
+                  >
                     <img
                       src={a.img}
                       alt={a.era}
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className={`absolute inset-0 w-full h-full ${
+                        a.img === '/longevity/milind-skin.webp'
+                          ? 'object-contain'
+                          : 'object-cover'
+                      }`}
                     />
                     {/* Brand-ambassador badge — mandatory wherever
                         Milind's image is used. Only renders on his
                         card (the Tomorrow act). */}
-                    {a.img === '/longevity/milind-soman.jpg' && (
+                    {a.img === '/longevity/milind-skin.webp' && (
                       <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-rust text-white px-3 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
                         <span className="w-1 h-1 rounded-full bg-white/90" />
                         <span className="text-[8.5px] md:text-[9.5px] tracking-[0.24em] uppercase font-semibold">

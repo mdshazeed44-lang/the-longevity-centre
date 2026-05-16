@@ -90,44 +90,33 @@ export function CtaBand() {
             stack RIGHT. Mobile collapses to portrait-on-top, content-
             below. */}
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center mb-14 md:mb-16">
-          {/* Milind portrait card. Square aspect + object-position
-              ~20% horizontal frames Milind's face in the centre and
-              crops out the empty cream backdrop that runs down the
-              right side of the source photo. */}
-          <div className="relative aspect-square rounded-[18px] overflow-hidden bg-cream shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
+          {/* Milind portrait card. White studio shot — object-contain
+              on a white card so the full frame shows without crop;
+              landscape 4:3 suits the source. Mandatory '· BRAND
+              AMBASSADOR · TLC' attribution top-left, dark caption
+              bottom-left (no gradient needed on the white plate). */}
+          <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-white border border-mist/60 shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
             <img
-              src="/longevity/milind-soman.jpg"
-              alt="Milind Soman — Indian icon of fitness and longevity"
+              src="/longevity/milind-skin.webp"
+              alt="Milind Soman — Brand Ambassador, The Longevity Centre"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: '22% center' }}
+              className="absolute inset-0 w-full h-full object-contain"
             />
             {/* Brand-ambassador badge — mandatory attribution that
                 must appear on every use of Milind's image. */}
-            <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.55)]">
+            <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.35)]">
               <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
               <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
                 Brand Ambassador &middot; TLC
               </span>
             </div>
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(27,26,24,0.60) 0%, rgba(27,26,24,0) 100%)',
-              }}
-            />
-            <div className="absolute inset-x-0 bottom-0 px-5 md:px-6 pb-5 md:pb-6">
-              <div className="text-[10px] tracking-[0.34em] uppercase text-white/85 font-semibold mb-1.5">
-                What ageing well looks like
-              </div>
-              <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
+            <div className="absolute bottom-4 left-5">
+              <div className="font-display italic text-ink text-[16px] md:text-[20px] leading-[1.2]">
                 Milind Soman
-                <span className="text-white/65 not-italic font-light ml-2">
-                  &middot; Brand Ambassador, TLC
-                </span>
+              </div>
+              <div className="text-[9.5px] tracking-[0.3em] uppercase text-stone font-semibold mt-1">
+                Brand Ambassador, TLC
               </div>
             </div>
           </div>
