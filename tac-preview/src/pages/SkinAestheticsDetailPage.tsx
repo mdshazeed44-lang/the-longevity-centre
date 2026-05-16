@@ -14,6 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import {
   SKIN_TREATMENTS,
   getSkinTreatmentBySlug,
@@ -393,6 +394,7 @@ export function SkinAestheticsDetailPage() {
           </div>
         </div>
       </section>
+      <BrandAmbassador />
       <CtaBand />
     </div>
   )

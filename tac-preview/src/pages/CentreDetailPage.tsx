@@ -16,6 +16,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CENTRES, getCentreBySlug } from '../lib/centres'
 import { CtaBand } from '../components/sections/CtaBand'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 gsap.registerPlugin(ScrollTrigger)
 
 function NotFound({ slug }: { slug: string }) {
@@ -661,6 +662,7 @@ export function CentreDetailPage() {
       </section>
 
       {/* CTA */}
+      <BrandAmbassador />
       <CtaBand />
     </div>
   )

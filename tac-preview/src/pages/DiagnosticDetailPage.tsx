@@ -18,6 +18,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import { DIAGNOSTICS, getDiagnosticBySlug } from '../lib/diagnostics'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -534,6 +535,7 @@ export function DiagnosticDetailPage() {
       )}
 
       {/* ============================ CTA ============================ */}
+      <BrandAmbassador />
       <CtaBand />
     </div>
   )

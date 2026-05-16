@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -187,6 +188,7 @@ export function PrivacyPage() {
         </div>
       </section>
 
+      <BrandAmbassador />
       <CtaBand />
     </div>
   )

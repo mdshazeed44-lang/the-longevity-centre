@@ -16,6 +16,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -428,6 +429,8 @@ export function ContactPage() {
           ))}
         </div>
       </section>
+
+      <BrandAmbassador />
     </div>
   )
 }
