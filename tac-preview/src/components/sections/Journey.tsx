@@ -91,7 +91,7 @@ const ACTS: Act[] = [
     highlights: [
       'Delhi · Gurgaon · Mumbai · Pune',
       'Bangalore · Nagpur · Goa · Hyderabad',
-      'Seven open · Hyderabad opening 2026',
+      'Eight centres · pan-India access',
     ],
     img: '/clinic-photos/gurgaon-centre.webp',
     caption: 'TLC Gurgaon · the network expands',

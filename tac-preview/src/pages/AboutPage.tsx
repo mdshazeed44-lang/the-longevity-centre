@@ -72,17 +72,19 @@ const ABOUT_META = {
 const FOUNDERS = [
   {
     name: 'Dr. Abhinav Sharma',
-    creds: 'MBBS · MS · PGI Chandigarh',
+    creds:
+      'MBBS, MAMC, Delhi University · MS, PGI, Chandigarh',
     role: 'Co-Founder · Anti-Aging & Preventive Medicine',
     bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. Educated at Maulana Azad Medical College, Delhi, with postgraduate training at PGI Chandigarh — one of India’s most acclaimed centres. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness, blending clinical expertise with innovation for holistic, root-cause care.',
-    img: '/team/dr-abhinav.jpg',
+    img: '/team/dr-abhinav.jpg?v=2',
   },
   {
     name: 'Dr. Bhavna Sharma',
-    creds: 'MBBS · MAMC, Delhi · IVF Specialist',
+    creds:
+      'MBBS, MAMC, Delhi University · DGO, MAMC, Delhi University · F ART, Linz, Austria · D ART, Kiel University, Germany · DPE, Kiel University, Germany',
     role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
     bio: 'A leading IVF specialist credited with over 8,000 IVF babies. Educated at Maulana Azad Medical College, Delhi, where she also completed her postgraduation. She now extends her expertise to hormonal and reproductive anti-aging, women’s health, oocyte preservation and HRT — helping patients preserve fertility, balance hormones and optimise long-term healthspan with compassion and cutting-edge science.',
-    img: '/team/dr-bhavna-2026.jpg',
+    img: '/team/dr-bhavna-2026.jpg?v=2',
   },
 ]
 
@@ -813,7 +815,7 @@ export function AboutPage() {
                       fixed min-height. min-h values are also iOS-Safari
                       (<15.4) fallbacks for aspect-* + absolute children. */}
                   <div
-                    className={`relative aspect-[4/5] min-h-[360px] md:aspect-auto md:min-h-[460px] overflow-hidden bg-cream/60 ${
+                    className={`relative aspect-[4/5] min-h-[360px] md:aspect-[3/4] md:min-h-[560px] overflow-hidden bg-cream/60 ${
                       reverse ? 'md:order-2' : ''
                     }`}
                   >
@@ -1071,7 +1073,7 @@ export function AboutPage() {
                 at ~16:10 (matches the other Milind cards site-wide). */}
             <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] mx-auto w-full max-w-[520px]">
               <img
-                src="/longevity/milind-skin.webp"
+                src="/longevity/milind-skin.webp?v=3"
                 alt="Milind Soman — Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"

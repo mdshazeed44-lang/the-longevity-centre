@@ -21,6 +21,19 @@ type Testimonial = {
 }
 
 const TESTIMONIALS: Testimonial[] = [
+  // Client request: Mr. Abhinav Saxena leads the testimonials.
+  {
+    id: 'abhinav',
+    name: 'Mr. Abhinav Saxena',
+    programme: 'Longevity Plus Programme',
+    metric: '−14 kg',
+    metricLabel: 'Plus liver health restored',
+    quote:
+      'I lost weight from around 85 kg to nearly 71 kg and feel healthier from within. My energy levels have improved, and I feel younger overall. The guidance also helped improve my liver health, making the whole journey practical and sustainable.',
+    video: '/videos/testimonials/abhinav-v2.mp4',
+    poster: '/videos/testimonials/posters/abhinav.webp',
+    orientation: 'vertical',
+  },
   {
     id: 'shaun',
     name: 'Mr. Shaun Gomez',
@@ -34,18 +47,6 @@ const TESTIMONIALS: Testimonial[] = [
     // Source clip is actually 406×720 (9:16), not landscape — tagging
     // it horizontal made the lightbox open a 16:9 frame and letterbox
     // the portrait video small in the middle.
-    orientation: 'vertical',
-  },
-  {
-    id: 'abhinav',
-    name: 'Mr. Abhinav Saxena',
-    programme: 'Longevity Plus Programme',
-    metric: '−14 kg',
-    metricLabel: 'Plus liver health restored',
-    quote:
-      'I lost weight from around 85 kg to nearly 71 kg and feel healthier from within. My energy levels have improved, and I feel younger overall. The guidance also helped improve my liver health, making the whole journey practical and sustainable.',
-    video: '/videos/testimonials/abhinav-v2.mp4',
-    poster: '/videos/testimonials/posters/abhinav.webp',
     orientation: 'vertical',
   },
   {
@@ -72,6 +73,32 @@ const TESTIMONIALS: Testimonial[] = [
     poster: '/videos/testimonials/posters/sadhna.png',
     orientation: 'vertical',
   },
+  // Two newer patient clips. Details (programme / metric / verbatim
+  // quote) not yet supplied, so these intentionally carry NO
+  // fabricated numbers or quote — they show the verified video with
+  // a neutral label until the real outcome data is provided.
+  {
+    id: 'anand',
+    name: 'Mr. Anand Patil',
+    programme: 'TLC Patient · Verified Outcome',
+    metric: 'Verified Outcome',
+    metricLabel: '',
+    quote: '',
+    video: '/videos/testimonials/anand-patil.mp4',
+    poster: '/videos/testimonials/posters/anand-patil.jpg',
+    orientation: 'vertical',
+  },
+  {
+    id: 'patient-2',
+    name: 'TLC Patient',
+    programme: 'TLC Patient · Verified Outcome',
+    metric: 'Verified Outcome',
+    metricLabel: '',
+    quote: '',
+    video: '/videos/testimonials/new1.mp4',
+    poster: '/videos/testimonials/posters/new1.jpg',
+    orientation: 'horizontal',
+  },
 ]
 
 export function VideoTestimonials() {
@@ -80,8 +107,37 @@ export function VideoTestimonials() {
   // itself stays mounted; we just hide the overlay (and reveal the
   // native controls) once playback starts.
   const [isPlaying, setIsPlaying] = useState(false)
+  // Auto-slider pauses while the cursor is over the rail so a viewer
+  // browsing the stories isn't yanked to the next one.
+  const [railHover, setRailHover] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  // Horizontal thumbnail rail — single sliding row. We keep the
+  // active tile scrolled into view when prev / next is used.
+  const stripRef = useRef<HTMLDivElement>(null)
   const active = TESTIMONIALS[activeIdx]
+
+  // Slide the active thumbnail into view whenever the story changes
+  // (arrow nav, keyboard, or tile tap on a partly-hidden card).
+  useEffect(() => {
+    const strip = stripRef.current
+    if (!strip) return
+    const tile = strip.querySelector<HTMLElement>(`[data-idx="${activeIdx}"]`)
+    if (!tile) return
+    const left =
+      tile.offsetLeft - strip.clientWidth / 2 + tile.clientWidth / 2
+    strip.scrollTo({ left, behavior: 'smooth' })
+  }, [activeIdx])
+
+  // Auto-slider — advances every 4.5 s. Pauses while a video is
+  // playing (so we never interrupt a patient's story) or while the
+  // cursor is over the rail.
+  useEffect(() => {
+    if (isPlaying || railHover) return
+    const id = window.setInterval(() => {
+      setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)
+    }, 4500)
+    return () => window.clearInterval(id)
+  }, [isPlaying, railHover])
 
   // When the active story changes, reset the inline video to the
   // poster frame in the paused state. The user explicitly tapped
@@ -314,18 +370,33 @@ export function VideoTestimonials() {
               {active.programme}
             </div>
 
-            {/* Quote glyph — large editorial open quote */}
-            <div className="font-display text-[60px] md:text-[80px] leading-none text-rust/15 mb-[-20px] md:mb-[-30px] select-none" aria-hidden>
-              "
-            </div>
+            {/* Quote glyph — large editorial open quote (only when a
+                verbatim quote exists; the newer clips have none yet). */}
+            {active.quote ? (
+              <>
+                <div className="font-display text-[60px] md:text-[80px] leading-none text-rust/15 mb-[-20px] md:mb-[-30px] select-none" aria-hidden>
+                  "
+                </div>
 
-            <blockquote
-              key={active.id}
-              className="relative font-display font-light text-[17px] md:text-[20px] xl:text-[22px] leading-[1.4] tracking-[-0.01em] text-ink mb-7 max-w-[480px]"
-              style={{ animation: 'tac-quote-in 0.8s cubic-bezier(0.22,1,0.36,1) both' }}
-            >
-              {active.quote}
-            </blockquote>
+                <blockquote
+                  key={active.id}
+                  className="relative font-display font-light text-[17px] md:text-[20px] xl:text-[22px] leading-[1.4] tracking-[-0.01em] text-ink mb-7 max-w-[480px]"
+                  style={{ animation: 'tac-quote-in 0.8s cubic-bezier(0.22,1,0.36,1) both' }}
+                >
+                  {active.quote}
+                </blockquote>
+              </>
+            ) : (
+              <p
+                key={active.id}
+                className="relative font-display font-light text-[17px] md:text-[20px] xl:text-[22px] leading-[1.4] tracking-[-0.01em] text-ink mb-7 max-w-[480px]"
+                style={{ animation: 'tac-quote-in 0.8s cubic-bezier(0.22,1,0.36,1) both' }}
+              >
+                {active.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '')} shares
+                their experience with The Longevity Centre — watch the full
+                story.
+              </p>
+            )}
 
             <div className="flex items-baseline gap-3 mb-1.5">
               <span aria-hidden className="block w-7 h-px bg-rust" />
@@ -341,7 +412,7 @@ export function VideoTestimonials() {
 
         {/* THUMBNAIL SELECTOR — switch between stories */}
         <div className="mt-10 md:mt-14">
-          <div className="flex items-center justify-between mb-5 max-w-[760px] mx-auto">
+          <div className="flex items-center justify-between mb-5 max-w-[940px] mx-auto">
             <div className="text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold">
               {String(activeIdx + 1).padStart(2, '0')} / {String(TESTIMONIALS.length).padStart(2, '0')} Stories
             </div>
@@ -369,60 +440,89 @@ export function VideoTestimonials() {
             </div>
           </div>
 
-          {/* Thumbnail strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-3.5 max-w-[760px] mx-auto">
+          {/* Thumbnail rail — single horizontal sliding row. Scroll /
+              swipe to browse; arrows + tile taps keep the active card
+              snapped into view. Scrollbar hidden for a clean look. */}
+          <div
+            ref={stripRef}
+            onMouseEnter={() => setRailHover(true)}
+            onMouseLeave={() => setRailHover(false)}
+            className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory pb-2 max-w-[940px] mx-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {TESTIMONIALS.map((t, i) => {
               const isActive = i === activeIdx
               return (
                 <button
                   key={t.id}
                   type="button"
+                  data-idx={i}
                   onClick={() => setActiveIdx(i)}
                   aria-label={`View ${t.name}'s story`}
                   aria-current={isActive}
                   data-cursor="hover"
-                  /* `cursor-pointer` + the inner-tile hover styles below
-                     give the thumbnail a clear clickable affordance —
-                     previously the tiles were buttons but looked static,
-                     so the client thought they weren't interactive. */
-                  className="group relative text-left cursor-pointer transition-all duration-500 hover:-translate-y-1"
+                  className="group relative shrink-0 w-[180px] sm:w-[210px] md:w-[235px] snap-center text-left cursor-pointer outline-none transition-all duration-500 hover:-translate-y-1.5"
                 >
                   <div
-                    className={`relative aspect-[4/5] w-full overflow-hidden rounded-[12px] bg-mist border-2 transition-all duration-500 ${
+                    className={`relative aspect-[4/5] w-full overflow-hidden rounded-[18px] bg-mist transition-all duration-500 ring-1 ${
                       isActive
-                        ? 'border-rust shadow-[0_18px_30px_-18px_rgba(148,84,85,0.45)]'
-                        : 'border-transparent group-hover:border-rust/60 group-hover:shadow-[0_14px_24px_-14px_rgba(148,84,85,0.35)]'
+                        ? 'ring-2 ring-rust shadow-[0_26px_46px_-22px_rgba(148,84,85,0.5)]'
+                        : 'ring-ink/8 group-hover:ring-rust/50 shadow-[0_14px_30px_-22px_rgba(27,26,24,0.35)] group-hover:shadow-[0_22px_40px_-20px_rgba(148,84,85,0.4)]'
                     }`}
                   >
                     <img
                       src={t.poster}
                       alt=""
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
+                      className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] ${
+                        isActive ? '' : 'grayscale-[0.15] group-hover:grayscale-0'
+                      }`}
                     />
                     <div
                       aria-hidden
                       className="absolute inset-0 pointer-events-none"
                       style={{
-                        background: 'linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.7) 100%)',
+                        background:
+                          'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, transparent 38%, transparent 50%, rgba(0,0,0,0.78) 100%)',
                       }}
                     />
+
+                    {/* Play affordance — soft disc, brightens on hover /
+                        active so it's obvious each tile opens a video. */}
+                    <span
+                      aria-hidden
+                      className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border transition-all duration-500 ${
+                        isActive
+                          ? 'bg-rust border-rust scale-100 opacity-100'
+                          : 'bg-white/15 border-white/40 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100'
+                      }`}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="white" className="ml-0.5">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+
                     {/* Active indicator */}
                     {isActive && (
-                      <div className="absolute top-2 left-2 flex items-center gap-1.5 backdrop-blur-md bg-rust/90 rounded-full px-2 py-0.5">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 backdrop-blur-md bg-rust/90 rounded-full px-2.5 py-1">
                         <span className="relative flex h-1 w-1" aria-hidden>
                           <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-75 animate-ping" />
                           <span className="relative inline-flex rounded-full h-1 w-1 bg-white" />
                         </span>
-                        <span className="text-[8.5px] tracking-[0.22em] uppercase text-white font-semibold">Active</span>
+                        <span className="text-[8.5px] tracking-[0.24em] uppercase text-white font-semibold">
+                          Now Playing
+                        </span>
                       </div>
                     )}
-                    <div className="absolute bottom-2 left-2 right-2 text-white">
-                      <div className="font-display font-bold text-[12.5px] md:text-[13px] leading-tight tracking-tight truncate">
+
+                    <div className="absolute bottom-3 left-4 right-4 text-white">
+                      <div className="font-display font-bold text-[14px] md:text-[15px] leading-tight tracking-tight truncate">
                         {t.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '')}
                       </div>
-                      <div className="text-[8.5px] tracking-[0.22em] uppercase text-white/75 font-medium mt-0.5 truncate">
-                        {t.metric}
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <span aria-hidden className="w-3 h-px bg-rust-soft" />
+                        <span className="text-[8.5px] tracking-[0.22em] uppercase text-white/80 font-semibold truncate">
+                          {t.metric}
+                        </span>
                       </div>
                     </div>
                   </div>

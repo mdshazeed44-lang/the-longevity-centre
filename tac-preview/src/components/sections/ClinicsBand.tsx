@@ -54,7 +54,7 @@ export function ClinicsBand() {
     {
       city: 'Hyderabad',
       region: 'Telangana',
-      area: 'Opening soon',
+      area: 'Banjara Hills',
       phone: '+91 88268 09123',
     },
     {

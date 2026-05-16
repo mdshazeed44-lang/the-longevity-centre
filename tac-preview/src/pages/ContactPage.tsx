@@ -212,7 +212,6 @@ export function ContactPage() {
                         {CENTRES.map((c) => (
                           <option key={c.slug} value={c.city}>
                             {c.city}
-                            {c.status === 'opening-soon' ? ' (opening 2026)' : ''}
                           </option>
                         ))}
                         <option value="Online consultation">

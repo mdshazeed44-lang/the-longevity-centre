@@ -4,16 +4,14 @@
  */
 export function PressStrip() {
   const press = [
-    'Forbes India',
-    'Vogue',
-    'GQ',
-    'Conde Nast',
-    'The Hindu',
-    'Mint Lounge',
-    'Harper’s Bazaar',
-    'Architectural Digest',
+    'Times of India',
+    'Hindustan Times',
+    'Indian Express',
+    'Economic Times',
   ]
-  const items = [...press, ...press]
+  // Repeated enough times to keep the marquee track wide and the
+  // loop seamless with only four publication names.
+  const items = [...press, ...press, ...press, ...press]
   return (
     <section className="bg-white border-y border-mist py-10 marquee overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center gap-10">

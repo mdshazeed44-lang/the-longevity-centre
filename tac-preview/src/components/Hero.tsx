@@ -21,21 +21,23 @@ import { reduceMotion } from '../lib/motion'
 //                     brightness so the headline still reads.
 //   4. wellness     — premium fresh nutrition (healthy living)
 //   5. circulation  — blood cells flowing through a vein (3D)
-// DNA stays at 4K (3840×2160); the other four are 1080p / 720p HD.
+// All five clips are 1080p / 720p HD (no 4K master any more).
 // Render treatment is tuned for sharpness (Ken Burns held to 1.02,
 // uniform 0.42 dark wash, contrast + saturation lift on the active
 // <video>, only the active clip decoding frames). Cache-bust
-// `?v=11` — per client feedback the brand reel must NOT show any
-// skin treatment / facial. The `wellness.mp4` slot now holds a
-// premium fresh-nutrition clip; the `cycling.mp4` slot holds a
-// group mountain-hike clip (the lone-cyclist shot read as too
-// casual). Filenames are kept stable to avoid churn.
+// `?v=14` — perf pass: `dna.mp4` is the SAME original premium DNA
+// clip, just re-encoded from the 14.6 MB 4K master down to a 4.0 MB
+// 1080p H.264 (it's the FIRST clip shown, so this is the single
+// biggest perceived-load win — identical footage). `wellness.mp4`
+// holds a premium fresh-nutrition clip, `cycling.mp4` a group
+// mountain-hike clip (no skin treatment anywhere in the reel).
+// Filenames kept stable to avoid churn.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=11',         // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=11',     // group mountain hike — vitality
-  '/videos/hero-clips/yoga.mp4?v=11',        // dark studio yoga — mindfulness
-  '/videos/hero-clips/wellness.mp4?v=11',    // premium fresh nutrition — healthy living
-  '/videos/hero-clips/circulation.mp4?v=11', // blood cells in vein — circulation
+  '/videos/hero-clips/dna.mp4?v=14',         // DNA helix 1080p — science
+  '/videos/hero-clips/cycling.mp4?v=14',     // group mountain hike — vitality
+  '/videos/hero-clips/yoga.mp4?v=14',        // dark studio yoga — mindfulness
+  '/videos/hero-clips/wellness.mp4?v=14',    // premium fresh nutrition — healthy living
+  '/videos/hero-clips/circulation.mp4?v=14', // blood cells in vein — circulation
 ] as const
 const CLIP_DURATION_MS = 5500
 
@@ -99,6 +101,50 @@ export function Hero() {
   const ctas = useRef<HTMLDivElement>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
   const [activeClip, setActiveClip] = useState(0)
+  // `armed` gates ALL hero-video network. Until it flips true we
+  // render no <source>, so the browser spends its first bytes on
+  // the critical JS/CSS + the 41 KB poster (the LCP) instead of
+  // racing a multi-MB clip. We flip it once the page is idle
+  // (requestIdleCallback) or, as a hard ceiling, 1.2 s after mount —
+  // whichever comes first. Net effect: identical visuals, far
+  // faster first paint / time-to-interactive on slow connections.
+  const [armed, setArmed] = useState(false)
+
+  useEffect(() => {
+    let done = false
+    const arm = () => {
+      if (done) return
+      done = true
+      setArmed(true)
+    }
+    type RIC = (cb: () => void, opts?: { timeout: number }) => number
+    const ric = (window as unknown as { requestIdleCallback?: RIC })
+      .requestIdleCallback
+    const idle = ric
+      ? ric(arm, { timeout: 1200 })
+      : window.setTimeout(arm, 1200)
+    const hardCeiling = window.setTimeout(arm, 1500)
+    return () => {
+      const cic = (window as unknown as {
+        cancelIdleCallback?: (id: number) => void
+      }).cancelIdleCallback
+      if (ric && cic) cic(idle as number)
+      else window.clearTimeout(idle as number)
+      window.clearTimeout(hardCeiling)
+    }
+  }, [])
+
+  // Once armed, the <source> children are added to the DOM. A
+  // <source> appended after mount is NOT picked up until the
+  // element is told to .load() — so do that exactly once here.
+  // The per-clip activation effect (which also depends on `armed`)
+  // then handles play/pause as usual.
+  useEffect(() => {
+    if (!armed) return
+    videoRefs.current.forEach((v) => {
+      if (v) v.load()
+    })
+  }, [armed])
 
   // ────────────────────────────────────────────────────────────
   // Mount-only effect: text reveal + start the rotation cycle.
@@ -247,7 +293,7 @@ export function Hero() {
       ease: 'sine.inOut',
     })
     return () => { kb.kill() }
-  }, [activeClip])
+  }, [activeClip, armed])
 
   return (
     <section
@@ -322,7 +368,7 @@ export function Hero() {
               filter: isActive ? 'contrast(1.06) saturate(1.08)' : 'none',
             }}
           >
-            <source src={src} type="video/mp4" />
+            {armed && <source src={src} type="video/mp4" />}
           </video>
         )
       })}

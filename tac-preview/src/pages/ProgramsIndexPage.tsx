@@ -391,7 +391,7 @@ function BrandAmbassador() {
           className="relative aspect-[4/5] rounded-[20px] overflow-hidden bg-ink/40 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] mx-auto w-full max-w-[460px]"
         >
           <img
-            src="/longevity/milind-soman.jpg"
+            src="/longevity/milind-soman.jpg?v=3"
             alt="Milind Soman — Brand Ambassador, The Longevity Centre"
             loading="lazy"
             decoding="async"

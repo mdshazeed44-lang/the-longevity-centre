@@ -40,7 +40,7 @@ const STEPS = [
     title: 'A Reformed Life',
     desc:
       'After the 12-month programme our patients lead a reformed life — expanded lifespan, restored vitality and a measurably better quality of life.',
-    img: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&q=85',
+    img: '/clinic-photos/reformed-life.jpg',
   },
 ]
 
@@ -264,18 +264,6 @@ export function Method() {
                   {STEPS[active].title}
                 </div>
               </div>
-            </div>
-
-            {/* Counter strip below image */}
-            <div className="mt-4 flex items-center justify-between text-[10.5px] tracking-[0.28em] uppercase text-stone">
-              <span>
-                <span className="text-ink font-semibold tabular-nums">
-                  {String(active + 1).padStart(2, '0')}
-                </span>
-                <span className="mx-2 text-mist">/</span>
-                <span className="tabular-nums">{String(STEPS.length).padStart(2, '0')}</span>
-              </span>
-              <span>{STEPS[active].title}</span>
             </div>
           </div>
         </div>

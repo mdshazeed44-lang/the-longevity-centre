@@ -391,7 +391,7 @@ export function SkinAestheticsPage() {
           {/* Portrait card with mandatory attribution badge */}
           <div className="relative aspect-[16/10] rounded-[20px] overflow-hidden bg-white shadow-[0_30px_70px_-32px_rgba(27,26,24,0.30)] order-1 md:order-none">
             <img
-              src="/longevity/milind-skin.webp"
+              src="/longevity/milind-skin.webp?v=3"
               alt="Milind Soman — Brand Ambassador, The Longevity Centre"
               loading="lazy"
               decoding="async"
