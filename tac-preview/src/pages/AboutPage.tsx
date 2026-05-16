@@ -1067,15 +1067,15 @@ export function AboutPage() {
               image native 3:2) and 40%/center crop so Milind's face
               sits properly in frame rather than left-shifted. */}
           <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center">
-            {/* Milind portrait card */}
-            <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-ink shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] mx-auto w-full max-w-[520px]">
+            {/* Milind portrait card — updated studio image, object-cover
+                at ~16:10 (matches the other Milind cards site-wide). */}
+            <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] mx-auto w-full max-w-[520px]">
               <img
-                src="/longevity/milind-soman.jpg"
-                alt="Milind Soman — Indian icon of fitness and longevity"
+                src="/longevity/milind-skin.webp"
+                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: '40% center' }}
+                className="absolute inset-0 w-full h-full object-cover object-center"
               />
               {/* Brand-ambassador badge — mandatory attribution that
                   must appear on every use of Milind's image. */}
