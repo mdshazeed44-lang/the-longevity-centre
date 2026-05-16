@@ -79,34 +79,32 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
             attribution badge so it doubles as this page's single
             Brand-Ambassador surface. */}
         {withPortrait && (
-          <div className="relative min-h-[360px] lg:min-h-full overflow-hidden bg-cream">
-            <img
-              src="/longevity/milind-skin.webp?v=3"
-              alt="Milind Soman — Brand Ambassador, The Longevity Centre"
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
-              <span className="text-[9.5px] tracking-[0.26em] uppercase font-semibold">
-                Brand Ambassador &middot; TLC
-              </span>
-            </div>
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
-              }}
-            />
-            <div className="absolute bottom-5 left-6">
-              <div className="font-display italic text-white text-[18px] md:text-[22px] leading-[1.15]">
-                Milind Soman
+          <div className="relative flex flex-col bg-gradient-to-b from-white to-[#efe7dd] min-h-[360px] lg:min-h-full">
+            <div className="relative flex-1 min-h-[300px] overflow-hidden">
+              <img
+                src="/longevity/milind-skin.webp?v=3"
+                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                <span className="text-[9.5px] tracking-[0.26em] uppercase font-semibold">
+                  Brand Ambassador &middot; TLC
+                </span>
               </div>
-              <div className="text-[9.5px] tracking-[0.3em] uppercase text-white/75 font-semibold mt-1">
-                Actor &middot; Supermodel &middot; Ironman
+            </div>
+            {/* Solid caption band — clean, no gradient over white */}
+            <div className="flex items-center gap-4 bg-ink px-6 py-4 md:py-5 border-t border-white/10">
+              <span aria-hidden className="w-8 h-px bg-rust-soft shrink-0" />
+              <div>
+                <div className="font-display italic text-white text-[17px] md:text-[21px] leading-[1.15]">
+                  Milind Soman
+                </div>
+                <div className="text-[9px] md:text-[9.5px] tracking-[0.3em] uppercase text-white/55 font-semibold mt-1.5">
+                  Actor &middot; Supermodel &middot; Ironman
+                </div>
               </div>
             </div>
           </div>

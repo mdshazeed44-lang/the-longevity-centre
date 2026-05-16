@@ -426,38 +426,36 @@ export function CentresPage() {
           }}
         />
         <div className="relative z-10 max-w-[1240px] mx-auto grid md:grid-cols-[1.05fr_0.95fr] gap-10 md:gap-16 lg:gap-20 items-center">
-          {/* Portrait card with mandatory attribution badge */}
-          <div className="relative aspect-[16/10] rounded-[20px] overflow-hidden bg-white shadow-[0_30px_70px_-32px_rgba(27,26,24,0.30)]">
-            <img
-              src="/longevity/milind-skin.webp?v=3"
-              alt="Milind Soman — Brand Ambassador, The Longevity Centre"
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
-              <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
-                Brand Ambassador &middot; TLC
-              </span>
-            </div>
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
-              }}
-            />
-            <div className="absolute bottom-4 left-5 right-5">
-              <div className="font-display italic text-white text-[18px] md:text-[22px] leading-[1.15]">
-                Milind Soman
-              </div>
-              <div className="text-[9.5px] tracking-[0.3em] uppercase text-white/75 font-semibold mt-1">
-                Actor &middot; Supermodel &middot; Ironman
+          {/* Portrait — framed editorial card (white-studio photo in a
+              soft light card + solid dark caption band). */}
+          <figure className="relative rounded-[22px] overflow-hidden ring-1 ring-ink/10 shadow-[0_40px_85px_-38px_rgba(27,26,24,0.4)] bg-gradient-to-b from-white to-[#efe7dd]">
+            <div className="relative aspect-[16/11]">
+              <img
+                src="/longevity/milind-skin.webp?v=3"
+                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
+                  Brand Ambassador &middot; TLC
+                </span>
               </div>
             </div>
-          </div>
+            <figcaption className="flex items-center gap-4 bg-ink px-5 md:px-6 py-4 md:py-5 border-t border-white/10">
+              <span aria-hidden className="w-8 h-px bg-rust-soft shrink-0" />
+              <div>
+                <div className="font-display italic text-white text-[17px] md:text-[21px] leading-[1.15]">
+                  Milind Soman
+                </div>
+                <div className="text-[9px] md:text-[9.5px] tracking-[0.3em] uppercase text-white/55 font-semibold mt-1.5">
+                  Actor &middot; Supermodel &middot; Ironman
+                </div>
+              </div>
+            </figcaption>
+          </figure>
 
           {/* Copy */}
           <div>

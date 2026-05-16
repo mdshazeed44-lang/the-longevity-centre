@@ -1069,44 +1069,44 @@ export function AboutPage() {
               image native 3:2) and 40%/center crop so Milind's face
               sits properly in frame rather than left-shifted. */}
           <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center">
-            {/* Milind portrait card — updated studio image, object-cover
-                at ~16:10 (matches the other Milind cards site-wide). */}
-            <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)] mx-auto w-full max-w-[520px]">
-              <img
-                src="/longevity/milind-skin.webp?v=3"
-                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-              {/* Brand-ambassador badge — mandatory attribution that
-                  must appear on every use of Milind's image. */}
-              <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.6)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
-                <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
-                  Brand Ambassador &middot; TLC
-                </span>
-              </div>
-              <div
-                aria-hidden
-                className="absolute inset-x-0 bottom-0 h-[40%] pointer-events-none"
-                style={{
-                  background:
-                    'linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)',
-                }}
-              />
-              <div className="absolute inset-x-0 bottom-0 px-5 md:px-6 pb-5 md:pb-6">
-                <div className="text-[10px] tracking-[0.34em] uppercase text-white/80 font-semibold mb-1.5">
-                  What ageing well looks like
-                </div>
-                <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
-                  Milind Soman
-                  <span className="text-white/60 not-italic font-light ml-2">
-                    &middot; Brand Ambassador, TLC
+            {/* Milind portrait — framed editorial card. The studio
+                photo has a white backdrop, so on this dark section it
+                sits inside a crisp light-gradient card with a hairline
+                ring + a SOLID dark caption band (no murky gradient
+                over white). Reads as a deliberate framed portrait. */}
+            <figure className="relative rounded-[22px] overflow-hidden ring-1 ring-white/12 shadow-[0_45px_90px_-35px_rgba(0,0,0,0.7)] mx-auto w-full max-w-[520px] bg-gradient-to-b from-white to-[#efe7dd]">
+              <div className="relative aspect-[16/11]">
+                <img
+                  src="/longevity/milind-skin.webp?v=3"
+                  alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                {/* Mandatory attribution badge on every Milind image. */}
+                <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.55)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
+                  <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
+                    Brand Ambassador &middot; TLC
                   </span>
                 </div>
               </div>
-            </div>
+              {/* Solid caption band — clean, premium, no grey smudge */}
+              <figcaption className="flex items-center gap-4 bg-ink px-5 md:px-6 py-4 md:py-5 border-t border-white/10">
+                <span aria-hidden className="w-8 h-px bg-rust-soft shrink-0" />
+                <div>
+                  <div className="text-[9px] md:text-[9.5px] tracking-[0.32em] uppercase text-white/55 font-semibold mb-1">
+                    What ageing well looks like
+                  </div>
+                  <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
+                    Milind Soman
+                    <span className="text-white/55 not-italic font-light text-[12px] md:text-[13px] ml-2">
+                      Brand Ambassador, TLC
+                    </span>
+                  </div>
+                </div>
+              </figcaption>
+            </figure>
 
             {/* Right — stats grid (2×2) + sub-CTA stack */}
             <div>
