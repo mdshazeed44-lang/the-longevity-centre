@@ -23,14 +23,20 @@ export function BrandAmbassador() {
         }}
       />
       <div className="relative z-10 max-w-[1240px] mx-auto grid md:grid-cols-[1.05fr_0.95fr] gap-10 md:gap-16 lg:gap-20 items-center">
-        {/* Portrait card with mandatory attribution badge */}
-        <div className="relative aspect-[16/10] md:aspect-[4/3] rounded-[20px] overflow-hidden bg-white shadow-[0_30px_70px_-32px_rgba(27,26,24,0.30)]">
+        {/* Portrait card with mandatory attribution badge.
+            object-cover at the image's near-native ~16:10 ratio: the
+            source is a 16:9 white-studio shot with Milind centred and
+            wide white margins, so cover only trims the empty side
+            margin — he is never clipped — and there's no pillarbox.
+            A soft dark bottom scrim keeps the white caption legible
+            over his (navy) jacket. */}
+        <div className="relative aspect-[16/10] rounded-[20px] overflow-hidden bg-white shadow-[0_30px_70px_-32px_rgba(27,26,24,0.30)]">
           <img
             src="/longevity/milind-skin.webp"
             alt="Milind Soman — Brand Ambassador, The Longevity Centre"
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-contain"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
           <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
             <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
@@ -38,11 +44,19 @@ export function BrandAmbassador() {
               Brand Ambassador &middot; TLC
             </span>
           </div>
-          <div className="absolute bottom-4 left-5">
-            <div className="font-display italic text-ink text-[18px] md:text-[22px] leading-[1.15]">
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
+            }}
+          />
+          <div className="absolute bottom-4 left-5 right-5">
+            <div className="font-display italic text-white text-[18px] md:text-[22px] leading-[1.15]">
               Milind Soman
             </div>
-            <div className="text-[9.5px] tracking-[0.3em] uppercase text-stone font-semibold mt-1">
+            <div className="text-[9.5px] tracking-[0.3em] uppercase text-white/75 font-semibold mt-1">
               Actor &middot; Supermodel &middot; Ironman
             </div>
           </div>

@@ -90,18 +90,18 @@ export function CtaBand() {
             stack RIGHT. Mobile collapses to portrait-on-top, content-
             below. */}
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center mb-14 md:mb-16">
-          {/* Milind portrait card. White studio shot — object-contain
-              on a white card so the full frame shows without crop;
-              landscape 4:3 suits the source. Mandatory '· BRAND
-              AMBASSADOR · TLC' attribution top-left, dark caption
-              bottom-left (no gradient needed on the white plate). */}
-          <div className="relative aspect-[4/3] rounded-[18px] overflow-hidden bg-white border border-mist/60 shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
+          {/* Milind portrait card. object-cover at ~16:10 — the 16:9
+              white-studio source has Milind centred with wide white
+              margins, so cover only trims the empty margin (he's never
+              clipped) and there is no pillarbox. Soft dark bottom scrim
+              keeps the white caption legible over his jacket. */}
+          <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-white shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
             <img
               src="/longevity/milind-skin.webp"
               alt="Milind Soman — Brand Ambassador, The Longevity Centre"
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
             {/* Brand-ambassador badge — mandatory attribution that
                 must appear on every use of Milind's image. */}
@@ -111,11 +111,19 @@ export function CtaBand() {
                 Brand Ambassador &middot; TLC
               </span>
             </div>
-            <div className="absolute bottom-4 left-5">
-              <div className="font-display italic text-ink text-[16px] md:text-[20px] leading-[1.2]">
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
+              }}
+            />
+            <div className="absolute bottom-4 left-5 right-5">
+              <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
                 Milind Soman
               </div>
-              <div className="text-[9.5px] tracking-[0.3em] uppercase text-stone font-semibold mt-1">
+              <div className="text-[9.5px] tracking-[0.3em] uppercase text-white/75 font-semibold mt-1">
                 Brand Ambassador, TLC
               </div>
             </div>
@@ -219,23 +227,25 @@ export function CtaBand() {
             )}
 
             {/* Alternative contact pills — for visitors who prefer
-                a direct line instead of the form. */}
-            <div className="flex flex-wrap items-center gap-3 mt-6 pt-5 border-t border-ink/8 justify-center md:justify-start">
+                a direct line instead of the form. Each label keeps
+                its leading separator in the same non-wrapping unit so
+                a stray '·' never orphans onto its own line on mobile. */}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-6 pt-5 border-t border-ink/8 justify-center md:justify-start">
               <span className="text-[10px] tracking-[0.32em] uppercase text-stone/65 font-medium">
                 Or
               </span>
               <a
                 href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
                 data-cursor="hover"
-                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300 whitespace-nowrap"
               >
                 WhatsApp
               </a>
-              <span aria-hidden className="text-ink/20">·</span>
+              <span aria-hidden className="hidden sm:inline text-ink/20">·</span>
               <a
                 href="tel:+918826809123"
                 data-cursor="hover"
-                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300"
+                className="inline-flex items-center gap-2 text-[11.5px] tracking-[0.22em] font-semibold uppercase text-ink hover:text-rust transition-colors duration-300 whitespace-nowrap"
               >
                 +91 88268 09123
               </a>
