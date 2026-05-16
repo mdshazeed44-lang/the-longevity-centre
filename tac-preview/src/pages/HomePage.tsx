@@ -80,7 +80,7 @@ export function HomePage() {
       <VideoTestimonials />
       <ClinicsBand />
       <Faq />
-      <CtaBand />
+      <CtaBand withPortrait />
     </>
   )
 }
