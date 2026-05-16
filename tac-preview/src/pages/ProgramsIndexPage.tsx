@@ -335,6 +335,149 @@ function Hero() {
   )
 }
 
+// Brand Ambassador — editorial feature on Milind Soman. Mandatory
+// 'Brand Ambassador · TLC' attribution rendered on the portrait. Dark
+// section so it sits as a distinct, premium beat between the
+// programmes grid and the BMI selector.
+function BrandAmbassador() {
+  const ref = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (reduceMotion()) return
+    const el = ref.current
+    if (!el) return
+    const items = el.querySelectorAll<HTMLElement>('[data-ba-anim]')
+    gsap.set(items, { opacity: 0, y: 28 })
+    gsap.to(items, {
+      opacity: 1,
+      y: 0,
+      duration: 1.0,
+      ease: 'power3.out',
+      stagger: 0.1,
+      scrollTrigger: { trigger: el, start: 'top 78%' },
+    })
+  }, [])
+
+  const FEATS = [
+    { k: 'Ironman', v: 'Triathlon, age 50' },
+    { k: 'Pinkathon', v: "India's biggest women's run" },
+    { k: '58', v: 'Fitter than at 28' },
+  ]
+
+  return (
+    <section
+      ref={ref}
+      className="relative bg-ink text-cream py-16 md:py-24 px-6 md:px-12 overflow-hidden"
+    >
+      {/* Ambient warm wash + faint grain */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(900px 600px at 18% 22%, rgba(148,84,85,0.20), transparent 60%), radial-gradient(800px 500px at 88% 80%, rgba(178,122,123,0.12), transparent 60%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-overlay hero-grain"
+      />
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 top-0 h-px bg-white/10" />
+      <div aria-hidden className="absolute inset-x-6 md:inset-x-12 bottom-0 h-px bg-white/10" />
+
+      <div className="relative z-10 max-w-[1240px] mx-auto grid md:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-16 lg:gap-20 items-center">
+        {/* Portrait with mandatory brand-ambassador badge */}
+        <div
+          data-ba-anim
+          className="relative aspect-[4/5] rounded-[20px] overflow-hidden bg-ink/40 shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)] mx-auto w-full max-w-[460px]"
+        >
+          <img
+            src="/longevity/milind-soman.jpg"
+            alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: '30% center' }}
+          />
+          {/* Mandatory attribution badge */}
+          <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.6)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
+            <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
+              Brand Ambassador &middot; TLC
+            </span>
+          </div>
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-[42%] pointer-events-none"
+            style={{
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0) 100%)',
+            }}
+          />
+          <div className="absolute inset-x-0 bottom-0 px-6 md:px-7 pb-6 md:pb-7">
+            <div className="font-display italic text-white text-[19px] md:text-[24px] leading-[1.15]">
+              Milind Soman
+            </div>
+            <div className="text-[10px] tracking-[0.32em] uppercase text-white/70 font-semibold mt-1.5">
+              Actor &middot; Supermodel &middot; Ironman
+            </div>
+          </div>
+        </div>
+
+        {/* Copy */}
+        <div>
+          <div data-ba-anim className="inline-flex items-center gap-3 mb-5">
+            <span className="w-8 h-px bg-rust-soft" />
+            <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold">
+              Our Brand Ambassador
+            </span>
+          </div>
+          <h2
+            data-ba-anim
+            className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.03em] text-white mb-6"
+          >
+            The proof that age is{' '}
+            <span className="font-bold italic text-rust-soft">a number, not a limit.</span>
+          </h2>
+          <p
+            data-ba-anim
+            className="text-[14.5px] md:text-[16.5px] leading-[1.75] text-cream/75 font-light max-w-[560px] mb-6"
+          >
+            At 50, Milind Soman finished an Ironman triathlon — a 3.8&nbsp;km
+            swim, 180&nbsp;km cycle and a full marathon, inside 16 hours. At 58,
+            he is measurably fitter than most men half his age. He runs
+            barefoot, trains by feel, and built the Pinkathon to put a
+            generation of Indian women on the start line.
+          </p>
+          <p
+            data-ba-anim
+            className="font-display italic text-rust-soft text-[16px] md:text-[20px] leading-[1.4] mb-8 max-w-[520px]"
+          >
+            “Strength isn’t something you lose with age — it’s something you
+            choose to keep.”
+          </p>
+
+          {/* Feats strip */}
+          <div
+            data-ba-anim
+            className="grid grid-cols-3 gap-px bg-white/12 rounded-2xl overflow-hidden border border-white/12 max-w-[560px]"
+          >
+            {FEATS.map((f) => (
+              <div key={f.k} className="bg-ink px-3 py-4 md:px-4 md:py-5 text-center">
+                <div className="font-display font-bold text-[16px] md:text-[20px] text-rust-soft leading-none mb-1.5 tracking-tight">
+                  {f.k}
+                </div>
+                <div className="text-[9px] md:text-[9.5px] tracking-[0.18em] uppercase text-cream/65 font-semibold leading-[1.4]">
+                  {f.v}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function ProgrammesGrid() {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -466,6 +609,7 @@ export function ProgramsIndexPage() {
     <>
       <Hero />
       <ProgrammesGrid />
+      <BrandAmbassador />
       <BmiCalculator variant="selector" />
       <CtaBand />
     </>
