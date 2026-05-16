@@ -86,60 +86,23 @@ export function CtaBand() {
           <span className="w-7 h-px bg-rust" />
         </div>
 
-        {/* Main 2-col layout — Milind portrait LEFT, headline + form
-            stack RIGHT. Mobile collapses to portrait-on-top, content-
-            below. */}
-        <div className="grid md:grid-cols-[1fr_1fr] gap-10 md:gap-14 lg:gap-20 items-center mb-14 md:mb-16">
-          {/* Milind portrait card. object-cover at ~16:10 — the 16:9
-              white-studio source has Milind centred with wide white
-              margins, so cover only trims the empty margin (he's never
-              clipped) and there is no pillarbox. Soft dark bottom scrim
-              keeps the white caption legible over his jacket. */}
-          <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-white shadow-[0_28px_60px_-30px_rgba(27,26,24,0.25)] mx-auto w-full max-w-[520px]">
-            <img
-              src="/longevity/milind-skin.webp"
-              alt="Milind Soman — Brand Ambassador, The Longevity Centre"
-              loading="lazy"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            {/* Brand-ambassador badge — mandatory attribution that
-                must appear on every use of Milind's image. */}
-            <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.35)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
-              <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
-                Brand Ambassador &middot; TLC
-              </span>
-            </div>
-            <div
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(to top, rgba(27,26,24,0.55) 0%, rgba(27,26,24,0) 100%)',
-              }}
-            />
-            <div className="absolute bottom-4 left-5 right-5">
-              <div className="font-display italic text-white text-[16px] md:text-[20px] leading-[1.2]">
-                Milind Soman
-              </div>
-              <div className="text-[9.5px] tracking-[0.3em] uppercase text-white/75 font-semibold mt-1">
-                Brand Ambassador, TLC
-              </div>
-            </div>
-          </div>
-
-          {/* Right column — headline + inline appointment form */}
-          <div>
-            <h2 className="font-display font-light text-[28px] md:text-[40px] xl:text-[48px] leading-[1.05] tracking-[-0.03em] text-ink mb-4 text-center md:text-left">
+        {/* Single-column centred CTA — no Milind portrait here (the
+            dedicated Brand Ambassador section already carries his
+            image + the mandatory attribution once per page; keeping
+            it out of the CTA avoids two Milind images on a page). */}
+        <div className="max-w-[640px] mx-auto mb-14 md:mb-16">
+          <div className="text-center">
+            <h2 className="font-display font-light text-[28px] md:text-[44px] xl:text-[54px] leading-[1.05] tracking-[-0.03em] text-ink mb-4">
               Age should never{' '}
               <span className="font-bold italic text-rust">define you.</span>
             </h2>
-            <p className="text-[13.5px] md:text-[15px] text-graphite leading-[1.6] max-w-[480px] mx-auto md:mx-0 mb-6 font-light text-center md:text-left">
+            <p className="text-[13.5px] md:text-[15.5px] text-graphite leading-[1.65] max-w-[480px] mx-auto mb-8 font-light">
               Request a 30-minute conversation with our medical team. No
               commitment. We&rsquo;ll reply within an hour.
             </p>
+          </div>
 
+          <div>
             {state === 'success' ? (
               <FormSuccess />
             ) : (
@@ -230,7 +193,7 @@ export function CtaBand() {
                 a direct line instead of the form. Each label keeps
                 its leading separator in the same non-wrapping unit so
                 a stray '·' never orphans onto its own line on mobile. */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-6 pt-5 border-t border-ink/8 justify-center md:justify-start">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-6 pt-5 border-t border-ink/8 justify-center">
               <span className="text-[10px] tracking-[0.32em] uppercase text-stone/65 font-medium">
                 Or
               </span>
