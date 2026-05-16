@@ -12,27 +12,30 @@ import { reduceMotion } from '../lib/motion'
 //
 // Brand reel — five pillars of TLC's longevity proposition:
 //   1. science      — DNA helix (4K animation)
-//   2. vitality     — outdoor cycling
+//   2. vitality     — group mountain hike (fit people trekking)
 //   3. mindfulness  — yoga in a dark studio (single seated pose,
 //                     light streaming through a window). Added at
 //                     the user's request as a 5th slot to balance
 //                     the active-vitality clip with a calmer,
 //                     introspective frame. Average 48/255
 //                     brightness so the headline still reads.
-//   4. wellness     — premium facial / skincare ritual
+//   4. wellness     — premium fresh nutrition (healthy living)
 //   5. circulation  — blood cells flowing through a vein (3D)
 // DNA stays at 4K (3840×2160); the other four are 1080p / 720p HD.
 // Render treatment is tuned for sharpness (Ken Burns held to 1.02,
 // uniform 0.42 dark wash, contrast + saturation lift on the active
 // <video>, only the active clip decoding frames). Cache-bust
-// `?v=9` — cycling.mp4 replaced with an Indian-subject campus shot
-// (was a Western fitness cyclist; brand reel now reads on-audience).
+// `?v=11` — per client feedback the brand reel must NOT show any
+// skin treatment / facial. The `wellness.mp4` slot now holds a
+// premium fresh-nutrition clip; the `cycling.mp4` slot holds a
+// group mountain-hike clip (the lone-cyclist shot read as too
+// casual). Filenames are kept stable to avoid churn.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=9',         // DNA helix 4K — science
-  '/videos/hero-clips/cycling.mp4?v=9',     // outdoor cycling — vitality
-  '/videos/hero-clips/yoga.mp4?v=9',        // dark studio yoga — mindfulness
-  '/videos/hero-clips/wellness.mp4?v=9',    // facial / skincare — wellness
-  '/videos/hero-clips/circulation.mp4?v=9', // blood cells in vein — circulation
+  '/videos/hero-clips/dna.mp4?v=11',         // DNA helix 4K — science
+  '/videos/hero-clips/cycling.mp4?v=11',     // group mountain hike — vitality
+  '/videos/hero-clips/yoga.mp4?v=11',        // dark studio yoga — mindfulness
+  '/videos/hero-clips/wellness.mp4?v=11',    // premium fresh nutrition — healthy living
+  '/videos/hero-clips/circulation.mp4?v=11', // blood cells in vein — circulation
 ] as const
 const CLIP_DURATION_MS = 5500
 
