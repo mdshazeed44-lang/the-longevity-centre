@@ -291,29 +291,45 @@ function Hero() {
         </div>
       </div>
 
-      {/* Programme-name marquee — slow infinite scroll across the
-          bottom edge of the hero. Pulls every programme tag past the
-          eye, adds kinetic energy without distracting from the
-          headline above. */}
-      <div
-        aria-hidden
-        className="absolute bottom-[16px] md:bottom-[20px] inset-x-0 overflow-hidden pointer-events-none select-none"
-      >
-        <div className="programs-hero-marquee flex gap-12 whitespace-nowrap text-[11px] md:text-[12px] tracking-[0.32em] uppercase text-stone/50 font-semibold">
-          {[...PROGRAMS, ...PROGRAMS].map((p, i) => (
-            <span key={i} className="inline-flex items-center gap-3">
-              <span className="text-rust">●</span>
-              {p.shortTitle}
-            </span>
-          ))}
+      {/* Bottom ticker band — scroll cue + programme-name marquee
+          combined into one cohesive, premium strip pinned to the
+          hero's bottom edge. A blurred backdrop + top hairline keep
+          it visually distinct from the section below (no divider
+          bleed-through), and left/right gradient masks make the
+          names fade in/out instead of hard-cutting at the edges. */}
+      <div className="absolute inset-x-0 bottom-0 z-10">
+        {/* Scroll cue — sits cleanly above the band, desktop only */}
+        <div className="fade-up hidden md:flex justify-center pb-3 pointer-events-none">
+          <span className="inline-flex items-center gap-2.5 text-[10px] tracking-[0.34em] uppercase text-stone font-semibold">
+            <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
+            Explore programmes
+            <span aria-hidden className="animate-bounce">↓</span>
+          </span>
         </div>
-      </div>
 
-      {/* Scroll cue — desktop only */}
-      <div className="fade-up hidden md:flex absolute bottom-9 left-1/2 -translate-x-1/2 items-center gap-3 text-[10px] tracking-[0.32em] uppercase text-stone font-semibold pointer-events-none">
-        <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-rust" />
-        <span>Explore programmes</span>
-        <span aria-hidden className="animate-bounce">↓</span>
+        {/* Ticker band */}
+        <div
+          aria-hidden
+          className="relative overflow-hidden border-t border-ink/10 bg-cream/70 backdrop-blur-md py-3.5 select-none"
+        >
+          <div className="programs-hero-marquee flex gap-10 whitespace-nowrap text-[10.5px] md:text-[11.5px] tracking-[0.3em] uppercase text-graphite/70 font-semibold">
+            {[...PROGRAMS, ...PROGRAMS].map((p, i) => (
+              <span key={i} className="inline-flex items-center gap-3">
+                <span className="text-rust text-[7px]">●</span>
+                {p.shortTitle}
+              </span>
+            ))}
+          </div>
+          {/* Edge fade masks */}
+          <div
+            className="absolute inset-y-0 left-0 w-24 md:w-40 pointer-events-none"
+            style={{ background: 'linear-gradient(to right, rgb(244 241 236 / 0.95), transparent)' }}
+          />
+          <div
+            className="absolute inset-y-0 right-0 w-24 md:w-40 pointer-events-none"
+            style={{ background: 'linear-gradient(to left, rgb(244 241 236 / 0.95), transparent)' }}
+          />
+        </div>
       </div>
 
       {/* Inline keyframes — marquee animation lives next to the
