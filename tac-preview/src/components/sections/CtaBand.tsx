@@ -124,7 +124,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
             className={`relative w-full ${
               withPortrait
                 ? 'max-w-[480px]'
-                : 'max-w-[1080px] mx-auto lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-20 lg:items-center'
+                : 'w-full lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-24 lg:items-center'
             }`}
           >
             {/* Text block — sits left of the form on wide screens so
