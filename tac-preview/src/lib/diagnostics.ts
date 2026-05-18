@@ -251,7 +251,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
     category: 'Dermal',
     duration: '5 minutes',
     sampleType: 'Multi-spectral imaging (in-clinic)',
-    heroImg: '/diagnostics/face-scan-device.jpg',
+    heroImg: '/diagnostics/face-scan-device.jpg?v=2',
     heroAlt: 'Dermal imaging — laser facial mapping during a Face Scan',
     tagline: 'Skin hydration, elasticity, pigmentation — quantified.',
     intro:
