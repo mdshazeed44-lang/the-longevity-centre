@@ -122,24 +122,33 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
           />
           <div
             className={`relative w-full ${
-              withPortrait ? 'max-w-[480px]' : 'max-w-[560px] mx-auto'
+              withPortrait
+                ? 'max-w-[480px]'
+                : 'max-w-[1080px] mx-auto lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-20 lg:items-center'
             }`}
           >
-            <div className="flex items-center gap-3">
-              <span className="w-7 h-px bg-white/40" />
-              <span className="text-[10px] tracking-[0.42em] uppercase text-white/70 font-semibold">
-                Begin Your Programme
-              </span>
+            {/* Text block — sits left of the form on wide screens so
+                the dark panel reads full-width instead of a narrow
+                centred column with empty space beside it. */}
+            <div className={withPortrait ? '' : 'mb-9 lg:mb-0'}>
+              <div className="flex items-center gap-3">
+                <span className="w-7 h-px bg-white/40" />
+                <span className="text-[10px] tracking-[0.42em] uppercase text-white/70 font-semibold">
+                  Begin Your Programme
+                </span>
+              </div>
+              <h2 className="font-display font-light text-[30px] md:text-[42px] xl:text-[48px] leading-[1.05] tracking-[-0.03em] mt-5 mb-3">
+                Age should never{' '}
+                <span className="font-bold italic text-rust">define you.</span>
+              </h2>
+              <p className="text-[13.5px] md:text-[14.5px] text-white/60 font-light leading-[1.65] max-w-[440px]">
+                Request a 30-minute conversation with our medical team. No
+                commitment. We&rsquo;ll reply within an hour.
+              </p>
             </div>
-            <h2 className="font-display font-light text-[30px] md:text-[42px] xl:text-[46px] leading-[1.05] tracking-[-0.03em] mt-5 mb-3">
-              Age should never{' '}
-              <span className="font-bold italic text-rust">define you.</span>
-            </h2>
-            <p className="text-[13.5px] md:text-[14.5px] text-white/60 font-light leading-[1.65] mb-7 max-w-[440px]">
-              Request a 30-minute conversation with our medical team. No
-              commitment. We&rsquo;ll reply within an hour.
-            </p>
 
+            {/* Form + alternative contacts block */}
+            <div>
             {state === 'success' ? (
               <FormSuccess />
             ) : (
@@ -242,6 +251,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
               >
                 +91 88268 09123
               </a>
+            </div>
             </div>
           </div>
         </div>
