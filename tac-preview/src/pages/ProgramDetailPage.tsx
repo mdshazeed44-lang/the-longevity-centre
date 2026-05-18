@@ -572,7 +572,7 @@ function FinalCta({ p }: { p: Program }) {
           <span className="font-bold text-rust-soft">assessment.</span>
         </h2>
         <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-white/75 font-light max-w-[560px] mx-auto mb-12">
-          A 30-minute conversation with a senior physician — no commitment, no fee. Decide whether the {p.shortTitle} programme is right for you.
+          A 30-minute conversation with a senior physician — no commitment. Decide whether the {p.shortTitle} programme is right for you.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">

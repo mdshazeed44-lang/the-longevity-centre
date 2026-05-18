@@ -136,8 +136,8 @@ const FAQS = [
     a: 'TLC offers both virtual consultations and in-person visits at select locations, providing flexible options based on your preference and convenience.',
   },
   {
-    q: 'Is there a consultation fee or initial cost after the free assessment?',
-    a: 'There is no fee for the initial consultation. After your free assessment, we provide a personalised health plan and outline the costs based on your chosen programme.',
+    q: 'What does the initial assessment involve?',
+    a: 'In the initial assessment we understand your health goals and history, then provide a personalised health plan and outline the costs based on your chosen programme.',
   },
   {
     q: "What happens if I don't see improvements after following the plan?",
@@ -1137,7 +1137,7 @@ export function LongevityProgramPage() {
           </ul>
         </div>
       </section>
-      {/* FINAL CTA — health-concern chips + free assessment */}
+      {/* FINAL CTA — health-concern chips + assessment */}
       <BrandAmbassador />
       <section id="program-cta" className="relative bg-ink py-12 md:py-16 px-6 md:px-12 overflow-hidden">
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(900px 600px at 20% 30%, rgba(148,84,85,0.18), transparent 60%), radial-gradient(800px 500px at 85% 70%, rgba(178,122,123,0.12), transparent 60%)' }} />
@@ -1152,7 +1152,7 @@ export function LongevityProgramPage() {
             Let's begin.
           </h2>
           <p className="text-[14px] md:text-[15px] text-white/70 max-w-[560px] mx-auto leading-[1.6] mb-7 text-center font-light">
-            Free 30-minute assessment with a senior doctor. Choose what brings
+            A 30-minute assessment with a senior doctor. Choose what brings
             you here — we'll guide you to the right protocol.
           </p>
 

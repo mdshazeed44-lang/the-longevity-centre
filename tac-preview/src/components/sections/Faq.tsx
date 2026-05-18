@@ -30,8 +30,8 @@ const FAQS: Faq[] = [
     a: 'Both. We have eight clinics across India (Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore) for in-person diagnostics and consultations. Follow-ups, reviews and protocol adjustments are also available virtually.',
   },
   {
-    q: 'Is there a consultation fee for the first call?',
-    a: 'No. The first 30-minute conversation with our medical team is complimentary. We discuss your goals, recommend the right programme, and walk you through diagnostics and pricing — no commitment.',
+    q: 'What happens on the first consultation?',
+    a: 'The first 30-minute conversation with our medical team is where we understand your goals, recommend the right programme, and walk you through the diagnostics and pricing involved — with no commitment to proceed.',
   },
   {
     q: "What if I don't see the improvements I expected?",
