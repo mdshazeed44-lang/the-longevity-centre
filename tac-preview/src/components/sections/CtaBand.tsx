@@ -71,9 +71,11 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
   return (
     <section id="cta" className="relative bg-white overflow-hidden">
       <div
-        className={`max-w-[1240px] mx-auto grid ${
-          withPortrait ? 'lg:grid-cols-2' : 'lg:grid-cols-1'
-        } min-h-[540px]`}
+        className={
+          withPortrait
+            ? 'max-w-[1240px] mx-auto grid lg:grid-cols-2 min-h-[540px]'
+            : 'w-full grid grid-cols-1'
+        }
       >
         {/* Milind portrait — Home only. Carries the mandatory
             attribution badge so it doubles as this page's single
@@ -124,7 +126,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
             className={`relative w-full ${
               withPortrait
                 ? 'max-w-[480px]'
-                : 'w-full lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-24 lg:items-center'
+                : 'max-w-[1240px] mx-auto lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-24 lg:items-center'
             }`}
           >
             {/* Text block — sits left of the form on wide screens so
