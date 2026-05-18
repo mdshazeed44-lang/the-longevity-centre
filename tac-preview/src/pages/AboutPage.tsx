@@ -101,7 +101,7 @@ const SPECIALISTS = [
     name: 'Dr. Rahul Chaube',
     creds: 'MD Medicine',
     role: 'Physician & Diabetologist',
-    photo: '/team/dr-rahul-chaube.jpg',
+    photo: '/team/dr-rahul-chaube.jpg?v=2',
   },
   {
     name: 'Dr. Vaibhav Bhisikar',
