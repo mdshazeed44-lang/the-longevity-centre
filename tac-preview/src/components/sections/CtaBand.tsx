@@ -73,7 +73,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
       <div
         className={
           withPortrait
-            ? 'max-w-[1240px] mx-auto grid lg:grid-cols-2 min-h-[540px]'
+            ? 'w-full grid lg:grid-cols-2 min-h-[540px]'
             : 'w-full grid grid-cols-1'
         }
       >
@@ -125,7 +125,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
           <div
             className={`relative w-full ${
               withPortrait
-                ? 'max-w-[480px]'
+                ? 'max-w-[520px] lg:mx-auto'
                 : 'max-w-[1240px] mx-auto lg:grid lg:grid-cols-2 lg:gap-16 xl:gap-24 lg:items-center'
             }`}
           >
