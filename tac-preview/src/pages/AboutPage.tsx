@@ -92,11 +92,17 @@ const FOUNDERS = [
 // the brochure PDF (pages 10–12). Founders shown in the dedicated
 // Founders section above; this list is the wider physician panel.
 //
-// Note: Dr. Karan Mane (Director) appears in the brochure name list but
-// no portrait is published anywhere. We omit him from this clinical
-// grid rather than show a placeholder — directorship is acknowledged
-// separately if needed. All 6 listed below have verified portraits.
+// Dr. Karan Mane (Director) is listed first per client request. No
+// portrait is published, so the card falls back to the monogram tile
+// (handled in the render below) — same treatment as any photo-less
+// member.
 const SPECIALISTS = [
+  {
+    name: 'Dr. Karan Mane',
+    creds: 'Director',
+    role: 'Director · The Longevity Centre',
+    photo: '',
+  },
   {
     name: 'Dr. Rahul Chaube',
     creds: 'MD Medicine',

@@ -166,19 +166,8 @@ function Hero({ p }: { p: Program }) {
             </div>
           </div>
 
-          {/* Compact rust price pill — prominent but not bulky */}
-          <div className="inline-flex items-center gap-2.5 mb-5 pl-1.5 pr-4 py-1.5 bg-rust border border-rust rounded-full shadow-[0_12px_30px_-12px_rgba(148,84,85,0.55)]">
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-white/15 text-white text-[10px] font-bold">
-              ₹
-            </span>
-            <span className="font-display font-bold text-[14px] text-white tabular-nums tracking-[-0.01em]">
-              {p.price}
-            </span>
-            <span className="hidden sm:inline w-px h-3 bg-white/30" />
-            <span className="hidden sm:inline text-[9.5px] tracking-[0.26em] uppercase text-white/85 font-semibold">
-              Investment
-            </span>
-          </div>
+          {/* Price pill removed per client — programmes no longer
+              display any cost on the site. */}
 
           {/* Headline — bold, well-sized, doesn't dominate the screen */}
           <h1 className="font-display font-bold text-[36px] md:text-[54px] xl:text-[68px] leading-[1.0] tracking-[-0.035em] text-white mb-5">
