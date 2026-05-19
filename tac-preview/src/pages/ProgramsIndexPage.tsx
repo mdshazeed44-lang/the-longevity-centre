@@ -411,8 +411,7 @@ function BrandAmbassador() {
             alt="Milind Soman — Brand Ambassador, The Longevity Centre"
             loading="lazy"
             decoding="async"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ objectPosition: '30% center' }}
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
           {/* Mandatory attribution badge */}
           <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.6)]">
