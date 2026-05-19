@@ -90,7 +90,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
-              <div className="absolute top-5 left-5 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
+              <div className="absolute bottom-5 left-5 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(27,26,24,0.45)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
                 <span className="text-[9.5px] tracking-[0.26em] uppercase font-semibold">
                   Brand Ambassador &middot; TLC

@@ -415,7 +415,7 @@ function BrandAmbassador() {
             style={{ objectPosition: '30% center' }}
           />
           {/* Mandatory attribution badge */}
-          <div className="absolute top-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.6)]">
+          <div className="absolute bottom-4 left-4 inline-flex items-center gap-2 bg-rust text-white px-3.5 py-1.5 rounded-full shadow-[0_8px_22px_-10px_rgba(0,0,0,0.6)]">
             <span className="w-1.5 h-1.5 rounded-full bg-white/90" />
             <span className="text-[9.5px] md:text-[10px] tracking-[0.26em] uppercase font-semibold">
               Brand Ambassador &middot; TLC
