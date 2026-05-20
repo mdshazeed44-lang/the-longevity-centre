@@ -133,7 +133,7 @@ export const CENTRES: Centre[] = [
       'https://www.google.com/maps?q=Block+A1+Tikri+Vipul+World+Sohna+Road+Sector+48+Gurugram+122018&output=embed',
     hero: '/clinic-photos/gurgaon-centre.webp',
     description:
-      "Our Gurgaon centre on Sohna Road is the architectural anchor of the network — a calm, well-designed clinical space built for the next twenty years of preventive medicine. It serves the entire DLF / Cyber Hub / Golf Course Road corridor with the full TLC diagnostic stack, on-site BCA and EndoPAT scans, and direct access to all six longevity programmes.",
+      "Our Gurgaon centre on Sohna Road is the architectural anchor of the network — a calm, well-designed clinical space built for the next twenty years of preventive medicine. It serves the entire DLF / Cyber Hub / Golf Course Road corridor with the full TLC diagnostic stack, on-site BCA and EndoPAT scans, and direct access to all seven longevity programmes.",
     highlights: [
       'Flagship architecture — designed for premium clinical experience',
       'Complete diagnostic suite including precision BCA',

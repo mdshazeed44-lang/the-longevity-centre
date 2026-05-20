@@ -44,13 +44,13 @@ const HOME_META = {
         cssSelector: ['h1', '#hero p', '#science h2', '#science p'],
       },
     },
-    // ItemList of the 6 flagship programmes — gives AI engines a
+    // ItemList of the 7 flagship programmes — gives AI engines a
     // direct list of services without having to crawl detail pages.
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
       '@id': 'https://thelongevitycentre.com/#programmes',
-      name: "TLC's six flagship longevity programmes",
+      name: "TLC's seven flagship longevity programmes",
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Longevity Plus Programme', url: 'https://thelongevitycentre.com/programs/longevity-plus' },
         { '@type': 'ListItem', position: 2, name: 'Metabolic & Weight-Loss Programme', url: 'https://thelongevitycentre.com/programs/metabolic-weight-loss' },
@@ -58,6 +58,7 @@ const HOME_META = {
         { '@type': 'ListItem', position: 4, name: 'Diabetes & Fatty-Liver Reversal', url: 'https://thelongevitycentre.com/programs/diabetes-fatty-liver-reversal' },
         { '@type': 'ListItem', position: 5, name: 'PCOD Correction Programme', url: 'https://thelongevitycentre.com/programs/pcod-correction' },
         { '@type': 'ListItem', position: 6, name: 'Advanced Metabolomics', url: 'https://thelongevitycentre.com/programs/advanced-metabolomics' },
+        { '@type': 'ListItem', position: 7, name: 'Cancer Detection & Prevention Programme', url: 'https://thelongevitycentre.com/programs/cancer-prevention' },
       ],
     },
   ],

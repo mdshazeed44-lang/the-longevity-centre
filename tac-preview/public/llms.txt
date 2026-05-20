@@ -43,7 +43,7 @@ The five-step Method:
   patient outcomes, 8-centre map, FAQ.
 - [About](https://thelongevitycentre.com/about-us): founders, philosophy, full
   specialist team.
-- [Programmes](https://thelongevitycentre.com/programs): six flagship
+- [Programmes](https://thelongevitycentre.com/programs): seven flagship
   programmes (see below).
 - [Diagnostics](https://thelongevitycentre.com/diagnostics): nine diagnostic
   protocols (see below).
@@ -56,7 +56,7 @@ The five-step Method:
 - [Longevity Program (flagship)](https://thelongevitycentre.com/longevity-program):
   full anti-aging blueprint.
 
-## Flagship programmes (6)
+## Flagship programmes (7)
 
 - [Longevity Plus Programme](https://thelongevitycentre.com/programs/longevity-plus):
   TLC's 12-month flagship — advanced metabolic, DNA and gut-microbiome
@@ -72,6 +72,10 @@ The five-step Method:
   diagnostic-led PCOD reversal — hormonal, metabolic and reproductive.
 - [Advanced Metabolomics](https://thelongevitycentre.com/programs/advanced-metabolomics):
   deep-profile cellular metabolomics for stubborn cases.
+- [Cancer Detection & Prevention Programme](https://thelongevitycentre.com/programs/cancer-prevention):
+  physician-led pathway — germline genetic testing, ctDNA + multi-cancer
+  early detection, longitudinal surveillance to catch molecular warning
+  signs before symptomatic disease emerges.
 
 ## Diagnostics (9 protocols)
 

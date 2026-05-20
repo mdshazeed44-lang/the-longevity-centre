@@ -1,4 +1,4 @@
-// programs.ts — single source of truth for TLC's six flagship programmes.
+// programs.ts — single source of truth for TLC's seven flagship programmes.
 // Used by:
 //   - components/Header.tsx (nav dropdown)
 //   - components/ProgramsHome.tsx (homepage stacking deck)
@@ -402,6 +402,68 @@ export const PROGRAMS: Program[] = [
     difference:
       'PCOD management, as it is typically practised, manages the condition. At TLC, we work to correct it — by addressing the metabolic dysfunction, the microbiome imbalance, and the hormonal dysregulation that sustain it.',
     accent: 'green',
+  },
+
+  // 07 — CANCER PREVENTION
+  {
+    slug: 'cancer-prevention',
+    cat: '07',
+    title: 'Cancer Detection & Prevention Programme',
+    shortTitle: 'Cancer Prevention',
+    tag: 'Risk-Led · Continuous Surveillance',
+    duration: '12 Months · Ongoing',
+    price: 'On consultation',
+    focus:
+      'Detect risk early. Track biology precisely. Intervene before disease takes control.',
+    desc:
+      'A structured, physician-led clinical pathway designed to identify cancer risk early, detect molecular warning signs before symptomatic disease emerges, and guide proactive prevention with precision. Built around genomics, biomarker analysis, ctDNA surveillance, imaging, and longitudinal follow-up — cancer care transformed from reactive treatment to intelligent early detection.',
+    cardImg: '/longevity/cancer-prevention.jpg',
+    heroImg: '/longevity/cancer-prevention.jpg',
+    designedFor: [
+      'Adults 35+ seeking proactive cancer-risk prevention',
+      'Individuals with family history of breast, ovarian, colorectal, prostate, pancreatic, or related cancers',
+      'People concerned about inherited cancer predisposition or known pathogenic variants',
+      'Those with metabolic syndrome, chronic inflammation, or hormonal imbalance',
+      'Individuals with a prior cancer history needing structured preventive follow-up',
+      'Health-focused adults wanting more than routine annual checkup packages',
+      'Members who value an ongoing, physician-supervised programme over one-off testing',
+    ],
+    diagnostics: [
+      'Detailed medical, lifestyle, and risk-stratification consultation',
+      'Three-generation family history and hereditary cancer assessment',
+      'Germline genetic testing for key cancer-predisposition genes',
+      'Advanced blood panels for inflammation, metabolism, hormones, and infection-related risk',
+      'ctDNA and multi-cancer early detection blood testing (when clinically indicated)',
+      'Integrated molecular and clinical baseline for each member',
+    ],
+    diagnosticsNote:
+      'Replaces fragmented tests with a defined, protocol-based prevention pathway — molecular findings integrated with structured, clinician-led decision-making instead of ad-hoc reports.',
+    careModel: [
+      'Physician interpretation of every test in the context of overall risk',
+      'Clear, protocol-driven pathways for early detection and risk reduction',
+      'Tailored recommendations on test cadence, recall intervals, and clinical reviews',
+      'Genetic counselling and structured family cascade testing where hereditary risk is found',
+      'Lifestyle, metabolic, and preventive strategies aligned to identified risk drivers',
+      'Defined escalation steps for indeterminate, abnormal, or clearly actionable results',
+    ],
+    optionalAddons: [
+      'Regular Body Composition Analysis (BCA) to monitor cellular and metabolic health',
+      'Follow-up blood marker panels for members who want deeper tracking',
+      'Periodic clinical reviews to reassess risk and refine the prevention plan',
+      'Consistent relationship with a named clinical team over time',
+      'Written summaries capturing current status, key changes, and agreed next steps',
+    ],
+    outcomes: [
+      'Earlier recognition of inherited and acquired cancer risk',
+      'Greater chance of detecting molecular warning signals before symptoms appear',
+      'Improved stage-shift potential through timely escalation when needed',
+      'Reduced anxiety via clear, clinician-guided pathways instead of ad-hoc testing',
+      'More personalised prevention and surveillance than standard health checkups',
+      'A single, coherent programme instead of disconnected reports and opinions',
+    ],
+    difference:
+      'TLC delivers molecularly informed, physician-led cancer prevention in a single, continuous programme — built for earlier action and long-term member confidence.',
+    accent: 'rust',
   },
 ]
 

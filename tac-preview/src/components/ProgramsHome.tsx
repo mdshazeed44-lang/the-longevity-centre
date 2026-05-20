@@ -1,4 +1,4 @@
-// ProgramsHome — TLC's six flagship programmes presented in the
+// ProgramsHome — TLC's seven flagship programmes presented in the
 // signature stacking-deck pattern (mirrors src/components/Programs.tsx).
 //
 // Used on the demo page now; will replace the home Programs section
@@ -186,7 +186,7 @@ export function ProgramsHome() {
               className="font-display font-light text-[36px] md:text-[56px] xl:text-[68px] leading-[1.0] tracking-[-0.03em] text-ink"
             >
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block">Six programmes.</span>
+                <span className="inline-block">Seven programmes.</span>
               </span>{' '}
               <span className="line-mask inline-block overflow-hidden align-bottom">
                 <span className="inline-block font-bold text-rust">

@@ -1,5 +1,5 @@
 // ProgramsIndexPage — /programs landing page.
-// Hero + grid of all 6 programmes (each card links to detail page).
+// Hero + grid of all 7 programmes (each card links to detail page).
 // Mirrors the homepage Programmes flow but as a standalone page.
 
 import { useEffect, useRef } from 'react'
@@ -202,7 +202,7 @@ function Hero() {
           <div className="fade-up flex items-center gap-3 mb-8">
             <span className="w-9 h-px bg-rust" />
             <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
-              Six Flagship Programmes · One Promise
+              Seven Flagship Programmes · One Promise
             </span>
             <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-rust animate-pulse" />
           </div>
@@ -615,7 +615,7 @@ export function ProgramsIndexPage() {
   useDocumentMeta({
     title: 'Programmes · TLC — Diagnostics-Led Longevity & Metabolic Care',
     description:
-      "TLC's six flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
+      "TLC's seven flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
     path: '/programs',
     ogImage: '/og/programmes.jpg',
     jsonLd: [

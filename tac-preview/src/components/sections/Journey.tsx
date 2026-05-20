@@ -103,7 +103,7 @@ const ACTS: Act[] = [
     lede: 'The Anti-Aging Centre becomes The Longevity Centre.',
     highlights: [
       '1000+ biomarkers · 3 biological-age clocks',
-      '6 flagship programmes · 9 diagnostic services',
+      '7 flagship programmes · 9 diagnostic services',
       'European laboratory partnership · Netherlands',
     ],
     img: '/skin-aesthetics/08-hair-transplant.jpg',

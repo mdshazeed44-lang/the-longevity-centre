@@ -28,7 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     label: 'Programmes',
     href: '/programs',
-    panelEyebrow: 'Six Programmes',
+    panelEyebrow: 'Seven Programmes',
     panelLine: 'Diagnostics-led, physician-guided.',
     panelCta: 'View all programmes →',
     children: PROGRAMS.map((p) => ({
