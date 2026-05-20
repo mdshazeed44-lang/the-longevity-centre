@@ -19,7 +19,7 @@ const STEPS = [
     title: 'Personalised Intervention',
     desc:
       'Targeted protocols for weight loss, diabetes & PCOD control, gut repair, hormonal balance and skin/hair anti-aging — built around your reports.',
-    img: 'https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?w=1600&q=85',
+    img: '/clinic-photos/personalised-intervention.jpg',
   },
   {
     n: '03',
