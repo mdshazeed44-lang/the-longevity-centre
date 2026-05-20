@@ -59,7 +59,7 @@ const LIFESTYLES = [
     tag: 'Athletic · Performance',
     title: 'Fitness Enthusiasts',
     body: "Concerned about performance optimisation, injury prevention and recovery times? Precision diagnostics and tailored recommendations reduce injury risk and enhance athletic performance.",
-    img: '/longevity/fitness.png',
+    img: '/longevity/longevity-plus-fitness.jpg',
   },
   {
     n: '03',

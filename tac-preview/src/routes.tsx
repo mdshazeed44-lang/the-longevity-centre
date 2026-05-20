@@ -7,7 +7,13 @@
  * eagerly. Keeps initial bundle small (~45 kB gzipped) and the homepage
  * paints fast.
  */
-import { lazy, type ComponentType, type LazyExoticComponent } from 'react'
+import {
+  lazy,
+  useEffect,
+  useState,
+  type ComponentType,
+  type LazyExoticComponent,
+} from 'react'
 import { HomePage } from './pages/HomePage'
 
 const AboutPage = lazy(() =>
@@ -98,9 +104,24 @@ const ROUTES: RouteEntry[] = [
  * Resolves the current `window.location.pathname` to a page component
  * and renders it. Unmatched paths fall back to <HomePage /> — a
  * deliberate choice while there is no dedicated 404 page.
+ *
+ * Subscribes to `popstate` so browser back/forward (and any
+ * programmatic history.pushState followed by a popstate dispatch) flip
+ * to the correct route. Without this, the router only resolved on
+ * initial mount — back-button URL changes left the previous page
+ * rendered.
  */
 export function Router() {
-  const path = window.location.pathname.replace(/\/$/, '')
+  const [path, setPath] = useState(() =>
+    window.location.pathname.replace(/\/$/, '')
+  )
+  useEffect(() => {
+    const onPop = () =>
+      setPath(window.location.pathname.replace(/\/$/, ''))
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
+
   for (const r of ROUTES) {
     const { path: p, prefix } = r.match
     if (prefix ? path.startsWith(p) : path === p) {

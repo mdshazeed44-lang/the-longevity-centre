@@ -405,7 +405,10 @@ export function DiagnosticsPage() {
       </section>
 
       {/* ====================== SERVICES GRID ====================== */}
-      <section className="relative py-20 md:py-28 px-6 md:px-12 bg-white overflow-hidden">
+      <section
+        id="nine-protocols"
+        className="relative py-20 md:py-28 px-6 md:px-12 bg-white overflow-hidden"
+      >
         <div className="relative z-10 max-w-[1280px] mx-auto">
           {/* Header */}
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-16 md:mb-20">
