@@ -9,7 +9,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES as CENTRES_DATA } from '../lib/centres'
 gsap.registerPlugin(ScrollTrigger)
 
@@ -54,6 +54,10 @@ const CENTRES_META = {
   path: '/centres',
   ogImage: '/og/centres.jpg',
   jsonLd: [
+    breadcrumbList([
+      { name: 'Home', url: '/' },
+      { name: 'Centres', url: '/centres' },
+    ]),
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',

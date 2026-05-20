@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 gsap.registerPlugin(ScrollTrigger)
 
@@ -158,6 +158,10 @@ const PROGRAM_META = {
   path: '/longevity-program',
   ogImage: '/og/longevity-program.jpg',
   jsonLd: [
+    breadcrumbList([
+      { name: 'Home', url: '/' },
+      { name: 'Longevity Program', url: '/longevity-program' },
+    ]),
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',

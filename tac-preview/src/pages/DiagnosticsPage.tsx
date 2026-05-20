@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta, SITE_URL } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import { DIAGNOSTICS } from '../lib/diagnostics'
@@ -134,6 +134,10 @@ export function DiagnosticsPage() {
         path: '/diagnostics',
         ogImage: '/og/diagnostics.jpg',
         jsonLd: [
+          breadcrumbList([
+            { name: 'Home', url: '/' },
+            { name: 'Diagnostics', url: '/diagnostics' },
+          ]),
           {
             '@context': 'https://schema.org',
             '@type': 'MedicalBusiness',

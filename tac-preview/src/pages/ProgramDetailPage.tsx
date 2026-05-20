@@ -18,7 +18,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { getProgramBySlug, PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
@@ -615,15 +615,22 @@ export function ProgramDetailPage() {
       : 'Programme details — The Longevity Centre.',
     path: `/programs/${slug}`,
     jsonLd: program
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'MedicalProcedure',
-          name: program.title,
-          description: program.focus,
-          procedureType: 'TherapeuticProcedure',
-          followup: program.duration,
-          performer: { '@id': 'https://thelongevitycentre.com/#organization' },
-        }
+      ? [
+          breadcrumbList([
+            { name: 'Home', url: '/' },
+            { name: 'Programmes', url: '/programs' },
+            { name: program.shortTitle, url: `/programs/${slug}` },
+          ]),
+          {
+            '@context': 'https://schema.org',
+            '@type': 'MedicalProcedure',
+            name: program.title,
+            description: program.focus,
+            procedureType: 'TherapeuticProcedure',
+            followup: program.duration,
+            performer: { '@id': 'https://thelongevitycentre.com/#organization' },
+          },
+        ]
       : undefined,
   })
 

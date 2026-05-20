@@ -14,7 +14,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
 import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
@@ -26,6 +26,12 @@ const META = {
     'Dermatology-led anti-aging skin clinic at TLC — pigmentation, acne and scars, dullness, fine lines and wrinkles. Lasers, peels, injectables and advanced facials, performed by physicians.',
   path: '/skin-aesthetics',
   ogImage: '/og/skin-aesthetics.jpg',
+  jsonLd: [
+    breadcrumbList([
+      { name: 'Home', url: '/' },
+      { name: 'Skin & Aesthetics', url: '/skin-aesthetics' },
+    ]),
+  ],
 }
 
 // Numbered list (01 → 07) for display purposes

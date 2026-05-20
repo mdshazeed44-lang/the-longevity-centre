@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
@@ -29,6 +29,12 @@ const META = {
     'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our eight clinics in India — no commitment, just clarity.',
   path: '/contact',
   ogImage: '/og/contact.jpg',
+  jsonLd: [
+    breadcrumbList([
+      { name: 'Home', url: '/' },
+      { name: 'Contact', url: '/contact' },
+    ]),
+  ],
 }
 
 type FormState = 'idle' | 'submitting' | 'success'

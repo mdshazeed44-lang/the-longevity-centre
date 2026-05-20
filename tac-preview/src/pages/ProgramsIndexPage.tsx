@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
-import { useDocumentMeta } from '../lib/seo'
+import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
 gsap.registerPlugin(ScrollTrigger)
@@ -618,6 +618,12 @@ export function ProgramsIndexPage() {
       "TLC's six flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
     path: '/programs',
     ogImage: '/og/programmes.jpg',
+    jsonLd: [
+      breadcrumbList([
+        { name: 'Home', url: '/' },
+        { name: 'Programmes', url: '/programs' },
+      ]),
+    ],
   })
 
   return (
