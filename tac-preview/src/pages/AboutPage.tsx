@@ -103,7 +103,7 @@ const FOUNDERS = [
 const SPECIALISTS = [
   {
     name: 'Dr. Karan Mane',
-    creds: 'Director',
+    creds: 'MBBS · MS',
     role: 'Director · The Longevity Centre',
     photo: '',
   },
