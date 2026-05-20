@@ -12,7 +12,7 @@ const STEPS = [
     title: 'Assessment & Analysis',
     desc:
       'Detailed blood tests, body composition (BCA, BMD), cardiovascular risk (EndoPAT), DNA-based genetic testing and gut microbiome mapping.',
-    img: 'https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=1600&q=85',
+    img: '/clinic-photos/assessment-analysis.jpg',
   },
   {
     n: '02',
