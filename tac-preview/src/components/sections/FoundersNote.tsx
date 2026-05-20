@@ -13,7 +13,6 @@ export function FoundersNote() {
   const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
-  const shlokaRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -42,16 +41,6 @@ export function FoundersNote() {
         })
       }
 
-      // Shloka block fades up gently — quiet, no horizontal motion.
-      if (shlokaRef.current) {
-        gsap.from(shlokaRef.current, {
-          y: 22,
-          opacity: 0,
-          duration: 1.0,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: shlokaRef.current, start: 'top 84%' },
-        })
-      }
     }, sectionRef)
 
     return () => ctx.revert()
@@ -102,42 +91,7 @@ export function FoundersNote() {
           </h2>
         </div>
 
-        {/* Shloka — quiet epigraph with a refined ornamental frame */}
-        <figure
-          ref={shlokaRef}
-          className="mb-14 md:mb-20 mx-auto max-w-[760px] text-center"
-        >
-          <div aria-hidden className="flex items-center justify-center gap-3 mb-7">
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-rust/40" />
-            <span className="w-1.5 h-1.5 rotate-45 bg-rust/50" />
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-rust/40" />
-          </div>
-          <p
-            lang="sa"
-            className="font-display text-ink text-[20px] md:text-[26px] xl:text-[28px] leading-[1.6] tracking-[-0.005em]"
-            style={{ fontFeatureSettings: '"liga", "calt"' }}
-          >
-            उपस्थास्ते अनमीवा अयक्ष्मा अस्मभ्यं सन्तु पृथिवि प्रसूताः।
-            <br />
-            दीर्घं न आयुः प्रतिबुध्यमाना वयं तुभ्यं बलिहृतः स्याम॥
-          </p>
-          <p className="mt-6 font-display italic text-graphite text-[15px] md:text-[17px] leading-[1.65] max-w-[600px] mx-auto">
-            &ldquo;May we rise from this Earth free from disease and free from
-            sickness; may we, awakening, attain a long life and offer
-            ourselves in service to thee.&rdquo;
-          </p>
-          <figcaption className="mt-6 text-[10px] md:text-[10.5px] tracking-[0.3em] uppercase text-rust font-semibold">
-            Atharvaveda &middot; Prithvi Sukta
-            <span className="block mt-1.5 text-stone/70 tracking-[0.26em]">
-              Invoked by Prime Minister Shri Narendra Modi
-            </span>
-          </figcaption>
-          <div aria-hidden className="flex items-center justify-center gap-3 mt-7">
-            <span className="h-px w-12 bg-gradient-to-r from-transparent to-rust/40" />
-            <span className="w-1.5 h-1.5 rotate-45 bg-rust/50" />
-            <span className="h-px w-12 bg-gradient-to-l from-transparent to-rust/40" />
-          </div>
-        </figure>
+        {/* Shloka block removed per client — new one will be supplied. */}
 
         {/* Founders — premium unified card: portrait + letter */}
         <div className="relative bg-white/70 backdrop-blur-sm border border-ink/8 rounded-[24px] shadow-[0_40px_90px_-50px_rgba(27,26,24,0.35)] overflow-hidden">
