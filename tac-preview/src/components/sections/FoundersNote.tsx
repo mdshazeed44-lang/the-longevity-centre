@@ -13,6 +13,7 @@ export function FoundersNote() {
   const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
+  const quoteRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -41,6 +42,16 @@ export function FoundersNote() {
         })
       }
 
+      // Quote fades up gently — quiet, no horizontal motion.
+      if (quoteRef.current) {
+        gsap.from(quoteRef.current, {
+          y: 22,
+          opacity: 0,
+          duration: 1.0,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: quoteRef.current, start: 'top 84%' },
+        })
+      }
     }, sectionRef)
 
     return () => ctx.revert()
@@ -91,7 +102,35 @@ export function FoundersNote() {
           </h2>
         </div>
 
-        {/* Shloka block removed per client — new one will be supplied. */}
+        {/* PM Modi quote — verified, sourced from his address to the
+            UN General Assembly High-Level Meeting on Universal Health
+            Coverage, 23 September 2019 (PIB India, NDTV, MEA India). */}
+        <figure
+          ref={quoteRef}
+          className="mb-14 md:mb-20 mx-auto max-w-[760px] text-center"
+        >
+          <div aria-hidden className="flex items-center justify-center gap-3 mb-7">
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-rust/40" />
+            <span className="w-1.5 h-1.5 rotate-45 bg-rust/50" />
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-rust/40" />
+          </div>
+          <blockquote className="font-display italic text-ink text-[22px] md:text-[30px] xl:text-[34px] leading-[1.35] tracking-[-0.01em] max-w-[680px] mx-auto">
+            &ldquo;Health does not simply mean freedom from diseases. A
+            healthy life is every person&rsquo;s right.&rdquo;
+          </blockquote>
+          <figcaption className="mt-7 text-[10px] md:text-[10.5px] tracking-[0.3em] uppercase text-rust font-semibold">
+            Hon&rsquo;ble Prime Minister Shri Narendra Modi
+            <span className="block mt-1.5 text-stone/70 tracking-[0.26em] normal-case font-medium text-[10.5px]">
+              United Nations General Assembly &middot; High-Level Meeting on
+              Universal Health Coverage &middot; 23 September 2019
+            </span>
+          </figcaption>
+          <div aria-hidden className="flex items-center justify-center gap-3 mt-7">
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-rust/40" />
+            <span className="w-1.5 h-1.5 rotate-45 bg-rust/50" />
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-rust/40" />
+          </div>
+        </figure>
 
         {/* Founders — premium unified card: portrait + letter */}
         <div className="relative bg-white/70 backdrop-blur-sm border border-ink/8 rounded-[24px] shadow-[0_40px_90px_-50px_rgba(27,26,24,0.35)] overflow-hidden">
