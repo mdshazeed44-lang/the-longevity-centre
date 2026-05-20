@@ -110,11 +110,40 @@ export function VideoTestimonials() {
   // Auto-slider pauses while the cursor is over the rail so a viewer
   // browsing the stories isn't yanked to the next one.
   const [railHover, setRailHover] = useState(false)
+  // `inView` gates ALL testimonial-video network. Below the fold on
+  // initial paint we never set the active video's `src`, so the six
+  // patient mp4s (and their metadata range fetches) don't compete with
+  // critical resources on mobile. Auto-slider also pauses until inView.
+  const [inView, setInView] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   // Horizontal thumbnail rail — single sliding row. We keep the
   // active tile scrolled into view when prev / next is used.
   const stripRef = useRef<HTMLDivElement>(null)
   const active = TESTIMONIALS[activeIdx]
+
+  // One-shot IntersectionObserver: flip inView the first time the
+  // testimonials section enters the viewport, then disconnect. Below
+  // the fold this means zero video bytes on initial paint.
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setInView(true)
+          io.disconnect()
+        }
+      },
+      { rootMargin: '300px 0px' }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   // Slide the active thumbnail into view whenever the story changes
   // (arrow nav, keyboard, or tile tap on a partly-hidden card).
@@ -128,16 +157,20 @@ export function VideoTestimonials() {
     strip.scrollTo({ left, behavior: 'smooth' })
   }, [activeIdx])
 
-  // Auto-slider — advances every 4.5 s. Pauses while a video is
-  // playing (so we never interrupt a patient's story) or while the
-  // cursor is over the rail.
+  // Auto-slider — advances every 6 s. Pauses while a video is
+  // playing (so we never interrupt a patient's story), while the
+  // cursor is over the rail, or while the section is below the fold
+  // (so we never trigger video metadata fetches the visitor never
+  // sees). Slightly slower cadence than before — 4.5 s read as
+  // hurried and meant the auto-slider also flipped through more
+  // src changes per session.
   useEffect(() => {
-    if (isPlaying || railHover) return
+    if (!inView || isPlaying || railHover) return
     const id = window.setInterval(() => {
       setActiveIdx((i) => (i + 1) % TESTIMONIALS.length)
-    }, 4500)
+    }, 6000)
     return () => window.clearInterval(id)
-  }, [isPlaying, railHover])
+  }, [inView, isPlaying, railHover])
 
   // When the active story changes, reset the inline video to the
   // poster frame in the paused state. The user explicitly tapped
@@ -184,6 +217,7 @@ export function VideoTestimonials() {
   return (
     <section
       id="testimonials"
+      ref={sectionRef}
       className="relative bg-white py-10 md:py-14 px-6 md:px-12 overflow-hidden"
     >
       {/* Subtle ambient warmth */}
@@ -276,9 +310,18 @@ export function VideoTestimonials() {
               <video
                 key={active.id}
                 ref={videoRef}
-                src={active.video}
+                // `src` is only set once the section enters the viewport
+                // (or the user has clicked the play button on this card)
+                // so the six patient clips never compete with critical
+                // first-paint resources on mobile.
+                src={inView || isPlaying ? active.video : undefined}
                 poster={active.poster}
-                preload="metadata"
+                // `preload="none"` — the visible poster is already
+                // enough; the actual mp4 bytes are fetched only when
+                // the user taps play. Combined with the IntersectionObserver
+                // gate above this eliminates ~30-50 MB of speculative
+                // testimonial-video bandwidth on initial mobile load.
+                preload="none"
                 playsInline
                 controls={isPlaying}
                 onPlay={() => setIsPlaying(true)}
