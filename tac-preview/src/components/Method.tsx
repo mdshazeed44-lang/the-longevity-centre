@@ -26,7 +26,7 @@ const STEPS = [
     title: 'Scheduled Recalibrations',
     desc:
       'Repeated BCA and cellular analysis monthly (at TLC centres). Continuous consultations, supplement and longevity support.',
-    img: 'https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=1600&q=85',
+    img: '/clinic-photos/scheduled-recalibrations.jpg',
   },
   {
     n: '04',
