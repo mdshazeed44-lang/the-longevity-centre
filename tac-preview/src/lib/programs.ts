@@ -417,8 +417,8 @@ export const PROGRAMS: Program[] = [
       'Detect risk early. Track biology precisely. Intervene before disease takes control.',
     desc:
       'A structured, physician-led clinical pathway designed to identify cancer risk early, detect molecular warning signs before symptomatic disease emerges, and guide proactive prevention with precision. Built around genomics, biomarker analysis, ctDNA surveillance, imaging, and longitudinal follow-up — cancer care transformed from reactive treatment to intelligent early detection.',
-    cardImg: '/longevity/cancer-prevention.jpg?v=4',
-    heroImg: '/longevity/cancer-prevention.jpg?v=4',
+    cardImg: '/longevity/cancer-prevention.jpg?v=5',
+    heroImg: '/longevity/cancer-prevention.jpg?v=5',
     designedFor: [
       'Adults 35+ seeking proactive cancer-risk prevention',
       'Individuals with family history of breast, ovarian, colorectal, prostate, pancreatic, or related cancers',
