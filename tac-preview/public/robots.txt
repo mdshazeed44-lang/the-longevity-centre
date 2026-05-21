@@ -28,4 +28,4 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://thelongevitycentre.com/sitemap.xml
+Sitemap: https://thelongevitycentre.co/sitemap.xml

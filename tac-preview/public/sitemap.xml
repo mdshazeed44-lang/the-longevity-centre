@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   TLC sitemap. Update <lastmod> when content changes materially. Domain
-  is the canonical thelongevitycentre.com — keep aligned with SITE_URL
+  is the canonical thelongevitycentre.co — keep aligned with SITE_URL
   in src/lib/seo.ts.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <!-- Top-level pages -->
   <url>
-    <loc>https://thelongevitycentre.com/</loc>
+    <loc>https://thelongevitycentre.co/</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://thelongevitycentre.com/about-us</loc>
+    <loc>https://thelongevitycentre.co/about-us</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://thelongevitycentre.com/centres</loc>
+    <loc>https://thelongevitycentre.co/centres</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://thelongevitycentre.com/contact</loc>
+    <loc>https://thelongevitycentre.co/contact</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -34,20 +34,20 @@
 
   <!-- Programmes (index + 6 detail pages) -->
   <url>
-    <loc>https://thelongevitycentre.com/programs</loc>
+    <loc>https://thelongevitycentre.co/programs</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url><loc>https://thelongevitycentre.com/programs/longevity-plus</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/metabolic-weight-loss</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/gut-metabolic</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/diabetes-fatty-liver-reversal</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/pcod-correction</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/advanced-metabolomics</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/programs/cancer-prevention</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/longevity-plus</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/metabolic-weight-loss</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/gut-metabolic</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/diabetes-fatty-liver-reversal</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/pcod-correction</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/advanced-metabolomics</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/programs/cancer-prevention</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
   <url>
-    <loc>https://thelongevitycentre.com/longevity-program</loc>
+    <loc>https://thelongevitycentre.co/longevity-program</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
@@ -55,49 +55,49 @@
 
   <!-- Diagnostics (index + 9 detail pages) -->
   <url>
-    <loc>https://thelongevitycentre.com/diagnostics</loc>
+    <loc>https://thelongevitycentre.co/diagnostics</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/oligoscan</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/genetic-testing</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/gut-microbiota</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/face-scan</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/endopat</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/blood-tests</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/body-composition</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/bone-mineral-density</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
-  <url><loc>https://thelongevitycentre.com/diagnostics/biological-clock</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/oligoscan</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/genetic-testing</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/gut-microbiota</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/face-scan</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/endopat</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/blood-tests</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/body-composition</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/bone-mineral-density</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
+  <url><loc>https://thelongevitycentre.co/diagnostics/biological-clock</loc><lastmod>2026-05-20</lastmod><priority>0.8</priority></url>
 
   <!-- Skin & Aesthetics (index + 7 detail pages) -->
   <url>
-    <loc>https://thelongevitycentre.com/skin-aesthetics</loc>
+    <loc>https://thelongevitycentre.co/skin-aesthetics</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/skin-prp</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/chemical-peels</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/hydrafacial</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/microneedling-with-dermapen</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/laser-hair-reduction</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/hair-loss-solutions</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/hair-transplant</loc><lastmod>2026-05-20</lastmod><priority>0.78</priority></url>
-  <url><loc>https://thelongevitycentre.com/skin-aesthetics/fillers-botox-skin-boosters</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/skin-prp</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/chemical-peels</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/hydrafacial</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/microneedling-with-dermapen</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/laser-hair-reduction</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/hair-loss-solutions</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/hair-transplant</loc><lastmod>2026-05-20</lastmod><priority>0.78</priority></url>
+  <url><loc>https://thelongevitycentre.co/skin-aesthetics/fillers-botox-skin-boosters</loc><lastmod>2026-05-20</lastmod><priority>0.75</priority></url>
 
   <!-- Centre detail pages (8 cities) -->
-  <url><loc>https://thelongevitycentre.com/centres/delhi</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/gurgaon</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/pune</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/bangalore</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/mumbai</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/nagpur</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/goa</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
-  <url><loc>https://thelongevitycentre.com/centres/hyderabad</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/delhi</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/gurgaon</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/pune</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/bangalore</loc><lastmod>2026-05-20</lastmod><priority>0.85</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/mumbai</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/nagpur</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/goa</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
+  <url><loc>https://thelongevitycentre.co/centres/hyderabad</loc><lastmod>2026-05-20</lastmod><priority>0.6</priority></url>
 
   <!-- Legal (low priority but indexable) -->
-  <url><loc>https://thelongevitycentre.com/privacy</loc><lastmod>2026-05-20</lastmod><priority>0.3</priority></url>
-  <url><loc>https://thelongevitycentre.com/terms</loc><lastmod>2026-05-20</lastmod><priority>0.3</priority></url>
+  <url><loc>https://thelongevitycentre.co/privacy</loc><lastmod>2026-05-20</lastmod><priority>0.3</priority></url>
+  <url><loc>https://thelongevitycentre.co/terms</loc><lastmod>2026-05-20</lastmod><priority>0.3</priority></url>
 
 </urlset>
