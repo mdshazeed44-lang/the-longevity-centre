@@ -62,12 +62,12 @@ export function CentreDetailPage() {
           {
             '@context': 'https://schema.org',
             '@type': 'MedicalClinic',
-            '@id': `https://thelongevitycentre.com/centres/${centre.slug}#clinic`,
+            '@id': `https://thelongevitycentre.co/centres/${centre.slug}#clinic`,
             name: `TLC ${centre.city} · ${centre.area}`,
             alternateName: `The Longevity Centre ${centre.city}`,
             description: centre.description,
             parentOrganization: {
-              '@id': 'https://thelongevitycentre.com/#organization',
+              '@id': 'https://thelongevitycentre.co/#organization',
             },
             address: {
               '@type': 'PostalAddress',
@@ -83,7 +83,7 @@ export function CentreDetailPage() {
             },
             telephone: centre.phone.replace(/\s+/g, ''),
             email: centre.email,
-            url: `https://thelongevitycentre.com/centres/${centre.slug}`,
+            url: `https://thelongevitycentre.co/centres/${centre.slug}`,
             image: `${SITE_URL}${centre.hero}`,
             priceRange: '₹₹₹',
             openingHoursSpecification: [

@@ -14,7 +14,7 @@ const SECTIONS = [
     n: '01',
     title: 'Acceptance of Terms',
     body: [
-      'By using thelongevitycentre.com, booking a consultation, or enrolling in any TLC programme, you agree to these terms. If you do not agree, please do not use our services.',
+      'By using thelongevitycentre.co, booking a consultation, or enrolling in any TLC programme, you agree to these terms. If you do not agree, please do not use our services.',
     ],
   },
   {
@@ -102,7 +102,7 @@ const SECTIONS = [
 const META = {
   title: 'Terms of Service · TLC — The Longevity Centre',
   description:
-    'Terms governing use of TLC programmes, consultations, and the thelongevitycentre.com website. Indian law applies.',
+    'Terms governing use of TLC programmes, consultations, and the thelongevitycentre.co website. Indian law applies.',
   path: '/terms',
 }
 

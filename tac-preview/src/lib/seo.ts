@@ -15,7 +15,7 @@
 import { useEffect } from 'react'
 
 /** Canonical site URL — used for og:url, canonical, and JSON-LD @ids. */
-export const SITE_URL = 'https://thelongevitycentre.com'
+export const SITE_URL = 'https://thelongevitycentre.co'
 
 /**
  * Default OG/Twitter image for pages that don't supply their own.

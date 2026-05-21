@@ -165,17 +165,17 @@ const PROGRAM_META = {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      '@id': 'https://thelongevitycentre.com/longevity-program#webpage',
-      url: 'https://thelongevitycentre.com/longevity-program',
+      '@id': 'https://thelongevitycentre.co/longevity-program#webpage',
+      url: 'https://thelongevitycentre.co/longevity-program',
       name: 'Longevity Program · TLC — Your Anti-Aging Blueprint',
-      isPartOf: { '@id': 'https://thelongevitycentre.com/#organization' },
-      about: { '@id': 'https://thelongevitycentre.com/#organization' },
+      isPartOf: { '@id': 'https://thelongevitycentre.co/#organization' },
+      about: { '@id': 'https://thelongevitycentre.co/#organization' },
       inLanguage: 'en-IN',
     },
     {
       '@context': 'https://schema.org',
       '@type': 'MedicalProcedure',
-      '@id': 'https://thelongevitycentre.com/longevity-program#procedure',
+      '@id': 'https://thelongevitycentre.co/longevity-program#procedure',
       name: 'Longevity Program',
       procedureType: 'PreventiveMedicine',
       description:

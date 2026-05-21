@@ -75,7 +75,7 @@ const SECTIONS = [
     n: '08',
     title: 'Changes to This Policy',
     body: [
-      'We may update this policy from time to time. Material changes will be communicated by email to active patients before they take effect. The current version is always available at thelongevitycentre.com/privacy.',
+      'We may update this policy from time to time. Material changes will be communicated by email to active patients before they take effect. The current version is always available at thelongevitycentre.co/privacy.',
     ],
   },
   {
