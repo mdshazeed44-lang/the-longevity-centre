@@ -74,6 +74,18 @@ interface RouteEntry {
 }
 
 /**
+ * Legacy URL redirects from the old domain (theantiagingcentre.com).
+ * Old indexed pages map to their new equivalents — preserves SEO and
+ * makes inbound links from the old domain land on the right page.
+ * Issued via window.history.replaceState so the browser URL updates
+ * without an extra page navigation.
+ */
+const REDIRECTS: Record<string, string> = {
+  '/longevity-plus-program': '/programs/longevity-plus',
+  '/diagnostics/bca': '/diagnostics/body-composition',
+}
+
+/**
  * Ordered route table. The first match wins, so place exact paths
  * before their prefix variants (e.g. '/centres' before '/centres/').
  */
@@ -112,12 +124,29 @@ const ROUTES: RouteEntry[] = [
  * rendered.
  */
 export function Router() {
-  const [path, setPath] = useState(() =>
-    window.location.pathname.replace(/\/$/, '')
-  )
+  const [path, setPath] = useState(() => {
+    const initial = window.location.pathname.replace(/\/$/, '')
+    // Apply legacy redirects on initial mount so old indexed URLs
+    // (from theantiagingcentre.com) land on the correct new page
+    // without an extra render cycle.
+    const redirectTo = REDIRECTS[initial]
+    if (redirectTo) {
+      window.history.replaceState(null, '', redirectTo)
+      return redirectTo
+    }
+    return initial
+  })
   useEffect(() => {
-    const onPop = () =>
-      setPath(window.location.pathname.replace(/\/$/, ''))
+    const onPop = () => {
+      const current = window.location.pathname.replace(/\/$/, '')
+      const redirectTo = REDIRECTS[current]
+      if (redirectTo) {
+        window.history.replaceState(null, '', redirectTo)
+        setPath(redirectTo)
+      } else {
+        setPath(current)
+      }
+    }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
