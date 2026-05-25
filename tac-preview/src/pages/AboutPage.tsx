@@ -111,7 +111,13 @@ const SPECIALISTS = [
     name: 'Dr. Rahul Chaube',
     creds: 'MD Medicine',
     role: 'Physician & Diabetologist',
-    photo: '/team/dr-rahul-chaube.jpg?v=4',
+    photo: '/team/dr-rahul-chaube.jpg?v=5',
+  },
+  {
+    name: 'Dr. Rizwan',
+    creds: 'MBBS',
+    role: '',
+    photo: '/team/dr-rizwan.jpg?v=1',
   },
   {
     name: 'Dr. Aniket Agarwal',
@@ -129,7 +135,7 @@ const SPECIALISTS = [
     name: 'Dr. Pooja Dahiya',
     creds: 'Longevity Consultant',
     role: 'Patient Care · Programme Coordination',
-    photo: '/team/dr-pooja-dahiya.jpg',
+    photo: '/team/dr-pooja-dahiya.jpg?v=2',
   },
   {
     name: 'Dr. Niloufar Hayat',
