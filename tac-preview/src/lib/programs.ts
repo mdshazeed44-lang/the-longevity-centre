@@ -413,6 +413,7 @@ export const PROGRAMS: Program[] = [
     tag: 'Risk-Led · Continuous Surveillance',
     duration: '12 Months · Ongoing',
     price: 'On consultation',
+    biomarkers: '1000+ biomarkers',
     focus:
       'Detect risk early. Track biology precisely. Intervene before disease takes control.',
     desc:
