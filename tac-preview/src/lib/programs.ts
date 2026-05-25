@@ -446,13 +446,6 @@ export const PROGRAMS: Program[] = [
       'Lifestyle, metabolic, and preventive strategies aligned to identified risk drivers',
       'Defined escalation steps for indeterminate, abnormal, or clearly actionable results',
     ],
-    optionalAddons: [
-      'Regular Body Composition Analysis (BCA) to monitor cellular and metabolic health',
-      'Follow-up blood marker panels for members who want deeper tracking',
-      'Periodic clinical reviews to reassess risk and refine the prevention plan',
-      'Consistent relationship with a named clinical team over time',
-      'Written summaries capturing current status, key changes, and agreed next steps',
-    ],
     outcomes: [
       'Earlier recognition of inherited and acquired cancer risk',
       'Greater chance of detecting molecular warning signals before symptoms appear',
