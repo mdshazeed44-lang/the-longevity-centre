@@ -349,3 +349,116 @@ html.lenis {
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
+
+/* ---------- Blog body typography ---------- */
+/* Styles applied to react-markdown output inside .blog-body. Mirrors
+   the TLC display/body type system from tailwind.config.js without
+   pulling in @tailwindcss/typography. */
+.blog-body {
+  color: #3A3833;
+  font-size: 17px;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+}
+.blog-body > * + * {
+  margin-top: 1.3em;
+}
+.blog-body p {
+  font-weight: 300;
+}
+.blog-body strong {
+  color: #1B1A18;
+  font-weight: 600;
+}
+.blog-body em {
+  font-style: italic;
+}
+.blog-body a {
+  color: #945455;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+.blog-body a:hover {
+  color: #7A4344;
+}
+.blog-body h2 {
+  font-family: 'Editorial New', 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: #1B1A18;
+  margin-top: 2.4em;
+  margin-bottom: 0.6em;
+}
+.blog-body h3 {
+  font-family: 'Editorial New', 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #1B1A18;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+.blog-body h4 {
+  font-weight: 600;
+  font-size: 18px;
+  color: #1B1A18;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+}
+.blog-body ul,
+.blog-body ol {
+  padding-left: 1.5em;
+}
+.blog-body ul li,
+.blog-body ol li {
+  margin-top: 0.4em;
+  padding-left: 0.4em;
+}
+.blog-body ul li::marker {
+  color: #945455;
+}
+.blog-body ol li::marker {
+  color: #945455;
+  font-weight: 600;
+}
+.blog-body blockquote {
+  border-left: 3px solid #945455;
+  padding: 0.4em 0 0.4em 1.4em;
+  color: #1B1A18;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.6;
+}
+.blog-body code {
+  background: #E0DAD0;
+  padding: 0.15em 0.45em;
+  border-radius: 4px;
+  font-size: 0.92em;
+  color: #1B1A18;
+}
+.blog-body img {
+  border-radius: 16px;
+  max-width: 100%;
+  height: auto;
+}
+.blog-body hr {
+  border: none;
+  border-top: 1px solid #E0DAD0;
+  margin: 2.6em 0;
+}
+@media (min-width: 768px) {
+  .blog-body {
+    font-size: 18px;
+  }
+  .blog-body h2 {
+    font-size: 36px;
+  }
+  .blog-body h3 {
+    font-size: 26px;
+  }
+}

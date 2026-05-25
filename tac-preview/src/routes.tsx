@@ -64,6 +64,18 @@ const SkinAestheticsDetailPage = lazy(() =>
     default: m.SkinAestheticsDetailPage,
   }))
 )
+const BlogListPage = lazy(() =>
+  import('./pages/BlogListPage').then((m) => ({ default: m.BlogListPage }))
+)
+const BlogDetailPage = lazy(() =>
+  import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
+)
+
+// Migrated blog slugs from the legacy theantiagingcentre.com domain.
+// Listed here as exact paths so the router can map them to the shared
+// BlogDetailPage without conflicting with other root-level routes.
+// Update src/lib/blogs.ts in lockstep when adding/removing entries.
+const BLOG_SLUGS = ['10-tips-for-good-health']
 
 type AnyComponent = ComponentType | LazyExoticComponent<ComponentType>
 
@@ -110,6 +122,11 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/programs/', prefix: true }, Component: ProgramDetailPage },
   { match: { path: '/diagnostics' }, Component: DiagnosticsPage },
   { match: { path: '/diagnostics/', prefix: true }, Component: DiagnosticDetailPage },
+  { match: { path: '/blog' }, Component: BlogListPage },
+  ...BLOG_SLUGS.map((slug) => ({
+    match: { path: `/${slug}` },
+    Component: BlogDetailPage,
+  })),
 ]
 
 /**
