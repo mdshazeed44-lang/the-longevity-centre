@@ -33,8 +33,12 @@ export default defineConfig({
   },
   server: {
     headers: {
-      // Long cache for static assets in dev too — keeps reloads quick
-      'Cache-Control': 'public, max-age=3600',
+      // No-cache in dev — prevents browser from holding onto a broken
+      // module/HTML after a fix has shipped (a stale cache here made
+      // an "Invalid hook call" error survive long after the underlying
+      // cause was removed). Production has its own caching via build
+      // asset hashing, so disabling this header has no effect there.
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
     },
   },
 })

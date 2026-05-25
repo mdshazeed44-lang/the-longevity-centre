@@ -34,7 +34,7 @@ export interface Blog {
   category: string
   /** Short summary shown on the list card. */
   excerpt: string
-  /** Body content in markdown. Rendered via react-markdown. */
+  /** Body content in markdown. Rendered via the in-house Markdown component. */
   content: string
   /** Semrush organic traffic — used to sort the list page. */
   traffic: number

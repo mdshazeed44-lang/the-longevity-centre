@@ -70,12 +70,37 @@ const BlogListPage = lazy(() =>
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
-
 // Migrated blog slugs from the legacy theantiagingcentre.com domain.
 // Listed here as exact paths so the router can map them to the shared
 // BlogDetailPage without conflicting with other root-level routes.
 // Update src/lib/blogs.ts in lockstep when adding/removing entries.
-const BLOG_SLUGS = ['10-tips-for-good-health']
+const BLOG_SLUGS = [
+  '10-tips-for-good-health',
+  'healthy-body-mass-index',
+  'botox-lips',
+  'why-is-long-thick-hair-a-necessity',
+  'worst-foods-for-gut-health',
+  'body-sculpting-treatment',
+  'can-hormones-affect-energy-levels',
+  'low-energy-levels',
+  'nd-yag-laser-vs-diode-best-for-lhr',
+  'good-and-bad-habits',
+  'hydrate-brighten-sunken-eyes-treatment',
+  'types-of-acne-scars',
+  'how-to-reverse-aging-with-diet',
+  'pigmentation-and-dark-spots',
+  'scalp-psoriasis-causes-symptoms-treatment',
+  'reverse-aging',
+  'morbid-obesity-class-3-obesity',
+  'belly-fat-burner',
+  'visceral-fat',
+  'genetic-testing-in-india',
+  'postpartum-hair-loss',
+  'vitamin-deficiency-disease',
+  'celebrity-like-flawless-skin',
+  'full-body-laser-hair-removal-2',
+  'prp-and-microneedling',
+]
 
 type AnyComponent = ComponentType | LazyExoticComponent<ComponentType>
 
@@ -140,30 +165,32 @@ const ROUTES: RouteEntry[] = [
  * initial mount — back-button URL changes left the previous page
  * rendered.
  */
+/** Apply a legacy redirect for the current pathname, if one is defined.
+ *  Runs at module load time and inside popstate so it's never tangled up
+ *  with a React render cycle (side effects in useState initializers fire
+ *  twice under StrictMode and triggered subtle render-time errors here). */
+function applyRedirect(): string {
+  const current = window.location.pathname.replace(/\/$/, '')
+  const redirectTo = REDIRECTS[current]
+  if (redirectTo) {
+    window.history.replaceState(null, '', redirectTo)
+    return redirectTo
+  }
+  return current
+}
+
+// Apply the initial redirect synchronously on module evaluation so the
+// Router's first render already sees the corrected path.
+if (typeof window !== 'undefined') {
+  applyRedirect()
+}
+
 export function Router() {
-  const [path, setPath] = useState(() => {
-    const initial = window.location.pathname.replace(/\/$/, '')
-    // Apply legacy redirects on initial mount so old indexed URLs
-    // (from theantiagingcentre.com) land on the correct new page
-    // without an extra render cycle.
-    const redirectTo = REDIRECTS[initial]
-    if (redirectTo) {
-      window.history.replaceState(null, '', redirectTo)
-      return redirectTo
-    }
-    return initial
-  })
+  const [path, setPath] = useState(() =>
+    window.location.pathname.replace(/\/$/, '')
+  )
   useEffect(() => {
-    const onPop = () => {
-      const current = window.location.pathname.replace(/\/$/, '')
-      const redirectTo = REDIRECTS[current]
-      if (redirectTo) {
-        window.history.replaceState(null, '', redirectTo)
-        setPath(redirectTo)
-      } else {
-        setPath(current)
-      }
-    }
+    const onPop = () => setPath(applyRedirect())
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])

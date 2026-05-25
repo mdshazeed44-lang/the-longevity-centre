@@ -6,12 +6,16 @@
 // Google sees no semantic change when the 301 from the old domain
 // lands here.
 //
-// Body content is markdown and rendered with react-markdown + remark-gfm.
+// Body content is markdown and rendered with our in-house Markdown
+// component (src/lib/markdown.tsx) — react-markdown 10.x has an
+// "Invalid hook call" incompatibility with React 19 in this project,
+// so we ship a small purpose-built renderer for the subset of markdown
+// the migrated content actually uses.
+//
 // A small Tailwind-typography-style ruleset on `.blog-body` gives every
 // heading, list and link the TLC look without pulling in @tailwindcss/typography.
 import { useEffect, useMemo, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import { Markdown } from '../lib/markdown'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
@@ -179,7 +183,7 @@ export function BlogDetailPage() {
       {/* BODY */}
       <article className="px-6 md:px-12 max-w-[760px] mx-auto">
         <div ref={bodyRef} className="blog-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{blog.content}</ReactMarkdown>
+          <Markdown source={blog.content} />
         </div>
 
         {/* CTA */}
