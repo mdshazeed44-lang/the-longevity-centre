@@ -114,12 +114,6 @@ const SPECIALISTS = [
     photo: '/team/dr-rahul-chaube.jpg?v=4',
   },
   {
-    name: 'Dr. Vaibhav Bhisikar',
-    creds: 'MBBS · MS · MCh',
-    role: 'Plastic & Hair Surgeon',
-    photo: '/team/dr-vaibhav-bhisikar.jpg',
-  },
-  {
     name: 'Dr. Aniket Agarwal',
     creds: 'MBBS · CPS',
     role: 'Dermatologist & Trichologist',
