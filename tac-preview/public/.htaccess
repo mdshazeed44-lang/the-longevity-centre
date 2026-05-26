@@ -5,21 +5,34 @@
 # No manual setup on the server needed.
 
 # ── SPA routing — React Router owns all unknown paths ───────────────────
-# Without this, /blog, /10-tips-for-good-health, /about-us, /skin-aesthetics/
-# cool-sculpting and the rest return 404/403 because Apache looks for
-# matching files/folders on disk. The rewrite sends every non-asset request
-# to index.html, which React Router then resolves client-side.
+# Without this, /blog, /about-us, /skin-aesthetics and the rest return
+# 404/403 because Apache looks for matching files/folders on disk.
+#
+# IMPORTANT: We only skip the rewrite for REAL FILES (`!-f`), not folders.
+# The build output contains real folders that collide with React routes:
+#   • dist/skin-aesthetics/  (service image assets) vs route /skin-aesthetics
+#   • dist/diagnostics/      (icon assets)         vs route /diagnostics
+#   • dist/blog/             (per-blog hero imgs)  vs route /blog
+# If we add `!-d`, Apache tries to directory-list these folders, finds no
+# index.html inside, and returns 403 Forbidden. Files inside the folder
+# (e.g. /skin-aesthetics/01-prp-acp.jpg) are still real files, so `!-f`
+# alone correctly leaves them untouched and they serve directly.
+#
+# DirectorySlash off prevents mod_dir from 301-redirecting /foo to /foo/
+# when /foo is a directory — without this the SPA URL bounces through a
+# slash redirect before our rewrite catches it.
+DirectorySlash Off
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Don't rewrite real files (.js, .css, .jpg, .xml, etc.) or directories
-  # that have their own index.
+  # If the request points at a real file (.js, .css, .jpg, .xml, etc.),
+  # let Apache serve it normally.
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
 
-  # All other requests → index.html (200 status, React Router resolves)
-  RewriteRule ^ index.html [L]
+  # Don't accidentally rewrite the index file itself into a loop.
+  RewriteRule !^index\.html$ index.html [L]
 </IfModule>
 
 # ── Force HTTPS ─────────────────────────────────────────────────────────
