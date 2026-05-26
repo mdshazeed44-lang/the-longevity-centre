@@ -500,73 +500,114 @@ function ProgrammesGrid() {
     const el = ref.current
     if (!el) return
     const cards = el.querySelectorAll<HTMLElement>('.prog-card')
-    gsap.set(cards, { opacity: 0, y: 30 })
-    gsap.to(cards, {
-      opacity: 1,
-      y: 0,
-      duration: 1.0,
-      ease: 'expo.out',
-      stagger: { each: 0.08, from: 'start' },
-      scrollTrigger: { trigger: el, start: 'top 80%' },
+    cards.forEach((card) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.0,
+          ease: 'expo.out',
+          scrollTrigger: { trigger: card, start: 'top 85%', once: true },
+        }
+      )
     })
   }, [])
 
   return (
     <section className="bg-white pb-24 md:pb-36 px-6 md:px-12">
-      <div ref={ref} className="max-w-[1280px] mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10">
-        {PROGRAMS.map((p) => (
-          <a
-            key={p.slug}
-            href={`/programs/${p.slug}`}
-            data-cursor="hover"
-            className="prog-card group relative bg-white p-7 md:p-8 flex flex-col min-h-[460px] hover:bg-[#FAF6EF] transition-colors duration-700"
-          >
-            {/* Image */}
-            <div className="relative aspect-[5/3] w-full overflow-hidden rounded-[14px] bg-mist mb-7">
-              <img
-                src={p.cardImg}
-                alt={p.title}
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
-              />
-              {/* Number badge */}
-              <div className="absolute top-3 left-3 backdrop-blur-md bg-white/85 border border-white rounded-full px-2.5 py-1">
-                <span className={`text-[9.5px] tracking-[0.28em] uppercase font-semibold tabular-nums ${accentText(p.accent)}`}>
-                  {p.cat}
-                </span>
+      <div ref={ref} className="max-w-[1240px] mx-auto flex flex-col gap-16 md:gap-24">
+        {PROGRAMS.map((p, i) => {
+          const imageOnLeft = i % 2 === 0
+          return (
+            <article
+              key={p.slug}
+              className="prog-card group grid md:grid-cols-2 gap-8 md:gap-14 lg:gap-20 items-center"
+              style={{ willChange: 'transform, opacity' }}
+            >
+              {/* Image — alternates side via md:order */}
+              <a
+                href={`/programs/${p.slug}`}
+                data-cursor="hover"
+                className={`relative aspect-[5/4] w-full overflow-hidden rounded-[22px] md:rounded-[28px] bg-mist block ${
+                  imageOnLeft ? 'md:order-1' : 'md:order-2'
+                }`}
+                style={{
+                  boxShadow:
+                    '0 30px 60px -30px rgba(27,26,24,0.20), 0 10px 30px -20px rgba(27,26,24,0.08)',
+                }}
+              >
+                <img
+                  src={p.cardImg}
+                  alt={p.title}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+                />
+                {/* Number badge */}
+                <div className="absolute top-4 left-4 backdrop-blur-md bg-white/85 border border-white rounded-full px-3 py-1.5">
+                  <span
+                    className={`text-[10px] tracking-[0.28em] uppercase font-semibold tabular-nums ${accentText(
+                      p.accent
+                    )}`}
+                  >
+                    {p.cat}
+                  </span>
+                </div>
+              </a>
+
+              {/* Content — alternates side */}
+              <div className={imageOnLeft ? 'md:order-2' : 'md:order-1'}>
+                {/* Tag */}
+                <div
+                  className={`text-[10.5px] tracking-[0.32em] uppercase font-semibold mb-4 ${accentText(
+                    p.accent
+                  )}`}
+                >
+                  {p.tag}
+                </div>
+
+                {/* Title */}
+                <h3 className="font-display font-light text-[30px] md:text-[36px] lg:text-[44px] leading-[1.08] tracking-[-0.025em] text-ink mb-5">
+                  {p.shortTitle}
+                </h3>
+
+                {/* Accent line */}
+                <span
+                  aria-hidden
+                  className={`block h-px w-10 ${accentBg(
+                    p.accent
+                  )} mb-6 transition-all duration-700 group-hover:w-20`}
+                />
+
+                {/* Body */}
+                <p className="text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light mb-8 max-w-[520px]">
+                  {p.desc}
+                </p>
+
+                {/* CTA row */}
+                <div className="flex items-center gap-6 flex-wrap">
+                  <a
+                    href={`/programs/${p.slug}`}
+                    data-cursor="hover"
+                    className="group/cta inline-flex items-center gap-2.5 pl-5 pr-6 py-3 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+                  >
+                    Learn More
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-500 group-hover/cta:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </a>
+                  <span className="text-[11px] tracking-[0.22em] uppercase text-stone/80 font-medium">
+                    {p.duration}
+                  </span>
+                </div>
               </div>
-            </div>
-
-            {/* Tag */}
-            <div className={`text-[10px] tracking-[0.3em] uppercase font-semibold mb-3 ${accentText(p.accent)}`}>
-              {p.tag}
-            </div>
-
-            {/* Title */}
-            <h3 className="font-display font-light text-[22px] md:text-[24px] leading-[1.15] tracking-[-0.02em] text-ink mb-4">
-              {p.shortTitle}
-            </h3>
-
-            {/* Accent line */}
-            <span aria-hidden className={`block h-px w-8 ${accentBg(p.accent)} mb-4 transition-all duration-700 group-hover:w-16`} />
-
-            {/* Body */}
-            <p className="text-[13.5px] md:text-[14px] leading-[1.6] text-graphite font-light mb-7 flex-1">
-              {p.desc}
-            </p>
-
-            {/* CTA row */}
-            <div className="flex items-center justify-between mt-auto">
-              <span className="inline-flex items-center gap-1.5 text-[10.5px] tracking-[0.28em] uppercase text-ink font-semibold group-hover:text-rust transition-colors duration-500">
-                Learn More
-                <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-0.5">→</span>
-              </span>
-              <span className="text-[11px] tracking-[0.22em] uppercase text-stone/70 font-medium">
-                {p.duration}
-              </span>
-            </div>
-          </a>
-        ))}
+            </article>
+          )
+        })}
       </div>
     </section>
   )
