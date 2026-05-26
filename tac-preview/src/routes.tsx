@@ -116,10 +116,55 @@ interface RouteEntry {
  * makes inbound links from the old domain land on the right page.
  * Issued via window.history.replaceState so the browser URL updates
  * without an extra page navigation.
+ *
+ * Grouped by category for easy maintenance:
+ *  - Programs (TAC's old programme URLs)
+ *  - Diagnostics (slug renames between sites)
+ *  - Skin aesthetics (old root-level URLs are now under /skin-aesthetics/)
+ *  - Standalone service pages that don't have a 1:1 equivalent on the new
+ *    site — sent to the closest contextual landing
+ *  - SEO landing pages (location + intent targeted) — sent to the most
+ *    relevant centre page or programme catalogue
  */
 const REDIRECTS: Record<string, string> = {
+  // ── Programmes ───────────────────────────────────────────────────────
   '/longevity-plus-program': '/programs/longevity-plus',
+  '/metabolic': '/programs/metabolic-weight-loss',
+  '/gut-correction-program': '/programs/gut-metabolic',
+  '/pcod-treatment': '/programs/pcod-correction',
+  '/fat-weight-loss': '/programs/metabolic-weight-loss',
+  '/landing': '/programs',
+
+  // ── Diagnostics (slug renames) ───────────────────────────────────────
   '/diagnostics/bca': '/diagnostics/body-composition',
+  '/diagnostics/bmd': '/diagnostics/bone-mineral-density',
+  '/diagnostics/genetic-test': '/diagnostics/genetic-testing',
+
+  // ── Skin aesthetics (old root → new nested) ──────────────────────────
+  '/chemical-peels': '/skin-aesthetics/chemical-peels',
+  '/hydrafacial': '/skin-aesthetics/hydrafacial',
+  '/microneedling': '/skin-aesthetics/microneedling-with-dermapen',
+  '/laser-hair-reduction': '/skin-aesthetics/laser-hair-reduction',
+  '/hair-loss-solutions': '/skin-aesthetics/hair-loss-solutions',
+  '/skin-prp': '/skin-aesthetics/skin-prp',
+  '/fillers-botox-and-skin-boosters': '/skin-aesthetics/fillers-botox-skin-boosters',
+
+  // ── Standalone services now offered via skin-aesthetics ──────────────
+  '/cool-sculpting': '/skin-aesthetics/cool-sculpting',
+  '/viora-rf': '/skin-aesthetics/viora-rf',
+  '/wonder-muscle': '/skin-aesthetics/wonder-muscle',
+
+  // ── SEO landing pages (location-targeted) ────────────────────────────
+  '/best-anti-aging-treatment-pune': '/centres/pune',
+  '/laser-hair-removal-delhi': '/centres/delhi',
+  '/best-dermatologist-in-gurgaon-for-your-skin': '/centres/gurgaon',
+
+  // ── SEO landing pages (intent-targeted) ──────────────────────────────
+  '/best-longevity-clinic-in-india': '/',
+  '/longevity-clinic-in-india': '/',
+  '/anti-aging-treatment-cost-in-india': '/programs',
+  '/non-surgical-anti-aging-treatments-india': '/skin-aesthetics',
+  '/non-surgical-face-lift-treatment-in-india': '/skin-aesthetics',
 }
 
 /**
