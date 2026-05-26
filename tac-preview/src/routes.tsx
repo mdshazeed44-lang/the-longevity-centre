@@ -70,10 +70,10 @@ const BlogListPage = lazy(() =>
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
-// Migrated blog slugs from the legacy theantiagingcentre.com domain.
-// Listed here as exact paths so the router can map them to the shared
-// BlogDetailPage without conflicting with other root-level routes.
-// Update src/lib/blogs.ts in lockstep when adding/removing entries.
+
+// Migrated blog slugs from legacy theantiagingcentre.com. Listed
+// here as exact paths so the router maps them to the shared
+// BlogDetailPage. Keep in lockstep with src/lib/blogs.ts.
 const BLOG_SLUGS = [
   '10-tips-for-good-health',
   'healthy-body-mass-index',
@@ -165,32 +165,30 @@ const ROUTES: RouteEntry[] = [
  * initial mount — back-button URL changes left the previous page
  * rendered.
  */
-/** Apply a legacy redirect for the current pathname, if one is defined.
- *  Runs at module load time and inside popstate so it's never tangled up
- *  with a React render cycle (side effects in useState initializers fire
- *  twice under StrictMode and triggered subtle render-time errors here). */
-function applyRedirect(): string {
-  const current = window.location.pathname.replace(/\/$/, '')
-  const redirectTo = REDIRECTS[current]
-  if (redirectTo) {
-    window.history.replaceState(null, '', redirectTo)
-    return redirectTo
-  }
-  return current
-}
-
-// Apply the initial redirect synchronously on module evaluation so the
-// Router's first render already sees the corrected path.
-if (typeof window !== 'undefined') {
-  applyRedirect()
-}
-
 export function Router() {
-  const [path, setPath] = useState(() =>
-    window.location.pathname.replace(/\/$/, '')
-  )
+  const [path, setPath] = useState(() => {
+    const initial = window.location.pathname.replace(/\/$/, '')
+    // Apply legacy redirects on initial mount so old indexed URLs
+    // (from theantiagingcentre.com) land on the correct new page
+    // without an extra render cycle.
+    const redirectTo = REDIRECTS[initial]
+    if (redirectTo) {
+      window.history.replaceState(null, '', redirectTo)
+      return redirectTo
+    }
+    return initial
+  })
   useEffect(() => {
-    const onPop = () => setPath(applyRedirect())
+    const onPop = () => {
+      const current = window.location.pathname.replace(/\/$/, '')
+      const redirectTo = REDIRECTS[current]
+      if (redirectTo) {
+        window.history.replaceState(null, '', redirectTo)
+        setPath(redirectTo)
+      } else {
+        setPath(current)
+      }
+    }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])

@@ -4,18 +4,9 @@
 // organic traffic (highest first) so SEO leaders surface at the top.
 // Pagination is client-side, 10 posts per page, controlled by a
 // ?page= query string so each page is independently shareable.
-//
-// Hero echoes the TLC pattern (eyebrow + display headline + intro).
-// Card grid uses two columns on tablet+ and one on mobile for
-// comfortable reading-list browsing.
-import { useEffect, useMemo, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { useEffect, useMemo, useState } from 'react'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { getBlogsByTraffic } from '../lib/blogs'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const PAGE_SIZE = 10
 
@@ -33,6 +24,15 @@ const BLOG_META = {
   ],
 }
 
+function formatDate(iso: string): string {
+  const d = new Date(iso)
+  return d.toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
 function getPageFromUrl(): number {
   const params = new URLSearchParams(window.location.search)
   const n = parseInt(params.get('page') || '1', 10)
@@ -46,22 +46,12 @@ function setPageInUrl(page: number) {
   window.history.pushState(null, '', url.toString())
 }
 
-function formatDate(iso: string): string {
-  const d = new Date(iso)
-  return d.toLocaleDateString('en-IN', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  })
-}
-
 export function BlogListPage() {
   useDocumentMeta(BLOG_META)
   const blogs = useMemo(() => getBlogsByTraffic(), [])
   const totalPages = Math.max(1, Math.ceil(blogs.length / PAGE_SIZE))
   const [page, setPage] = useState<number>(() => getPageFromUrl())
 
-  // Keep ?page= in sync with browser back/forward.
   useEffect(() => {
     const onPop = () => setPage(getPageFromUrl())
     window.addEventListener('popstate', onPop)
@@ -70,30 +60,6 @@ export function BlogListPage() {
 
   const start = (page - 1) * PAGE_SIZE
   const visible = blogs.slice(start, start + PAGE_SIZE)
-
-  const heroRef = useRef<HTMLHeadingElement>(null)
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (reduceMotion()) return
-    const ctx = gsap.context(() => {
-      gsap.from(heroRef.current, {
-        opacity: 0,
-        y: 24,
-        duration: 0.9,
-        ease: 'power2.out',
-      })
-      gsap.from('.blog-card', {
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.06,
-        scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
-      })
-    })
-    return () => ctx.revert()
-  }, [page])
 
   function goToPage(p: number) {
     const clamped = Math.min(Math.max(1, p), totalPages)
@@ -109,10 +75,7 @@ export function BlogListPage() {
         <div className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
           — TLC Insights —
         </div>
-        <h1
-          ref={heroRef}
-          className="font-display font-bold text-[40px] md:text-[64px] leading-[1.05] tracking-[-0.02em] text-ink mb-6"
-        >
+        <h1 className="font-display font-bold text-[40px] md:text-[64px] leading-[1.05] tracking-[-0.02em] text-ink mb-6">
           Evidence-led writing
           <br className="hidden md:block" />
           <span className="text-rust"> on longer, healthier living.</span>
@@ -126,16 +89,12 @@ export function BlogListPage() {
 
       {/* CARD GRID */}
       <section className="px-6 md:px-12 max-w-[1200px] mx-auto">
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-10"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 md:gap-10">
           {visible.map((b) => (
             <a
               key={b.slug}
               href={`/${b.slug}`}
-              className="blog-card group flex flex-col bg-white rounded-2xl overflow-hidden border border-mist/60 hover:shadow-[0_30px_70px_-30px_rgba(148,84,85,0.35)] hover:-translate-y-1 transition-all duration-500"
-              style={{ willChange: 'transform' }}
+              className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-mist/60 hover:shadow-[0_30px_70px_-30px_rgba(148,84,85,0.35)] hover:-translate-y-1 transition-all duration-500"
             >
               {/* Cover image */}
               <div className="relative w-full aspect-[16/10] overflow-hidden bg-mist">

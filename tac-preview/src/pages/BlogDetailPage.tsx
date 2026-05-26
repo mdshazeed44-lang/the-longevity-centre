@@ -6,23 +6,13 @@
 // Google sees no semantic change when the 301 from the old domain
 // lands here.
 //
-// Body content is markdown and rendered with our in-house Markdown
-// component (src/lib/markdown.tsx) — react-markdown 10.x has an
-// "Invalid hook call" incompatibility with React 19 in this project,
-// so we ship a small purpose-built renderer for the subset of markdown
-// the migrated content actually uses.
-//
-// A small Tailwind-typography-style ruleset on `.blog-body` gives every
-// heading, list and link the TLC look without pulling in @tailwindcss/typography.
-import { useEffect, useMemo, useRef } from 'react'
+// Body content is markdown and rendered via our in-house Markdown
+// component (src/lib/markdown.tsx) which avoids the React 19
+// incompatibility issues seen with react-markdown 10.x.
+import { useMemo } from 'react'
 import { Markdown } from '../lib/markdown'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { getBlogBySlug, getBlogsByTraffic } from '../lib/blogs'
-
-gsap.registerPlugin(ScrollTrigger)
 
 function formatDate(iso: string): string {
   const d = new Date(iso)
@@ -44,32 +34,6 @@ export function BlogDetailPage() {
     () => getBlogsByTraffic().filter((b) => b.slug !== slug).slice(0, 3),
     [slug]
   )
-
-  // Always declare hooks before any early return — keeps the order
-  // stable across renders so React doesn't warn about hook-count drift.
-  const heroRef = useRef<HTMLHeadingElement>(null)
-  const bodyRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!blog || reduceMotion()) return
-    const ctx = gsap.context(() => {
-      gsap.from(heroRef.current, {
-        opacity: 0,
-        y: 24,
-        duration: 0.9,
-        ease: 'power2.out',
-      })
-      gsap.from('.blog-body > *', {
-        opacity: 0,
-        y: 14,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.04,
-        scrollTrigger: { trigger: bodyRef.current, start: 'top 85%' },
-      })
-    })
-    return () => ctx.revert()
-  }, [blog])
 
   useDocumentMeta(
     blog
@@ -154,10 +118,7 @@ export function BlogDetailPage() {
         <div className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
           — {blog.category} —
         </div>
-        <h1
-          ref={heroRef}
-          className="font-display font-bold text-[36px] md:text-[56px] leading-[1.08] tracking-[-0.02em] text-ink mb-6"
-        >
+        <h1 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.08] tracking-[-0.02em] text-ink mb-6">
           {blog.h1}
         </h1>
         <div className="flex flex-wrap items-center gap-4 text-[12.5px] text-graphite/80">
@@ -182,7 +143,7 @@ export function BlogDetailPage() {
 
       {/* BODY */}
       <article className="px-6 md:px-12 max-w-[760px] mx-auto">
-        <div ref={bodyRef} className="blog-body">
+        <div className="blog-body">
           <Markdown source={blog.content} />
         </div>
 
