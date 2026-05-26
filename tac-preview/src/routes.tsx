@@ -70,6 +70,20 @@ const BlogListPage = lazy(() =>
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
+const LandingPage = lazy(() =>
+  import('./pages/LandingPage').then((m) => ({ default: m.LandingPage }))
+)
+
+// SEO landing pages migrated from theantiagingcentre.com as full content
+// pages (not redirects). Slugs match the legacy paths exactly so Google
+// ranking transfers. Update src/lib/landings.ts in lockstep.
+const LANDING_SLUGS = [
+  'best-longevity-clinic-in-india',
+  'longevity-clinic-in-india',
+  'non-surgical-face-lift-treatment-in-india',
+  'anti-aging-treatment-cost-in-india',
+  'non-surgical-anti-aging-treatments-india',
+]
 
 // Migrated blog slugs from legacy theantiagingcentre.com. Listed
 // here as exact paths so the router maps them to the shared
@@ -159,12 +173,12 @@ const REDIRECTS: Record<string, string> = {
   '/laser-hair-removal-delhi': '/centres/delhi',
   '/best-dermatologist-in-gurgaon-for-your-skin': '/centres/gurgaon',
 
-  // ── SEO landing pages (intent-targeted) ──────────────────────────────
-  '/best-longevity-clinic-in-india': '/',
-  '/longevity-clinic-in-india': '/',
-  '/anti-aging-treatment-cost-in-india': '/programs',
-  '/non-surgical-anti-aging-treatments-india': '/skin-aesthetics',
-  '/non-surgical-face-lift-treatment-in-india': '/skin-aesthetics',
+  // NOTE: Five intent-targeted SEO landing pages (best-longevity-clinic-in-
+  // india, longevity-clinic-in-india, anti-aging-treatment-cost-in-india,
+  // non-surgical-anti-aging-treatments-india, non-surgical-face-lift-
+  // treatment-in-india) are NOT redirected — they exist as full content
+  // pages under src/lib/landings.ts so the original SEO content is
+  // preserved verbatim on the new domain.
 
   // ── Legacy blog/topic pages (0-traffic per Semrush but preserved for
   // SEO completeness — bookmarks, future backlinks, search index health).
@@ -313,6 +327,10 @@ const ROUTES: RouteEntry[] = [
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,
+  })),
+  ...LANDING_SLUGS.map((slug) => ({
+    match: { path: `/${slug}` },
+    Component: LandingPage,
   })),
 ]
 
