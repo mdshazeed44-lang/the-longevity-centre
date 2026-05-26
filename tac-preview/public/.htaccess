@@ -1,0 +1,79 @@
+# TLC site — Hostinger / Apache configuration
+# ===========================================
+# Bundled into the production build (Vite copies /public to /dist) so a
+# fresh upload + extract always lands with the rewrite rules in place.
+# No manual setup on the server needed.
+
+# ── SPA routing — React Router owns all unknown paths ───────────────────
+# Without this, /blog, /10-tips-for-good-health, /about-us, /skin-aesthetics/
+# cool-sculpting and the rest return 404/403 because Apache looks for
+# matching files/folders on disk. The rewrite sends every non-asset request
+# to index.html, which React Router then resolves client-side.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Don't rewrite real files (.js, .css, .jpg, .xml, etc.) or directories
+  # that have their own index.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # All other requests → index.html (200 status, React Router resolves)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ── Force HTTPS ─────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ── Caching — long for hashed assets, no-cache for HTML ─────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Vite hashes /assets/* filenames, so they can be cached forever
+  <FilesMatch "\.(js|css|woff|woff2|ttf|eot)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images — cache 1 year too (filenames carry ?v= query when bumped)
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|avif|ico)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+
+  # Videos — cache 1 month (rarely change but heavier to redownload)
+  <FilesMatch "\.(mp4|webm|mov)$">
+    ExpiresDefault "access plus 1 month"
+  </FilesMatch>
+
+  # HTML — never cache, always fetch fresh so deploys take effect instantly
+  <FilesMatch "\.(html|xml|json|webmanifest)$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ── Compression — serve gzip when the browser supports it ───────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/xml text/plain
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/xml image/svg+xml
+  AddOutputFilterByType DEFLATE font/ttf font/otf application/font-woff
+</IfModule>
+
+# ── Security headers ────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ── Disable directory listing ───────────────────────────────────────────
+Options -Indexes
+
+# ── Default character encoding ──────────────────────────────────────────
+AddDefaultCharset UTF-8
