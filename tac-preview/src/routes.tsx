@@ -165,6 +165,123 @@ const REDIRECTS: Record<string, string> = {
   '/anti-aging-treatment-cost-in-india': '/programs',
   '/non-surgical-anti-aging-treatments-india': '/skin-aesthetics',
   '/non-surgical-face-lift-treatment-in-india': '/skin-aesthetics',
+
+  // ── Legacy blog/topic pages (0-traffic per Semrush but preserved for
+  // SEO completeness — bookmarks, future backlinks, search index health).
+  // Grouped by topical destination on the new site.
+
+  // Hair-related → /skin-aesthetics/hair-loss-solutions or hair-transplant
+  '/fue-hair-transplant': '/skin-aesthetics/hair-transplant',
+  '/prp-hair-treatment': '/skin-aesthetics/skin-prp',
+  '/prp-hair-treatment-debunking-myths': '/skin-aesthetics/skin-prp',
+  '/hair-loss-stages': '/skin-aesthetics/hair-loss-solutions',
+  '/hair-loss-treatment-receding-hairline': '/skin-aesthetics/hair-loss-solutions',
+  '/hair-growth-tips': '/skin-aesthetics/hair-loss-solutions',
+  '/female-pattern-baldness-in-20s': '/skin-aesthetics/hair-loss-solutions',
+  '/alopecia-areata-self-care': '/skin-aesthetics/hair-loss-solutions',
+  '/how-to-get-thicker-hair-naturally': '/skin-aesthetics/hair-loss-solutions',
+  '/laser-hair-removal': '/skin-aesthetics/laser-hair-reduction',
+  '/full-body-laser-hair-removal': '/skin-aesthetics/laser-hair-reduction',
+  '/painless-effective-underarm-hair-removal': '/skin-aesthetics/laser-hair-reduction',
+  '/understand-science-behind-laser-toning': '/skin-aesthetics/laser-hair-reduction',
+
+  // Skin treatments → /skin-aesthetics/[specific] or /skin-aesthetics
+  '/hifu-facial-treatment': '/skin-aesthetics',
+  '/chin-fillers': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/lip-fillers-cost': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/get-fuller-lips': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/under-eye-filler': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/hyaluronic-acid-injections': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/5-treatments-to-fix-under-eye-wrinkles': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/the-culprits-behind-forehead-wrinkles': '/skin-aesthetics/fillers-botox-skin-boosters',
+  '/coolsculpting-cost': '/skin-aesthetics/cool-sculpting',
+  '/fat-freezing-treatment': '/skin-aesthetics/cool-sculpting',
+  '/body-sculpting-treatments': '/skin-aesthetics/cool-sculpting',
+  '/hydrafacial-sessions': '/skin-aesthetics/hydrafacial',
+  '/hydrafacial-before-and-after': '/skin-aesthetics/hydrafacial',
+  '/top-12-vampire-facial-benefits': '/skin-aesthetics/skin-prp',
+  '/7-amazing-microneedling-benefits-on-skin': '/skin-aesthetics/microneedling-with-dermapen',
+  '/laser-treatment-for-stretch-mark-removal': '/skin-aesthetics/viora-rf',
+  '/how-to-tighten-face-skin': '/skin-aesthetics',
+  '/how-to-tighten-face-skin-2': '/skin-aesthetics',
+  '/lip-pigmentation-treatment': '/skin-aesthetics',
+  '/how-to-restore-collagen-in-face': '/skin-aesthetics',
+  '/open-pores-treatment-101': '/skin-aesthetics',
+  '/tips-for-glowing-skin': '/skin-aesthetics',
+  '/myths-about-skin-whitening-treatments': '/skin-aesthetics',
+  '/understand-uneven-skin-tone': '/skin-aesthetics',
+  '/how-to-reduce-melanin': '/skin-aesthetics',
+  '/how-to-keep-skin-hydrated': '/skin-aesthetics',
+  '/skincare-routine-for-summer': '/skin-aesthetics',
+  '/skincare-routine-for-dry-skin-in-winter': '/skin-aesthetics',
+  '/treatments-for-maintaining-fair-skin-tone': '/skin-aesthetics',
+  '/do-you-have-a-dusky-skin-tone': '/skin-aesthetics',
+  '/8-tips-for-managing-oily-skin-in-summer': '/skin-aesthetics',
+  '/blackhead-removal': '/skin-aesthetics',
+
+  // Diagnostic-related → /diagnostics/[specific] or /diagnostics
+  '/body-composition-analysis': '/diagnostics/body-composition',
+  '/bone-density-test-bmd': '/diagnostics/bone-mineral-density',
+  '/dna-test': '/diagnostics/genetic-testing',
+  '/gut-microbiome-testing': '/diagnostics/gut-microbiota',
+  '/skin-analysis': '/diagnostics/face-scan',
+  '/complete-health-checkup': '/diagnostics',
+  '/fatigue-test': '/diagnostics',
+  '/health-screenings': '/diagnostics',
+
+  // Weight / Body composition → /programs/metabolic-weight-loss
+  '/how-to-get-rid-of-love-handles-unlock-weight-loss-potential': '/programs/metabolic-weight-loss',
+  '/fat-burner-for-women': '/programs/metabolic-weight-loss',
+  '/exercises-to-lose-face-fat': '/programs/metabolic-weight-loss',
+  '/how-to-reduce-neck-fat': '/programs/metabolic-weight-loss',
+  '/sudden-weight-gain': '/programs/metabolic-weight-loss',
+  '/sudden-weight-loss': '/programs/metabolic-weight-loss',
+  '/different-body-fat-types': '/programs/metabolic-weight-loss',
+  '/what-body-fat-percentage-is-healthy': '/programs/metabolic-weight-loss',
+  '/how-can-we-increase-metabolism': '/programs/metabolic-weight-loss',
+  '/loss-of-appetite': '/programs/metabolic-weight-loss',
+  '/obesity-rate-in-india-is-killing-longevity': '/programs/metabolic-weight-loss',
+
+  // Hormonal / Metabolic → /programs
+  '/hormonal-changes-in-men': '/programs',
+  '/hormonal-changes': '/programs',
+  '/hormonal-therapy-means': '/programs',
+  '/hormonal-imbalance-symptoms': '/programs',
+  '/hormonal-imbalance-in-women': '/programs',
+  '/prediabetes-and-insulin-resistance-how-to-reverse-metabolic-aging': '/programs',
+  '/metabolic-health-vs-weight-for-longevity': '/programs',
+  '/what-are-the-different-factors-affecting-metabolic-weight-loss-process': '/programs/metabolic-weight-loss',
+  '/gut-health-metabolism-influence-biological-age': '/programs/gut-metabolic',
+
+  // Gut health → /programs/gut-metabolic
+  '/understanding-gut-health-in-india-digestive-issues-symptoms-treatment': '/programs/gut-metabolic',
+  '/how-to-improve-gut-health': '/programs/gut-metabolic',
+  '/gut-health-supplements': '/programs/gut-metabolic',
+
+  // Wellness / generic health → home
+  '/signs-of-accelerated-biological-aging': '/',
+  '/biological-age-vs-chronological-age': '/',
+  '/weak-immune-system': '/',
+  '/improve-immunity-system': '/',
+  '/sleep-deprivation-effects': '/',
+  '/brain-fog-meaning': '/',
+  '/heart-disease-prediction': '/',
+  '/blood-pressure': '/',
+  '/chronic-conditions': '/',
+  '/knee-joint-pain': '/',
+  '/joint-pain-causes': '/',
+  '/low-back-pain': '/',
+  '/bone-diseases': '/',
+  '/genetic-disorders': '/',
+  '/longevity-supplements': '/',
+  '/how-tac-can-pave-your-way-to-a-long-life': '/',
+  '/live-life-to-its-fullest': '/',
+  '/quality-of-life': '/',
+  '/longevity-for-a-healthier': '/',
+  '/health-plan-helps-you-live-longer': '/',
+
+  // Old WordPress blog index → new /blog
+  '/category/blog': '/blog',
 }
 
 /**
