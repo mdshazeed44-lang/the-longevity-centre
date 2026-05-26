@@ -163,10 +163,12 @@ const REDIRECTS: Record<string, string> = {
   '/skin-prp': '/skin-aesthetics/skin-prp',
   '/fillers-botox-and-skin-boosters': '/skin-aesthetics/fillers-botox-skin-boosters',
 
-  // ── Standalone services now offered via skin-aesthetics ──────────────
-  '/cool-sculpting': '/skin-aesthetics/cool-sculpting',
-  '/viora-rf': '/skin-aesthetics/viora-rf',
-  '/wonder-muscle': '/skin-aesthetics/wonder-muscle',
+  // ── Legacy standalone services (CoolSculpting / Viora RF / Wonder
+  //    Muscle were briefly added as individual pages, then removed.
+  //    Old URLs land on the skin-aesthetics index instead.) ─────────────
+  '/cool-sculpting': '/skin-aesthetics',
+  '/viora-rf': '/skin-aesthetics',
+  '/wonder-muscle': '/skin-aesthetics',
 
   // ── SEO landing pages (location-targeted) ────────────────────────────
   '/best-anti-aging-treatment-pune': '/centres/pune',
@@ -208,14 +210,14 @@ const REDIRECTS: Record<string, string> = {
   '/hyaluronic-acid-injections': '/skin-aesthetics/fillers-botox-skin-boosters',
   '/5-treatments-to-fix-under-eye-wrinkles': '/skin-aesthetics/fillers-botox-skin-boosters',
   '/the-culprits-behind-forehead-wrinkles': '/skin-aesthetics/fillers-botox-skin-boosters',
-  '/coolsculpting-cost': '/skin-aesthetics/cool-sculpting',
-  '/fat-freezing-treatment': '/skin-aesthetics/cool-sculpting',
-  '/body-sculpting-treatments': '/skin-aesthetics/cool-sculpting',
+  '/coolsculpting-cost': '/skin-aesthetics',
+  '/fat-freezing-treatment': '/skin-aesthetics',
+  '/body-sculpting-treatments': '/skin-aesthetics',
   '/hydrafacial-sessions': '/skin-aesthetics/hydrafacial',
   '/hydrafacial-before-and-after': '/skin-aesthetics/hydrafacial',
   '/top-12-vampire-facial-benefits': '/skin-aesthetics/skin-prp',
   '/7-amazing-microneedling-benefits-on-skin': '/skin-aesthetics/microneedling-with-dermapen',
-  '/laser-treatment-for-stretch-mark-removal': '/skin-aesthetics/viora-rf',
+  '/laser-treatment-for-stretch-mark-removal': '/skin-aesthetics',
   '/how-to-tighten-face-skin': '/skin-aesthetics',
   '/how-to-tighten-face-skin-2': '/skin-aesthetics',
   '/lip-pigmentation-treatment': '/skin-aesthetics',

@@ -230,7 +230,7 @@ Results typically improve over 2–3 months as collagen rebuilds.
 
 ### 2. Radiofrequency (RF) Skin Tightening
 
-[RF treatments](/skin-aesthetics/viora-rf) use controlled heat energy to stimulate collagen and elastin production in the skin.
+[RF treatments](/skin-aesthetics) use controlled heat energy to stimulate collagen and elastin production in the skin.
 
 **Best suited for:**
 
@@ -401,7 +401,7 @@ People in Pune, Delhi, Gurgaon, Mumbai, Bangalore, and Hyderabad increasingly pr
 
 ### 1. Collagen Rebuilding Treatments (HIFU, RF, Laser)
 
-Collagen rebuilding treatments form the foundation of modern non-surgical anti-aging. Technologies such as **HIFU (High-Intensity Focused Ultrasound)**, **[Radiofrequency (RF)](/skin-aesthetics/viora-rf)**, and advanced lasers stimulate deep collagen layers, improving skin firmness and elasticity.
+Collagen rebuilding treatments form the foundation of modern non-surgical anti-aging. Technologies such as **HIFU (High-Intensity Focused Ultrasound)**, **[Radiofrequency (RF)](/skin-aesthetics)**, and advanced lasers stimulate deep collagen layers, improving skin firmness and elasticity.
 
 Collagen production naturally declines with age, which is well documented in medical research published by the [National Institutes of Health](https://www.ncbi.nlm.nih.gov/).
 
