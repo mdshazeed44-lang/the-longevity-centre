@@ -27,11 +27,27 @@ DirectorySlash Off
   RewriteEngine On
   RewriteBase /
 
-  # If the request points at a real file (.js, .css, .jpg, .xml, etc.),
-  # let Apache serve it normally.
+  # ── Per-route pre-baked index.html (SEO) ─────────────────────────────
+  # The build pipeline (scripts/inject-meta.cjs) generates a folder for
+  # every route with its own index.html containing the correct <title>,
+  # <meta description> and <link rel="canonical"> in the raw HTML.
+  # Crawlers that don't execute JavaScript (Ahrefs default, Bing, social
+  # share scrapers, the slow path of Googlebot) need these tags in static
+  # HTML — otherwise every page looks like a duplicate of /.
+  #
+  # If a per-route /<path>/index.html exists, rewrite to it before the
+  # SPA fallback below kicks in. Real files (.js, .jpg, etc.) and the
+  # root index.html are left untouched by the `!-f` and `!^index\.html$`
+  # guards.
   RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}/index.html -f
+  RewriteRule ^(.*?)/?$ /$1/index.html [L]
 
-  # Don't accidentally rewrite the index file itself into a loop.
+  # ── SPA fallback ─────────────────────────────────────────────────────
+  # Any remaining non-file request (e.g. an unknown URL or one we
+  # haven't pre-baked) goes to the root index.html so React Router can
+  # resolve it client-side.
+  RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule !^index\.html$ index.html [L]
 </IfModule>
 
