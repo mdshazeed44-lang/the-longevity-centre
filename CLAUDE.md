@@ -310,3 +310,85 @@ commits:
 At end of session: code merged, deploy zip on the user's Desktop, awaiting
 the user to upload + extract in Hostinger File Manager before re-crawling
 Ahrefs.
+
+### 2026-06-03 — Pre-deploy polish: homepage Milind, consultation popup, claim cleanup
+
+Client kept running Ahrefs against the live site (still on the old build)
+and flagging surviving regulatory-risky claims via screenshot mark-ups,
+plus asking for UX polish before the long-delayed Hostinger upload.
+Worked through these in order:
+
+1. **Softened "5–15 years biological age reversal" claim** — client circled
+   it on the homepage. Replaced in 3 places (`BenefitsHome.tsx` card,
+   `diagnostics.ts:638` biological-clock bullet, `TermsPage.tsx:43`
+   disclaimer that quoted the old claim) with defensible wording:
+   *"Many patients see measurable reduction in biological age with
+   sustained intervention."* Regulatory rationale: ASCI Code Chapter II
+   + Drugs and Magic Remedies Act — published research shows 1–3 year
+   reversal over 12 months in intensive interventions, never 5–15.
+2. **Softened "early access to clinical trials" + "scientifically-proven"**
+   — second client mark-up on the Benefits intro paragraph. Replaced in
+   `BenefitsHome.tsx` and the orphaned `sections/Benefits.tsx` with:
+   *"Our team actively follows clinical trials and the latest longevity
+   research. Every programme is grounded in evidence-based protocols."*
+3. **Added Milind Soman to homepage high up** — built a new
+   `BrandAmbassadorHero` component for slot #2 (right after `<Hero />`),
+   leaving the shared `<BrandAmbassador />` untouched for the 5 other
+   pages that use it. Iterated several times based on client feedback:
+   - v1: cinematic dark `bg-ink` showcase → rejected ("black nahi, theme
+     match karo")
+   - v2: cream + rust editorial spread, scaled-down typography → closer
+   - v3: added `min-h-[100svh] flex items-center` so the whole spread
+     (eyebrow, headline, body, quote, CTA, portrait, 4-stat strip) fits
+     in one viewport without scroll
+   - v4: reverted `aspect-[3/4]` portrait + `max-h-[58svh]` cap (which
+     was distorting the card into landscape and showing the source
+     photo's empty right-hand backdrop) back to `aspect-[16/11]` which
+     matches the 1000×660 source image exactly.
+   Stats strip: 58 (age) · 50 (first Ironman) · 1995 (Mr. India) · TLC
+   (ambassador). Keeps the dark ink caption band beneath the portrait
+   for consistency with the shared component.
+4. **Contact page cleanup** — client marked two elements on `/contact`
+   form as cluttering the page: the "Preferred way to reach you" radio
+   trio (Phone / WhatsApp / Email — was redundant because submit
+   always opened WhatsApp regardless of which radio was checked) and
+   the "Usually reply within an hour" pill next to the submit button
+   (unverifiable response-time promise). Removed both, plus dead
+   `preferredContact` variable + the corresponding line in the
+   WhatsApp message payload. Rewrote the intro paragraph to drop the
+   "We usually reply within an hour" claim there as well.
+5. **Consultation popup from header CTA** — `<a href="/contact">` on
+   the desktop + mobile header was changed to `<button>` that opens a
+   new `<ConsultationModal>` (`src/components/ConsultationModal.tsx`).
+   Modal contents: name + phone (required), email, centre + programme
+   selects, free-text message; submit builds the same WhatsApp message
+   format as the contact page so the clinic team sees one consistent
+   inbox. Cream surface, rust accents, display serif heading, dim
+   backdrop with blur, ESC + click-outside + body-scroll-lock + first
+   field auto-focus + success state after submit.
+   - **Lenis scroll bug fix**: site uses `@studio-freight/lenis` for
+     smooth scroll which hijacks wheel events at the document level.
+     Plain `overflow-y-auto` on the modal card was being defeated —
+     wheels scrolled the page beneath the backdrop instead of the
+     form. Fixed by calling `window.__lenis?.stop()` on open and
+     `.start()` on close, plus adding `data-lenis-prevent` +
+     `overscroll-contain` on the card as belt-and-suspenders.
+6. **Pre-deploy verification audit** — ran three subagents in parallel
+   covering (a) all 9 Ahrefs SEO categories across 42 URLs in `dist/`,
+   (b) regulatory claim residuals across src + dist, (c) wiring audit
+   for the 5 UX changes above. SEO audit and UX wiring both clean.
+   Regulatory audit caught two residuals not in the source-code
+   layer: `public/llms.txt` line 28-29 still quoted the 5–15 years
+   stat, and `CtaBand.tsx:150` (the dark home/bottom CTA band) still
+   said *"We'll reply within an hour"*. Both fixed in commit `8cb9c78`.
+
+Final state at end of session:
+- All 13 commits pushed to GitHub (origin/main `8cb9c78`)
+- Deploy zip rebuilt to `C:\Users\SDM-Vijay\Desktop\tlc_updated-website.zip`
+  (96.5 MB, 74 per-route HTML files generated)
+- 42 of 42 Ahrefs structural URL checks pass on the local build
+- All 4 client-flagged claims fully removed from src/ AND dist/
+- Header CTA → consultation popup wired for desktop + mobile
+- All recent work documented here and pushed
+- Awaiting Hostinger File Manager upload to break the long-running
+  "Ahrefs sees the old build" feedback loop.
