@@ -147,7 +147,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
               </h2>
               <p className="text-[13.5px] md:text-[14.5px] text-white/60 font-light leading-[1.65] max-w-[440px]">
                 Request a 30-minute conversation with our medical team. No
-                commitment. We&rsquo;ll reply within an hour.
+                commitment — we&rsquo;ll be in touch to schedule.
               </p>
             </div>
 
