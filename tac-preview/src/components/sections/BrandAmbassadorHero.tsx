@@ -47,12 +47,15 @@ export function BrandAmbassadorHero() {
               aria-hidden
               className="absolute -top-2.5 left-0 w-10 h-px bg-rust"
             />
-            <div className="relative rounded-[16px] overflow-hidden ring-1 ring-ink/10 shadow-[0_35px_75px_-38px_rgba(27,26,24,0.32)] bg-gradient-to-b from-white via-[#f6ede1] to-[#ead9c5]">
-              <div className="relative aspect-[3/4] max-h-[58svh] md:max-h-[68svh]">
+            <div className="relative rounded-[16px] overflow-hidden ring-1 ring-ink/10 shadow-[0_35px_75px_-38px_rgba(27,26,24,0.32)] bg-gradient-to-b from-white to-[#efe7dd]">
+              {/* Aspect 16:11 matches the source image (1000×660) — using
+                  any portrait ratio would leave Milind cropped to one
+                  side of the frame and show empty studio backdrop. */}
+              <div className="relative aspect-[16/11]">
                 <img
                   src="/longevity/milind-skin.webp?v=3"
-                  width={900}
-                  height={1200}
+                  width={1000}
+                  height={660}
                   alt="Milind Soman — Brand Ambassador, The Longevity Centre"
                   loading="eager"
                   fetchPriority="high"
