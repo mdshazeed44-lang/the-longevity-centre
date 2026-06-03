@@ -185,6 +185,35 @@ const entries = []
 // ── Static top-level pages ────────────────────────────────────────────
 const staticPages = [
   {
+    path: '/',
+    title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
+    description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 8 cities.',
+    h1: 'The Longevity Centre · Age should never define you',
+    body: `
+<p>The Longevity Centre (TLC) is India's first doctor-led longevity programme — built on twenty-plus years of preventive medicine and aesthetic expertise. We combine genomic diagnostics, hormonal optimisation, biological-age testing and advanced skin and hair science under one continuous care record.</p>
+<h2>What we do</h2>
+<ul>
+  <li><a href="/longevity-program">Longevity Programme</a> — 12-month physician-guided plan with whole-body diagnostics and lifestyle therapeutics.</li>
+  <li><a href="/diagnostics">Precision Diagnostics</a> — 1000+ biomarkers including DNA methylation (GrimAge, PhenoAge), genomics, gut microbiome, hormones.</li>
+  <li><a href="/skin-aesthetics">Skin &amp; Aesthetics</a> — physician-led PRP, fillers, lasers, peels and longevity-grade skincare.</li>
+  <li><a href="/cancer-prevention">Cancer Prevention</a> — early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
+  <li><a href="/about-us">Founders &amp; team</a> — Dr. Abhinav Sharma, Dr. Bhavna Sharma and a multidisciplinary panel of longevity physicians.</li>
+</ul>
+<h2>Our 8 centres across India</h2>
+<ul>
+  <li><a href="/centres/delhi">Delhi (flagship)</a></li>
+  <li><a href="/centres/gurgaon">Gurgaon</a></li>
+  <li><a href="/centres/mumbai">Mumbai</a></li>
+  <li><a href="/centres/pune">Pune</a></li>
+  <li><a href="/centres/nagpur">Nagpur</a></li>
+  <li><a href="/centres/goa">Goa</a></li>
+  <li><a href="/centres/hyderabad">Hyderabad</a></li>
+  <li><a href="/centres/bangalore">Bangalore</a></li>
+</ul>
+<h2>Read the journal</h2>
+<p>Explore <a href="/blog">our blog</a> — evidence-led pieces on longevity, hormone health, metabolic dysfunction, gut microbiome and skin science.</p>`.trim(),
+  },
+  {
     path: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
     description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 8 Indian cities.',
