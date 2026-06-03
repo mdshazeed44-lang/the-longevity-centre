@@ -122,9 +122,9 @@ export function Benefits() {
             </h2>
           </div>
           <p className="text-[15px] md:text-[16px] leading-[1.7] text-graphite md:pt-3 max-w-[420px]">
-            We have early access to clinical trials and research studies on
-            longevity. Our programmes are firmly grounded in scientifically-
-            proven methods.
+            Our team actively follows clinical trials and the latest longevity
+            research. Every programme is grounded in evidence-based protocols —
+            diagnostics-led, physician-guided, measured.
           </p>
         </div>
 

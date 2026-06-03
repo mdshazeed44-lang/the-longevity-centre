@@ -150,7 +150,7 @@ export function BenefitsHome() {
             </h2>
           </div>
           <p className="fade-up text-[14px] md:text-[15px] leading-[1.7] text-graphite font-light max-w-[420px] md:pb-3">
-            We have early access to clinical trials and longevity research. Every programme is built on scientifically-proven protocols — diagnostics-led, physician-guided, measured.
+            Our team actively follows clinical trials and the latest longevity research. Every programme is grounded in evidence-based protocols — diagnostics-led, physician-guided, measured.
           </p>
         </div>
 
