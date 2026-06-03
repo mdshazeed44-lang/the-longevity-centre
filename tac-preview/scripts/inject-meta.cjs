@@ -164,7 +164,8 @@ function siteFooter() {
 <footer>
   <p><strong>The Longevity Centre (TLC)</strong> — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Eight centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad.</p>
   <p><a href="tel:+918826809123">+91 88268 09123</a> · <a href="mailto:info@thelongevitycentre.com">info@thelongevitycentre.com</a></p>
-  <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+  <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sitemap">Sitemap</a></p>
+  <p><small>Designed by <a href="https://www.incrementors.com/" rel="noopener">Incrementors</a></small></p>
 </footer>`.trim()
 }
 
