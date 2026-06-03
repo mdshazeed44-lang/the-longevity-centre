@@ -45,7 +45,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Platelet-Rich Plasma',
     image: '/skin-aesthetics/01-prp-acp.jpg',
     description:
-      "PRP (Platelet-Rich Plasma) therapy utilises your own blood platelets, rich in growth factors, to stimulate cellular renewal and tissue regeneration. We extract growth factors from a small blood sample through centrifugation, then concentrate them and inject the plasma into the skin for targeted rejuvenation — natural, autologous, minimal-risk.",
+      "PRP (Platelet-Rich Plasma) therapy uses your own blood platelets, rich in growth factors, to stimulate cellular renewal — natural, autologous, minimal-risk.",
     treats: [
       'Facial wrinkles and fine lines',
       'Acne scars',
@@ -91,7 +91,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Cellular Renewal',
     image: '/skin-aesthetics/02-peels.jpg',
     description:
-      "A carefully formulated solution applied to exfoliate the top layer of skin, revealing fresher, smoother skin underneath. The treatment stimulates cellular turnover — addressing concerns like uneven texture, fine lines, and pigmentation. Depth and active ingredients are matched to your skin's tolerance.",
+      "Chemical peels exfoliate the top skin layer to reveal fresher skin underneath — addressing uneven texture, fine lines and pigmentation through cellular renewal.",
     treats: [
       'Uneven skin tone from excess tanning',
       'Irregular pigmentation and dark patches',
@@ -136,7 +136,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Multi-Step Rejuvenation',
     image: '/skin-aesthetics/03-hydrafacial.jpg',
     description:
-      "A multi-step skincare treatment that integrates cleansing, exfoliation, extraction, hydration, and antioxidant infusion through a specialised device — in a single sitting. Quenches your skin's thirst with painless extraction and nourishing serums infused deep into the pores.",
+      "Hydrafacial combines cleansing, exfoliation, painless extraction and antioxidant infusion in one sitting — for plump, glowing, hydrated skin with no downtime.",
     treats: [
       'Acne and congested pores',
       'Fine lines',
@@ -182,7 +182,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Collagen Induction',
     image: '/skin-aesthetics/04-microneedling-v2.jpg',
     description:
-      "A minimally invasive procedure using tiny needles to create micro-injuries, triggering the skin's natural healing process and stimulating collagen production. The Dermapen 4 offers advanced automated needling with adjustable depth and speed — tailored to each area of your face.",
+      "Microneedling with Dermapen 4 creates micro-injuries that trigger natural collagen production — improving texture, scars, fine lines and tone across your face.",
     treats: [
       'Fine lines and wrinkles',
       'Acne scars',
@@ -231,7 +231,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Quanta Long Pulse · Italy',
     image: '/skin-aesthetics/05-laser-v2.jpg',
     description:
-      'Permanent hair reduction using the Quanta Long Pulse Laser from Italy — CE (Europe) and FDA approved. Each pulse treats multiple hairs in seconds. Universal compatibility across all skin types (I–VI) and hair types — including fine, coarse, and ingrown hair. No gel required, no risk of burns across skin tones.',
+      'Permanent hair reduction with the Quanta Long Pulse Laser from Italy — CE and FDA approved, safe for all skin types (I–VI), no gel, no burn risk.',
     treats: [
       'Unwanted hair on all body areas',
       'Ingrown hairs',
@@ -277,7 +277,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Diagnosis-First · 360° Care',
     image: '/skin-aesthetics/06-hair.jpg',
     description:
-      'A 360-degree approach to hair loss — we diagnose and treat micronutrient deficiencies, perform PRP, and offer Hair Transplantation under one roof. Conditions addressed include androgenetic alopecia (male/female pattern), alopecia areata, and telogen effluvium.',
+      'A 360° approach to hair loss — we diagnose nutrient deficiencies, perform PRP and offer Hair Transplant for androgenetic alopecia, alopecia areata and telogen effluvium.',
     treats: [
       'Androgenetic alopecia (male / female pattern)',
       'Alopecia areata (patchy hair loss)',
@@ -327,7 +327,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Advanced FUE · Permanent Restoration',
     image: '/skin-aesthetics/08-hair-transplant.jpg',
     description:
-      'A doctor-led hair-transplant programme for permanent restoration of androgenetic hair loss. Advanced follicular-unit extraction (FUE) with minimal scarring, natural hairline design, and the same diagnostics-led workup that anchors every TLC protocol — micronutrient correction, hormonal screen, scalp trichoscopy — before a single graft is harvested.',
+      'Doctor-led FUE hair transplant for permanent restoration of androgenetic hair loss — minimal scarring, natural hairline design, full diagnostics-led workup first.',
     treats: [
       'Androgenetic alopecia (male-pattern baldness, Norwood II–VI)',
       'Female-pattern hair thinning (Ludwig I–III)',
@@ -376,7 +376,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Restorative Injectables',
     image: '/skin-aesthetics/07-mesotherapy-v3.jpg',
     description:
-      'Three complementary injectable treatments — Botox to relax muscle-driven wrinkles, Dermal Fillers to restore lost volume, and Skin Boosters with hyaluronic acid to deeply hydrate and revitalise. All three can be combined for comprehensive facial rejuvenation. FDA-approved products only.',
+      'Three injectable treatments — Botox to relax wrinkles, Dermal Fillers to restore volume, and Skin Boosters to hydrate. Combinable. FDA-approved products only.',
     treats: [
       "Forehead lines, frown lines, crow's feet (Botox)",
       'Nasolabial folds, lip enhancement, cheek contouring (Fillers)',

@@ -46,7 +46,7 @@ export const BLOGS: Blog[] = [
     title: '10 Tips for Good Health: From the Longevity Experts',
     metaTitle: '10 Tips for Good Health: From the Longevity Experts',
     metaDescription:
-      'we will uncover the top 10 tips for good health that will guide you toward a healthier and more fulfilling life. These practical strategies will help improve your well-being and promote longevity.',
+      '10 doctor-backed tips for good health from the TLC longevity experts. Practical lifestyle strategies to improve your well-being and add healthy years.',
     h1: '10 Tips for Good Health',
     publishDate: '2025-01-27',
     author: 'TLC Editorial',
@@ -111,7 +111,7 @@ It's critical to pay attention to your body and, if necessary, seek professional
     title: 'What is the Healthy body mass index for men for a longer life?',
     metaTitle: 'What is the Healthy body mass index for men for a longer life?',
     metaDescription:
-      'A healthy body mass index BMI is important for overall well-being and longevity. BMI helps determine if a person is underweight, normal weight, overweight, or obese.',
+      'A healthy BMI for men supports longevity and overall well-being. Learn the ideal BMI range, how to maintain it, and why it matters for a longer life.',
     h1: 'Healthy Body Mass Index for Men',
     publishDate: '2025-04-05',
     author: 'TLC Editorial',
@@ -154,7 +154,7 @@ A healthy body mass index for men is essential for leading a long and healthy li
     title: 'Botox Lips: The Ultimate Guide to Perfectly Plump Lips',
     metaTitle: 'Botox Lips: The Ultimate Guide to Perfectly Plump Lips',
     metaDescription:
-      'Botox lips involve using Botox injections to enhance the appearance of the lips subtly. This novel procedure provides a means to smooth out fine wrinkles around the mouth and achieve a youthful, renewed appearance.',
+      'Botox lip injections subtly plump the upper lip and smooth fine lines around the mouth. Learn how the lip-flip procedure works, benefits, cost and aftercare.',
     h1: 'Botox Lips: A Guide to Perfectly Plump Lips',
     publishDate: '2024-11-14',
     author: 'TLC Editorial',
@@ -220,7 +220,7 @@ As with any cosmetic procedure, consulting with a skilled and experienced practi
     title: 'Why is Long Thick hair a necessity? Aesthetic treatment to help!',
     metaTitle: 'Why is Long Thick hair a necessity? Aesthetic treatment to help!',
     metaDescription:
-      'Long thick hair is often considered a hallmark of beauty and health. This ideal has been deeply ingrained in our culture for centuries, symbolizing youthfulness, vitality, and elegance.',
+      'Long, thick hair signals youth and vitality. Discover aesthetic treatments like PRP therapy that restore density, volume, and luscious locks.',
     h1: 'Why is Long Thick Hair a Necessity?',
     publishDate: '2024-11-09',
     author: 'TLC Editorial',
@@ -320,7 +320,7 @@ A healthy gut is crucial for digestion, immunity, and overall well-being. Avoidi
     title: 'Body sculpting treatment: Get abs without exercising',
     metaTitle: 'Body sculpting treatment: Get abs without exercising',
     metaDescription:
-      'Body sculpting treatment is a non-invasive procedure designed to target and eliminate localized fat deposits that are resistant to diet and exercise. Many people opt for body sculpting treatments to attain their ideal body without much struggle.',
+      'Body sculpting treatments like CoolSculpting, HIFU and RF target stubborn fat without surgery. Get sculpted abs and a flatter belly with minimal downtime.',
     h1: 'Body Sculpting Treatment: Get Abs Without Exercising',
     publishDate: '2024-11-08',
     author: 'TLC Editorial',
@@ -363,7 +363,7 @@ If you've been exercising for years without seeing the desired results, you migh
     title: 'Can hormones affect energy levels?',
     metaTitle: 'Can hormones affect energy levels?',
     metaDescription:
-      'Before answering your question, can hormones affect energy levels? Do you know that your energy levels are directly controlled by hormones? These chemical messengers regulate metabolism, sleep, mood, and how your body converts food into energy.',
+      'Yes — thyroid, cortisol, insulin and sex hormones directly drive your energy levels. Learn how hormonal imbalance causes fatigue and how to restore balance.',
     h1: 'Can Hormones Affect Energy Levels?',
     publishDate: '2025-03-28',
     author: 'TLC Editorial',
@@ -441,7 +441,7 @@ Can hormones affect energy levels? Yes, they play a vital role in maintaining ov
     title: 'Low Energy Levels: Is It More Than Just Fatigue?',
     metaTitle: 'Low Energy Levels: Is It More Than Just Fatigue?',
     metaDescription:
-      'Low energy levels are not just about feeling fatigued; they can be a sign of an underlying issue that requires attention. While everyone experiences low energy from time to time, if it becomes chronic, it can negatively affect your health, productivity, and happiness.',
+      'Chronic low energy is more than tiredness — it can signal deeper health issues. Learn the symptoms, real causes, and proven ways to boost energy naturally.',
     h1: 'Low Energy Levels: Is It More Than Just Fatigue?',
     publishDate: '2024-12-29',
     author: 'TLC Editorial',
@@ -514,7 +514,7 @@ Low energy levels are more than just a feeling of fatigue—they can be a sign o
     title: 'Nd Yag Laser vs Diode: Best for LHR?',
     metaTitle: 'Nd Yag Laser vs Diode: Best for LHR?',
     metaDescription:
-      'Laser hair removal is one of the most effective ways to achieve smooth, hair-free skin. Two of the most popular technologies for laser hair reduction are nd yag laser and diode laser.',
+      'Nd YAG vs Diode laser for hair removal — compare skin tone compatibility, pain, speed and effectiveness to pick the right LHR treatment for you.',
     h1: 'Nd Yag Laser vs Diode: Which is Best for LHR?',
     publishDate: '2025-02-23',
     author: 'TLC Editorial',
@@ -587,7 +587,7 @@ Both Diode and nd yag lasers are effective for full-body laser hair removal, but
     title: '5 Everyday Good and bad habits affecting your longevity',
     metaTitle: '5 Everyday Good and bad habits affecting your longevity',
     metaDescription:
-      'Adopting good habits and bad habits in daily life can significantly enhance well-being and increase life expectancy, while bad habits can do the opposite. Here are five good habits that support longevity',
+      'Daily habits shape how long you live. Discover 5 good habits that extend life and 5 bad habits that quietly shorten it — and how to swap them out.',
     h1: '5 Good and Bad Habits That Affect Longevity',
     publishDate: '2025-04-04',
     author: 'TLC Editorial',
@@ -715,7 +715,7 @@ Sunken eyes can be a significant cosmetic concern, but various treatments are av
     title: 'What are the Different Types of Acne Scars?',
     metaTitle: 'What are the Different Types of Acne Scars?',
     metaDescription:
-      'The good news is that acne scars can be treated, but the right treatment depends on your skin type and the different types of acne scars you have. Only a dermatologist in Delhi can determine the best approach for your skin.',
+      'Atrophic, hypertrophic, keloid or PIH — learn the 4 main types of acne scars and the dermatology treatments that actually work for each in Delhi.',
     h1: 'The Different Types of Acne Scars',
     publishDate: '2025-04-03',
     author: 'TLC Editorial',
@@ -827,7 +827,7 @@ Acne scars can affect both skin appearance and confidence, but with the right tr
     title: 'How to Reverse Aging with Diet',
     metaTitle: 'How to Reverse Aging with Diet',
     metaDescription:
-      'Certain foods are known for their powerful anti-aging properties. These foods can help fight oxidative stress, reduce inflammation, and promote healthy cellular function—key factors in slowing down the reverse aging process.',
+      'Discover the antioxidant-rich, anti-inflammatory foods that slow biological aging. A practical reverse-aging diet to fight oxidative stress and stay youthful.',
     h1: 'How to Reverse Aging with Diet',
     publishDate: '2025-02-16',
     author: 'TLC Editorial',
@@ -896,7 +896,7 @@ While the idea of aging backward might seem far-fetched, the reality is that the
     title: 'Pigmentation and Dark Spots: What is the Difference?',
     metaTitle: 'Pigmentation and Dark Spots: What is the Difference?',
     metaDescription:
-      'Clean, clear skin is a goal many strive for. However, pigmentation and dark spots often stand in the way. These dark patches on the skin often appear stubborn and difficult to manage.',
+      'Pigmentation and dark spots look similar but differ in cause and treatment. Learn the difference, types, and the dermatology fixes that clear stubborn marks.',
     h1: 'Pigmentation and Dark Spots: What is the Difference?',
     publishDate: '2025-03-11',
     author: 'TLC Editorial',
@@ -1015,7 +1015,7 @@ For effective results, consult a trusted [dermatologist doctor in Gurgaon](/) li
     title: 'Scalp Psoriasis Causes, Symptoms, and Treatment',
     metaTitle: 'Scalp Psoriasis Causes, Symptoms, and Treatment',
     metaDescription:
-      'Millions of people worldwide suffer from the persistent skin ailment known as scalp psoriasis. It causes red, scaly patches, itching, and discomfort on the scalp.',
+      'Scalp psoriasis causes red, scaly patches and itching. Learn the real causes, early symptoms and dermatology treatments that bring lasting relief.',
     h1: 'Scalp Psoriasis: Causes, Symptoms, and Treatment',
     publishDate: '2025-03-10',
     author: 'TLC Editorial',
@@ -1122,7 +1122,7 @@ In addition to medical treatments, lifestyle changes can help manage scalp psori
     title: 'Unlocking Longer Lifespan: Key Steps to Reverse Aging',
     metaTitle: 'Unlocking Longer Lifespan: Key Steps to Reverse Aging',
     metaDescription:
-      'The growing interest in reverse aging treatments is driven by numerous factors that contribute to accelerated aging which can be external or internal. The external factors include lifestyle choices, poor diet, and environmental changes.',
+      'Reverse aging is now a measurable science. Learn the key steps — diagnostics, lifestyle and cellular care — that slow biological aging and extend lifespan.',
     h1: 'Unlocking a Longer Lifespan: Key Steps to Reverse Aging',
     publishDate: '2024-12-28',
     author: 'TLC Editorial',
@@ -1165,7 +1165,7 @@ Reverse aging meaning refers to the concept of slowing down or reversing the eff
     title: 'Can Morbid obesity (class 3 obesity) be cured?',
     metaTitle: 'Can Morbid obesity (class 3 obesity) be cured?',
     metaDescription:
-      'Morbid obesity, or class 3 obesity, is one of the most serious health conditions, where excess body fat significantly increases the risk of heart disease, diabetes, stroke, and other life-threatening conditions.',
+      'Morbid obesity raises the risk of heart disease, diabetes and stroke — but it is treatable. Learn how diet, exercise and medical care reverse class 3 obesity.',
     h1: 'Can Morbid Obesity (Class 3 Obesity) Be Cured?',
     publishDate: '2025-02-28',
     author: 'TLC Editorial',
@@ -1224,7 +1224,7 @@ Morbid obesity is a serious health condition, but it can be cured with the right
     title: 'Belly Fat Burner: Celebrities Way to a Flat Tummy After Pregnancy',
     metaTitle: 'Belly Fat Burner: Celebrities Way to a Flat Tummy After Pregnancy',
     metaDescription:
-      "how do celebrities maintain their flat tummies? The answer is the belly fat burner. Treatments like RF and coolsculpting—that's what we will tell in this blog about the benefits of the treatments and how they work.",
+      'How do celebrities get a flat tummy after pregnancy? CoolSculpting and RF belly-fat-burner treatments — how they work, benefits and what to expect.',
     h1: 'Belly Fat Burner: The Celebrity Way to a Flat Tummy',
     publishDate: '2024-11-22',
     author: 'TLC Editorial',
@@ -1267,7 +1267,7 @@ After pregnancy, getting a flat stomach is a journey that calls for commitment, 
     title: 'Can Visceral Fat be removed without any exercises?',
     metaTitle: 'Can Visceral Fat be removed without any exercises?',
     metaDescription:
-      'Visceral fat is a type of fat stored deep inside the abdomen, wrapping around vital organs like the liver, pancreas, and intestines. Unlike subcutaneous fat, which is found just under the skin, toxic fat is hidden inside the body.',
+      'Visceral fat hides deep in your abdomen and damages organs. Learn the causes, dangers and proven ways to reduce visceral fat — even without exercise.',
     h1: 'Can Visceral Fat Be Removed Without Exercise?',
     publishDate: '2025-03-27',
     author: 'TLC Editorial',
@@ -1331,7 +1331,7 @@ Visceral fat is a hidden danger that increases the risk of serious health issues
     title: 'Genetic Testing In India: Costs, Benefits and More!',
     metaTitle: 'Genetic Testing In India: Costs, Benefits and More!',
     metaDescription:
-      'Indeed, a range of people can benefit from genetic testing. Genetic testing in India can assist in determining your risk if you have a family history of specific diseases, such as heart disease, breast cancer, chronic illness, or any other genetic problems.',
+      'Genetic testing in India — costs, benefits, who needs it and how it personalises care. Spot inherited risks for heart disease, cancer and chronic illness early.',
     h1: 'Genetic Testing in India: Costs, Benefits and More',
     publishDate: '2024-12-23',
     author: 'TLC Editorial',
@@ -1392,7 +1392,7 @@ With insights that can result in better health outcomes and a longer, disease-fr
     title: 'Why Postpartum Hair Loss Happens and How to Manage It',
     metaTitle: 'Why Postpartum Hair Loss Happens and How to Manage It',
     metaDescription:
-      'Postpartum hair loss is common after childbirth. It happens due to hormonal changes, mainly the drop in estrogen levels. Many new mothers notice excessive hair shedding, often losing over 100 strands daily.',
+      'Postpartum hair loss is normal but alarming. Understand the hormonal causes, when shedding stops and the science-backed treatments that bring hair back.',
     h1: 'Why Postpartum Hair Loss Happens and How to Manage It',
     publishDate: '2025-02-27',
     author: 'TLC Editorial',
@@ -1465,7 +1465,7 @@ Postpartum hair loss is a natural response to hormonal changes after childbirth.
     title: 'Vitamin Deficiency Diseases: Preventing Health Setbacks',
     metaTitle: 'Vitamin Deficiency Diseases: Preventing Health Setbacks',
     metaDescription:
-      'what is these vitamin deficiency diseases? Well Vitamin deficiency diseases are brought on by the loss of vital vitamins in the body causing various health problems.',
+      'Vitamin deficiency diseases cause everything from fatigue to weak bones. Learn the types, early symptoms and how to restore your vitamin levels safely.',
     h1: 'Vitamin Deficiency Diseases: Preventing Health Setbacks',
     publishDate: '2024-12-19',
     author: 'TLC Editorial',
@@ -1514,7 +1514,7 @@ Although [vitamin deficiency disease](https://pmc.ncbi.nlm.nih.gov/articles/PMC9
     title: 'Unveiling the Secrets behind the celebrity like flawless skin',
     metaTitle: 'Unveiling the Secrets behind the celebrity like flawless skin',
     metaDescription:
-      'The smooth, glowing skin that seems to defy time and imperfections is something we all strive for. However, achieving such flawless skin often feels like an elusive dream, reserved only for those blessed with good genes or endless access to luxury treatments.',
+      'The secrets behind celebrity-like flawless skin — peels, lasers, microneedling and brightening treatments that deliver radiant, even-toned, youthful skin.',
     h1: 'The Secrets Behind Celebrity-Like Flawless Skin',
     publishDate: '2024-11-06',
     author: 'TLC Editorial',
@@ -1614,7 +1614,7 @@ Full-body [laser hair removal](https://my.clevelandclinic.org/health/treatments/
     title: 'Comparing PRP and microneedling separately vs. combined',
     metaTitle: 'Comparing PRP and microneedling separately vs. combined',
     metaDescription:
-      'Both PRP and microneedling facial are useful skin rejuvenation treatments, but when used in tandem, the advantages can be amplified, making them an even more potent combination for youthful, radiant skin.',
+      'PRP and microneedling each rejuvenate skin alone — combined, results multiply. Compare benefits separately and together for youthful, radiant, glowing skin.',
     h1: 'PRP and Microneedling: Separate or Combined?',
     publishDate: '2024-11-22',
     author: 'TLC Editorial',

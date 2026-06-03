@@ -18,7 +18,7 @@ import { useDocumentMeta } from '../lib/seo'
 const HOME_META = {
   title: 'TLC — Precision Longevity Medicine, India · 8 Centres',
   description:
-    "India's first doctor-led personalised longevity programme. 8 centres across Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad. Diagnostics-led care across longevity, metabolic, gut, weight loss and biological-age reversal.",
+    "The Longevity Centre (TLC) — India's first doctor-led longevity programme. Diagnostics-led metabolic, gut, weight & biological-age care across 8 centres.",
   path: '/',
   ogImage: '/og/home.jpg',
   jsonLd: [

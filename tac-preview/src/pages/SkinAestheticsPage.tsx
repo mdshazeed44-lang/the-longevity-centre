@@ -23,7 +23,7 @@ gsap.registerPlugin(ScrollTrigger)
 const META = {
   title: 'Skin & Aesthetics · TLC — The Longevity Centre',
   description:
-    'Dermatology-led anti-aging skin clinic at TLC — pigmentation, acne and scars, dullness, fine lines and wrinkles. Lasers, peels, injectables and advanced facials, performed by physicians.',
+    'Dermatology-led anti-aging skin clinic at TLC — pigmentation, acne, dullness, fine lines, wrinkles. Lasers, peels, injectables, facials by physicians.',
   path: '/skin-aesthetics',
   ogImage: '/og/skin-aesthetics.jpg',
   jsonLd: [
