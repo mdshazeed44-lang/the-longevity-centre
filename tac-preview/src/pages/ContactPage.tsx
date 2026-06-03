@@ -92,8 +92,6 @@ export function ContactPage() {
     const phone = (data.get('phone') as string) || ''
     const centre = (data.get('centre') as string) || 'Not selected'
     const programme = (data.get('programme') as string) || 'Not specified'
-    const preferredContact =
-      (data.get('preferred_contact') as string) || 'Phone'
     const message = ((data.get('message') as string) || '').trim()
 
     const lines = [
@@ -104,7 +102,6 @@ export function ContactPage() {
       `*Email:* ${email}`,
       `*Preferred centre:* ${centre}`,
       `*Programme of interest:* ${programme}`,
-      `*Preferred way to reach me:* ${preferredContact}`,
     ]
     if (message) {
       lines.push('', '*Message:*', message)
@@ -148,9 +145,8 @@ export function ContactPage() {
             </span>
           </h1>
           <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[640px]">
-            Fill in a few details — your enquiry will open in WhatsApp, ready
-            to send to our medical team. We usually reply within an hour to
-            schedule the call, at the centre nearest you or online.
+            Share a few details and our medical team will be in touch to
+            schedule your consultation — at the centre nearest you or online.
           </p>
         </div>
       </section>
@@ -244,37 +240,6 @@ export function ContactPage() {
                     </select>
                   </Field>
 
-                  {/* Preferred contact method — segmented radios */}
-                  <div>
-                    <label className="block text-[10.5px] tracking-[0.32em] uppercase text-stone font-semibold mb-3">
-                      Preferred way to reach you
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      {[
-                        { v: 'Phone', l: 'Phone' },
-                        { v: 'WhatsApp', l: 'WhatsApp' },
-                        { v: 'Email', l: 'Email' },
-                      ].map((opt, i) => (
-                        <label
-                          key={opt.v}
-                          className="relative cursor-pointer"
-                          data-cursor="hover"
-                        >
-                          <input
-                            type="radio"
-                            name="preferred_contact"
-                            value={opt.v}
-                            defaultChecked={i === 0}
-                            className="peer sr-only"
-                          />
-                          <div className="text-center text-[12px] tracking-[0.18em] uppercase font-semibold py-3 px-2 border border-ink/15 rounded-full text-graphite transition-colors duration-300 peer-checked:bg-ink peer-checked:text-white peer-checked:border-ink hover:border-rust">
-                            {opt.l}
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
                   {/* Message */}
                   <Field label="Anything specific?" name="message">
                     <textarea
@@ -300,7 +265,7 @@ export function ContactPage() {
                   </p>
 
                   {/* Submit */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={state === 'submitting'}
@@ -316,9 +281,6 @@ export function ContactPage() {
                         →
                       </span>
                     </button>
-                    <span className="text-[11px] tracking-[0.28em] uppercase text-stone font-semibold">
-                      Usually reply within an hour
-                    </span>
                   </div>
                 </form>
               )}
