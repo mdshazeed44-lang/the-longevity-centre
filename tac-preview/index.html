@@ -129,7 +129,20 @@
       "foundingDate": "2003",
       "telephone": "+91-88268-09123",
       "email": "info@thelongevitycentre.com",
-      "priceRange": "₹₹₹",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "S-79, Ground Floor, Greater Kailash-1",
+        "addressLocality": "New Delhi",
+        "addressRegion": "Delhi",
+        "postalCode": "110048",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 28.5456,
+        "longitude": 77.2417
+      },
       "areaServed": [
         { "@type": "Country", "name": "India" },
         { "@type": "City", "name": "Delhi" },
@@ -177,6 +190,7 @@
       "founder": [
         {
           "@type": "Person",
+          "@id": "https://thelongevitycentre.co/#dr-abhinav-sharma",
           "name": "Dr. Abhinav Sharma",
           "honorificPrefix": "Dr.",
           "honorificSuffix": "MBBS, MS",
@@ -185,6 +199,7 @@
         },
         {
           "@type": "Person",
+          "@id": "https://thelongevitycentre.co/#dr-bhavna-sharma",
           "name": "Dr. Bhavna Sharma",
           "honorificPrefix": "Dr.",
           "jobTitle": "Co-Founder · Reproductive & Sexual Anti-Aging",
@@ -214,7 +229,7 @@
             "addressCountry": "IN"
           },
           "geo": { "@type": "GeoCoordinates", "latitude": 28.5456, "longitude": 77.2417 },
-          "telephone": "+91-80-473-60047",
+          "telephone": "+91-88268-09123",
           "areaServed": ["Delhi", "South Delhi", "NCR"]
         },
         {
@@ -231,7 +246,7 @@
             "addressCountry": "IN"
           },
           "geo": { "@type": "GeoCoordinates", "latitude": 28.4126, "longitude": 77.0382 },
-          "telephone": "+91-11-408-44848",
+          "telephone": "+91-88268-09123",
           "areaServed": ["Gurugram", "DLF", "Cyber City", "Golf Course Road", "NCR"]
         },
         {
@@ -241,6 +256,7 @@
           "url": "https://thelongevitycentre.co/centres/mumbai",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Bandra West",
             "addressLocality": "Mumbai",
             "addressRegion": "Maharashtra",
             "addressCountry": "IN"
@@ -263,7 +279,7 @@
             "addressCountry": "IN"
           },
           "geo": { "@type": "GeoCoordinates", "latitude": 18.5089, "longitude": 73.9259 },
-          "telephone": "+91-11-408-44840",
+          "telephone": "+91-88268-09123",
           "areaServed": ["Pune", "Hadapsar", "Amanora", "Magarpatta"]
         },
         {
@@ -273,6 +289,7 @@
           "url": "https://thelongevitycentre.co/centres/nagpur",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Nagpur Centre",
             "addressLocality": "Nagpur",
             "addressRegion": "Maharashtra",
             "addressCountry": "IN"
@@ -288,6 +305,7 @@
           "url": "https://thelongevitycentre.co/centres/goa",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Panaji",
             "addressLocality": "Panaji",
             "addressRegion": "Goa",
             "addressCountry": "IN"
@@ -303,6 +321,7 @@
           "url": "https://thelongevitycentre.co/centres/bangalore",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Koramangala",
             "addressLocality": "Bengaluru",
             "addressRegion": "Karnataka",
             "addressCountry": "IN"
@@ -318,6 +337,7 @@
           "url": "https://thelongevitycentre.co/centres/hyderabad",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Banjara Hills",
             "addressLocality": "Hyderabad",
             "addressRegion": "Telangana",
             "addressCountry": "IN"
@@ -344,7 +364,15 @@
       "url": "https://thelongevitycentre.co/",
       "name": "The Longevity Centre",
       "publisher": { "@id": "https://thelongevitycentre.co/#organization" },
-      "inLanguage": "en-IN"
+      "inLanguage": "en-IN",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://thelongevitycentre.co/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
     }
     </script>
   </head>
