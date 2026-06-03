@@ -13,6 +13,7 @@ import { FoundersNote } from '../components/sections/FoundersNote'
 import { ClinicsBand } from '../components/sections/ClinicsBand'
 import { Faq } from '../components/sections/Faq'
 import { CtaBand } from '../components/sections/CtaBand'
+import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import { useDocumentMeta } from '../lib/seo'
 
 const HOME_META = {
@@ -69,6 +70,7 @@ export function HomePage() {
   return (
     <>
       <Hero />
+      <BrandAmbassador />
       <BenefitsHome />
       <Programs />
       <PressStrip />

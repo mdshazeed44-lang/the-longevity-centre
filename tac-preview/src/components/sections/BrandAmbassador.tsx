@@ -8,8 +8,11 @@
  * page's final CTA / footer.
  *
  * Pages with a bespoke page-specific Milind section (Programmes index,
- * Skin & Aesthetics, Centres, About, Home/Journey) keep their own
- * tailored copy and do NOT use this component.
+ * Skin & Aesthetics, Centres, About) keep their own tailored copy and
+ * do NOT use this component. Home uses this shared block as its
+ * "above the fold" brand-ambassador feature (slot #2, right after the
+ * Hero), and CtaBand.withPortrait carries the bottom form-attached
+ * portrait — two distinct contexts, not a duplicate.
  */
 export function BrandAmbassador() {
   return (
