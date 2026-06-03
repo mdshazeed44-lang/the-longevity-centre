@@ -139,6 +139,8 @@ export function ResultsSplit() {
                 putting a yoga subject in the frame. */}
             <img
               src="/longevity/brand/mood-feet-roots.jpg"
+              width={720}
+              height={1284}
               alt="Restored vitality — grounded, lasting results"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"

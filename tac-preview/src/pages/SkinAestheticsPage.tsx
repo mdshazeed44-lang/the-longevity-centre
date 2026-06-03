@@ -400,6 +400,8 @@ export function SkinAestheticsPage() {
             <div className="relative aspect-[16/11]">
               <img
                 src="/longevity/milind-skin.webp?v=3"
+                width={1000}
+                height={660}
                 alt="Milind Soman — Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"

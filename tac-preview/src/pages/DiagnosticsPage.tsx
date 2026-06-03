@@ -245,6 +245,8 @@ export function DiagnosticsPage() {
         {/* Background image — dark DNA helix, full bleed (LCP) */}
         <img
           src="/diagnostics/hero-dna.jpg"
+          width={2400}
+          height={1344}
           alt="DNA double helix — decoding your biology"
           loading="eager"
           fetchPriority="high"
@@ -366,6 +368,8 @@ export function DiagnosticsPage() {
           <div className="relative aspect-[5/4] overflow-hidden rounded-[20px] bg-mist">
             <img
               src="/diagnostics/blood-vials.jpg"
+              width={662}
+              height={686}
               alt="Lab technician sampling a labelled blood vial"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"

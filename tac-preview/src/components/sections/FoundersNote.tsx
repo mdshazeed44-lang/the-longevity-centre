@@ -139,6 +139,8 @@ export function FoundersNote() {
             <div className="relative min-h-[320px] md:min-h-full overflow-hidden bg-cream">
               <img
                 src="/team/founderboth.jpg"
+                width={960}
+                height={1280}
                 alt="Dr. Bhavna Sharma and Dr. Abhinav Sharma, co-founders of The Longevity Centre"
                 loading="lazy"
                 decoding="async"

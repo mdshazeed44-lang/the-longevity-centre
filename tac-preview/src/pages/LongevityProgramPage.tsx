@@ -496,7 +496,9 @@ export function LongevityProgramPage() {
           <span className="absolute inset-3 rounded-full border border-rust-soft/25 animate-[ping_5s_ease-in-out_infinite]" style={{ animationDelay: '0.8s' }} />
           {/* Inner disc */}
           <div className="relative w-[120px] h-[120px] rounded-full backdrop-blur-md bg-white/[0.08] border border-white/20 flex items-center justify-center shadow-[0_30px_80px_-25px_rgba(178,122,123,0.65)]">
-            <img src="/longevity/dna-icon.svg" alt="" className="w-12 h-12 opacity-95" style={{ animation: 'spin 50s linear infinite' }} />
+            <img src="/longevity/dna-icon.svg"
+  width={20}
+  height={20} alt="" className="w-12 h-12 opacity-95" style={{ animation: 'spin 50s linear infinite' }} />
             {/* Inner highlight */}
             <span className="absolute inset-2 rounded-full" style={{ background: 'radial-gradient(circle at 30% 25%, rgba(255,255,255,0.18), transparent 55%)' }} />
           </div>
@@ -643,39 +645,57 @@ export function LongevityProgramPage() {
             {/* Right — dense masonry of brand-guide mood imagery */}
             <div ref={moodRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3 auto-rows-[140px] sm:auto-rows-[110px] md:auto-rows-[120px]">
               <div className="mood-tile row-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-feet-moss.jpg" alt="Bare feet on moss" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-feet-moss.jpg"
+  width={800}
+  height={1200} alt="Bare feet on moss" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-zen-sand.jpg" alt="Zen sand garden" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-zen-sand.jpg"
+  width={1280}
+  height={890} alt="Zen sand garden" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile row-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-hands-pose.jpg" alt="Elegant hand pose" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-hands-pose.jpg"
+  width={800}
+  height={1199} alt="Elegant hand pose" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-leaf-skeleton.jpg" alt="Skeleton leaf detail" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-leaf-skeleton.jpg"
+  width={1100}
+  height={616} alt="Skeleton leaf detail" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-water-ripple.jpg" alt="Water ripple" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-water-ripple.jpg"
+  width={600}
+  height={1066} alt="Water ripple" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-body-mind-soul.jpg" alt="Body, mind and soul — TLC's whole-person framing" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-body-mind-soul.jpg"
+  width={600}
+  height={900} alt="Body, mind and soul — TLC's whole-person framing" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-terracotta.jpg" alt="Terracotta texture" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-terracotta.jpg"
+  width={720}
+  height={1279} alt="Terracotta texture" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile col-span-2 relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under tree with light beams" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-forest-light.jpg"
+  width={600}
+  height={1066} alt="Meditation under tree with light beams" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
-                <img src="/longevity/brand/mood-body-mind-soul.jpg" alt="Stone with body mind soul text" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+                <img src="/longevity/brand/mood-body-mind-soul.jpg"
+  width={600}
+  height={900} alt="Stone with body mind soul text" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
             </div>
@@ -767,7 +787,9 @@ export function LongevityProgramPage() {
                   <div className="flex items-center justify-between mb-3">
                     {/* DNA icon disc */}
                     <span className="w-9 h-9 rounded-full bg-ink/[0.04] group-hover:bg-rust/10 border border-mist group-hover:border-rust/30 flex items-center justify-center transition-all duration-500">
-                      <img src="/longevity/dna-icon.svg" alt="" className="w-4 h-4 transition-transform duration-700 group-hover:rotate-180" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
+                      <img src="/longevity/dna-icon.svg"
+  width={20}
+  height={20} alt="" className="w-4 h-4 transition-transform duration-700 group-hover:rotate-180" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
                     </span>
                     <span className="font-display font-bold text-[12px] tracking-[-0.005em] text-rust tabular-nums">{d.n}</span>
                   </div>
@@ -942,7 +964,9 @@ export function LongevityProgramPage() {
           {/* Right — featured brand image with floating caption card */}
           <div className="relative max-w-[460px] md:max-w-none mx-auto md:mx-0 w-full">
             <div className="relative aspect-[4/5] md:aspect-[5/4] rounded-[24px] overflow-hidden bg-mist shadow-[0_40px_100px_-50px_rgba(27,26,24,0.35)]">
-              <img src="/longevity/brand/mood-forest-light.jpg" alt="Meditation under a tree with morning light" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center" />
+              <img src="/longevity/brand/mood-forest-light.jpg"
+  width={600}
+  height={1066} alt="Meditation under a tree with morning light" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-center" />
               <div aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%)' }} />
               <div className="absolute bottom-5 left-5 right-5 text-white">
                 <div className="text-[10px] tracking-[0.32em] uppercase text-white/75 font-semibold mb-1.5">
@@ -957,7 +981,9 @@ export function LongevityProgramPage() {
             <div className="absolute -bottom-5 -left-5 md:-bottom-6 md:-left-6 backdrop-blur-md bg-white/90 border border-mist rounded-[18px] px-4 py-3 shadow-[0_30px_60px_-30px_rgba(27,26,24,0.3)] hidden sm:block">
               <div className="flex items-center gap-3">
                 <span className="w-9 h-9 rounded-full bg-ink flex items-center justify-center">
-                  <img src="/longevity/dna-icon.svg" alt="" className="w-4 h-4" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
+                  <img src="/longevity/dna-icon.svg"
+  width={20}
+  height={20} alt="" className="w-4 h-4" style={{ filter: 'invert(56%) sepia(25%) saturate(630%) hue-rotate(317deg) brightness(94%) contrast(86%)' }} />
                 </span>
                 <div>
                   <div className="text-[9px] tracking-[0.32em] uppercase text-stone font-semibold mb-0.5">Brand DNA</div>

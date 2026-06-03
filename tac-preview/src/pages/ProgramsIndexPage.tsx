@@ -408,6 +408,8 @@ function BrandAmbassador() {
         >
           <img
             src="/longevity/milind-soman.jpg?v=3"
+            width={1000}
+            height={660}
             alt="Milind Soman — Brand Ambassador, The Longevity Centre"
             loading="lazy"
             decoding="async"

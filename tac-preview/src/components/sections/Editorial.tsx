@@ -37,6 +37,8 @@ export function Editorial() {
           <img
             ref={imgRef}
             src="/longevity/diagnostics-lab.jpg"
+            width={810}
+            height={792}
             alt="Lab technician sampling a labelled blood vial — biomarker analysis"
             className="w-full h-[110%] object-cover"
           />

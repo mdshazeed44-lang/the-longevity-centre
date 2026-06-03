@@ -85,6 +85,8 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
             <div className="relative flex-1 min-h-[300px] overflow-hidden">
               <img
                 src="/longevity/milind-skin.webp?v=3"
+                width={1000}
+                height={660}
                 alt="Milind Soman — Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"
