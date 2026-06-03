@@ -33,11 +33,20 @@ export function ConsultationModal({ open, onClose }: Props) {
   const firstFieldRef = useRef<HTMLInputElement | null>(null)
   const operationalCentres = CENTRES.filter((c) => c.status === 'open')
 
-  // Body scroll lock + ESC handler — only active while open.
+  // Body scroll lock + Lenis pause + ESC handler — only active while open.
+  // The site uses Lenis smooth-scroll which hijacks wheel events at the
+  // page level, so plain `overflow: hidden` on body is not enough — we
+  // must also call lenis.stop() so the wheel events bubble up to the
+  // modal's own overflow-y-auto container instead of being consumed by
+  // Lenis to scroll the page underneath.
   useEffect(() => {
     if (!open) return
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+
+    // Pause Lenis so wheel/touch events on the modal scroll the modal,
+    // not the page beneath the backdrop.
+    window.__lenis?.stop()
 
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -49,6 +58,7 @@ export function ConsultationModal({ open, onClose }: Props) {
 
     return () => {
       document.body.style.overflow = previousOverflow
+      window.__lenis?.start()
       document.removeEventListener('keydown', handleKey)
       window.clearTimeout(t)
     }
@@ -111,8 +121,13 @@ export function ConsultationModal({ open, onClose }: Props) {
       />
 
       {/* Card — sits centred above the backdrop. Max-h with internal
-          scroll so it never overflows the viewport. */}
-      <div className="relative z-10 w-full max-w-[560px] max-h-[92svh] overflow-y-auto bg-cream rounded-[20px] shadow-[0_45px_90px_-30px_rgba(0,0,0,0.45)] animate-[scaleIn_0.28s_ease-out]">
+          scroll so it never overflows the viewport. `data-lenis-prevent`
+          tells the site-wide Lenis smooth-scroll to ignore wheel/touch
+          events here so the modal scrolls instead of the page. */}
+      <div
+        data-lenis-prevent
+        className="relative z-10 w-full max-w-[560px] max-h-[92svh] overflow-y-auto overscroll-contain bg-cream rounded-[20px] shadow-[0_45px_90px_-30px_rgba(0,0,0,0.45)] animate-[scaleIn_0.28s_ease-out]"
+      >
         {/* Close button — top-right */}
         <button
           type="button"
