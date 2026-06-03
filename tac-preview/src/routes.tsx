@@ -67,6 +67,9 @@ const SkinAestheticsDetailPage = lazy(() =>
 const BlogListPage = lazy(() =>
   import('./pages/BlogListPage').then((m) => ({ default: m.BlogListPage }))
 )
+const SitemapPage = lazy(() =>
+  import('./pages/SitemapPage').then((m) => ({ default: m.SitemapPage }))
+)
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
@@ -326,6 +329,7 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/diagnostics' }, Component: DiagnosticsPage },
   { match: { path: '/diagnostics/', prefix: true }, Component: DiagnosticDetailPage },
   { match: { path: '/blog' }, Component: BlogListPage },
+  { match: { path: '/sitemap' }, Component: SitemapPage },
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,

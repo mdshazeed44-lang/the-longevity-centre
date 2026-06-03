@@ -159,4 +159,7 @@
   <url><loc>https://thelongevitycentre.co/anti-aging-treatment-cost-in-india</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://thelongevitycentre.co/non-surgical-anti-aging-treatments-india</loc><lastmod>2026-06-02</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
+  <!-- ─── HTML sitemap — internal-link hub for orphan-page fix ──── -->
+  <url><loc>https://thelongevitycentre.co/sitemap</loc><lastmod>2026-06-03</lastmod><changefreq>weekly</changefreq><priority>0.3</priority></url>
+
 </urlset>

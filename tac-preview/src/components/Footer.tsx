@@ -162,6 +162,9 @@ export function Footer() {
             <a href="/terms" data-cursor="hover" className="hover:text-rust transition-colors">
               Terms
             </a>
+            <a href="/sitemap" data-cursor="hover" className="hover:text-rust transition-colors">
+              Sitemap
+            </a>
           </div>
           <div className="flex items-center gap-2">
             {SOCIALS.map((s) => (

@@ -182,8 +182,98 @@ const skin = loadLibModule('skin-treatments.ts')
 /** @type {{ path: string, title: string, description: string, content: string }[]} */
 const entries = []
 
+// ── HTML Sitemap body — built dynamically from every data module so
+//    every blog, landing, programme, diagnostic, skin treatment and
+//    centre URL gets a real internal inlink in static HTML. This is
+//    what fixes the Ahrefs "orphan pages" report — without this
+//    section, blogs + landings have 0 href inlinks because no other
+//    page lists them in its <noscript> body, only nav links.
+const sitemapSections = [
+  {
+    heading: 'Top-level pages',
+    items: [
+      { href: '/', label: 'Home' },
+      { href: '/about-us', label: 'About TLC' },
+      { href: '/longevity-program', label: 'Longevity Programme — Flagship' },
+      { href: '/programs', label: 'All Programmes' },
+      { href: '/diagnostics', label: 'Diagnostics' },
+      { href: '/skin-aesthetics', label: 'Skin & Aesthetics' },
+      { href: '/centres', label: 'Our Centres' },
+      { href: '/blog', label: 'Journal · Blog' },
+      { href: '/contact', label: 'Contact' },
+      { href: '/privacy', label: 'Privacy Policy' },
+      { href: '/terms', label: 'Terms of Service' },
+    ],
+  },
+  {
+    heading: 'TLC Flagship Programmes',
+    items: (programs.PROGRAMS || []).map((p) => ({
+      href: `/programs/${p.slug}`,
+      label: p.shortTitle || p.title,
+    })),
+  },
+  {
+    heading: 'Precision Diagnostics',
+    items: (diagnostics.DIAGNOSTICS || []).map((d) => ({
+      href: `/diagnostics/${d.slug}`,
+      label: d.name,
+    })),
+  },
+  {
+    heading: 'Skin & Aesthetics Treatments',
+    items: (skin.SKIN_TREATMENTS || []).map((s) => ({
+      href: `/skin-aesthetics/${s.slug}`,
+      label: s.title,
+    })),
+  },
+  {
+    heading: 'Our Centres Across India',
+    items: (centres.CENTRES || [])
+      .filter((c) => c.status === 'open')
+      .map((c) => ({
+        href: `/centres/${c.slug}`,
+        label: `Centre · ${c.city}`,
+      })),
+  },
+  {
+    heading: 'Longevity & Anti-Aging Guides',
+    items: (landings.LANDINGS || []).map((l) => ({
+      href: `/${l.slug}`,
+      label: l.h1 || l.title,
+    })),
+  },
+  {
+    heading: 'Blog Articles',
+    items: (blogs.BLOGS || []).map((b) => ({
+      href: `/${b.slug}`,
+      label: b.title,
+    })),
+  },
+]
+const sitemapBody = sitemapSections
+  .map((sec) => {
+    const lis = sec.items
+      .map(
+        (it) =>
+          `  <li><a href="${it.href}">${htmlEscape(it.label)}</a></li>`
+      )
+      .join('\n')
+    return `<h2>${htmlEscape(sec.heading)}</h2>\n<ul>\n${lis}\n</ul>`
+  })
+  .join('\n')
+
 // ── Static top-level pages ────────────────────────────────────────────
 const staticPages = [
+  {
+    path: '/sitemap',
+    title: 'Sitemap · The Longevity Centre',
+    description:
+      'Full index of every public page on The Longevity Centre — programmes, diagnostics, skin & aesthetics treatments, clinics, journal and resource pages.',
+    h1: 'Every page on The Longevity Centre',
+    body: `
+<p>A complete index of programmes, diagnostics, skin and aesthetics treatments, clinics, journal articles and resource pages on TLC.</p>
+${sitemapBody}`.trim(),
+  },
   {
     path: '/',
     title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
