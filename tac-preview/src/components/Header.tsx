@@ -12,6 +12,7 @@ import { reduceMotion } from '../lib/motion'
 import { PROGRAMS } from '../lib/programs'
 import { DIAGNOSTICS } from '../lib/diagnostics'
 import { SKIN_TREATMENTS } from '../lib/skin-treatments'
+import { ConsultationModal } from './ConsultationModal'
 
 type NavItem = {
   label: string
@@ -193,6 +194,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [consultOpen, setConsultOpen] = useState(false)
   const lastY = useRef(0)
   const navRef = useRef<HTMLElement>(null)
 
@@ -327,16 +329,17 @@ export function Header() {
               <span className="tabular-nums tracking-tight">+91 88268 09123</span>
             </a>
 
-            {/* Primary CTA — solid ink (dark) pill on the white header */}
-            <a
-              href="/contact"
+            {/* Primary CTA — opens the consultation modal popup */}
+            <button
+              type="button"
+              onClick={() => setConsultOpen(true)}
               data-cursor="hover"
               data-magnetic
               className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full bg-ink text-white text-[12px] lg:text-[12.5px] font-semibold tracking-tight hover:bg-rust transition-colors duration-500 whitespace-nowrap"
             >
               <span className="hidden lg:inline">Arrange a Consultation</span>
               <span className="lg:hidden">Book</span>
-            </a>
+            </button>
 
             {/* Hamburger button — mobile only */}
             <button
@@ -444,9 +447,12 @@ export function Header() {
               opacity: menuOpen ? 1 : 0,
             }}
           >
-            <a
-              href="/contact"
-              onClick={() => setMenuOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false)
+                setConsultOpen(true)
+              }}
               className="group flex items-center justify-between w-full pl-5 pr-2 py-3 bg-rust text-white rounded-full font-semibold text-[12px] tracking-[0.18em] uppercase shadow-[0_12px_30px_-12px_rgba(148,84,85,0.55)]"
             >
               <span className="flex items-center gap-2.5">
@@ -459,7 +465,7 @@ export function Header() {
               <span className="w-9 h-9 rounded-full bg-white text-rust flex items-center justify-center" aria-hidden="true">
                 →
               </span>
-            </a>
+            </button>
 
             <div className="flex items-center justify-between text-[12.5px] text-graphite pt-3 border-t border-ink/10">
               <a href="tel:+918826809123" aria-label="Call +91 88268 09123" className="inline-flex items-center gap-2 hover:text-rust transition-colors">
@@ -478,6 +484,12 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      {/* Consultation modal — opens from the header CTA (desktop + mobile) */}
+      <ConsultationModal
+        open={consultOpen}
+        onClose={() => setConsultOpen(false)}
+      />
     </>
   )
 }
