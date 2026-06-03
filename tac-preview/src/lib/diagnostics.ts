@@ -635,7 +635,7 @@ export const DIAGNOSTICS: Diagnostic[] = [
         '9 million CpG methylation sites analysed',
         'Validated against mortality and disease risk in 100,000+ subjects',
         'Re-tested at programme completion — progress made measurable',
-        'Most patients reverse biological age by 5–15 years over 12 months',
+        'Many patients see measurable reduction in biological age with sustained intervention',
       ],
     },
     benefits: [

@@ -23,7 +23,7 @@ const BENEFITS: Benefit[] = [
     n: '01',
     title: 'Lower biological age',
     body:
-      'Three validated clocks tracked over time. Most patients reverse their biological age by 5–15 years.',
+      'Three validated epigenetic clocks tracked over time. Many patients see measurable reduction in biological age with sustained intervention.',
     img: '/longevity/brand/mood-forest-light.jpg',
     alt: 'Forest light — longevity and vitality',
   },

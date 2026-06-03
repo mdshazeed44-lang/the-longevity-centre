@@ -40,7 +40,7 @@ const SECTIONS = [
     title: 'No Guarantee of Outcomes',
     body: [
       'Medicine deals with biology, not certainty. While our protocols are evidence-based and our outcomes are tracked, individual results vary based on genetics, lifestyle, adherence, and many factors outside our control.',
-      'Statistics presented (e.g. "patients reverse biological age by 5–15 years") are aggregate observations and not promises for any individual patient.',
+      'Any statistics, ranges or outcomes referenced on this site reflect aggregate observations across our patient cohort and are not promises of specific results for any individual patient.',
     ],
   },
   {
