@@ -156,6 +156,18 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-ink/10">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-graphite tracking-tight">
             <p>© {new Date().getFullYear()} TLC — The Longevity Centre.</p>
+            <p>
+              Designed by{' '}
+              <a
+                href="https://www.incrementors.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor="hover"
+                className="hover:text-rust transition-colors"
+              >
+                Incrementors
+              </a>
+            </p>
             <a href="/privacy" data-cursor="hover" className="hover:text-rust transition-colors">
               Privacy
             </a>
