@@ -72,11 +72,11 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:info@thelongevitycentre.com"
+                  href="mailto:info@thelongevitycentre.co"
                   data-cursor="hover"
                   className="text-graphite hover:text-rust transition-colors duration-300"
                 >
-                  info@thelongevitycentre.com
+                  info@thelongevitycentre.co
                 </a>
               </li>
               <li>

@@ -163,7 +163,7 @@ function siteFooter() {
   return `
 <footer>
   <p><strong>The Longevity Centre (TLC)</strong> — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Eight centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad.</p>
-  <p><a href="tel:+918826809123">+91 88268 09123</a> · <a href="mailto:info@thelongevitycentre.com">info@thelongevitycentre.com</a></p>
+  <p><a href="tel:+918826809123">+91 88268 09123</a> · <a href="mailto:info@thelongevitycentre.co">info@thelongevitycentre.co</a></p>
   <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sitemap">Sitemap</a></p>
   <p><small>Designed by <a href="https://www.incrementors.com/" rel="noopener">Incrementors</a></small></p>
 </footer>`.trim()
@@ -356,7 +356,7 @@ ${sitemapBody}`.trim(),
 <p>Book a 30-minute consultation with our clinical team. Available across 8 Indian cities.</p>
 <ul>
   <li>Phone: <a href="tel:+918826809123">+91 88268 09123</a></li>
-  <li>Email: <a href="mailto:info@thelongevitycentre.com">info@thelongevitycentre.com</a></li>
+  <li>Email: <a href="mailto:info@thelongevitycentre.co">info@thelongevitycentre.co</a></li>
 </ul>
 <p>City-wise contact details: <a href="/centres">Our Centres</a>.</p>`.trim(),
   },

@@ -78,7 +78,7 @@ export const CENTRES: Centre[] = [
     area: 'Greater Kailash-1',
     address: 'S-79, Ground Floor, Greater Kailash-1, New Delhi — 110048',
     phone: '+91 80 473 60047',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Longevity+Centre+Greater+Kailash+New+Delhi',
     mapsEmbed:
@@ -126,7 +126,7 @@ export const CENTRES: Centre[] = [
     address:
       'Block A1, Tikri, Vipul World, Sohna Road, Near GD Goenka Public School, Sector 48, Gurugram, Haryana — 122018',
     phone: '+91 11 408 44848',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=The+Longevity+Centre+Sector+48+Gurugram',
     mapsEmbed:
@@ -174,7 +174,7 @@ export const CENTRES: Centre[] = [
     address:
       'Unit No 3, 1st Floor, Atur House, Dr Annie Besant Rd, opposite Bharat Petrol Pump, above MG Select Showroom, Worli Naka, Siddharth Nagar, Worli, Mumbai, Maharashtra — 400018',
     phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Atur+House+Dr+Annie+Besant+Rd+Worli+Mumbai+400018',
     mapsEmbed:
@@ -222,7 +222,7 @@ export const CENTRES: Centre[] = [
     address:
       'Kumar Prism, 2nd Floor, 201, Amanora Town Centre, above Yes Bank, opp. Fab India, Kirtane Baug, Amanora Park Town, Hadapsar, Pune, Maharashtra — 411036',
     phone: '+91 11 408 44840',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Kumar+Prism+Amanora+Town+Centre+Hadapsar+Pune+411036',
     mapsEmbed:
@@ -270,7 +270,7 @@ export const CENTRES: Centre[] = [
     address:
       '213, W High Ct Rd, near Shankar Nagar Square, Dharampeth, Nagpur, Maharashtra — 440010',
     phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Asian+KHMC+Multispeciality+Hospital+Dharampeth+Nagpur+440010',
     mapsEmbed:
@@ -318,7 +318,7 @@ export const CENTRES: Centre[] = [
     address:
       'Villa 1, Dona Paula, Tesoro Building, opp. Le Valencia, Vainguinim Valley, Panaji, Durgavado, Goa — 403004',
     phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=LIFT+Dona+Paula+Vainguinim+Valley+Panaji+Goa+403004',
     mapsEmbed:
@@ -365,7 +365,7 @@ export const CENTRES: Centre[] = [
     area: 'Opening soon',
     address: 'Hyderabad · Telangana (centre opening 2026)',
     phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl:
       'https://www.google.com/maps/search/?api=1&query=Hyderabad+Telangana',
     mapsEmbed:
@@ -393,7 +393,7 @@ export const CENTRES: Centre[] = [
     address:
       '73, 3, First Floor, Railway Parallel Rd, 4th Block, Kumara Park West, Sadashivanagar, Seshadripuram, Bengaluru, Karnataka — 560020',
     phone: '+91 80767 19637',
-    email: 'info@thelongevitycentre.com',
+    email: 'info@thelongevitycentre.co',
     mapsUrl: 'https://share.google/wtT8CHje6mZfDhNCL',
     mapsEmbed:
       'https://www.google.com/maps?q=Clinic+Next+Face+Skin+Hair+Aesthetic+Clinic+Sadashivanagar+Kumara+Park+West+Bengaluru&output=embed',

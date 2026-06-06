@@ -331,8 +331,8 @@ export function ContactPage() {
                   />
                   <DirectLink
                     label="Email"
-                    value="info@thelongevitycentre.com"
-                    href="mailto:info@thelongevitycentre.com"
+                    value="info@thelongevitycentre.co"
+                    href="mailto:info@thelongevitycentre.co"
                   />
                 </div>
               </div>

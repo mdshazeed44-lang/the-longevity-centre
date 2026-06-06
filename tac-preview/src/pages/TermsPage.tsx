@@ -94,7 +94,7 @@ const SECTIONS = [
     n: '11',
     title: 'Contact',
     body: [
-      'Questions about these terms — email info@thelongevitycentre.com or write to us at the registered office address provided on our Centres page.',
+      'Questions about these terms — email info@thelongevitycentre.co or write to us at the registered office address provided on our Centres page.',
     ],
   },
 ]

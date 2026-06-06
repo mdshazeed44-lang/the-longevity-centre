@@ -445,7 +445,7 @@ export function AboutPage() {
           {/* Inline contact strip */}
           <div className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[12.5px] text-white/70">
             <a
-              href="mailto:info@thelongevitycentre.com"
+              href="mailto:info@thelongevitycentre.co"
               className="inline-flex items-center gap-2.5 hover:text-white transition-colors"
             >
               <span className="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center text-rust-soft">
@@ -454,7 +454,7 @@ export function AboutPage() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </span>
-              info@thelongevitycentre.com
+              info@thelongevitycentre.co
             </a>
             <a
               href="tel:+918826809123"

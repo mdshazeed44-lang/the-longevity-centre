@@ -51,7 +51,7 @@ const SECTIONS = [
     n: '05',
     title: 'Your Rights',
     body: [
-      'You have the right to access your complete medical record at any time — written request to info@thelongevitycentre.com gets you a copy within 30 days.',
+      'You have the right to access your complete medical record at any time — written request to info@thelongevitycentre.co gets you a copy within 30 days.',
       'You can correct any inaccuracies in your information.',
       'You can withdraw consent for any non-essential processing (newsletters, educational content, etc.) at any time.',
       'You can request deletion of your information, subject to medical-record retention requirements under Indian law.',
@@ -82,7 +82,7 @@ const SECTIONS = [
     n: '09',
     title: 'Contact',
     body: [
-      'For any privacy-related question, request, or complaint — email info@thelongevitycentre.com or call +91 88268 09123. Our Data Protection Officer responds within 5 working days.',
+      'For any privacy-related question, request, or complaint — email info@thelongevitycentre.co or call +91 88268 09123. Our Data Protection Officer responds within 5 working days.',
     ],
   },
 ]

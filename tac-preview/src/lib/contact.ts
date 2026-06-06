@@ -13,7 +13,7 @@ export const PHONE_DISPLAY = '+91 88268 09123'
 export const PHONE_TEL = '+918826809123'
 
 /** Primary clinic email. */
-export const EMAIL = 'info@thelongevitycentre.com'
+export const EMAIL = 'info@thelongevitycentre.co'
 
 /** WhatsApp deep link to the clinic line — opens Web/native WhatsApp pre-loaded. */
 export const WHATSAPP_URL =
