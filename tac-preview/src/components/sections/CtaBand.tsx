@@ -20,6 +20,7 @@
  */
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
+import { openBrochure } from '../../lib/contact'
 
 type FormState = 'idle' | 'submitting' | 'success'
 
@@ -63,7 +64,11 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
     const text = encodeURIComponent(lines.join('\n'))
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
 
+    // Open WhatsApp first (primary lead path), then the e-brochure
+    // in a second tab as a thank-you. Both inside the same submit
+    // gesture so popup blockers accept both.
     window.open(url, '_blank', 'noopener,noreferrer')
+    openBrochure()
     setState('success')
     form.reset()
   }
@@ -292,25 +297,36 @@ function FormSuccess() {
   return (
     <div className="bg-white/[0.06] border border-rust/30 rounded-[18px] p-5">
       <div className="text-[10px] tracking-[0.42em] uppercase text-rust font-semibold mb-2.5">
-        Almost there
+        Thank you
       </div>
       <h3 className="font-display text-white text-[17px] md:text-[19px] leading-[1.3] mb-2 font-light">
-        We&rsquo;ve opened WhatsApp with your details pre-filled.
+        Your TLC brochure is opening in a new tab.
       </h3>
       <p className="text-[13px] text-white/60 font-light leading-[1.55] mb-4">
-        Just hit <em>send</em> and our medical team will reply — usually
-        within an hour. If WhatsApp didn&rsquo;t open in a new tab, tap
-        below.
+        We&rsquo;ve also opened WhatsApp with your details pre-filled — just
+        hit <em>send</em> and our medical team will be in touch. If either
+        tab didn&rsquo;t open, use the buttons below.
       </p>
-      <a
-        href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-cursor="hover"
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
-      >
-        Open WhatsApp
-      </a>
+      <div className="flex flex-wrap gap-2.5">
+        <a
+          href="https://tlc-e-brochure-the-longevity-centre.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor="hover"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
+        >
+          Open Brochure
+        </a>
+        <a
+          href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor="hover"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-white/20 text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
+        >
+          Open WhatsApp
+        </a>
+      </div>
     </div>
   )
 }

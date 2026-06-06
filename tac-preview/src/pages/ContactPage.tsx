@@ -16,6 +16,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
+import { openBrochure, BROCHURE_URL } from '../lib/contact'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -111,8 +112,11 @@ export function ContactPage() {
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
 
     // Open WhatsApp in a new tab so the user can come back to /contact
-    // (success state) without losing context.
+    // (success state) without losing context. Then open the e-brochure
+    // in a second tab as a thank-you. Both calls inside the same
+    // submit click gesture so popup blockers accept both.
     window.open(url, '_blank', 'noopener,noreferrer')
+    openBrochure()
     setState('success')
     form.reset()
   }
@@ -488,17 +492,28 @@ function SuccessPanel() {
         </svg>
       </div>
       <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
-        — WhatsApp opening —
+        — Thank you —
       </div>
       <h3 className="font-display font-light text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-        One last step. <span className="font-bold text-rust">Send the message.</span>
+        Your brochure is{' '}
+        <span className="font-bold text-rust">opening now.</span>
       </h3>
-      <p className="text-[14.5px] leading-[1.7] text-graphite font-light max-w-[460px] mx-auto mb-8">
-        We've opened WhatsApp in a new tab with your details pre-filled.
-        Just hit <em>send</em> and our medical team will reply — usually
-        within an hour. If WhatsApp didn't open, tap the button below.
+      <p className="text-[14.5px] leading-[1.7] text-graphite font-light max-w-[480px] mx-auto mb-8">
+        Your TLC e-brochure has opened in a new tab. We&rsquo;ve also opened
+        WhatsApp with your details pre-filled — just hit <em>send</em> and
+        our medical team will be in touch to schedule your consultation. If
+        either tab didn&rsquo;t open, use the buttons below.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={BROCHURE_URL}
+          data-cursor="hover"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
+        >
+          Open Brochure
+        </a>
         <a
           href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
           data-cursor="hover"

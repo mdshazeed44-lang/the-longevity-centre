@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
+import { openBrochure, BROCHURE_URL } from '../lib/contact'
 
 const WHATSAPP_NUMBER = '918826809123'
 
@@ -98,7 +99,12 @@ export function ConsultationModal({ open, onClose }: Props) {
     const text = encodeURIComponent(lines.join('\n'))
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
 
+    // Open WhatsApp first (the primary lead-capture path), then the
+    // e-brochure in a second tab as a thank-you. Both calls are
+    // inside the same submit click gesture so browsers accept both
+    // popups without blocking.
     window.open(url, '_blank', 'noopener,noreferrer')
+    openBrochure()
     setState('success')
   }
 
@@ -154,13 +160,23 @@ export function ConsultationModal({ open, onClose }: Props) {
                 id="consult-title"
                 className="font-display font-light text-[24px] md:text-[28px] leading-[1.15] text-ink mb-3"
               >
-                Opening WhatsApp…
+                Thank you — your brochure is ready
               </h2>
-              <p className="text-[14px] leading-[1.65] text-graphite font-light max-w-[380px] mx-auto">
-                Tap <strong className="text-ink font-semibold">Send</strong> in
-                WhatsApp to share your request. Our medical team will be in
-                touch to schedule your consultation.
+              <p className="text-[14px] leading-[1.65] text-graphite font-light max-w-[400px] mx-auto">
+                Your TLC e-brochure has opened in a new tab. Our medical team
+                will also be in touch via WhatsApp to schedule your
+                consultation.
               </p>
+              <a
+                href={BROCHURE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-rust hover:text-ink text-[12px] tracking-[0.18em] font-semibold uppercase transition-colors"
+              >
+                Open Brochure
+                <span aria-hidden>→</span>
+              </a>
+              <div>
               <button
                 type="button"
                 onClick={onClose}
@@ -168,6 +184,7 @@ export function ConsultationModal({ open, onClose }: Props) {
               >
                 Done
               </button>
+              </div>
             </div>
           ) : (
             // ─── FORM STATE ────────────────────────────────────────
