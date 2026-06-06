@@ -21,6 +21,7 @@
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
 import { openBrochure } from '../../lib/contact'
+import { submitToLeadSquared } from '../../lib/leadsquared'
 
 type FormState = 'idle' | 'submitting' | 'success'
 
@@ -63,6 +64,15 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
 
     const text = encodeURIComponent(lines.join('\n'))
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
+
+    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
+    // never awaited so the WhatsApp + brochure flow below stays instant.
+    submitToLeadSquared({
+      name,
+      phone,
+      programme,
+      source: 'Website - Homepage CTA Band',
+    })
 
     // Open WhatsApp first (primary lead path), then the e-brochure
     // in a second tab as a thank-you. Both inside the same submit

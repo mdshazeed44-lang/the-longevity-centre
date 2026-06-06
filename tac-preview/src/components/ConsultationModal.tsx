@@ -21,6 +21,7 @@ import type { FormEvent } from 'react'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
 import { openBrochure, BROCHURE_URL } from '../lib/contact'
+import { submitToLeadSquared } from '../lib/leadsquared'
 
 const WHATSAPP_NUMBER = '918826809123'
 
@@ -98,6 +99,19 @@ export function ConsultationModal({ open, onClose }: Props) {
 
     const text = encodeURIComponent(lines.join('\n'))
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
+
+    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
+    // we never await on the user's critical path so a slow / failed LSQ
+    // request can't delay the WhatsApp + brochure delivery below.
+    submitToLeadSquared({
+      name,
+      phone,
+      email,
+      centre,
+      programme,
+      message,
+      source: 'Website - Header Consultation Popup',
+    })
 
     // Open WhatsApp first (the primary lead-capture path), then the
     // e-brochure in a second tab as a thank-you. Both calls are

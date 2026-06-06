@@ -17,6 +17,7 @@ import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
 import { openBrochure, BROCHURE_URL } from '../lib/contact'
+import { submitToLeadSquared } from '../lib/leadsquared'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -110,6 +111,19 @@ export function ContactPage() {
 
     const text = encodeURIComponent(lines.join('\n'))
     const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
+
+    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
+    // never awaited so a slow / failed LSQ request can't delay the
+    // WhatsApp + brochure delivery below.
+    submitToLeadSquared({
+      name,
+      phone,
+      email,
+      centre,
+      programme,
+      message,
+      source: 'Website - Contact Page Form',
+    })
 
     // Open WhatsApp in a new tab so the user can come back to /contact
     // (success state) without losing context. Then open the e-brochure
