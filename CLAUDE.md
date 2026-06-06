@@ -392,3 +392,141 @@ Final state at end of session:
 - All recent work documented here and pushed
 - Awaiting Hostinger File Manager upload to break the long-running
   "Ahrefs sees the old build" feedback loop.
+
+### 2026-06-06 — Post-deploy polish: Karan Mane, sitemap, brochure, LSQ, .com→.co
+
+Client uploaded the deploy zip earlier in the day and Ahrefs Health
+Score jumped from 19 → 94. New crawl surfaced one remaining warning
+(orphan pages) and the client returned with a string of incremental
+asks. Worked them in this order across one long session:
+
+1. **Dr. Karan Mane portrait added** — the Director's tile was
+   rendering a monogram-M fallback because no photo was on file.
+   Client supplied a 1194×1600 studio shot; saved as
+   `public/team/dr-karan-mane.jpg`, wired into SPECIALISTS[0] in
+   AboutPage.tsx with `objectPosition: 'center 25%'` so the face
+   (composed in the upper third of the source frame) stays centred
+   inside the circular crop.
+
+2. **HTML sitemap page — orphan-pages fix** — Ahrefs reported 20
+   URLs with `href inlinks = 0` (15 blog posts + 5 SEO landing
+   pages). All were listed in sitemap.xml but no other page linked
+   to them in static HTML, so crawlers flagged them orphan.
+   - New page `src/pages/SitemapPage.tsx` at `/sitemap` — lists every
+     URL grouped by section (top-level, programmes, diagnostics,
+     skin treatments, centres, landings, blogs)
+   - Registered as a lazy route in routes.tsx
+   - Added to public/sitemap.xml as a low-priority entry
+   - **Key fix**: updated `scripts/inject-meta.cjs` to add a /sitemap
+     entry to staticPages that builds the noscript body
+     dynamically from the same data modules the React app uses —
+     so the static `dist/sitemap/index.html` ships with 83 internal
+     links inside its `<noscript>` body, including all 20 orphans.
+   - Tertiary "Sitemap" link added to the footer (Privacy / Terms
+     row) — so every page links to /sitemap from its static HTML
+     noscript footer, giving crawlers a path in
+   - Result verified: pages with /sitemap link in static HTML = 75/75
+
+3. **"Designed by Incrementors" footer credit** — added to the
+   bottom row of Footer.tsx as a tertiary inline `<p>` next to
+   the existing copyright + Privacy / Terms / Sitemap links.
+   Same 12px / text-graphite styling, hover-rust accent on the
+   "Incrementors" anchor. Also added to the static noscript
+   footer in inject-meta.cjs so non-JS crawlers see it too.
+
+4. **Email domain .com → .co (23 instances across 9 files)** —
+   client (Dhairyasheel Shinde / Shiv Sir Lead, on WhatsApp)
+   flagged that the contact email read `info@thelongevitycentre.com`
+   but they do not own the .com domain. Their actual domain is
+   thelongevitycentre.co. Global Node script replaced every literal
+   `info@thelongevitycentre.com` → `info@thelongevitycentre.co`
+   across:
+     src/lib/contact.ts (1)  ·  src/lib/centres.ts (8)  ·
+     src/components/Footer.tsx (2)  ·  src/pages/AboutPage.tsx (2)
+     src/pages/ContactPage.tsx (2)  ·  src/pages/PrivacyPage.tsx (2)
+     src/pages/TermsPage.tsx (1)  ·  scripts/inject-meta.cjs (4)
+     index.html (1, MedicalBusiness JSON-LD email field)
+   Verified zero matches remain post-edit. URLs were always on .co —
+   only the email address was wrong.
+
+5. **E-brochure auto-delivery on every form submit** — client wants
+   the TLC e-brochure hosted at
+   `https://tlc-e-brochure-the-longevity-centre.netlify.app/` to
+   open automatically as a thank-you when any lead form is
+   submitted. New helper `openBrochure()` + `BROCHURE_URL` constant
+   in lib/contact.ts. Called from all 3 lead forms' submit handlers
+   right after the WhatsApp open. Both window.open calls are inside
+   the same submit click gesture so popup blockers accept both.
+
+6. **LeadSquared (LSQ) CRM integration — leads pushed via API** —
+   client wants every website lead to land in their LSQ CRM, not
+   just WhatsApp. Credentials supplied via WhatsApp screenshot
+   (region in21).
+   - New `src/lib/leadsquared.ts` — submitToLeadSquared() helper.
+     Fire-and-forget by design (never awaited on the user's
+     critical path so a slow / failed LSQ request can't delay
+     WhatsApp + brochure delivery)
+   - LSQ Lead Capture API endpoint is CORS-enabled by design;
+     credentials are scoped to lead-creation only so it's safe to
+     ship them in the frontend JS bundle (industry standard for
+     LSQ + static / SPA sites)
+   - Centre + programme + message bundled into the standard Notes
+     attribute so the integration works on day one without
+     waiting for `mx_PreferredCentre` + `mx_Programme` custom
+     fields to be created in the LSQ account. TODO comment marks
+     the swap point for when those custom fields go live.
+   - Wired into all 3 forms (ConsultationModal, CtaBand,
+     ContactPage) with distinct Source values so the LSQ team can
+     filter by origin form ("Website - Header Consultation Popup"
+     / "Website - Homepage CTA Band" / "Website - Contact Page Form")
+   - Live tested before commit: HTTP 200 · Status: Success ·
+     IsCreated: true, LeadId `5e48b96f-25c4-485e-9b96-6cf81722c775`
+
+7. **Removed WhatsApp from form-submit flow — LSQ + brochure only** —
+   client clarified: "WhatsApp pe lead nahi jaye, LSQ mein jaye.
+   Aur jab form submit ho jaye toh brochure download ho jaye." So
+   all 3 form submit handlers were rewritten:
+   - WhatsApp URL construction + `window.open(whatsappUrl)` removed
+   - `WHATSAPP_NUMBER` constant removed from ConsultationModal +
+     ContactPage (unused after the above)
+   - Submit button text: "Send via WhatsApp" → "Download Brochure"
+   - Submitting state: "Opening WhatsApp…" → "Submitting…"
+   - Success-state copy rewritten to focus on brochure delivery
+   - CtaBand's FormSuccess: removed the "Open WhatsApp" fallback
+     button, kept "Open Brochure" as the single fallback
+   - ContactPage's SuccessPanel: same — removed the WhatsApp
+     fallback button
+   - Helper text under the CtaBand submit button: "Submits to our
+     medical team via WhatsApp" → "Submitting opens our brochure
+     and notifies our medical team"
+   - Direct "Chat on WhatsApp" pills in the header, footer, and
+     sidebar contact cards on /contact, /about-us, /centres, etc.
+     were intentionally left untouched — those are visitor-
+     initiated direct contact channels with no form data, so they
+     don't conflict with the "no WhatsApp for lead delivery" rule
+
+8. **Live verification with client** — client tested the production
+   flow and confirmed "leadsq main jaa raha hai data" — leads
+   landing in LSQ, brochure opening, no WhatsApp interruption.
+   Mission accomplished.
+
+Commit chain (all pushed to origin/main):
+  1091e2a · Karan Mane portrait
+  b5dfe83 · HTML sitemap orphan fix
+  6e6c81d · Incrementors footer credit (React)
+  79e743f · Incrementors credit + Sitemap link in static noscript footer
+  19f0729 · Email .com → .co (23 instances)
+  06bda0e · E-brochure auto-delivery
+  7a5bf6c · LeadSquared CRM integration
+  ce60c85 · Stop WhatsApp lead delivery — LSQ + brochure only
+
+Outstanding (deferred, not blocking):
+- LSQ custom fields `mx_PreferredCentre` + `mx_Programme` — once
+  Dhairyasheel creates them in LSQ, swap the Notes-bundled
+  centre/programme to dedicated attributes in lib/leadsquared.ts
+  (2-line change marked with TODO comment)
+- Ahrefs re-crawl after the latest zip deploys — orphan-pages
+  count should drop 20 → 0, Health Score 94 → 96+
+- ~29 dynamic-src `<img>` tags still missing intrinsic
+  width/height (CLS hygiene — needs schema changes to data
+  modules, not blocking)
