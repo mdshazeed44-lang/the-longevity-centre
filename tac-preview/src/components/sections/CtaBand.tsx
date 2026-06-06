@@ -13,10 +13,11 @@
  *     their own dedicated Milind section (avoids two per page).
  *   - Stat strip (8 / 20+ / 1000+ / 3) full-width at the bottom.
  *
- * Form submission mirrors the ContactPage pattern — the values are
- * packaged into a pre-formatted WhatsApp message and opened in a new
- * tab so the clinic team can reply from their WhatsApp business
- * inbox. No backend / email setup needed.
+ * Form submission pushes the lead to LeadSquared CRM (only
+ * destination — no WhatsApp lead delivery as of 2026-06-06 per
+ * client) and opens the e-brochure in a new tab as the user-facing
+ * thank-you. The "Or WhatsApp / call" pills below the form remain
+ * as direct CONTACT options (visitor-initiated, no form data).
  */
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
@@ -24,8 +25,6 @@ import { openBrochure } from '../../lib/contact'
 import { submitToLeadSquared } from '../../lib/leadsquared'
 
 type FormState = 'idle' | 'submitting' | 'success'
-
-const WHATSAPP_NUMBER = '%2B918826809123'
 
 const STATS = [
   { k: '8', l: 'Centres pan-India' },
@@ -54,19 +53,9 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
     const programme =
       (data.get('programme') as string) || 'Not specified'
 
-    const lines = [
-      'Hello TLC team — new consultation request from the website.',
-      '',
-      `*Name:* ${name}`,
-      `*Phone:* ${phone}`,
-      `*Programme of interest:* ${programme}`,
-    ]
-
-    const text = encodeURIComponent(lines.join('\n'))
-    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
-
-    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
-    // never awaited so the WhatsApp + brochure flow below stays instant.
+    // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
+    // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
+    // LSQ mein jaye". WhatsApp message construction removed.
     submitToLeadSquared({
       name,
       phone,
@@ -74,10 +63,8 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
       source: 'Website - Homepage CTA Band',
     })
 
-    // Open WhatsApp first (primary lead path), then the e-brochure
-    // in a second tab as a thank-you. Both inside the same submit
-    // gesture so popup blockers accept both.
-    window.open(url, '_blank', 'noopener,noreferrer')
+    // Brochure auto-opens as the user-facing confirmation that the
+    // submit succeeded. This is the visual thank-you.
     openBrochure()
     setState('success')
     form.reset()
@@ -244,8 +231,8 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
                 </button>
 
                 <p className="text-[10px] tracking-[0.04em] text-white/35 font-light leading-[1.5] pt-1">
-                  Submits to our medical team via WhatsApp.{' '}
-                  <span className="text-white/25">No spam, ever.</span>
+                  Submitting opens our brochure and notifies our medical
+                  team. <span className="text-white/25">No spam, ever.</span>
                 </p>
               </form>
             )}
@@ -299,9 +286,10 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
 }
 
 /**
- * Success state — shown after the form opens WhatsApp. Tells the
- * user what just happened and gives them a way to do it again or
- * jump to the dedicated /contact page if WhatsApp didn't open.
+ * Success state — shown after the form has pushed the lead to LSQ
+ * and the brochure has opened in a new tab. Tells the user what just
+ * happened and gives them a one-click fallback to reopen the brochure
+ * if their browser blocked the popup.
  */
 function FormSuccess() {
   return (
@@ -313,30 +301,19 @@ function FormSuccess() {
         Your TLC brochure is opening in a new tab.
       </h3>
       <p className="text-[13px] text-white/60 font-light leading-[1.55] mb-4">
-        We&rsquo;ve also opened WhatsApp with your details pre-filled — just
-        hit <em>send</em> and our medical team will be in touch. If either
-        tab didn&rsquo;t open, use the buttons below.
+        We&rsquo;ve received your details and our medical team will be in
+        touch shortly. If the brochure tab didn&rsquo;t open, use the
+        button below.
       </p>
-      <div className="flex flex-wrap gap-2.5">
-        <a
-          href="https://tlc-e-brochure-the-longevity-centre.netlify.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cursor="hover"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
-        >
-          Open Brochure
-        </a>
-        <a
-          href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cursor="hover"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 border border-white/20 text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
-        >
-          Open WhatsApp
-        </a>
-      </div>
+      <a
+        href="https://tlc-e-brochure-the-longevity-centre.netlify.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cursor="hover"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
+      >
+        Open Brochure
+      </a>
     </div>
   )
 }

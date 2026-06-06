@@ -2,13 +2,11 @@
 // Two-column editorial layout: form on the left, direct-contact card on
 // the right (phone, WhatsApp, email + the 4 operational clinics).
 //
-// Lead handling: form submissions open WhatsApp directly with the
-// patient's details pre-filled as a message to the clinic line. No
-// email backend, no API key, no monthly cost — leads land in the
-// clinic's WhatsApp inbox and the medical team replies from there.
-//
-// To switch to email later, replace the handleSubmit body with a
-// Web3Forms / Formspree POST.
+// Lead handling: form submissions push the lead to LeadSquared CRM
+// (only destination — no WhatsApp lead delivery as of 2026-06-06 per
+// client) and open the e-brochure in a new tab as the user-facing
+// thank-you. The "Chat on WhatsApp" pill in the sidebar stays as a
+// direct CONTACT option (visitor-initiated, no form data).
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -21,9 +19,6 @@ import { submitToLeadSquared } from '../lib/leadsquared'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
 gsap.registerPlugin(ScrollTrigger)
-
-// Clinic WhatsApp number (digits only — Indian country code prefixed).
-const WHATSAPP_NUMBER = '918826809123'
 
 const META = {
   title: 'Begin a Consultation · TLC',
@@ -96,25 +91,9 @@ export function ContactPage() {
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
 
-    const lines = [
-      'Hello TLC team — new consultation request from the website.',
-      '',
-      `*Name:* ${name}`,
-      `*Phone:* ${phone}`,
-      `*Email:* ${email}`,
-      `*Preferred centre:* ${centre}`,
-      `*Programme of interest:* ${programme}`,
-    ]
-    if (message) {
-      lines.push('', '*Message:*', message)
-    }
-
-    const text = encodeURIComponent(lines.join('\n'))
-    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
-
-    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
-    // never awaited so a slow / failed LSQ request can't delay the
-    // WhatsApp + brochure delivery below.
+    // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
+    // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
+    // LSQ mein jaye". WhatsApp message construction removed.
     submitToLeadSquared({
       name,
       phone,
@@ -125,11 +104,8 @@ export function ContactPage() {
       source: 'Website - Contact Page Form',
     })
 
-    // Open WhatsApp in a new tab so the user can come back to /contact
-    // (success state) without losing context. Then open the e-brochure
-    // in a second tab as a thank-you. Both calls inside the same
-    // submit click gesture so popup blockers accept both.
-    window.open(url, '_blank', 'noopener,noreferrer')
+    // Brochure auto-opens as the user-facing confirmation that the
+    // submit succeeded. This is the visual thank-you.
     openBrochure()
     setState('success')
     form.reset()
@@ -291,7 +267,7 @@ export function ContactPage() {
                       data-magnetic
                       className="group inline-flex items-center gap-3 pl-6 pr-8 py-4 bg-ink text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      {state === 'submitting' ? 'Opening WhatsApp…' : 'Send via WhatsApp'}
+                      {state === 'submitting' ? 'Submitting…' : 'Download Brochure'}
                       <span
                         aria-hidden
                         className="inline-block transition-transform duration-500 group-hover:translate-x-1"
@@ -513,10 +489,10 @@ function SuccessPanel() {
         <span className="font-bold text-rust">opening now.</span>
       </h3>
       <p className="text-[14.5px] leading-[1.7] text-graphite font-light max-w-[480px] mx-auto mb-8">
-        Your TLC e-brochure has opened in a new tab. We&rsquo;ve also opened
-        WhatsApp with your details pre-filled — just hit <em>send</em> and
-        our medical team will be in touch to schedule your consultation. If
-        either tab didn&rsquo;t open, use the buttons below.
+        Your TLC e-brochure has opened in a new tab. We&rsquo;ve received
+        your details and our medical team will be in touch shortly to
+        schedule your consultation. If the brochure tab didn&rsquo;t open,
+        use the button below.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
         <a
@@ -527,15 +503,6 @@ function SuccessPanel() {
           className="inline-flex items-center gap-2 px-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
         >
           Open Brochure
-        </a>
-        <a
-          href="https://api.whatsapp.com/send/?phone=%2B918826809123&text&type=phone_number&app_absent=0"
-          data-cursor="hover"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3.5 bg-ink text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
-        >
-          Open WhatsApp
         </a>
         <a
           href="/"

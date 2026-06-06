@@ -3,10 +3,12 @@
  * "Arrange a Consultation" CTA.
  *
  * Same minimal fields as the contact page (name, phone, email,
- * preferred centre, programme of interest, free-text message) so the
- * clinic team gets a consistent WhatsApp message regardless of where
- * the enquiry originated. Mounts conditionally — does nothing at all
- * when `open` is false (no offscreen DOM, no listeners attached).
+ * preferred centre, programme of interest, free-text message). On
+ * submit the lead is pushed to LeadSquared CRM (only destination —
+ * no WhatsApp lead delivery as of 2026-06-06 per client) and the
+ * e-brochure opens in a new tab as the user-facing thank-you.
+ * Mounts conditionally — does nothing at all when `open` is false
+ * (no offscreen DOM, no listeners attached).
  *
  * Accessibility:
  *   - role="dialog" + aria-modal="true" + aria-labelledby
@@ -22,8 +24,6 @@ import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
 import { openBrochure, BROCHURE_URL } from '../lib/contact'
 import { submitToLeadSquared } from '../lib/leadsquared'
-
-const WHATSAPP_NUMBER = '918826809123'
 
 interface Props {
   open: boolean
@@ -86,23 +86,9 @@ export function ConsultationModal({ open, onClose }: Props) {
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
 
-    const lines = [
-      'Hello TLC team — new consultation request from the website.',
-      '',
-      `*Name:* ${name}`,
-      `*Phone:* ${phone}`,
-      `*Email:* ${email}`,
-      `*Preferred centre:* ${centre}`,
-      `*Programme of interest:* ${programme}`,
-    ]
-    if (message) lines.push('', '*Message:*', message)
-
-    const text = encodeURIComponent(lines.join('\n'))
-    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${text}&type=phone_number&app_absent=0`
-
-    // Push lead to LeadSquared CRM in the background. Fire-and-forget —
-    // we never await on the user's critical path so a slow / failed LSQ
-    // request can't delay the WhatsApp + brochure delivery below.
+    // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
+    // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
+    // LSQ mein jaye". WhatsApp message construction removed.
     submitToLeadSquared({
       name,
       phone,
@@ -113,11 +99,8 @@ export function ConsultationModal({ open, onClose }: Props) {
       source: 'Website - Header Consultation Popup',
     })
 
-    // Open WhatsApp first (the primary lead-capture path), then the
-    // e-brochure in a second tab as a thank-you. Both calls are
-    // inside the same submit click gesture so browsers accept both
-    // popups without blocking.
-    window.open(url, '_blank', 'noopener,noreferrer')
+    // Brochure auto-opens as the user-facing confirmation that the
+    // submit succeeded. This is the visual thank-you.
     openBrochure()
     setState('success')
   }
@@ -178,8 +161,7 @@ export function ConsultationModal({ open, onClose }: Props) {
               </h2>
               <p className="text-[14px] leading-[1.65] text-graphite font-light max-w-[400px] mx-auto">
                 Your TLC e-brochure has opened in a new tab. Our medical team
-                will also be in touch via WhatsApp to schedule your
-                consultation.
+                will be in touch shortly to schedule your consultation.
               </p>
               <a
                 href={BROCHURE_URL}
@@ -362,7 +344,7 @@ export function ConsultationModal({ open, onClose }: Props) {
                   disabled={state === 'submitting'}
                   className="group w-full inline-flex items-center justify-center gap-3 pl-5 pr-6 py-3.5 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {state === 'submitting' ? 'Opening WhatsApp…' : 'Send via WhatsApp'}
+                  {state === 'submitting' ? 'Submitting…' : 'Download Brochure'}
                   <span
                     aria-hidden
                     className="inline-block transition-transform duration-500 group-hover:translate-x-1"
