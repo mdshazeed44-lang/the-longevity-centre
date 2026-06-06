@@ -96,16 +96,18 @@ const FOUNDERS = [
 // the brochure PDF (pages 10–12). Founders shown in the dedicated
 // Founders section above; this list is the wider physician panel.
 //
-// Dr. Karan Mane (Director) is listed first per client request. No
-// portrait is published, so the card falls back to the monogram tile
-// (handled in the render below) — same treatment as any photo-less
-// member.
+// Dr. Karan Mane (Director) is listed first per client request.
+// Portrait added 2026-06-06 — 1194×1600 studio shot. Face sits in
+// the upper third of the frame, so the card uses object-position
+// 'center 25%' to keep the face centred inside the circular crop
+// instead of cropping it out at the top.
 const SPECIALISTS = [
   {
     name: 'Dr. Karan Mane',
     creds: 'MBBS · MS',
     role: 'Director · The Longevity Centre',
-    photo: '',
+    photo: '/team/dr-karan-mane.jpg?v=1',
+    objectPosition: 'center 25%',
   },
   {
     name: 'Dr. Rahul Chaube',
