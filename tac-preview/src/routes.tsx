@@ -70,6 +70,9 @@ const BlogListPage = lazy(() =>
 const SitemapPage = lazy(() =>
   import('./pages/SitemapPage').then((m) => ({ default: m.SitemapPage }))
 )
+const AdLandingPage = lazy(() =>
+  import('./pages/AdLandingPage').then((m) => ({ default: m.AdLandingPage }))
+)
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
@@ -330,6 +333,7 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/diagnostics/', prefix: true }, Component: DiagnosticDetailPage },
   { match: { path: '/blog' }, Component: BlogListPage },
   { match: { path: '/sitemap' }, Component: SitemapPage },
+  { match: { path: '/longevity-programme-india' }, Component: AdLandingPage },
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,

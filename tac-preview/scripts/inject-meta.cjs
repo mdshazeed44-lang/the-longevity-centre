@@ -276,6 +276,46 @@ const staticPages = [
 ${sitemapBody}`.trim(),
   },
   {
+    path: '/longevity-programme-india',
+    title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
+    description:
+      "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Get the e-brochure.",
+    h1: 'Live longer. Live measurably better.',
+    body: `
+<p><strong>India's first doctor-led longevity programme.</strong> A 12-month, physician-guided protocol that measures your biology with 1000+ diagnostics, corrects what's drifting and verifies progress with three validated biological-age clocks.</p>
+<h2>What&rsquo;s inside the programme</h2>
+<ul>
+  <li>Three validated epigenetic clocks (Horvath, GrimAge, PhenoAge) tracked over 12 months</li>
+  <li>Whole-genomic sequencing — 9 million CpG methylation sites + full DNA</li>
+  <li>Gut microbiome mapping — shotgun sequencing, bacterial diversity, inflammation markers</li>
+  <li>Hormonal optimisation — thyroid, cortisol, sex hormones, growth markers</li>
+  <li>Metabolic correction — weight, insulin resistance, fatty liver, lipid profile</li>
+  <li>Continuous physician care from a multidisciplinary panel</li>
+</ul>
+<h2>How it works — four phases</h2>
+<ol>
+  <li><strong>Assessment</strong> — Blood, genomic, body composition, microbiome and biological-age tests in one visit.</li>
+  <li><strong>Analysis</strong> — Your specialist panel reads every marker against your goals.</li>
+  <li><strong>Intervention</strong> — Personalised nutrition, supplementation, hormone correction, lifestyle and therapeutics.</li>
+  <li><strong>Verification</strong> — Re-tested at completion. Progress made measurable, not promised.</li>
+</ol>
+<h2>Founders &amp; team</h2>
+<p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of longevity physicians, endocrinologists and metabolic specialists.</p>
+<h2>Our eight centres across India</h2>
+<ul>
+  <li><a href="/centres/delhi">Delhi</a> (flagship)</li>
+  <li><a href="/centres/gurgaon">Gurgaon</a></li>
+  <li><a href="/centres/mumbai">Mumbai</a></li>
+  <li><a href="/centres/pune">Pune</a></li>
+  <li><a href="/centres/nagpur">Nagpur</a></li>
+  <li><a href="/centres/goa">Goa</a></li>
+  <li><a href="/centres/bangalore">Bangalore</a></li>
+  <li><a href="/centres/hyderabad">Hyderabad</a></li>
+</ul>
+<p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
+<p>For full programme details and pricing, request the <a href="/contact">brochure</a> or call +91 88268 09123.</p>`.trim(),
+  },
+  {
     path: '/',
     title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
     description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 8 cities.',

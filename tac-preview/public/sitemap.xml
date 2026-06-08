@@ -162,4 +162,7 @@
   <!-- ─── HTML sitemap — internal-link hub for orphan-page fix ──── -->
   <url><loc>https://thelongevitycentre.co/sitemap</loc><lastmod>2026-06-03</lastmod><changefreq>weekly</changefreq><priority>0.3</priority></url>
 
+  <!-- ─── Ad landing page (paid traffic, lead-gen) ───────────────── -->
+  <url><loc>https://thelongevitycentre.co/longevity-programme-india</loc><lastmod>2026-06-06</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+
 </urlset>

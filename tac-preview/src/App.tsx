@@ -14,7 +14,7 @@
  * file — they're now in src/components/sections/ and imported directly
  * by the pages that need them.
  */
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -25,7 +25,36 @@ import { reduceMotion } from './lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Routes that opt OUT of the site chrome (Header + Footer). Ad landing
+// pages want a single conversion goal with zero navigation distractions,
+// so they render their own minimal top bar and footer inside the page
+// component itself.
+const CHROMELESS_ROUTES = new Set<string>([
+  '/longevity-programme-india',
+])
+
+function isChromelessRoute(pathname: string): boolean {
+  const normalised = pathname.replace(/\/$/, '') || '/'
+  return CHROMELESS_ROUTES.has(normalised)
+}
+
 function App({ children }: { children: ReactNode }) {
+  // Track pathname so the layout responds to client-side route changes
+  // (popstate / pushState) without remounting App. Init from the current
+  // pathname for SSR-safety + first-render correctness.
+  const [pathname, setPathname] = useState(() =>
+    typeof window === 'undefined' ? '/' : window.location.pathname
+  )
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const sync = () => setPathname(window.location.pathname)
+    window.addEventListener('popstate', sync)
+    return () => window.removeEventListener('popstate', sync)
+  }, [])
+
+  const chromeless = isChromelessRoute(pathname)
+
   useEffect(() => {
     if (reduceMotion()) return
     // Lerp-based smoothing (each frame moves 9% toward the target
@@ -59,11 +88,11 @@ function App({ children }: { children: ReactNode }) {
   return (
     <div className="bg-white text-graphite">
       <Cursor />
-      <Header />
+      {!chromeless && <Header />}
       <main id="main" tabIndex={-1}>
         {children}
       </main>
-      <Footer />
+      {!chromeless && <Footer />}
     </div>
   )
 }
