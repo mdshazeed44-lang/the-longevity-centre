@@ -133,7 +133,7 @@ function InlineCta({ eyebrow, headline, onCtaClick, variant = 'cream' }: InlineC
         }}
       />
       <div className="relative z-10 max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-5 md:gap-8">
-        <div className="md:max-w-[560px]">
+        <div className="md:max-w-[520px]">
           {eyebrow && (
             <div className="flex items-center gap-2.5 mb-2">
               <span className="w-7 h-px bg-rust" />
@@ -149,17 +149,38 @@ function InlineCta({ eyebrow, headline, onCtaClick, variant = 'cream' }: InlineC
             </h3>
           )}
         </div>
-        <button
-          type="button"
-          onClick={onCtaClick}
-          data-cursor="hover"
-          className="group shrink-0 inline-flex items-center gap-3 pl-5 pr-2 py-2 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
-        >
-          <span>Arrange a Consultation</span>
-          <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rust text-white transition-transform group-hover:translate-x-0.5">
-            →
-          </span>
-        </button>
+
+        {/* Twin CTAs — Call (secondary outline pill) + Arrange a
+            Consultation (primary dark pill that opens the modal).
+            Two channels for the visitor: phone for instant talk,
+            form for documented lead capture. Both end up with the
+            clinic team. */}
+        <div className="shrink-0 flex flex-wrap items-center gap-3">
+          <a
+            href={`tel:${PHONE_TEL}`}
+            data-cursor="hover"
+            className="group inline-flex items-center gap-2.5 pl-4 pr-5 py-2.5 bg-white border border-ink/15 text-ink text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
+            aria-label={`Call ${PHONE_DISPLAY}`}
+          >
+            <span aria-hidden className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-rust text-white">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </span>
+            <span>Call Now</span>
+          </a>
+          <button
+            type="button"
+            onClick={onCtaClick}
+            data-cursor="hover"
+            className="group inline-flex items-center gap-3 pl-5 pr-2 py-2 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+          >
+            <span>Arrange a Consultation</span>
+            <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rust text-white transition-transform group-hover:translate-x-0.5">
+              →
+            </span>
+          </button>
+        </div>
       </div>
     </section>
   )
