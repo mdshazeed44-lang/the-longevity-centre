@@ -144,7 +144,7 @@ export function ConsultationModal({ open, onClose }: Props) {
           </svg>
         </button>
 
-        <div className="px-6 md:px-9 pt-9 md:pt-10 pb-7 md:pb-8">
+        <div className="px-5 md:px-7 pt-6 md:pt-7 pb-5 md:pb-6">
           {state === 'success' ? (
             // ─── SUCCESS STATE ─────────────────────────────────────
             <div className="text-center py-6">
@@ -185,7 +185,7 @@ export function ConsultationModal({ open, onClose }: Props) {
           ) : (
             // ─── FORM STATE ────────────────────────────────────────
             <>
-              <div className="mb-6">
+              <div className="mb-4">
                 <div className="inline-flex items-center gap-2.5 mb-3">
                   <span className="w-7 h-px bg-rust" />
                   <span className="text-[9.5px] md:text-[10px] tracking-[0.4em] uppercase text-rust font-semibold">
@@ -194,14 +194,14 @@ export function ConsultationModal({ open, onClose }: Props) {
                 </div>
                 <h2
                   id="consult-title"
-                  className="font-display font-light text-[24px] md:text-[30px] leading-[1.12] tracking-[-0.02em] text-ink"
+                  className="font-display font-light text-[20px] md:text-[24px] leading-[1.15] tracking-[-0.02em] text-ink"
                 >
                   A 30-minute conversation.{' '}
                   <span className="font-bold italic text-rust">No commitment.</span>
                 </h2>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 {/* Name + Phone — required */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
@@ -310,23 +310,6 @@ export function ConsultationModal({ open, onClose }: Props) {
                       ))}
                     </select>
                   </div>
-                </div>
-
-                {/* Free-text message */}
-                <div>
-                  <label
-                    htmlFor="cm-message"
-                    className="block text-[10px] tracking-[0.3em] uppercase text-stone font-semibold mb-1.5"
-                  >
-                    Anything Specific
-                  </label>
-                  <textarea
-                    id="cm-message"
-                    name="message"
-                    rows={3}
-                    placeholder="Symptoms, goals, questions — whatever you'd like our doctors to know in advance."
-                    className={`${inputCls} resize-none`}
-                  />
                 </div>
 
                 {/* Consent */}
