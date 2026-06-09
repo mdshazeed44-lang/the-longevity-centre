@@ -448,7 +448,13 @@ export function AdLandingPage() {
           floating-pill feel as the main-site Header but with one
           single CTA instead of full nav, so the LP stays focused.
           ────────────────────────────────────────────────────────────── */}
-      <header className="absolute top-0 inset-x-0 z-40 px-4 md:px-6 pt-3 md:pt-4">
+      {/* Sticky floating top bar — stays visible at every scroll
+          depth so the "Arrange a Consultation" pill is always one
+          click away. Uses `fixed` (not `sticky`) so the pill remains
+          at the viewport top even when the document's overall
+          scroll position is mid-page; the hero's pt-28 padding
+          already reserves space for it. */}
+      <header className="fixed top-0 inset-x-0 z-40 px-4 md:px-6 pt-3 md:pt-4">
         <div className="max-w-[1400px] mx-auto bg-white/90 backdrop-blur-md border border-ink/8 rounded-[18px] px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between shadow-[0_15px_40px_-20px_rgba(27,26,24,0.18)]">
           {/* Non-clickable on the ad LP — we keep paid-ad visitors on
               this page and route every interaction through the form
