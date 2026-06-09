@@ -37,6 +37,7 @@ import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
 import { Faq } from '../components/sections/Faq'
+import { ConsultationModal } from '../components/ConsultationModal'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -326,6 +327,12 @@ function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; the
 export function AdLandingPage() {
   useDocumentMeta(META)
   const heroRef = useRef<HTMLElement>(null)
+  // Top-bar "Arrange a Consultation" pill opens the same popup form
+  // used on the main site Header — gives the visitor a second way
+  // to convert without losing their place on the LP. The pop-up
+  // form pushes to LSQ + opens the brochure exactly like the inline
+  // hero form does.
+  const [consultOpen, setConsultOpen] = useState(false)
 
   // Masked-line headline reveal + fade-up on the supporting copy —
   // same animation grammar the main-site Hero uses, so the LP opens
@@ -380,11 +387,15 @@ export function AdLandingPage() {
               </svg>
               {PHONE_DISPLAY}
             </a>
-            <a href="#lead-form" className="inline-flex items-center gap-2 pl-4 pr-2 py-1.5 bg-ink text-white text-[10.5px] tracking-[0.18em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500">
+            <button
+              type="button"
+              onClick={() => setConsultOpen(true)}
+              className="inline-flex items-center gap-2 pl-4 pr-2 py-1.5 bg-ink text-white text-[10.5px] tracking-[0.18em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+            >
               <span className="hidden sm:inline">Arrange a Consultation</span>
               <span className="sm:hidden">Book</span>
               <span aria-hidden className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-rust text-white">→</span>
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -573,6 +584,16 @@ export function AdLandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* Consultation popup — opened by the top-bar "Arrange a
+          Consultation" pill. Same component used by the main-site
+          Header so the LP popup matches the website's UX exactly:
+          ESC + backdrop close, Lenis paused while open, autofocus
+          on the first field, submit → LSQ + brochure tab. */}
+      <ConsultationModal
+        open={consultOpen}
+        onClose={() => setConsultOpen(false)}
+      />
     </div>
   )
 }
