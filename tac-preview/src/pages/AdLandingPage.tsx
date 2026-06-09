@@ -381,7 +381,8 @@ export function AdLandingPage() {
               {PHONE_DISPLAY}
             </a>
             <a href="#lead-form" className="inline-flex items-center gap-2 pl-4 pr-2 py-1.5 bg-ink text-white text-[10.5px] tracking-[0.18em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500">
-              <span>Get Brochure</span>
+              <span className="hidden sm:inline">Arrange a Consultation</span>
+              <span className="sm:hidden">Book</span>
               <span aria-hidden className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-rust text-white">→</span>
             </a>
           </div>
