@@ -611,21 +611,14 @@ export function AdLandingPage() {
         </div>
       </section>
 
-      {/* MINIMAL FOOTER */}
+      {/* MINIMAL FOOTER — just copyright. No nav links, no external
+          credit. Ad LP keeps every interaction inside the page. */}
       <footer className="bg-ink text-cream/55 px-5 md:px-8 py-7 border-t border-cream/10">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[11px]">
-          <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-full bg-rust flex items-center justify-center">
-              <span className="text-white text-[9px] font-bold tracking-tight">TLC</span>
-            </div>
-            <div>© {new Date().getFullYear()} The Longevity Centre · All Rights Reserved</div>
+        <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-2.5 text-[11px] text-center">
+          <div className="w-6 h-6 rounded-full bg-rust flex items-center justify-center">
+            <span className="text-white text-[9px] font-bold tracking-tight">TLC</span>
           </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5">
-            <a href="/privacy" className="hover:text-rust-soft transition-colors">Privacy</a>
-            <a href="/terms" className="hover:text-rust-soft transition-colors">Terms</a>
-            <a href="/" className="hover:text-rust-soft transition-colors">Main Site</a>
-            <span>Designed by <a href="https://www.incrementors.com/" target="_blank" rel="noopener noreferrer" className="hover:text-rust-soft transition-colors">Incrementors</a></span>
-          </div>
+          <div>© {new Date().getFullYear()} The Longevity Centre · All Rights Reserved</div>
         </div>
       </footer>
 
