@@ -333,7 +333,7 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/diagnostics/', prefix: true }, Component: DiagnosticDetailPage },
   { match: { path: '/blog' }, Component: BlogListPage },
   { match: { path: '/sitemap' }, Component: SitemapPage },
-  { match: { path: '/longevity-programme-india' }, Component: AdLandingPage },
+  { match: { path: '/longevity-programme-india-LP' }, Component: AdLandingPage },
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,
