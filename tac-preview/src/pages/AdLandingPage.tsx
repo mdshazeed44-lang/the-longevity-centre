@@ -291,18 +291,29 @@ function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
           ))}
         </div>
 
-        {/* Footer CTA — opens the consultation popup form so the
-            visitor's next action stays on the LP. */}
-        <div className="mt-14 md:mt-16 text-center">
+        {/* Footer CTAs — twin pills (form + phone), same sizing as
+            the InlineCta strips for visual consistency across the LP. */}
+        <div className="mt-14 md:mt-16 flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
             onClick={onCtaClick}
             data-cursor="hover"
-            className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+            className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
           >
             <span>Arrange a Consultation</span>
-            <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rust text-white">→</span>
+            <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
           </button>
+          <a
+            href={`tel:${PHONE_TEL}`}
+            data-cursor="hover"
+            className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white border border-ink/15 text-ink text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
+            aria-label={`Call ${PHONE_DISPLAY}`}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            <span>Call Now</span>
+          </a>
         </div>
       </div>
     </section>

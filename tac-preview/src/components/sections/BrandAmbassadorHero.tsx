@@ -17,11 +17,19 @@
 interface Props {
   /** Optional click handler for the "Begin Your Journey" CTA. When
    *  provided, the CTA renders as a <button> calling onCtaClick
-   *  (used by the ad LP to open the in-page consultation modal
-   *  instead of navigating off-page). When omitted (homepage
-   *  usage), the CTA renders as the original <a href="/contact">. */
+   *  AND a secondary "Call Now" pill is added next to it (used by
+   *  the ad LP to offer both form + phone channels). When omitted
+   *  (homepage usage), the CTA renders as the original
+   *  <a href="/contact"> only — no phone pill. */
   onCtaClick?: () => void
 }
+
+// Ad-LP phone number — only rendered when this component is used
+// in callback mode (onCtaClick passed). Hardcoded here so the
+// shared component doesn't have to depend on lib/contact when
+// the homepage uses it.
+const PHONE_TEL = '+918826809123'
+const PHONE_DISPLAY = '+91 88268 09123'
 
 export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
   return (
@@ -119,21 +127,30 @@ export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
             </blockquote>
 
             {onCtaClick ? (
-              <button
-                type="button"
-                onClick={onCtaClick}
-                data-cursor="hover"
-                data-magnetic
-                className="group inline-flex items-center gap-3 pl-4 pr-6 py-3 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
-              >
-                Begin Your Journey
-                <span
-                  aria-hidden
-                  className="inline-block transition-transform duration-500 group-hover:translate-x-1"
+              // Ad LP — twin pills: form (primary) + phone (secondary)
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={onCtaClick}
+                  data-cursor="hover"
+                  data-magnetic
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                 >
-                  →
-                </span>
-              </button>
+                  <span>Begin Your Journey</span>
+                  <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                </button>
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  data-cursor="hover"
+                  className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-white border border-ink/15 text-ink text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:text-rust transition-colors duration-500"
+                  aria-label={`Call ${PHONE_DISPLAY}`}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  <span>Call Now</span>
+                </a>
+              </div>
             ) : (
               <a
                 href="/contact"
