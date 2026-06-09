@@ -38,6 +38,7 @@ import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
 import { Faq } from '../components/sections/Faq'
 import { ConsultationModal } from '../components/ConsultationModal'
+import { Logo } from '../components/Logo'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -371,15 +372,13 @@ export function AdLandingPage() {
           ────────────────────────────────────────────────────────────── */}
       <header className="absolute top-0 inset-x-0 z-40 px-4 md:px-6 pt-3 md:pt-4">
         <div className="max-w-[1400px] mx-auto bg-white/90 backdrop-blur-md border border-ink/8 rounded-[18px] px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between shadow-[0_15px_40px_-20px_rgba(27,26,24,0.18)]">
-          <a href="/" className="flex items-center gap-2.5" aria-label="The Longevity Centre">
-            <div className="w-9 h-9 rounded-[10px] bg-rust flex items-center justify-center">
-              <span className="text-white text-[11.5px] font-bold tracking-tight">TLC</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-display text-[11.5px] leading-[1.1] tracking-[0.06em] text-ink font-medium">THE LONGEVITY</div>
-              <div className="font-display text-[11.5px] leading-[1.1] tracking-[0.06em] text-ink font-medium">CENTRE</div>
-            </div>
-          </a>
+          {/* Non-clickable on the ad LP — we keep paid-ad visitors on
+              this page and route every interaction through the form
+              or the consultation popup. The brand mark is decorative
+              only here (no <a> wrapper, no homepage link). */}
+          <div className="flex items-center" aria-label="The Longevity Centre">
+            <Logo variant="dark" size={40} />
+          </div>
           <div className="flex items-center gap-3 md:gap-5">
             <a href={`tel:${PHONE_TEL}`} className="hidden md:inline-flex items-center gap-2 text-[12px] text-graphite font-medium hover:text-rust transition-colors">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
