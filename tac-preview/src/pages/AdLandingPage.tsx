@@ -744,11 +744,9 @@ export function AdLandingPage() {
 
       {/* SLIM FOOTER — single line copyright, minimal vertical space.
           Ad LP keeps every pixel working toward conversion. */}
-      <footer className="bg-ink text-cream/50 px-5 md:px-8 py-3 border-t border-cream/10">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-2 text-[10.5px] text-center">
-          <div className="w-4 h-4 rounded-full bg-rust flex items-center justify-center">
-            <span className="text-white text-[7px] font-bold tracking-tight">TLC</span>
-          </div>
+      <footer className="bg-ink text-cream/45 px-5 md:px-8 py-1.5 border-t border-cream/10">
+        <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-1.5 text-[9.5px] tracking-tight text-center">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-rust shrink-0" aria-hidden="true" />
           <span>© {new Date().getFullYear()} The Longevity Centre · All Rights Reserved</span>
         </div>
       </footer>
