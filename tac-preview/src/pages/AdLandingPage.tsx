@@ -1,7 +1,7 @@
 /**
  * AdLandingPage — Google Ads landing page.
  *
- * Lives at /longevity-programme-india-LP. Composed from the same
+ * Lives at /longevity-programme-india-lp. Composed from the same
  * brand sections that ship on the homepage so the LP reads as a
  * continuation of TLC's visual language (cream + rust palette,
  * font-display serif headings with bold-italic rust accents,
@@ -46,12 +46,12 @@ const META = {
   title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
   description:
     "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Get the e-brochure.",
-  path: '/longevity-programme-india-LP',
+  path: '/longevity-programme-india-lp',
   ogImage: '/og/home.jpg',
   jsonLd: [
     breadcrumbList([
       { name: 'Home', url: '/' },
-      { name: 'Longevity Programme', url: '/longevity-programme-india-LP' },
+      { name: 'Longevity Programme', url: '/longevity-programme-india-lp' },
     ]),
   ],
 }

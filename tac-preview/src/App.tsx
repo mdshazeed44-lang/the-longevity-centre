@@ -30,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger)
 // so they render their own minimal top bar and footer inside the page
 // component itself.
 const CHROMELESS_ROUTES = new Set<string>([
-  '/longevity-programme-india-LP',
+  '/longevity-programme-india-lp',
 ])
 
 function isChromelessRoute(pathname: string): boolean {
