@@ -14,7 +14,16 @@
  * Used ONLY on HomePage. The shared <BrandAmbassador /> remains the
  * supporting block on Skin Aesthetics, Centres, Programs, About.
  */
-export function BrandAmbassadorHero() {
+interface Props {
+  /** Optional click handler for the "Begin Your Journey" CTA. When
+   *  provided, the CTA renders as a <button> calling onCtaClick
+   *  (used by the ad LP to open the in-page consultation modal
+   *  instead of navigating off-page). When omitted (homepage
+   *  usage), the CTA renders as the original <a href="/contact">. */
+  onCtaClick?: () => void
+}
+
+export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
   return (
     <section className="relative bg-cream overflow-hidden min-h-[100svh] flex items-center">
       {/* Soft warm tinted glow — cream warming to a faint rust tint at
@@ -109,20 +118,38 @@ export function BrandAmbassadorHero() {
               </p>
             </blockquote>
 
-            <a
-              href="/contact"
-              data-cursor="hover"
-              data-magnetic
-              className="group inline-flex items-center gap-3 pl-4 pr-6 py-3 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
-            >
-              Begin Your Journey
-              <span
-                aria-hidden
-                className="inline-block transition-transform duration-500 group-hover:translate-x-1"
+            {onCtaClick ? (
+              <button
+                type="button"
+                onClick={onCtaClick}
+                data-cursor="hover"
+                data-magnetic
+                className="group inline-flex items-center gap-3 pl-4 pr-6 py-3 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
               >
-                →
-              </span>
-            </a>
+                Begin Your Journey
+                <span
+                  aria-hidden
+                  className="inline-block transition-transform duration-500 group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </button>
+            ) : (
+              <a
+                href="/contact"
+                data-cursor="hover"
+                data-magnetic
+                className="group inline-flex items-center gap-3 pl-4 pr-6 py-3 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+              >
+                Begin Your Journey
+                <span
+                  aria-hidden
+                  className="inline-block transition-transform duration-500 group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
+            )}
           </div>
         </div>
 

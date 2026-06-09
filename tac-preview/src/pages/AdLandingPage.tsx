@@ -111,7 +111,7 @@ function Stars({ size = 14 }: { size?: number }) {
   )
 }
 
-function GoogleReviews() {
+function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
   return (
     <section className="relative bg-cream overflow-hidden px-5 md:px-8 py-20 md:py-28">
       <div
@@ -201,18 +201,18 @@ function GoogleReviews() {
           ))}
         </div>
 
-        {/* Footer CTA — link to Google reviews */}
+        {/* Footer CTA — opens the consultation popup form so the
+            visitor's next action stays on the LP. */}
         <div className="mt-14 md:mt-16 text-center">
-          <a
-            href="https://www.google.com/search?q=thelongevitycentre"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={onCtaClick}
             data-cursor="hover"
-            className="group inline-flex items-center gap-3 px-6 py-3 border border-ink/15 bg-white text-ink text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:border-rust hover:bg-rust hover:text-white transition-all duration-500"
+            className="group inline-flex items-center gap-3 pl-6 pr-2 py-2 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
           >
-            See all Google reviews
-            <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">→</span>
-          </a>
+            <span>Arrange a Consultation</span>
+            <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rust text-white">→</span>
+          </button>
         </div>
       </div>
     </section>
@@ -491,16 +491,18 @@ export function AdLandingPage() {
       <BenefitsHome />
 
       {/* ═══════════════════════════════════════════════════════════════
-          BRAND AMBASSADOR — Milind (homepage-approved)
+          BRAND AMBASSADOR — Milind (homepage-approved). Pass an
+          onCtaClick so the "Begin Your Journey" button opens the
+          consultation modal instead of leaving the LP.
           ═══════════════════════════════════════════════════════════════ */}
-      <BrandAmbassadorHero />
+      <BrandAmbassadorHero onCtaClick={() => setConsultOpen(true)} />
 
       {/* ═══════════════════════════════════════════════════════════════
           GOOGLE REVIEWS — 6 knowledgeable 5-star patient reviews.
           Replace with actual Google Business profile reviews when
           available — see https://www.google.com/search?q=thelongevitycentre
           ═══════════════════════════════════════════════════════════════ */}
-      <GoogleReviews />
+      <GoogleReviews onCtaClick={() => setConsultOpen(true)} />
 
       {/* ═══════════════════════════════════════════════════════════════
           RESULTS — patient-outcome split panel
