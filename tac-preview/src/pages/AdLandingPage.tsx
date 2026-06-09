@@ -742,14 +742,14 @@ export function AdLandingPage() {
         </div>
       </section>
 
-      {/* MINIMAL FOOTER — just copyright. No nav links, no external
-          credit. Ad LP keeps every interaction inside the page. */}
-      <footer className="bg-ink text-cream/55 px-5 md:px-8 py-7 border-t border-cream/10">
-        <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-2.5 text-[11px] text-center">
-          <div className="w-6 h-6 rounded-full bg-rust flex items-center justify-center">
-            <span className="text-white text-[9px] font-bold tracking-tight">TLC</span>
+      {/* SLIM FOOTER — single line copyright, minimal vertical space.
+          Ad LP keeps every pixel working toward conversion. */}
+      <footer className="bg-ink text-cream/50 px-5 md:px-8 py-3 border-t border-cream/10">
+        <div className="max-w-[1400px] mx-auto flex items-center justify-center gap-2 text-[10.5px] text-center">
+          <div className="w-4 h-4 rounded-full bg-rust flex items-center justify-center">
+            <span className="text-white text-[7px] font-bold tracking-tight">TLC</span>
           </div>
-          <div>© {new Date().getFullYear()} The Longevity Centre · All Rights Reserved</div>
+          <span>© {new Date().getFullYear()} The Longevity Centre · All Rights Reserved</span>
         </div>
       </footer>
 
