@@ -623,14 +623,6 @@ export function AdLandingPage() {
           ═══════════════════════════════════════════════════════════════ */}
       <PressStrip />
 
-      <InlineCta
-        eyebrow="Ready to start?"
-        headline="Doctor-led. Diagnostics-first. Built around your biology."
-        ctaLabel="Arrange a Consultation"
-        variant="cream"
-        onCtaClick={() => setConsultOpen(true)}
-      />
-
       {/* ═══════════════════════════════════════════════════════════════
           BENEFITS — homepage editorial benefits component
           ═══════════════════════════════════════════════════════════════ */}
