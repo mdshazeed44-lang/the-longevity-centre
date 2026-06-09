@@ -76,15 +76,24 @@ export function ConsultationModal({ open, onClose }: Props) {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setState('submitting')
 
     const data = new FormData(e.currentTarget)
-    const name = (data.get('name') as string) || ''
-    const email = (data.get('email') as string) || ''
-    const phone = (data.get('phone') as string) || ''
+    const name = ((data.get('name') as string) || '').trim()
+    const email = ((data.get('email') as string) || '').trim()
+    const phone = ((data.get('phone') as string) || '').trim()
     const centre = (data.get('centre') as string) || 'Not selected'
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
+
+    // Hard validation — LSQ submit + brochure delivery MUST be gated
+    // on real Name + Phone. Belt-and-suspenders on top of the
+    // browser-native required-field check.
+    if (!name || !phone) {
+      setState('idle')
+      return
+    }
+
+    setState('submitting')
 
     // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
     // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,

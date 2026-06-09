@@ -231,13 +231,25 @@ function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; the
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setState('submitting')
     const data = new FormData(e.currentTarget)
     if (data.get('botcheck')) { setState('success'); return }
+
+    // Hard validation — the LSQ submit + brochure delivery MUST be
+    // gated on real Name + Phone. The form has `required` attrs but
+    // we belt-and-suspender it here too so the brochure can never
+    // open on an empty submit (older browsers / dev-tools tampering).
+    const name = ((data.get('name') as string) || '').trim()
+    const phone = ((data.get('phone') as string) || '').trim()
+    if (!name || !phone) {
+      setState('idle')
+      return
+    }
+
+    setState('submitting')
     submitToLeadSquared({
-      name: (data.get('name') as string) || '',
-      phone: (data.get('phone') as string) || '',
-      email: (data.get('email') as string) || '',
+      name,
+      phone,
+      email: ((data.get('email') as string) || '').trim(),
       centre: (data.get('centre') as string) || '',
       programme: (data.get('programme') as string) || '',
       source: `Website - Ad LP (${variant})`,
@@ -268,7 +280,7 @@ function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; the
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className={`relative ${isDark ? 'bg-white/[0.06] border-white/15' : 'bg-cream/70 border-ink/8 shadow-[0_35px_80px_-30px_rgba(27,26,24,0.30)]'} backdrop-blur-sm border rounded-[22px] p-6 md:p-7 space-y-3.5`}>
+    <form onSubmit={handleSubmit} className={`relative ${isDark ? 'bg-white/[0.06] border-white/15' : 'bg-cream/70 border-ink/8 shadow-[0_35px_80px_-30px_rgba(27,26,24,0.30)]'} backdrop-blur-sm border rounded-[22px] p-6 md:p-7 space-y-3.5`}>
       <div className="pb-2">
         <div className="flex items-center gap-2.5 mb-2.5">
           <span className={`w-7 h-px ${isDark ? 'bg-rust-soft' : 'bg-rust'}`} />

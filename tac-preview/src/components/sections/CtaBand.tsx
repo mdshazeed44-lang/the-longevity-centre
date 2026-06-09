@@ -48,10 +48,18 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
       return
     }
 
-    const name = (data.get('name') as string) || ''
-    const phone = (data.get('phone') as string) || ''
+    const name = ((data.get('name') as string) || '').trim()
+    const phone = ((data.get('phone') as string) || '').trim()
     const programme =
       (data.get('programme') as string) || 'Not specified'
+
+    // Hard validation — LSQ submit + brochure delivery MUST be gated
+    // on real Name + Phone. Belt-and-suspenders on top of the
+    // browser-native required-field check.
+    if (!name || !phone) {
+      setState('idle')
+      return
+    }
 
     // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
     // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
@@ -158,7 +166,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
             {state === 'success' ? (
               <FormSuccess />
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 {/* Honeypot — invisible to humans, bots fill it. */}
                 <input
                   type="text"

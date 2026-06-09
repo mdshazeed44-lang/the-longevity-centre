@@ -81,15 +81,21 @@ export function ContactPage() {
       return
     }
 
-    // Build a clean WhatsApp message from the form values. The clinic
-    // team gets every field as a single readable message in their
-    // WhatsApp business inbox.
-    const name = (data.get('name') as string) || ''
-    const email = (data.get('email') as string) || ''
-    const phone = (data.get('phone') as string) || ''
+    const name = ((data.get('name') as string) || '').trim()
+    const email = ((data.get('email') as string) || '').trim()
+    const phone = ((data.get('phone') as string) || '').trim()
     const centre = (data.get('centre') as string) || 'Not selected'
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
+
+    // Hard validation — LSQ submit + brochure delivery MUST be gated
+    // on real Name + Phone. The form has `required` attrs but we
+    // belt-and-suspender it here so the brochure can never open on
+    // an empty submit (older browsers / dev-tools tampering).
+    if (!name || !phone) {
+      setState('idle')
+      return
+    }
 
     // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
     // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
@@ -154,7 +160,7 @@ export function ContactPage() {
               {state === 'success' ? (
                 <SuccessPanel />
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Honeypot — bots fill this, humans don't see it */}
                   <input
                     type="checkbox"
