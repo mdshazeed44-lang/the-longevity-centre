@@ -32,6 +32,7 @@ import { openBrochure, BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../
 // TLC's visual language baked in, so the LP feels like a sibling
 // page rather than a separate marketing template.
 import { PressStrip } from '../components/sections/PressStrip'
+import { BenefitsHome } from '../components/BenefitsHome'
 import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
@@ -514,6 +515,11 @@ export function AdLandingPage() {
           PRESS STRIP — credibility marquee
           ═══════════════════════════════════════════════════════════════ */}
       <PressStrip />
+
+      {/* ═══════════════════════════════════════════════════════════════
+          BENEFITS — homepage editorial benefits component
+          ═══════════════════════════════════════════════════════════════ */}
+      <BenefitsHome />
 
       {/* ═══════════════════════════════════════════════════════════════
           BRAND AMBASSADOR — Milind (homepage-approved). Pass an
