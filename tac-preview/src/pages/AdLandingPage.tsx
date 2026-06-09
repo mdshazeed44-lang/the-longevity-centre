@@ -99,6 +99,72 @@ const REVIEWS = [
   },
 ]
 
+// ──────────────────────────────────────────────────────────────────────
+// INLINE CTA STRIP — slim conversion band shown between content
+// sections. Keeps the LP's single goal (form submission) front of
+// mind as the visitor scrolls. Two visual variants alternate so the
+// repeated CTA doesn't feel spammy: 'cream' = light surface with
+// rust pill, 'tan' = warmer cream with rust pill on a different tone.
+// Both call the same onCtaClick handler that opens the consultation
+// modal.
+// ──────────────────────────────────────────────────────────────────────
+
+interface InlineCtaProps {
+  /** Eyebrow microcopy displayed above the button. */
+  eyebrow?: string
+  /** Headline displayed below the eyebrow. */
+  headline?: string
+  /** Click handler — wired by AdLandingPage to setConsultOpen(true). */
+  onCtaClick?: () => void
+  /** Visual variant — alternated for visual rhythm. */
+  variant?: 'cream' | 'tan'
+}
+
+function InlineCta({ eyebrow, headline, onCtaClick, variant = 'cream' }: InlineCtaProps) {
+  const bg = variant === 'tan' ? 'bg-[#f3ebde]' : 'bg-cream'
+  return (
+    <section className={`relative ${bg} px-5 md:px-8 py-10 md:py-14 overflow-hidden`}>
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(700px 400px at 80% 50%, rgba(148,84,85,0.07), transparent 60%)',
+        }}
+      />
+      <div className="relative z-10 max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-5 md:gap-8">
+        <div className="md:max-w-[560px]">
+          {eyebrow && (
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="w-7 h-px bg-rust" />
+              <span className="text-[10px] tracking-[0.4em] uppercase text-rust font-semibold">
+                {eyebrow}
+              </span>
+            </div>
+          )}
+          {headline && (
+            <h3 className="font-display font-light text-ink leading-[1.15] tracking-[-0.02em]"
+                style={{ fontSize: 'clamp(20px, 2.6vw, 28px)' }}>
+              {headline}
+            </h3>
+          )}
+        </div>
+        <button
+          type="button"
+          onClick={onCtaClick}
+          data-cursor="hover"
+          className="group shrink-0 inline-flex items-center gap-3 pl-5 pr-2 py-2 bg-ink text-white text-[10.5px] md:text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+        >
+          <span>Arrange a Consultation</span>
+          <span aria-hidden className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-rust text-white transition-transform group-hover:translate-x-0.5">
+            →
+          </span>
+        </button>
+      </div>
+    </section>
+  )
+}
+
 function Stars({ size = 14 }: { size?: number }) {
   return (
     <div className="flex items-center gap-0.5" aria-label="5 out of 5 stars">
@@ -516,10 +582,24 @@ export function AdLandingPage() {
           ═══════════════════════════════════════════════════════════════ */}
       <PressStrip />
 
+      <InlineCta
+        eyebrow="Ready to start?"
+        headline="Doctor-led. Diagnostics-first. Built around your biology."
+        variant="cream"
+        onCtaClick={() => setConsultOpen(true)}
+      />
+
       {/* ═══════════════════════════════════════════════════════════════
           BENEFITS — homepage editorial benefits component
           ═══════════════════════════════════════════════════════════════ */}
       <BenefitsHome />
+
+      <InlineCta
+        eyebrow="See what's possible"
+        headline="Measure your biology. Reverse what's drifting. Verified by re-tests."
+        variant="tan"
+        onCtaClick={() => setConsultOpen(true)}
+      />
 
       {/* ═══════════════════════════════════════════════════════════════
           BRAND AMBASSADOR — Milind (homepage-approved). Pass an
@@ -540,10 +620,24 @@ export function AdLandingPage() {
           ═══════════════════════════════════════════════════════════════ */}
       <ResultsSplit />
 
+      <InlineCta
+        eyebrow="Your turn"
+        headline="Real outcomes are measured — not promised. Begin yours today."
+        variant="cream"
+        onCtaClick={() => setConsultOpen(true)}
+      />
+
       {/* ═══════════════════════════════════════════════════════════════
           FOUNDERS — Dr. Abhinav + Dr. Bhavna authority editorial
           ═══════════════════════════════════════════════════════════════ */}
       <FoundersNote />
+
+      <InlineCta
+        eyebrow="Led by experts"
+        headline="Twenty years of preventive medicine. Eight centres pan-India."
+        variant="tan"
+        onCtaClick={() => setConsultOpen(true)}
+      />
 
       {/* ═══════════════════════════════════════════════════════════════
           FAQ — homepage accordion
