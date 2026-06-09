@@ -26,13 +26,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { submitToLeadSquared } from '../lib/leadsquared'
-import { openBrochure, BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY } from '../lib/contact'
+import { openBrochure, BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
 
 // Brand-aligned sections reused from the homepage. Each ships with
 // TLC's visual language baked in, so the LP feels like a sibling
 // page rather than a separate marketing template.
 import { PressStrip } from '../components/sections/PressStrip'
-import { BenefitsHome } from '../components/BenefitsHome'
 import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { ResultsSplit } from '../components/sections/ResultsSplit'
 import { FoundersNote } from '../components/sections/FoundersNote'
@@ -392,11 +391,18 @@ export function AdLandingPage() {
             <Logo variant="dark" size={40} />
           </div>
           <div className="flex items-center gap-3 md:gap-5">
-            <a href={`tel:${PHONE_TEL}`} className="hidden md:inline-flex items-center gap-2 text-[12px] text-graphite font-medium hover:text-rust transition-colors">
+            <a href={`tel:${PHONE_TEL}`} className="hidden md:inline-flex items-center gap-2 text-[12px] text-graphite font-medium hover:text-rust transition-colors" aria-label={`Call ${PHONE_DISPLAY}`}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               {PHONE_DISPLAY}
+            </a>
+            <a href={`mailto:${EMAIL}`} className="hidden lg:inline-flex items-center gap-2 text-[12px] text-graphite font-medium hover:text-rust transition-colors" aria-label={`Email ${EMAIL}`}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              {EMAIL}
             </a>
             <button
               type="button"
@@ -469,8 +475,8 @@ export function AdLandingPage() {
               ))}
             </div>
 
-            {/* Phone CTA */}
-            <div className="fade-up mt-7">
+            {/* Phone + Email CTAs */}
+            <div className="fade-up mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
               <a href={`tel:${PHONE_TEL}`} className="group inline-flex items-center gap-3 text-[13px] text-graphite font-medium tracking-tight hover:text-rust transition-colors">
                 <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-ink/15 group-hover:border-rust transition-colors">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -480,6 +486,18 @@ export function AdLandingPage() {
                 <div>
                   <div className="text-[9.5px] tracking-[0.3em] uppercase text-stone font-semibold leading-none mb-0.5">Or call directly</div>
                   <div className="text-[14px] font-medium tracking-tight text-ink">{PHONE_DISPLAY}</div>
+                </div>
+              </a>
+              <a href={`mailto:${EMAIL}`} className="group inline-flex items-center gap-3 text-[13px] text-graphite font-medium tracking-tight hover:text-rust transition-colors">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-ink/15 group-hover:border-rust transition-colors">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </span>
+                <div>
+                  <div className="text-[9.5px] tracking-[0.3em] uppercase text-stone font-semibold leading-none mb-0.5">Or email us</div>
+                  <div className="text-[14px] font-medium tracking-tight text-ink break-all">{EMAIL}</div>
                 </div>
               </a>
             </div>
@@ -496,11 +514,6 @@ export function AdLandingPage() {
           PRESS STRIP — credibility marquee
           ═══════════════════════════════════════════════════════════════ */}
       <PressStrip />
-
-      {/* ═══════════════════════════════════════════════════════════════
-          BENEFITS — three editorial benefit cards
-          ═══════════════════════════════════════════════════════════════ */}
-      <BenefitsHome />
 
       {/* ═══════════════════════════════════════════════════════════════
           BRAND AMBASSADOR — Milind (homepage-approved). Pass an
@@ -560,7 +573,7 @@ export function AdLandingPage() {
               Submit your details and receive the full TLC e-brochure instantly —
               programme pricing, complete diagnostic list, and centre information.
             </p>
-            <div className="pt-6 border-t border-cream/15">
+            <div className="pt-6 border-t border-cream/15 flex flex-wrap gap-x-8 gap-y-4">
               <a href={`tel:${PHONE_TEL}`} className="group inline-flex items-center gap-3 text-cream hover:text-rust-soft transition-colors">
                 <span className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-cream/20 group-hover:border-rust-soft transition-colors">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -570,6 +583,18 @@ export function AdLandingPage() {
                 <div>
                   <div className="text-[9.5px] tracking-[0.3em] uppercase text-cream/50 font-semibold mb-0.5">Or call directly</div>
                   <div className="text-[15px] font-medium tracking-tight">{PHONE_DISPLAY}</div>
+                </div>
+              </a>
+              <a href={`mailto:${EMAIL}`} className="group inline-flex items-center gap-3 text-cream hover:text-rust-soft transition-colors">
+                <span className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-cream/20 group-hover:border-rust-soft transition-colors">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </span>
+                <div>
+                  <div className="text-[9.5px] tracking-[0.3em] uppercase text-cream/50 font-semibold mb-0.5">Or email us</div>
+                  <div className="text-[15px] font-medium tracking-tight break-all">{EMAIL}</div>
                 </div>
               </a>
             </div>
