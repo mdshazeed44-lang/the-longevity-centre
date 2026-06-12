@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/fetch-reviews.cjs && tsc -b && vite build && node scripts/inject-meta.cjs",
+    "build": "tsc -b && vite build && node scripts/inject-meta.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
