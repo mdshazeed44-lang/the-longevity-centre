@@ -78,7 +78,19 @@ const PROGRAMMES = [
 // only thing that must stay constant.
 // ──────────────────────────────────────────────────────────────────────
 
-const REVIEWS = [
+interface Review {
+  quote: string
+  name: string
+  role: string
+  date: string
+}
+
+// Hardcoded fallback reviews — shown when the live MGR feed has no
+// real reviews yet (everything is "[SAMPLE]") or the fetch fails.
+// Replaced automatically by scripts/fetch-reviews.cjs writing real
+// 5-star reviews into public/reviews.json at build time, then read
+// at runtime by the useEffect below.
+const FALLBACK_REVIEWS: Review[] = [
   {
     quote: "After years of generic check-ups, TLC's 1000+ biomarker panel finally explained my unexplained fatigue. Dr. Abhinav walked me through every result personally. Three months in, my energy is back and my cortisol pattern is correcting.",
     name: 'Aanya Mehta',
@@ -202,6 +214,28 @@ function Stars({ size = 14 }: { size?: number }) {
 }
 
 function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
+  // Try the live MGR feed first (public/reviews.json — populated at
+  // build time by scripts/fetch-reviews.cjs). If empty or fetch
+  // fails, fall back to the hardcoded reviews so the section never
+  // renders blank during ad campaigns.
+  const [reviews, setReviews] = useState<Review[]>(FALLBACK_REVIEWS)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/reviews.json', { cache: 'no-cache' })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: Review[]) => {
+        if (cancelled) return
+        if (Array.isArray(data) && data.length > 0) setReviews(data)
+      })
+      .catch(() => {
+        // Network / parse error — fallback already in state, nothing to do.
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
   return (
     <section className="relative bg-cream overflow-hidden px-5 md:px-8 py-20 md:py-28">
       <div
@@ -242,7 +276,7 @@ function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
 
         {/* ─── 3 Premium Review Cards ──────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
-          {REVIEWS.map((r, i) => (
+          {reviews.map((r, i) => (
             <article
               key={i}
               className="group relative bg-white rounded-[20px] p-7 md:p-8 flex flex-col shadow-[0_25px_60px_-35px_rgba(27,26,24,0.20)] hover:shadow-[0_35px_80px_-30px_rgba(27,26,24,0.30)] transition-all duration-700"
