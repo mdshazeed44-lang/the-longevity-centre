@@ -39,21 +39,26 @@ import { FoundersNote } from '../components/sections/FoundersNote'
 import { Faq } from '../components/sections/Faq'
 import { ConsultationModal } from '../components/ConsultationModal'
 import { Logo } from '../components/Logo'
+import { LONGEVITY_CAMPAIGN, type Campaign } from '../lib/landing-campaigns'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const META = {
-  title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
-  description:
-    "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Get the e-brochure.",
-  path: '/longevity-programme-india-lp',
-  ogImage: '/og/home.jpg',
-  jsonLd: [
-    breadcrumbList([
-      { name: 'Home', url: '/' },
-      { name: 'Longevity Programme', url: '/longevity-programme-india-lp' },
-    ]),
-  ],
+// Build the page <title>/<meta description>/canonical/breadcrumb
+// dynamically off the active campaign so the same component can
+// serve multiple ad LPs (longevity, gut-metabolic, etc).
+function metaForCampaign(c: Campaign) {
+  return {
+    title: c.title,
+    description: c.description,
+    path: c.path,
+    ogImage: '/og/home.jpg',
+    jsonLd: [
+      breadcrumbList([
+        { name: 'Home', url: '/' },
+        { name: c.eyebrow, url: c.path },
+      ]),
+    ],
+  }
 }
 
 const CITIES = ['Delhi','Gurgaon','Mumbai','Pune','Nagpur','Goa','Bangalore','Hyderabad','Other / Online']
@@ -330,7 +335,7 @@ function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
 // 'hero' in the top right column, 'final' in the bottom dark band.
 // ──────────────────────────────────────────────────────────────────────
 
-function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; theme?: 'light' | 'dark' }) {
+function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }: { variant: 'hero' | 'final'; theme?: 'light' | 'dark'; sourcePrefix?: string }) {
   const [state, setState] = useState<'idle' | 'submitting' | 'success'>('idle')
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -356,7 +361,7 @@ function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; the
       email: ((data.get('email') as string) || '').trim(),
       centre: (data.get('centre') as string) || '',
       programme: (data.get('programme') as string) || '',
-      source: `Website - Ad LP (${variant})`,
+      source: `${sourcePrefix} (${variant})`,
     })
     openBrochure()
     setState('success')
@@ -441,8 +446,8 @@ function LeadForm({ variant, theme = 'light' }: { variant: 'hero' | 'final'; the
 // PAGE
 // ──────────────────────────────────────────────────────────────────────
 
-export function AdLandingPage() {
-  useDocumentMeta(META)
+export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Campaign } = {}) {
+  useDocumentMeta(metaForCampaign(campaign))
   const heroRef = useRef<HTMLElement>(null)
   // Top-bar "Arrange a Consultation" pill opens the same popup form
   // used on the main site Header — gives the visitor a second way
@@ -552,23 +557,21 @@ export function AdLandingPage() {
             <div className="fade-up flex items-center gap-3 mb-5">
               <span className="w-10 h-px bg-rust" />
               <span className="text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold">
-                India&rsquo;s First Doctor-Led Longevity Programme
+                {campaign.eyebrow}
               </span>
             </div>
             <h1 className="font-display font-light text-ink leading-[1.0] tracking-[-0.03em] mb-6"
                 style={{ fontSize: 'clamp(40px, 5.6vw, 76px)' }}>
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block">Live longer.</span>
+                <span className="inline-block">{campaign.headlineLine1}</span>
               </span>
               <br />
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block font-bold italic text-rust">Live measurably better.</span>
+                <span className="inline-block font-bold italic text-rust">{campaign.headlineLine2}</span>
               </span>
             </h1>
             <p className="fade-up text-[15px] md:text-[17.5px] leading-[1.6] text-graphite font-light max-w-[560px] mb-7">
-              A doctor-led 12-month programme that measures your biology with
-              1000+ diagnostics, corrects what&rsquo;s drifting, and verifies
-              progress with three validated biological-age clocks.
+              {campaign.sub}
             </p>
 
             {/* Trust strip — TLC numerics inline */}
@@ -616,7 +619,7 @@ export function AdLandingPage() {
 
           {/* Form column — above the fold for ad conversion */}
           <div className="fade-up">
-            <LeadForm variant="hero" />
+            <LeadForm variant="hero" sourcePrefix={campaign.lsqSource} />
           </div>
         </div>
       </section>
@@ -740,7 +743,7 @@ export function AdLandingPage() {
             </div>
           </div>
           <div>
-            <LeadForm variant="final" theme="dark" />
+            <LeadForm variant="final" theme="dark" sourcePrefix={campaign.lsqSource} />
           </div>
         </div>
       </section>

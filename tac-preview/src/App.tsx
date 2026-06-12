@@ -31,6 +31,7 @@ gsap.registerPlugin(ScrollTrigger)
 // component itself.
 const CHROMELESS_ROUTES = new Set<string>([
   '/longevity-programme-india-lp',
+  '/gut-metabolic-india-lp',
 ])
 
 function isChromelessRoute(pathname: string): boolean {

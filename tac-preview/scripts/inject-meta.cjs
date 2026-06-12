@@ -316,6 +316,46 @@ ${sitemapBody}`.trim(),
 <p>For full programme details and pricing, request the <a href="/contact">brochure</a> or call +91 88268 09123.</p>`.trim(),
   },
   {
+    path: '/gut-metabolic-india-lp',
+    title: 'Gut & Metabolic Programme in India · Heal Your Gut · TLC',
+    description:
+      'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 8 TLC centres in India.',
+    h1: 'Heal your gut. Optimise your metabolism.',
+    body: `
+<p><strong>India's premier gut &amp; metabolic programme.</strong> A doctor-led, diagnostics-first protocol that maps your gut microbiome, corrects hormonal and metabolic drift, and tracks weight, inflammation and energy outcomes month-on-month.</p>
+<h2>What&rsquo;s inside the programme</h2>
+<ul>
+  <li>Whole-genomic gut microbiome sequencing — bacterial diversity, inflammation markers, food sensitivities</li>
+  <li>Comprehensive metabolic panel — 1000+ biomarkers across blood, hormones, lipids and inflammation</li>
+  <li>Personalised gut repair protocols — pre-/probiotics, fibre, polyphenols, targeted therapeutics</li>
+  <li>Hormonal correction — thyroid, cortisol, insulin sensitivity, sex hormones</li>
+  <li>Weight, fatty liver and PCOD reversal — physician-led, not generic diets</li>
+  <li>Continuous physician care from a multidisciplinary panel</li>
+</ul>
+<h2>How it works — four phases</h2>
+<ol>
+  <li><strong>Assessment</strong> — Gut, blood, hormone and body-composition tests in one visit.</li>
+  <li><strong>Analysis</strong> — Your specialist panel reads every marker against your goals and symptom history.</li>
+  <li><strong>Intervention</strong> — Personalised nutrition, supplementation, hormone correction, lifestyle and targeted gut therapeutics.</li>
+  <li><strong>Verification</strong> — Re-tested at completion. Progress made measurable, not promised.</li>
+</ol>
+<h2>Founders &amp; team</h2>
+<p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of physicians, endocrinologists and metabolic specialists.</p>
+<h2>Our eight centres across India</h2>
+<ul>
+  <li><a href="/centres/delhi">Delhi</a> (flagship)</li>
+  <li><a href="/centres/gurgaon">Gurgaon</a></li>
+  <li><a href="/centres/mumbai">Mumbai</a></li>
+  <li><a href="/centres/pune">Pune</a></li>
+  <li><a href="/centres/nagpur">Nagpur</a></li>
+  <li><a href="/centres/goa">Goa</a></li>
+  <li><a href="/centres/bangalore">Bangalore</a></li>
+  <li><a href="/centres/hyderabad">Hyderabad</a></li>
+</ul>
+<p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
+<p>For full programme details and pricing, request the <a href="/contact">brochure</a> or call +91 88268 09123.</p>`.trim(),
+  },
+  {
     path: '/',
     title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
     description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 8 cities.',

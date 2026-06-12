@@ -73,6 +73,9 @@ const SitemapPage = lazy(() =>
 const AdLandingPage = lazy(() =>
   import('./pages/AdLandingPage').then((m) => ({ default: m.AdLandingPage }))
 )
+const GutMetabolicLandingPage = lazy(() =>
+  import('./pages/GutMetabolicLandingPage').then((m) => ({ default: m.GutMetabolicLandingPage }))
+)
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
@@ -334,6 +337,7 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/blog' }, Component: BlogListPage },
   { match: { path: '/sitemap' }, Component: SitemapPage },
   { match: { path: '/longevity-programme-india-lp' }, Component: AdLandingPage },
+  { match: { path: '/gut-metabolic-india-lp' }, Component: GutMetabolicLandingPage },
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,
