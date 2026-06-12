@@ -367,7 +367,7 @@ ${sitemapBody}`.trim(),
   <li><a href="/longevity-program">Longevity Programme</a> — 12-month physician-guided plan with whole-body diagnostics and lifestyle therapeutics.</li>
   <li><a href="/diagnostics">Precision Diagnostics</a> — 1000+ biomarkers including DNA methylation (GrimAge, PhenoAge), genomics, gut microbiome, hormones.</li>
   <li><a href="/skin-aesthetics">Skin &amp; Aesthetics</a> — physician-led PRP, fillers, lasers, peels and longevity-grade skincare.</li>
-  <li><a href="/cancer-prevention">Cancer Prevention</a> — early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
+  <li><a href="/programs/cancer-prevention">Cancer Prevention</a> — early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
   <li><a href="/about-us">Founders &amp; team</a> — Dr. Abhinav Sharma, Dr. Bhavna Sharma and a multidisciplinary panel of longevity physicians.</li>
 </ul>
 <h2>Our 8 centres across India</h2>
@@ -404,6 +404,11 @@ ${sitemapBody}`.trim(),
   },
   {
     path: '/about',
+    // /about is a legacy alias of /about-us (same title + description).
+    // Without a canonical override the two pages self-canonical
+    // separately and split ranking signals as duplicates — so this
+    // page canonicals to /about-us instead.
+    canonical: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
     description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 8 Indian cities.',
     h1: 'About The Longevity Centre',
@@ -527,6 +532,7 @@ ${sitemapBody}`.trim(),
 for (const p of staticPages) {
   entries.push({
     path: p.path,
+    canonical: p.canonical,
     title: p.title,
     description: p.description,
     content: `<h1>${p.h1}</h1>\n<p>${htmlEscape(p.description)}</p>\n${p.body}`,
@@ -620,9 +626,15 @@ for (const p of staticPages) {
       : '',
     `</article>`,
   ].filter(Boolean).join('\n')
+  // Don't append the " · TLC" brand suffix when the area string
+  // already ends with "TLC" (Bangalore's partnership label is
+  // "Clinic Next Face × TLC" — appending again produced the doubled
+  // "× TLC · TLC" title Ahrefs flagged).
+  const areaPart = c.area ? ' · ' + c.area : ''
+  const brandSuffix = /TLC\s*$/.test(areaPart) ? '' : ' · TLC'
   entries.push({
     path: '/centres/' + c.slug,
-    title: `Longevity Clinic in ${c.city}${c.area ? ' · ' + c.area : ''} · TLC`,
+    title: `Longevity Clinic in ${c.city}${areaPart}${brandSuffix}`,
     description: `The Longevity Centre in ${c.city}${c.area ? ', ' + c.area : ''} — diagnostics-led, physician-guided preventive medicine, metabolic and longevity care.`,
     content,
   })
@@ -696,7 +708,9 @@ const FOOTER_HTML = siteFooter()
 
 let count = 0
 for (const item of entries) {
-  const canonical = SITE + item.path
+  // Per-entry canonical override (e.g. /about → /about-us alias);
+  // defaults to self-canonical.
+  const canonical = SITE + (item.canonical || item.path)
   const title = htmlEscape(item.title)
   const description = htmlEscape(item.description)
   const breadcrumb = `<p><small><a href="/">Home</a> · ${title}</small></p>`

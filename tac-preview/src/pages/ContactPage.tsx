@@ -71,7 +71,6 @@ export function ContactPage() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setState('submitting')
     const form = e.currentTarget
     const data = new FormData(form)
 
@@ -92,10 +91,13 @@ export function ContactPage() {
     // on real Name + Phone. The form has `required` attrs but we
     // belt-and-suspender it here so the brochure can never open on
     // an empty submit (older browsers / dev-tools tampering).
+    // Validate BEFORE flipping to 'submitting' so the button never
+    // flickers on a bad submit.
     if (!name || !phone) {
-      setState('idle')
       return
     }
+
+    setState('submitting')
 
     // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
     // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,

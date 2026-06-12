@@ -21,7 +21,7 @@
  */
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
-import { openBrochure } from '../../lib/contact'
+import { openBrochure, BROCHURE_URL } from '../../lib/contact'
 import { submitToLeadSquared } from '../../lib/leadsquared'
 
 type FormState = 'idle' | 'submitting' | 'success'
@@ -38,7 +38,6 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setState('submitting')
     const form = e.currentTarget
     const data = new FormData(form)
 
@@ -55,11 +54,13 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
 
     // Hard validation — LSQ submit + brochure delivery MUST be gated
     // on real Name + Phone. Belt-and-suspenders on top of the
-    // browser-native required-field check.
+    // browser-native required-field check. Validate BEFORE flipping
+    // to 'submitting' so the button never flickers on a bad submit.
     if (!name || !phone) {
-      setState('idle')
       return
     }
+
+    setState('submitting')
 
     // Leads now flow ONLY to LeadSquared CRM (no WhatsApp lead delivery).
     // Per client instruction (2026-06-06): "WhatsApp pe lead nahi jaye,
@@ -314,7 +315,7 @@ function FormSuccess() {
         button below.
       </p>
       <a
-        href="https://tlc-e-brochure-the-longevity-centre.netlify.app/"
+        href={BROCHURE_URL}
         target="_blank"
         rel="noopener noreferrer"
         data-cursor="hover"

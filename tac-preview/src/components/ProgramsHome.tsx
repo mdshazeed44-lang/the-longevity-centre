@@ -269,7 +269,7 @@ export function ProgramsHome() {
                   </p>
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <a
-                      href="#contact"
+                      href="#cta"
                       data-cursor="hover"
                       className="group inline-flex items-center gap-2 pl-4 pr-5 py-2.5 bg-ink text-white text-[10px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
                     >
@@ -343,7 +343,7 @@ export function ProgramsHome() {
                     {/* CTAs */}
                     <div className="flex items-center gap-3 flex-wrap">
                       <a
-                        href="#contact"
+                        href="#cta"
                         data-cursor="hover"
                         data-magnetic
                         className="group inline-flex items-center gap-2.5 pl-4 pr-6 py-3 bg-ink text-white text-[11px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"

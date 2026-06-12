@@ -78,6 +78,15 @@ export function ConsultationModal({ open, onClose }: Props) {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
+
+    // Honeypot — bots fill `botcheck`; drop the submission silently
+    // (show success so the bot believes it worked, but never call
+    // LSQ or open the brochure).
+    if (data.get('botcheck')) {
+      setState('success')
+      return
+    }
+
     const name = ((data.get('name') as string) || '').trim()
     const email = ((data.get('email') as string) || '').trim()
     const phone = ((data.get('phone') as string) || '').trim()
@@ -211,6 +220,16 @@ export function ConsultationModal({ open, onClose }: Props) {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-3">
+                {/* Honeypot — invisible to humans, bots fill it. */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] opacity-0 pointer-events-none"
+                />
+
                 {/* Name + Phone — required */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
