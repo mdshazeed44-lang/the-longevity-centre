@@ -3,7 +3,7 @@
 // accent line + body. White BG, hairline grid pattern between cards.
 // Brand mood imagery already in /public/longevity/brand/.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
@@ -107,6 +107,10 @@ export function BenefitsHome({
 }: BenefitsHomeProps = {}) {
   const items = benefits ?? BENEFITS
   const root = useRef<HTMLElement>(null)
+  // Mobile-only "story card" index — which benefit the single
+  // full-bleed card is showing. Desktop ignores this entirely.
+  const [storyIdx, setStoryIdx] = useState(0)
+  const story = items[storyIdx] ?? items[0]
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -174,8 +178,75 @@ export function BenefitsHome({
           </p>
         </div>
 
-        {/* 8 BENEFIT CARDS — 4x2 grid with hairline borders */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
+        {/* ── MOBILE ONLY — story card ─────────────────────────────
+            On phones the 8-card stack read as one very long scroll,
+            so below the sm breakpoint we show ONE full-bleed image
+            card with the copy overlaid on a bottom gradient and
+            Instagram-stories segment bars on top. Tap the bars to
+            jump, or tap the left / right thirds of the card to step
+            through. Desktop (sm+) never sees this. */}
+        <div className="sm:hidden">
+          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[18px] bg-ink">
+            <img
+              key={story.n}
+              src={story.img}
+              alt={story.alt}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(27,26,24,0.35) 0%, transparent 30%, transparent 45%, rgba(27,26,24,0.88) 100%)',
+              }}
+            />
+            {/* Story segment bars — tap any bar to jump */}
+            <div className="absolute top-3 inset-x-3 flex gap-1">
+              {items.map((b, d) => (
+                <button
+                  key={b.n}
+                  type="button"
+                  onClick={() => setStoryIdx(d)}
+                  aria-label={`Benefit ${d + 1}: ${b.title}`}
+                  className={`h-[3px] flex-1 rounded-full transition-colors duration-300 ${d <= storyIdx ? 'bg-white' : 'bg-white/30'}`}
+                />
+              ))}
+            </div>
+            {/* Overlay copy */}
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <div className="text-[10px] tracking-[0.32em] uppercase text-white/60 font-semibold mb-1.5">
+                {story.n} / {String(items.length).padStart(2, '0')}
+              </div>
+              <h3 className="font-display font-bold text-white text-[20px] leading-[1.15] mb-2">
+                {story.title}
+              </h3>
+              <p className="text-[12.5px] leading-[1.55] text-white/75 font-light">
+                {story.body}
+              </p>
+            </div>
+            {/* Invisible tap zones — left third = previous, right third = next */}
+            <button
+              type="button"
+              aria-label="Previous benefit"
+              onClick={() => setStoryIdx((storyIdx - 1 + items.length) % items.length)}
+              className="absolute inset-y-0 left-0 w-1/3"
+            />
+            <button
+              type="button"
+              aria-label="Next benefit"
+              onClick={() => setStoryIdx((storyIdx + 1) % items.length)}
+              className="absolute inset-y-0 right-0 w-1/3"
+            />
+          </div>
+          <p className="mt-3 text-center text-[10px] tracking-[0.3em] uppercase text-stone font-semibold">
+            Tap left / right to navigate
+          </p>
+        </div>
+
+        {/* 8 BENEFIT CARDS — 4x2 grid with hairline borders (sm+ only) */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
           {items.map((b) => (
             <article
               key={b.n}
