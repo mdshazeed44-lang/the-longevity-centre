@@ -306,12 +306,15 @@ function Diagnostics({ p }: { p: Program }) {
           </h2>
         </div>
 
-        {/* Hairline 2-col diagnostics grid */}
+        {/* Hairline 2-col diagnostics grid. `last:sm:col-span-2` makes
+            the orphan item in the last row span both columns when the
+            count is odd — kills the awkward empty grey cell that
+            appears when sm:grid-cols-2 has an odd item count. */}
         <div className="grid sm:grid-cols-2 gap-px bg-ink/10 border border-ink/10 rounded-[18px] overflow-hidden max-w-[960px] mx-auto">
           {p.diagnostics.map((d, i) => (
             <div
               key={i}
-              className="fade-up bg-white p-5 md:p-6 flex items-start gap-4"
+              className="fade-up bg-white p-5 md:p-6 flex items-start gap-4 last:[&:nth-child(odd)]:sm:col-span-2"
             >
               <span className="font-display text-[12px] text-rust font-semibold tabular-nums tracking-tight w-6 shrink-0 pt-1">
                 {String(i + 1).padStart(2, '0')}
@@ -427,9 +430,14 @@ function Outcomes({ p }: { p: Program }) {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border border-ink/10 rounded-[20px] overflow-hidden">
+        {/* 2-col on all sizes — outcomes lists across programmes are
+            consistently even-numbered (typically 10), and `lg:grid-cols-3`
+            was leaving orphan items as awkward empty grey cells.
+            `last:sm:col-span-2` is a belt-and-suspenders fix for any
+            programme that does have an odd outcome count. */}
+        <div className="grid sm:grid-cols-2 gap-px bg-ink/10 border border-ink/10 rounded-[20px] overflow-hidden">
           {p.outcomes.map((o, i) => (
-            <article key={i} className="fade-up bg-white p-6 md:p-7 flex flex-col">
+            <article key={i} className="fade-up bg-white p-6 md:p-7 flex flex-col last:[&:nth-child(odd)]:sm:col-span-2">
               <div className="font-display text-[20px] md:text-[22px] text-rust font-semibold tabular-nums tracking-tight mb-3">
                 {String(i + 1).padStart(2, '0')}
               </div>
