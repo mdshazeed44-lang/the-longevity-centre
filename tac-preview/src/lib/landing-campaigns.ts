@@ -9,6 +9,14 @@
  * fork of the AdLandingPage component needed.
  */
 
+export interface Benefit {
+  n: string
+  title: string
+  body: string
+  img: string
+  alt: string
+}
+
 export interface Campaign {
   /** Route path (mounted by routes.tsx + hidden chrome via App.tsx). */
   path: string
@@ -27,6 +35,13 @@ export interface Campaign {
   /** LSQ `Source` value, e.g. "Website - Longevity LP". Used to tag
    *  the lead so the clinic team can filter / report by campaign. */
   lsqSource: string
+  /** Optional Benefits-section overrides. If omitted, the default
+   *  homepage BenefitsHome content (longevity-focused) is used. */
+  benefitsEyebrow?: string
+  benefitsHeadlineLine1?: string
+  benefitsHeadlineLine2?: string
+  benefitsBody?: string
+  benefits?: Benefit[]
 }
 
 export const LONGEVITY_CAMPAIGN: Campaign = {
@@ -53,4 +68,79 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
   sub:
     "A doctor-led programme that maps your gut microbiome with whole-genomic sequencing, corrects metabolic and hormonal drift, and tracks weight, inflammation and energy outcomes month-on-month.",
   lsqSource: 'Website - Gut & Metabolic LP',
+
+  // ── Benefits section override — gut/metabolic specific. Uses the
+  // existing brand mood imagery from public/longevity/brand/ so we
+  // don't have to ship new assets.
+  benefitsEyebrow: '— Outcomes —',
+  benefitsHeadlineLine1: 'Heal from within.',
+  benefitsHeadlineLine2: 'Measurably better.',
+  benefitsBody:
+    'Every outcome is paired with a re-test at programme completion — your gut microbiome, metabolic markers and inflammation panel are measured before and after, not promised.',
+  benefits: [
+    {
+      n: '01',
+      title: 'Restored microbiome diversity',
+      body:
+        'Whole-genomic sequencing maps your gut. Targeted pre-/probiotic, fibre and polyphenol protocols rebuild bacterial diversity month over month.',
+      img: '/longevity/brand/mood-leaf-skeleton.jpg',
+      alt: 'Skeleton leaf — delicate microbial diversity',
+    },
+    {
+      n: '02',
+      title: 'Reduced gut inflammation',
+      body:
+        'Inflammation markers (CRP, calprotectin, leaky-gut panel) brought down by personalised gut-healing protocols and root-cause correction.',
+      img: '/longevity/brand/mood-water-ripple.jpg',
+      alt: 'Calm water ripple — reduced gut inflammation',
+    },
+    {
+      n: '03',
+      title: 'Less bloating &  better digestion',
+      body:
+        'Targeted food-sensitivity testing, enzyme support, and FODMAP-aware nutrition put an end to IBS-style discomfort and chronic bloating.',
+      img: '/longevity/brand/mood-zen-sand.jpg',
+      alt: 'Zen sand garden — calm digestion',
+    },
+    {
+      n: '04',
+      title: 'Ideal body composition',
+      body:
+        'Fat down, lean mass preserved. BCA-tracked, physician-guided — measured beyond the bathroom scale.',
+      img: '/longevity/body-composition-pose.jpg',
+      alt: 'Nutrition bowl — ideal body composition',
+    },
+    {
+      n: '05',
+      title: 'Stable blood sugar',
+      body:
+        'Fasting glucose, HbA1c and insulin sensitivity restored. Personalised nutrition + targeted therapeutics stop metabolic drift.',
+      img: '/longevity/performance-cyclist-v2.jpg',
+      alt: 'Cyclist — stable blood sugar and metabolism',
+    },
+    {
+      n: '06',
+      title: 'Hormonal balance restored',
+      body:
+        'Thyroid, cortisol, insulin, sex hormones — corrected, then monitored. Mood, energy and weight follow the panel.',
+      img: '/longevity/brand/mood-hands-pose.jpg',
+      alt: 'Elegant hands pose — hormonal balance',
+    },
+    {
+      n: '07',
+      title: 'Higher energy &  clearer mood',
+      body:
+        'A healthy gut and stable hormones translate to mitochondrial efficiency. Stop relying on caffeine — your biochemistry does the work.',
+      img: '/longevity/brand/mood-forest-light.jpg',
+      alt: 'Forest light — higher energy and clearer mood',
+    },
+    {
+      n: '08',
+      title: 'Healthier skin from within',
+      body:
+        'The gut–skin axis: cleared inflammation and balanced hormones show up as clearer, brighter, more resilient skin.',
+      img: '/longevity/brand/mood-terracotta.jpg',
+      alt: 'Terracotta texture — healthy skin from within',
+    },
+  ],
 }

@@ -10,12 +10,25 @@ import { reduceMotion } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type Benefit = {
+export type Benefit = {
   n: string
   title: string
   body: string
   img: string
   alt: string
+}
+
+interface BenefitsHomeProps {
+  /** Override the default 8 longevity benefits. */
+  benefits?: Benefit[]
+  /** Eyebrow microcopy above the headline. Defaults to "— Benefits —". */
+  eyebrow?: string
+  /** Headline line 1 (regular weight). */
+  headlineLine1?: string
+  /** Headline line 2 (bold rust accent — the hook). */
+  headlineLine2?: string
+  /** Sub-paragraph in the right column of the header. */
+  body?: string
 }
 
 const BENEFITS: Benefit[] = [
@@ -85,7 +98,14 @@ const BENEFITS: Benefit[] = [
   },
 ]
 
-export function BenefitsHome() {
+export function BenefitsHome({
+  benefits,
+  eyebrow = '— Benefits —',
+  headlineLine1 = 'More than longer life.',
+  headlineLine2 = 'Better life, measurably.',
+  body = 'Our team actively follows clinical trials and the latest longevity research. Every programme is grounded in evidence-based protocols — diagnostics-led, physician-guided, measured.',
+}: BenefitsHomeProps = {}) {
+  const items = benefits ?? BENEFITS
   const root = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -137,26 +157,26 @@ export function BenefitsHome() {
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-16 md:mb-20">
           <div>
             <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Benefits —
+              {eyebrow}
             </div>
             <h2 className="font-display font-light text-[34px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block">More than longer life.</span>
+                <span className="inline-block">{headlineLine1}</span>
               </span>
               <br />
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block font-bold text-rust">Better life, measurably.</span>
+                <span className="inline-block font-bold text-rust">{headlineLine2}</span>
               </span>
             </h2>
           </div>
           <p className="fade-up text-[14px] md:text-[15px] leading-[1.7] text-graphite font-light max-w-[420px] md:pb-3">
-            Our team actively follows clinical trials and the latest longevity research. Every programme is grounded in evidence-based protocols — diagnostics-led, physician-guided, measured.
+            {body}
           </p>
         </div>
 
         {/* 8 BENEFIT CARDS — 4x2 grid with hairline borders */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/10">
-          {BENEFITS.map((b) => (
+          {items.map((b) => (
             <article
               key={b.n}
               className="benefit-card group relative bg-white p-5 md:p-6 flex flex-col"

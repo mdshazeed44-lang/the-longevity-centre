@@ -630,9 +630,18 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
       <PressStrip />
 
       {/* ═══════════════════════════════════════════════════════════════
-          BENEFITS — homepage editorial benefits component
+          BENEFITS — homepage editorial benefits component. Each
+          campaign can override the section's headline + body + 8
+          benefit cards via its own copy (see landing-campaigns.ts).
+          Omit any prop to keep the default longevity content.
           ═══════════════════════════════════════════════════════════════ */}
-      <BenefitsHome />
+      <BenefitsHome
+        eyebrow={campaign.benefitsEyebrow}
+        headlineLine1={campaign.benefitsHeadlineLine1}
+        headlineLine2={campaign.benefitsHeadlineLine2}
+        body={campaign.benefitsBody}
+        benefits={campaign.benefits}
+      />
 
       <InlineCta
         eyebrow="See what's possible"
