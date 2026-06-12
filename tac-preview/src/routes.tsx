@@ -30,9 +30,6 @@ const LongevityProgramPage = lazy(() =>
     default: m.LongevityProgramPage,
   }))
 )
-const BenefitsDemoPage = lazy(() =>
-  import('./pages/BenefitsDemoPage').then((m) => ({ default: m.BenefitsDemoPage }))
-)
 const ProgramsIndexPage = lazy(() =>
   import('./pages/ProgramsIndexPage').then((m) => ({ default: m.ProgramsIndexPage }))
 )
@@ -329,7 +326,6 @@ const ROUTES: RouteEntry[] = [
     Component: SkinAestheticsDetailPage,
   },
   { match: { path: '/longevity-program' }, Component: LongevityProgramPage },
-  { match: { path: '/demo' }, Component: BenefitsDemoPage },
   { match: { path: '/programs' }, Component: ProgramsIndexPage },
   { match: { path: '/programs/', prefix: true }, Component: ProgramDetailPage },
   { match: { path: '/diagnostics' }, Component: DiagnosticsPage },
