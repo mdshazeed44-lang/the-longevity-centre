@@ -13,7 +13,7 @@
 // + Complete) since both are 12-month versions of the same programme
 // (this matches the brochure's 6-tab presentation on page 17).
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
@@ -35,6 +35,9 @@ export function ProgramsHome() {
   const root = useRef<HTMLElement>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
+  // Mobile-only wallet-stack state — which programme card is
+  // expanded. Desktop's stacking-deck never reads this.
+  const [walletOpen, setWalletOpen] = useState(0)
 
   useEffect(() => {
     if (reduceMotion()) return
@@ -203,8 +206,95 @@ export function ProgramsHome() {
         </div>
       </div>
 
-      {/* Stacking deck */}
-      <div className="relative max-w-[1240px] mx-auto">
+      {/* ── MOBILE ONLY — wallet stack ───────────────────────────────
+          On phones the seven stacking-deck cards read as one very
+          long scroll, so below the sm breakpoint we render all seven
+          programmes as slim Apple-Wallet-style strips (image header
+          with number + title). Tapping a strip expands it in place
+          to a full card with tag, description and both CTAs; the
+          rest stay compact. Everything scannable at once. Desktop
+          (sm+) never sees this. */}
+      <div className="sm:hidden relative max-w-[480px] mx-auto space-y-2">
+        {TLC_PROGRAMMES.map((p, i) => {
+          const isOpen = i === walletOpen
+          return (
+            <div
+              key={p.slug}
+              className="overflow-hidden rounded-[16px] border border-mist/70 bg-white shadow-[0_18px_40px_-26px_rgba(27,26,24,0.25)] transition-all duration-500"
+            >
+              <button
+                type="button"
+                onClick={() => setWalletOpen(i)}
+                aria-expanded={isOpen}
+                aria-label={`${p.cat} ${p.title}${isOpen ? '' : ' — tap to expand'}`}
+                className="relative w-full text-left"
+              >
+                <div
+                  className={`relative w-full overflow-hidden transition-all duration-500 ${isOpen ? 'aspect-[16/9]' : 'h-[58px]'}`}
+                >
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 transition-colors duration-500"
+                    style={{
+                      background: isOpen
+                        ? 'linear-gradient(180deg, rgba(27,26,24,0.12) 0%, rgba(27,26,24,0.72) 100%)'
+                        : 'rgba(27,26,24,0.48)',
+                    }}
+                  />
+                  <span
+                    className={`absolute inset-x-0 px-4 flex items-center gap-3 ${isOpen ? 'bottom-3' : 'inset-y-0'}`}
+                  >
+                    <span className="font-display font-light text-white/80 text-[16px] tabular-nums shrink-0">
+                      {p.cat}
+                    </span>
+                    <span className="font-display font-bold text-white text-[15px] leading-tight">
+                      {p.title}
+                    </span>
+                  </span>
+                </div>
+              </button>
+              {isOpen && (
+                <div className="p-4">
+                  <div className="text-[9px] tracking-[0.25em] uppercase text-stone font-semibold mb-2">
+                    {p.tag}
+                  </div>
+                  <p className="text-[13px] leading-[1.6] text-graphite font-light mb-4">
+                    {p.desc}
+                  </p>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <a
+                      href="#contact"
+                      data-cursor="hover"
+                      className="group inline-flex items-center gap-2 pl-4 pr-5 py-2.5 bg-ink text-white text-[10px] tracking-[0.2em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500"
+                    >
+                      Arrange a Consultation
+                      <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </a>
+                    <a
+                      href={`/programs/${p.slug}`}
+                      data-cursor="hover"
+                      className="inline-flex items-center px-5 py-2.5 border border-ink/15 text-ink text-[10px] tracking-[0.2em] font-semibold uppercase rounded-full hover:border-ink hover:bg-ink hover:text-white transition-colors duration-500"
+                    >
+                      Learn More
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {/* Stacking deck (sm+ only — untouched desktop layout) */}
+      <div className="hidden sm:block relative max-w-[1240px] mx-auto">
         {TLC_PROGRAMMES.map((p, i) => (
           <div
             key={p.slug}
