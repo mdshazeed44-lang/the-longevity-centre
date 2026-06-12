@@ -81,6 +81,11 @@ const GutMetabolicLandingPage = lazy(() =>
 const BenefitsMobileDemoPage = lazy(() =>
   import('./pages/BenefitsMobileDemoPage').then((m) => ({ default: m.BenefitsMobileDemoPage }))
 )
+// TEMP — mobile Programmes treatment demo. Same decision flow as
+// the Benefits demo; delete after the client picks an option.
+const ProgramsMobileDemoPage = lazy(() =>
+  import('./pages/ProgramsMobileDemoPage').then((m) => ({ default: m.ProgramsMobileDemoPage }))
+)
 const BlogDetailPage = lazy(() =>
   import('./pages/BlogDetailPage').then((m) => ({ default: m.BlogDetailPage }))
 )
@@ -344,6 +349,7 @@ const ROUTES: RouteEntry[] = [
   { match: { path: '/longevity-programme-india-lp' }, Component: AdLandingPage },
   { match: { path: '/gut-metabolic-india-lp' }, Component: GutMetabolicLandingPage },
   { match: { path: '/benefits-mobile-demo' }, Component: BenefitsMobileDemoPage },
+  { match: { path: '/programs-mobile-demo' }, Component: ProgramsMobileDemoPage },
   ...BLOG_SLUGS.map((slug) => ({
     match: { path: `/${slug}` },
     Component: BlogDetailPage,
