@@ -530,3 +530,164 @@ Outstanding (deferred, not blocking):
 - ~29 dynamic-src `<img>` tags still missing intrinsic
   width/height (CLS hygiene — needs schema changes to data
   modules, not blocking)
+
+### 2026-06-09 → 06-12 — Paid-ad landing-page push
+
+Client (Dhairyasheel) asked for dedicated Google Ads landing pages
+for the Longevity and Gut & Metabolic programmes. Built a fully
+parameterised LP system that scales for any future campaign.
+
+**1. /longevity-programme-india-lp — first ad LP**
+   - src/pages/AdLandingPage.tsx — new ~750-line page
+   - Composed from main-site components (BenefitsHome,
+     BrandAmbassadorHero, ResultsSplit, FoundersNote, Faq) so the
+     brand vibe is automatically consistent
+   - Custom hero (cream + rust + masked-line GSAP reveal) with
+     5-field lead form embedded above the fold + repeated at the
+     dark final CTA band
+   - LeadForm shared as inner component — used hero + final variants
+   - Chromeless: App.tsx CHROMELESS_ROUTES set hides <Header/> +
+     <Footer/> for this route — zero exit-link distractions
+   - Custom sticky floating top bar: TLC logo (real <Logo/>, non-
+     clickable so it doesn't navigate visitors off the LP) + phone
+     + email + "Arrange a Consultation" pill that opens the
+     ConsultationModal popup
+   - Iterated several times based on client feedback: cinematic
+     dark → cream editorial → compact (boring) → composed-from-
+     existing-brand-sections (final landing point)
+
+**2. Critical bug fixed — empty form submissions**
+   - Every lead form on the site (the 3 main-site forms + the 2 new
+     LP forms) had `noValidate` on the <form> tag, which DISABLES
+     the browser's required-field check. Empty Name/Phone submits
+     were silently:
+       a) sending blank Source-only data to LSQ (junk leads)
+       b) opening the e-brochure for non-leads (paid asset leaking)
+   - Two-layer fix applied to all 4 forms (AdLandingPage LeadForm,
+     ContactPage, CtaBand, ConsultationModal):
+       1. Removed `noValidate` — browser-native required check
+          back on, native tooltip blocks empty submits
+       2. Belt-and-suspenders JS guard in every handleSubmit:
+            const name = (...).trim()
+            const phone = (...).trim()
+            if (!name || !phone) { setState('idle'); return }
+       3. State transitions to 'submitting' only AFTER validation
+          passes so the button can revert cleanly
+
+**3. Conversion surfaces — every CTA on the LP funnels to the modal**
+   - Top-bar "Arrange a Consultation" pill        → opens modal
+   - Hero form                                     → LSQ + brochure
+   - "Begin Your Journey" in Brand Ambassador
+     section (BrandAmbassadorHero accepts onCtaClick prop —
+     when set, renders a button that opens the modal; otherwise
+     keeps its original anchor to /contact on the homepage)
+   - "Arrange a Consultation" twin pill at the bottom of the
+     Google Reviews section
+   - 3 InlineCta strips between content sections (after
+     BenefitsHome, ResultsSplit, FoundersNote) — each carries a
+     contextual primary label ("Download Brochure" /
+     "Start Your Journey" / "Speak with a Doctor") + matched
+     "Call Now" pill (phone tel: link). Both pills identical
+     padding + height — uniform reading.
+   - Final dark CTA form
+   - Phone + email mailto links in header, hero, final CTA — all
+     clickable from any scroll depth on desktop
+   - Net effect: no visitor exits the LP without a conversion
+     surface in view at all times
+
+**4. Google Reviews section on the LP**
+   - 3 review cards with stars + quote + initials avatar + Google
+     "G" SVG logo
+   - Iterated: started at 6 cards → user wanted 3 + bigger; rebuilt
+     larger with decorative serif quote-mark + rust hairline + rust-
+     gradient avatar
+   - Date labels ("2 months ago" etc.) removed per client request
+   - One round tried MGR API integration (More Good Reviews) —
+     scripts/fetch-reviews.cjs + build-time fetch + runtime JSON
+     read. Client's MGR project only contained sample placeholders
+     and no real Google reviews yet, so the integration was rolled
+     back; the 3 cards now ship as static, knowledgeable
+     placeholder reviews ready to be swapped for real ones.
+
+**5. ConsultationModal compaction**
+   - Form was too tall to fit on common 700px laptop viewports —
+     visitors had to scroll inside the modal to reach Submit, losing
+     conversion
+   - Removed the optional "Anything Specific" textarea (the 5
+     remaining fields are everything the clinic team needs)
+   - Reduced container padding (px-6/9 → px-5/7, pt-9/10 → pt-6/7)
+   - Smaller heading (24/30px → 20/24px), tighter row gap
+     (space-y-4 → space-y-3)
+   - ~190px saved — fits cleanly in 700px viewports
+   - Same modal is used by the main-site Header and the LP top
+     bar — both benefit
+
+**6. Lenis scroll fix on the modal**
+   - The site uses @studio-freight/lenis for smooth-scroll which
+     hijacks wheel events at the document level. Plain
+     `overflow-y-auto` on the modal card was defeated — wheels
+     scrolled the page underneath instead of the form.
+   - Fix: window.__lenis?.stop() on open, .start() on cleanup; plus
+     `data-lenis-prevent` + `overscroll-contain` on the card as
+     belt-and-suspenders
+
+**7. /gut-metabolic-india-lp — second ad LP**
+   - Refactored AdLandingPage to accept a `campaign` prop instead of
+     hardcoding longevity copy
+   - New src/lib/landing-campaigns.ts:
+       Campaign interface (path, title, description, hero copy,
+       LSQ source, optional Benefits override)
+       LONGEVITY_CAMPAIGN (current LP — no visible change)
+       GUT_METABOLIC_CAMPAIGN (new)
+   - metaForCampaign() helper builds the per-page <title>,
+     <meta description>, canonical and breadcrumb from the campaign
+   - LeadForm now takes sourcePrefix prop — LSQ Source becomes
+     "Website - Gut & Metabolic LP (hero)" instead of the
+     longevity tag, so the clinic team can filter leads by campaign
+   - New thin wrapper src/pages/GutMetabolicLandingPage.tsx (6 lines)
+   - Route in routes.tsx + path added to CHROMELESS_ROUTES + URL
+     added to sitemap.xml + staticPages entry in inject-meta.cjs
+     with gut-specific noscript body
+   - Gut-specific Benefits section (override via campaign config):
+       BenefitsHome refactored to accept benefits + eyebrow +
+       headline + body props — defaults stay longevity content for
+       homepage usage. GUT_METABOLIC_CAMPAIGN ships its own 8
+       gut-focused cards (microbiome diversity, gut inflammation,
+       bloating, body composition, blood sugar, hormonal balance,
+       energy & mood, gut-skin axis) using existing brand mood
+       imagery.
+   - Per-route HTML count: 76 → 77
+
+**8. URL rename**
+   - First the LP shipped as /longevity-programme-india
+   - Client wanted -LP suffix → /longevity-programme-india-LP
+   - Then lowercase /longevity-programme-india-lp (best practice)
+   - Old dist folder removed, new built and verified
+
+**9. Other cleanups**
+   - ProgramDetailPage diagnostics + outcomes grids: the gap-px +
+     bg-ink/10 trick was showing dark grey rectangles in any cell
+     not filled by an item. Added `last:[&:nth-child(odd)]:sm:col-span-2`
+     to spread the last orphan card across the row when alone, and
+     dropped the lg:grid-cols-3 on outcomes (10 items now reads as
+     a clean 5×2 grid)
+   - Slim footer on the LP (py-7 → py-1.5, 6px rust dot instead of
+     monogram, single-line copyright only) — client wanted minimal
+     vertical weight competing with the final CTA above it
+   - Removed all main-site footer chrome from the LP (Privacy/
+     Terms/Main Site/Designed by Incrementors anchors) — chromeless
+     means chromeless
+
+End-of-period state at 2026-06-12 14:50:
+- 26 LOCAL commits ahead of origin/main on this work
+- GitHub push BLOCKED since 2026-06-09 — credential helper
+  switched to a `amit43410` user that doesn't have push access to
+  mdshazeed44-lang/the-longevity-centre. Push fails with
+  HTTP 403 "Permission denied". User needs to either re-auth via
+  Windows Credential Manager (clear stored creds + reauthenticate
+  as ai-workflow-labs / mdshazeed44-lang) or generate a personal
+  access token and use it as the password. Local commits are safe.
+- Deploy zip is fresh at C:\Users\SDM-Vijay\Desktop\tlc_updated-website.zip
+  (96.6 MB, 77 per-route HTMLs, includes both LPs)
+- Awaiting (a) zip upload to Hostinger to take everything live and
+  (b) GitHub credential fix to push the 26 commits
