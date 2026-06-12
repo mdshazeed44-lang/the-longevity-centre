@@ -273,6 +273,186 @@ function Option6Arrows() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
+   OPTION 7 — DECK STACK (Tinder-style)
+   Cards stacked behind each other with scale + offset. Tap the top
+   card (or the button) to send it to the back and reveal the next.
+   Playful, premium, app-like.
+   ════════════════════════════════════════════════════════════════════ */
+function Option7Deck() {
+  const [i, setI] = useState(0)
+  const next = () => setI((i + 1) % ITEMS.length)
+  // Render current + the two behind it for the stacked look.
+  const layers = [0, 1, 2].map((off) => ITEMS[(i + off) % ITEMS.length])
+  return (
+    <div>
+      <MiniHeader />
+      <div className="relative" style={{ height: 470 }}>
+        {layers.map((p, off) => (
+          <button
+            key={p.slug}
+            type="button"
+            onClick={off === 0 ? next : undefined}
+            aria-label={off === 0 ? `${p.title} — tap for next programme` : undefined}
+            className="absolute inset-x-0 top-0 text-left transition-all duration-500 ease-out"
+            style={{
+              transform: `translateY(${off * 14}px) scale(${1 - off * 0.05})`,
+              zIndex: 10 - off,
+              opacity: off === 2 ? 0.55 : 1,
+              pointerEvents: off === 0 ? 'auto' : 'none',
+            }}
+          >
+            <div className="bg-white border border-ink/10 rounded-[18px] overflow-hidden shadow-[0_20px_45px_-22px_rgba(27,26,24,0.35)]">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist">
+                <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+                <span className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-rust text-[10px] font-display font-semibold px-2.5 py-1 rounded-full tabular-nums">{p.cat} / 07</span>
+              </div>
+              <div className="p-4">
+                <div className="text-[8.5px] tracking-[0.25em] uppercase text-stone font-semibold mb-1.5">{p.tag}</div>
+                <h3 className="font-display font-bold text-[16.5px] leading-[1.2] text-ink mb-2">{p.title}</h3>
+                <p className="text-[11.5px] leading-[1.5] text-graphite font-light line-clamp-3">{p.desc}</p>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <span className="text-[10px] tracking-[0.3em] uppercase text-stone font-semibold">Tap card for next</span>
+        <span className="text-[10px] text-rust font-display font-semibold tabular-nums">{ITEMS[i].cat} / 07</span>
+      </div>
+    </div>
+  )
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   OPTION 8 — CENTER SPOTLIGHT (peek sides)
+   Centre card full-size, previous + next programmes visible as
+   slim dimmed slivers on either edge — tap a sliver to slide it
+   into the centre. Cover-flow feel without any scroll handling.
+   ════════════════════════════════════════════════════════════════════ */
+function Option8Spotlight() {
+  const [i, setI] = useState(0)
+  const prevIdx = (i - 1 + ITEMS.length) % ITEMS.length
+  const nextIdx = (i + 1) % ITEMS.length
+  const p = ITEMS[i]
+  return (
+    <div>
+      <MiniHeader />
+      <div className="flex items-stretch gap-2">
+        {/* Prev sliver */}
+        <button type="button" onClick={() => setI(prevIdx)} aria-label={`Previous: ${ITEMS[prevIdx].title}`}
+          className="relative w-9 shrink-0 overflow-hidden rounded-[12px] opacity-50 hover:opacity-80 transition-opacity">
+          <img src={ITEMS[prevIdx].img} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+          <span aria-hidden className="absolute inset-0 bg-ink/30" />
+          <span aria-hidden className="absolute inset-0 flex items-center justify-center text-white text-[13px]">←</span>
+        </button>
+        {/* Centre card */}
+        <article key={p.slug} className="flex-1 bg-white border border-ink/10 rounded-[16px] overflow-hidden shadow-[0_18px_40px_-20px_rgba(27,26,24,0.3)]">
+          <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist">
+            <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+          </div>
+          <div className="p-4">
+            <div className="text-[8.5px] tracking-[0.25em] uppercase text-rust font-semibold mb-1.5">{p.cat} · {p.tag}</div>
+            <h3 className="font-display font-bold text-[16px] leading-[1.2] text-ink mb-2">{p.title}</h3>
+            <p className="text-[11.5px] leading-[1.5] text-graphite font-light mb-3 line-clamp-3">{p.desc}</p>
+            <CtaPair slug={p.slug} />
+          </div>
+        </article>
+        {/* Next sliver */}
+        <button type="button" onClick={() => setI(nextIdx)} aria-label={`Next: ${ITEMS[nextIdx].title}`}
+          className="relative w-9 shrink-0 overflow-hidden rounded-[12px] opacity-50 hover:opacity-80 transition-opacity">
+          <img src={ITEMS[nextIdx].img} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+          <span aria-hidden className="absolute inset-0 bg-ink/30" />
+          <span aria-hidden className="absolute inset-0 flex items-center justify-center text-white text-[13px]">→</span>
+        </button>
+      </div>
+      {/* Dots */}
+      <div className="mt-4 flex items-center justify-center gap-1.5">
+        {ITEMS.map((x, d) => (
+          <button key={x.slug} type="button" onClick={() => setI(d)} aria-label={`Programme ${d + 1}`}
+            className={`rounded-full transition-all duration-300 ${d === i ? 'w-4 h-1.5 bg-rust' : 'w-1.5 h-1.5 bg-ink/20'}`} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   OPTION 9 — WALLET STACK (Apple Wallet style)
+   All 7 cards visibly stacked — each shows a slim image header
+   strip with number + title. Tap any card to expand it in place;
+   the rest stay as compact strips. Everything visible at once,
+   still compact.
+   ════════════════════════════════════════════════════════════════════ */
+function Option9Wallet() {
+  const [open, setOpen] = useState(0)
+  return (
+    <div>
+      <MiniHeader />
+      <div className="space-y-2">
+        {ITEMS.map((p, d) => {
+          const isOpen = d === open
+          return (
+            <div key={p.slug} className="overflow-hidden rounded-[14px] border border-ink/10 bg-white transition-all duration-500">
+              <button type="button" onClick={() => setOpen(d)} aria-expanded={isOpen}
+                className="relative w-full text-left">
+                <div className={`relative w-full overflow-hidden transition-all duration-500 ${isOpen ? 'aspect-[16/9]' : 'h-[56px]'}`}>
+                  <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+                  <span aria-hidden className="absolute inset-0" style={{ background: isOpen ? 'linear-gradient(180deg, rgba(27,26,24,0.15) 0%, rgba(27,26,24,0.7) 100%)' : 'rgba(27,26,24,0.45)' }} />
+                  <span className={`absolute inset-x-0 px-4 flex items-center gap-3 ${isOpen ? 'bottom-3' : 'inset-y-0'}`}>
+                    <span className="font-display font-light text-white/80 text-[16px] tabular-nums">{p.cat}</span>
+                    <span className="font-display font-bold text-white text-[15px] leading-tight">{p.title}</span>
+                  </span>
+                </div>
+              </button>
+              {isOpen && (
+                <div className="p-4">
+                  <div className="text-[8.5px] tracking-[0.25em] uppercase text-stone font-semibold mb-1.5">{p.tag}</div>
+                  <p className="text-[11.5px] leading-[1.55] text-graphite font-light mb-3">{p.desc}</p>
+                  <CtaPair slug={p.slug} />
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   OPTION 10 — MAGAZINE MOSAIC
+   Editorial photo-mosaic: first programme as a full-width feature
+   tile, the other six as a 2-column grid of image tiles with the
+   title overlaid on a gradient. Tap a tile → detail page. Whole
+   section ≈ 4 rows tall, very visual, zero interaction needed.
+   ════════════════════════════════════════════════════════════════════ */
+function Option10Mosaic() {
+  const [featured, ...rest] = ITEMS
+  const Tile = ({ p, tall }: { p: (typeof ITEMS)[number]; tall?: boolean }) => (
+    <a href={`/programs/${p.slug}`} onClick={(e) => e.preventDefault()}
+      className={`relative block overflow-hidden rounded-[14px] bg-ink ${tall ? 'aspect-[16/9]' : 'aspect-square'}`}>
+      <img src={p.img} alt={p.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover" />
+      <span aria-hidden className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 35%, rgba(27,26,24,0.85) 100%)' }} />
+      <span className="absolute inset-x-0 bottom-0 p-3">
+        <span className="block text-[8px] tracking-[0.25em] uppercase text-white/60 font-semibold mb-0.5">{p.cat} · {p.tag.split('·')[0].trim()}</span>
+        <span className={`block font-display font-bold text-white leading-[1.15] ${tall ? 'text-[17px]' : 'text-[13px]'}`}>{p.title}</span>
+      </span>
+    </a>
+  )
+  return (
+    <div>
+      <MiniHeader />
+      <div className="space-y-3">
+        <Tile p={featured} tall />
+        <div className="grid grid-cols-2 gap-3">
+          {rest.map((p) => <Tile key={p.slug} p={p} />)}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ════════════════════════════════════════════════════════════════════
    PAGE
    ════════════════════════════════════════════════════════════════════ */
 
@@ -283,6 +463,10 @@ const OPTIONS: { id: string; label: string; note: string; Comp: () => React.Reac
   { id: '4', label: 'Option 4 — Slim List Rows (tap-through)', note: 'Chhoti square thumbnail + title + tag rows. Har row programme detail page ka link. App-jaisa native list feel.', Comp: Option4ListRows },
   { id: '5', label: 'Option 5 — Chip Tabs + Single Card', note: 'Upar scrollable chips (01-07), neeche selected programme ka full card. Kisi bhi programme pe direct jump.', Comp: Option5ChipTabs },
   { id: '6', label: 'Option 6 — Single Card + Arrows', note: 'Ek card at a time, neeche chote cute ← → pills + dots. (Benefits demo ke Option 1 jaisa pattern.)', Comp: Option6Arrows },
+  { id: '7', label: 'Option 7 — Deck Stack (Tinder-style)', note: 'Cards ek ke peeche ek stacked — peeche wale jhaank rahe. Top card tap karo, woh peeche chala jata hai aur agla saamne. Playful, app-jaisa premium feel.', Comp: Option7Deck },
+  { id: '8', label: 'Option 8 — Center Spotlight (peek sides)', note: 'Beech mein full card, dono sides pe prev/next programme ki patli dimmed jhalak. Sliver tap karo to woh centre mein slide hota hai. Cover-flow feel.', Comp: Option8Spotlight },
+  { id: '9', label: 'Option 9 — Wallet Stack (Apple Wallet style)', note: 'Saare 7 cards stacked strips mein dikhte hain (image + number + title). Kisi bhi strip ko tap karo — wahi expand ho jata hai. Sab kuch ek nazar mein, phir bhi compact.', Comp: Option9Wallet },
+  { id: '10', label: 'Option 10 — Magazine Mosaic', note: 'Pehla programme full-width feature tile, baaki 6 ka 2-column photo mosaic — title image pe overlay. Zero interaction, sabse visual, editorial magazine feel.', Comp: Option10Mosaic },
 ]
 
 export function ProgramsMobileDemoPage() {
@@ -294,7 +478,7 @@ export function ProgramsMobileDemoPage() {
             — Temp Demo · Mobile Programmes Section —
           </div>
           <h1 className="font-display font-light text-[28px] md:text-[40px] leading-[1.1] tracking-[-0.02em] text-ink max-w-[760px] mx-auto">
-            6 mobile treatments.{' '}
+            10 mobile treatments.{' '}
             <span className="font-bold italic text-rust">Pick one.</span>
           </h1>
           <p className="mt-4 text-[13.5px] md:text-[15px] leading-[1.6] text-graphite font-light max-w-[560px] mx-auto">
