@@ -5,18 +5,17 @@
 // system stays consistent across pages.
 
 import { useState } from 'react'
-import { HOMEPAGE_FAQS as FAQS, faqPageSchema } from '../../lib/faqs'
+import { HOMEPAGE_FAQS as FAQS } from '../../lib/faqs'
 
 export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
     <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
-      {/* JSON-LD for FAQPage rich-result eligibility */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(FAQS)) }}
-      />
+      {/* FAQPage JSON-LD is pre-baked into the static <head> by
+          scripts/inject-meta.cjs (for /, and the two ad LPs) from the same
+          src/lib/faqs.ts source — so there's exactly ONE FAQPage node per
+          page and it's visible to non-JS crawlers. Do NOT re-emit it here. */}
 
       <div className="max-w-[920px] mx-auto">
         <div className="text-center mb-12 md:mb-14">

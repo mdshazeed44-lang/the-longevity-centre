@@ -182,11 +182,18 @@ const skin = loadLibModule('skin-treatments.ts')
 // static HTML matches what useDocumentMeta sets at runtime.
 const seoOverrides = loadLibModule('seo-overrides.ts')
 const META_OVERRIDES = seoOverrides.META_OVERRIDES || {}
-// Homepage FAQ schema — built from the SAME single source (src/lib/faqs.ts)
-// the visible <Faq /> accordion uses, so static + runtime match exactly.
+// FAQ schema — built from the SAME single source (src/lib/faqs.ts) the
+// visible <Faq /> accordion uses. Pre-baked into the static <head> so it's
+// the ONLY FAQPage node (Faq.tsx no longer emits a runtime one). Injected on
+// every route that renders <Faq />.
 const faqs = loadLibModule('faqs.ts')
 const FAQ_SCHEMA =
   faqs.HOMEPAGE_FAQS && faqs.faqPageSchema ? faqs.faqPageSchema(faqs.HOMEPAGE_FAQS) : null
+const FAQ_ROUTES = new Set([
+  '/',
+  '/longevity-programme-india-lp',
+  '/gut-metabolic-india-lp',
+])
 
 /**
  * MedicalClinic (a LocalBusiness subtype) JSON-LD for a centre, mirroring
@@ -839,7 +846,7 @@ for (const item of entries) {
   // FAQPage on the homepage, a LocalBusiness (MedicalClinic) node on each
   // verified centre detail page.
   const extraLd = []
-  if (item.path === '/' && FAQ_SCHEMA) {
+  if (FAQ_ROUTES.has(item.path) && FAQ_SCHEMA) {
     extraLd.push(FAQ_SCHEMA)
   } else if (item.path.indexOf('/centres/') === 0) {
     const slug = item.path.slice('/centres/'.length)
