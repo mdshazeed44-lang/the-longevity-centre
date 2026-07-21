@@ -545,7 +545,7 @@ export function AboutPage() {
                   { k: '20+', v: 'Years experience' },
                   { k: '1000+', v: 'Biomarkers tracked' },
                   { k: '6', v: 'Programmes' },
-                  { k: '8', v: 'Centres pan-India' },
+                  { k: '6', v: 'Centres pan-India' },
                 ].map((s) => (
                   <li key={s.v} className="flex items-baseline gap-3">
                     <span className="font-display font-bold text-[20px] md:text-[24px] text-rust tabular-nums tracking-tight">

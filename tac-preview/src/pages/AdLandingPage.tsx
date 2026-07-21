@@ -580,7 +580,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
             <div className="fade-up flex flex-wrap items-baseline gap-x-8 gap-y-3 pt-6 border-t border-ink/12 max-w-[640px]">
               {[
                 { k: '20+', l: 'Years' },
-                { k: '8', l: 'Centres' },
+                { k: '6', l: 'Centres' },
                 { k: '1000+', l: 'Biomarkers' },
                 { k: '18,500+', l: 'Patients' },
               ].map((s) => (
