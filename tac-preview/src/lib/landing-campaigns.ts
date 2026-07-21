@@ -48,7 +48,7 @@ export const LONGEVITY_CAMPAIGN: Campaign = {
   path: '/longevity-programme-india-lp',
   title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
   description:
-    "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Get the e-brochure.",
+    "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Book a free consultation.",
   eyebrow: "India's First Doctor-Led Longevity Programme",
   headlineLine1: 'Live longer.',
   headlineLine2: 'Live measurably better.',

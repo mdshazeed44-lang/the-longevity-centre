@@ -279,7 +279,7 @@ ${sitemapBody}`.trim(),
     path: '/longevity-programme-india-lp',
     title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
     description:
-      "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Get the e-brochure.",
+      "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Book a free consultation.",
     h1: 'Live longer. Live measurably better.',
     body: `
 <p><strong>India's first doctor-led longevity programme.</strong> A 12-month, physician-guided protocol that measures your biology with 1000+ diagnostics, corrects what's drifting and verifies progress with three validated biological-age clocks.</p>
@@ -313,7 +313,7 @@ ${sitemapBody}`.trim(),
   <li><a href="/centres/hyderabad">Hyderabad</a></li>
 </ul>
 <p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
-<p>For full programme details and pricing, request the <a href="/contact">brochure</a> or call +91 88268 09123.</p>`.trim(),
+<p>For full programme details and pricing, <a href="/contact">book a consultation</a> or call +91 88268 09123.</p>`.trim(),
   },
   {
     path: '/gut-metabolic-india-lp',
@@ -353,7 +353,7 @@ ${sitemapBody}`.trim(),
   <li><a href="/centres/hyderabad">Hyderabad</a></li>
 </ul>
 <p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
-<p>For full programme details and pricing, request the <a href="/contact">brochure</a> or call +91 88268 09123.</p>`.trim(),
+<p>For full programme details and pricing, <a href="/contact">book a consultation</a> or call +91 88268 09123.</p>`.trim(),
   },
   {
     path: '/',

@@ -17,7 +17,8 @@
  * the LP renders its own minimal sticky bar and footer so there
  * are no exit links pulling attention away from the form.
  *
- * Conversion: submit → submitToLeadSquared() + openBrochure().
+ * Conversion: submit → submitToLeadSquared() → inline thank-you.
+ * (The e-brochure auto-open was removed on 2026-07-21 per client.)
  */
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
@@ -26,7 +27,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { submitToLeadSquared } from '../lib/leadsquared'
-import { openBrochure, BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
+import { PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
 
 // Brand-aligned sections reused from the homepage. Each ships with
 // TLC's visual language baked in, so the LP feels like a sibling
@@ -343,10 +344,10 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
     const data = new FormData(e.currentTarget)
     if (data.get('botcheck')) { setState('success'); return }
 
-    // Hard validation — the LSQ submit + brochure delivery MUST be
-    // gated on real Name + Phone. The form has `required` attrs but
-    // we belt-and-suspender it here too so the brochure can never
-    // open on an empty submit (older browsers / dev-tools tampering).
+    // Hard validation — the LSQ submit MUST be gated on real Name +
+    // Phone. The form has `required` attrs but we belt-and-suspender it
+    // here too so a junk lead can never be pushed on an empty submit
+    // (older browsers / dev-tools tampering).
     const name = ((data.get('name') as string) || '').trim()
     const phone = ((data.get('phone') as string) || '').trim()
     if (!name || !phone) {
@@ -363,7 +364,8 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
       programme: (data.get('programme') as string) || '',
       source: `${sourcePrefix} (${variant})`,
     })
-    openBrochure()
+    // Inline thank-you confirmation is shown. No e-brochure opens
+    // (removed 2026-07-21 per client).
     setState('success')
   }
 
@@ -379,11 +381,8 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
     return (
       <div className={`relative ${isDark ? 'bg-white/[0.06] border-rust-soft/40' : 'bg-cream/70 border-rust/30'} backdrop-blur-sm border rounded-[22px] p-7 md:p-8`}>
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">— Thank you —</div>
-        <h3 className={`font-display font-light text-[24px] md:text-[28px] leading-[1.12] tracking-[-0.02em] mb-3 ${isDark ? 'text-cream' : 'text-ink'}`}>Your brochure is opening now.</h3>
-        <p className={`text-[13.5px] leading-[1.65] font-light mb-6 ${isDark ? 'text-cream/65' : 'text-graphite'}`}>Our medical team will be in touch shortly to schedule your consultation.</p>
-        <a href={BROCHURE_URL} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2.5 px-6 py-3 text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full transition-colors duration-500 ${isDark ? 'bg-rust-soft text-ink hover:bg-cream' : 'bg-rust text-white hover:bg-ink'}`}>
-          Open Brochure <span aria-hidden>→</span>
-        </a>
+        <h3 className={`font-display font-light text-[24px] md:text-[28px] leading-[1.12] tracking-[-0.02em] mb-3 ${isDark ? 'text-cream' : 'text-ink'}`}>Your request has been received.</h3>
+        <p className={`text-[13.5px] leading-[1.65] font-light ${isDark ? 'text-cream/65' : 'text-graphite'}`}>Thank you for reaching out to The Longevity Centre. Our medical team will be in touch shortly to schedule your consultation.</p>
       </div>
     )
   }
@@ -393,7 +392,7 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
       <div className="pb-2">
         <div className="flex items-center gap-2.5 mb-2.5">
           <span className={`w-7 h-px ${isDark ? 'bg-rust-soft' : 'bg-rust'}`} />
-          <span className={`text-[10px] tracking-[0.4em] uppercase font-semibold ${isDark ? 'text-rust-soft' : 'text-rust'}`}>Free E-Brochure</span>
+          <span className={`text-[10px] tracking-[0.4em] uppercase font-semibold ${isDark ? 'text-rust-soft' : 'text-rust'}`}>Free Consultation</span>
         </div>
         <h3 className={`font-display font-light text-[21px] md:text-[25px] leading-[1.15] tracking-[-0.02em] ${isDark ? 'text-cream' : 'text-ink'}`}>
           Begin your <span className="font-bold italic">longevity journey.</span>
@@ -432,7 +431,7 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
         </div>
       </div>
       <button type="submit" disabled={state === 'submitting'} className={`group w-full inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full transition-colors duration-500 disabled:opacity-60 ${isDark ? 'bg-rust-soft text-ink hover:bg-cream' : 'bg-ink text-white hover:bg-rust'}`}>
-        {state === 'submitting' ? 'Submitting…' : 'Download Free Brochure'}
+        {state === 'submitting' ? 'Submitting…' : 'Book Free Consultation'}
         <span aria-hidden className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span>
       </button>
       <p className={`text-[10.5px] leading-[1.55] text-center font-light ${isDark ? 'text-cream/40' : 'text-stone'}`}>
@@ -646,7 +645,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
       <InlineCta
         eyebrow="See what's possible"
         headline="Measure your biology. Reverse what's drifting. Verified by re-tests."
-        ctaLabel="Download Brochure"
+        ctaLabel="Book a Consultation"
         variant="tan"
         onCtaClick={() => setConsultOpen(true)}
       />
@@ -722,8 +721,9 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
               <span className="font-bold italic text-rust-soft">measurable.</span>
             </h2>
             <p className="text-[15px] md:text-[17px] leading-[1.65] text-cream/70 font-light max-w-[500px] mb-7">
-              Submit your details and receive the full TLC e-brochure instantly —
-              programme pricing, complete diagnostic list, and centre information.
+              Submit your details and our medical team will be in touch shortly
+              to schedule your consultation — programme guidance, diagnostics,
+              and centre information tailored to you.
             </p>
             <div className="pt-6 border-t border-cream/15 flex flex-wrap gap-x-8 gap-y-4">
               <a href={`tel:${PHONE_TEL}`} className="group inline-flex items-center gap-3 text-cream hover:text-rust-soft transition-colors">

@@ -4,9 +4,10 @@
 //
 // Lead handling: form submissions push the lead to LeadSquared CRM
 // (only destination — no WhatsApp lead delivery as of 2026-06-06 per
-// client) and open the e-brochure in a new tab as the user-facing
-// thank-you. The "Chat on WhatsApp" pill in the sidebar stays as a
-// direct CONTACT option (visitor-initiated, no form data).
+// client) and show an inline thank-you confirmation. (The e-brochure
+// auto-open was removed on 2026-07-21 per client.) The "Chat on
+// WhatsApp" pill in the sidebar stays as a direct CONTACT option
+// (visitor-initiated, no form data).
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -14,7 +15,6 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
-import { openBrochure, BROCHURE_URL } from '../lib/contact'
 import { submitToLeadSquared } from '../lib/leadsquared'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
@@ -87,10 +87,10 @@ export function ContactPage() {
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
 
-    // Hard validation — LSQ submit + brochure delivery MUST be gated
-    // on real Name + Phone. The form has `required` attrs but we
-    // belt-and-suspender it here so the brochure can never open on
-    // an empty submit (older browsers / dev-tools tampering).
+    // Hard validation — LSQ submit MUST be gated on real Name + Phone.
+    // The form has `required` attrs but we belt-and-suspender it here
+    // so a junk lead can never be pushed on an empty submit (older
+    // browsers / dev-tools tampering).
     // Validate BEFORE flipping to 'submitting' so the button never
     // flickers on a bad submit.
     if (!name || !phone) {
@@ -112,9 +112,8 @@ export function ContactPage() {
       source: 'Website - Contact Page Form',
     })
 
-    // Brochure auto-opens as the user-facing confirmation that the
-    // submit succeeded. This is the visual thank-you.
-    openBrochure()
+    // Inline thank-you confirmation is shown. No e-brochure opens
+    // (removed 2026-07-21 per client).
     setState('success')
     form.reset()
   }
@@ -275,7 +274,7 @@ export function ContactPage() {
                       data-magnetic
                       className="group inline-flex items-center gap-3 pl-6 pr-8 py-4 bg-ink text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                      {state === 'submitting' ? 'Submitting…' : 'Download Brochure'}
+                      {state === 'submitting' ? 'Submitting…' : 'Book Appointment'}
                       <span
                         aria-hidden
                         className="inline-block transition-transform duration-500 group-hover:translate-x-1"
@@ -493,25 +492,15 @@ function SuccessPanel() {
         — Thank you —
       </div>
       <h3 className="font-display font-light text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
-        Your brochure is{' '}
-        <span className="font-bold text-rust">opening now.</span>
+        Your request has been{' '}
+        <span className="font-bold text-rust">received.</span>
       </h3>
       <p className="text-[14.5px] leading-[1.7] text-graphite font-light max-w-[480px] mx-auto mb-8">
-        Your TLC e-brochure has opened in a new tab. We&rsquo;ve received
-        your details and our medical team will be in touch shortly to
-        schedule your consultation. If the brochure tab didn&rsquo;t open,
-        use the button below.
+        Thank you for reaching out to The Longevity Centre. We&rsquo;ve
+        received your details and our medical team will be in touch shortly
+        to schedule your consultation.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
-        <a
-          href={BROCHURE_URL}
-          data-cursor="hover"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
-        >
-          Open Brochure
-        </a>
         <a
           href="/"
           data-cursor="hover"

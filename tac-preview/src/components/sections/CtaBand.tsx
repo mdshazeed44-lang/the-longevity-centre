@@ -15,13 +15,13 @@
  *
  * Form submission pushes the lead to LeadSquared CRM (only
  * destination — no WhatsApp lead delivery as of 2026-06-06 per
- * client) and opens the e-brochure in a new tab as the user-facing
- * thank-you. The "Or WhatsApp / call" pills below the form remain
- * as direct CONTACT options (visitor-initiated, no form data).
+ * client) and shows an inline thank-you confirmation. (The e-brochure
+ * auto-open was removed on 2026-07-21 per client.) The "Or WhatsApp /
+ * call" pills below the form remain as direct CONTACT options
+ * (visitor-initiated, no form data).
  */
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
-import { openBrochure, BROCHURE_URL } from '../../lib/contact'
 import { submitToLeadSquared } from '../../lib/leadsquared'
 
 type FormState = 'idle' | 'submitting' | 'success'
@@ -52,10 +52,10 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
     const programme =
       (data.get('programme') as string) || 'Not specified'
 
-    // Hard validation — LSQ submit + brochure delivery MUST be gated
-    // on real Name + Phone. Belt-and-suspenders on top of the
-    // browser-native required-field check. Validate BEFORE flipping
-    // to 'submitting' so the button never flickers on a bad submit.
+    // Hard validation — LSQ submit MUST be gated on real Name + Phone.
+    // Belt-and-suspenders on top of the browser-native required-field
+    // check. Validate BEFORE flipping to 'submitting' so the button
+    // never flickers on a bad submit.
     if (!name || !phone) {
       return
     }
@@ -72,9 +72,8 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
       source: 'Website - Homepage CTA Band',
     })
 
-    // Brochure auto-opens as the user-facing confirmation that the
-    // submit succeeded. This is the visual thank-you.
-    openBrochure()
+    // Inline thank-you confirmation is shown. No e-brochure opens
+    // (removed 2026-07-21 per client).
     setState('success')
     form.reset()
   }
@@ -240,8 +239,8 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
                 </button>
 
                 <p className="text-[10px] tracking-[0.04em] text-white/35 font-light leading-[1.5] pt-1">
-                  Submitting opens our brochure and notifies our medical
-                  team. <span className="text-white/25">No spam, ever.</span>
+                  Submitting notifies our medical team, who will be in touch
+                  shortly. <span className="text-white/25">No spam, ever.</span>
                 </p>
               </form>
             )}
@@ -295,34 +294,23 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
 }
 
 /**
- * Success state — shown after the form has pushed the lead to LSQ
- * and the brochure has opened in a new tab. Tells the user what just
- * happened and gives them a one-click fallback to reopen the brochure
- * if their browser blocked the popup.
+ * Success state — shown after the form has pushed the lead to LSQ.
+ * A clean thank-you confirmation. (No e-brochure opens — the auto-open
+ * was removed 2026-07-21 per client.)
  */
 function FormSuccess() {
   return (
     <div className="bg-white/[0.06] border border-rust/30 rounded-[18px] p-5">
       <div className="text-[10px] tracking-[0.42em] uppercase text-rust font-semibold mb-2.5">
-        Thank you
+        — Thank you —
       </div>
       <h3 className="font-display text-white text-[17px] md:text-[19px] leading-[1.3] mb-2 font-light">
-        Your TLC brochure is opening in a new tab.
+        Your request has been received.
       </h3>
-      <p className="text-[13px] text-white/60 font-light leading-[1.55] mb-4">
-        We&rsquo;ve received your details and our medical team will be in
-        touch shortly. If the brochure tab didn&rsquo;t open, use the
-        button below.
+      <p className="text-[13px] text-white/60 font-light leading-[1.55]">
+        Thank you for reaching out to The Longevity Centre. Our medical team
+        will be in touch shortly to schedule your consultation.
       </p>
-      <a
-        href={BROCHURE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        data-cursor="hover"
-        className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
-      >
-        Open Brochure
-      </a>
     </div>
   )
 }

@@ -5,8 +5,9 @@
  * Same minimal fields as the contact page (name, phone, email,
  * preferred centre, programme of interest, free-text message). On
  * submit the lead is pushed to LeadSquared CRM (only destination —
- * no WhatsApp lead delivery as of 2026-06-06 per client) and the
- * e-brochure opens in a new tab as the user-facing thank-you.
+ * no WhatsApp lead delivery as of 2026-06-06 per client) and an
+ * in-modal thank-you confirmation is shown. (The e-brochure auto-open
+ * was removed on 2026-07-21 per client — no brochure opens on submit.)
  * Mounts conditionally — does nothing at all when `open` is false
  * (no offscreen DOM, no listeners attached).
  *
@@ -22,7 +23,6 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
-import { openBrochure, BROCHURE_URL } from '../lib/contact'
 import { submitToLeadSquared } from '../lib/leadsquared'
 
 interface Props {
@@ -80,8 +80,7 @@ export function ConsultationModal({ open, onClose }: Props) {
     const data = new FormData(e.currentTarget)
 
     // Honeypot — bots fill `botcheck`; drop the submission silently
-    // (show success so the bot believes it worked, but never call
-    // LSQ or open the brochure).
+    // (show success so the bot believes it worked, but never call LSQ).
     if (data.get('botcheck')) {
       setState('success')
       return
@@ -94,9 +93,8 @@ export function ConsultationModal({ open, onClose }: Props) {
     const programme = (data.get('programme') as string) || 'Not specified'
     const message = ((data.get('message') as string) || '').trim()
 
-    // Hard validation — LSQ submit + brochure delivery MUST be gated
-    // on real Name + Phone. Belt-and-suspenders on top of the
-    // browser-native required-field check.
+    // Hard validation — LSQ submit MUST be gated on real Name + Phone.
+    // Belt-and-suspenders on top of the browser-native required check.
     if (!name || !phone) {
       setState('idle')
       return
@@ -117,9 +115,8 @@ export function ConsultationModal({ open, onClose }: Props) {
       source: 'Website - Header Consultation Popup',
     })
 
-    // Brochure auto-opens as the user-facing confirmation that the
-    // submit succeeded. This is the visual thank-you.
-    openBrochure()
+    // Show the in-modal thank-you confirmation. No e-brochure opens
+    // (removed 2026-07-21 per client).
     setState('success')
   }
 
@@ -171,25 +168,19 @@ export function ConsultationModal({ open, onClose }: Props) {
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               </div>
+              <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
+                — Thank you —
+              </div>
               <h2
                 id="consult-title"
                 className="font-display font-light text-[24px] md:text-[28px] leading-[1.15] text-ink mb-3"
               >
-                Thank you — your brochure is ready
+                Your appointment request has been received.
               </h2>
               <p className="text-[14px] leading-[1.65] text-graphite font-light max-w-[400px] mx-auto">
-                Your TLC e-brochure has opened in a new tab. Our medical team
-                will be in touch shortly to schedule your consultation.
+                Thank you for reaching out to The Longevity Centre. Our medical
+                team will be in touch shortly to schedule your consultation.
               </p>
-              <a
-                href={BROCHURE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 text-rust hover:text-ink text-[12px] tracking-[0.18em] font-semibold uppercase transition-colors"
-              >
-                Open Brochure
-                <span aria-hidden>→</span>
-              </a>
               <div>
               <button
                 type="button"
@@ -355,7 +346,7 @@ export function ConsultationModal({ open, onClose }: Props) {
                   disabled={state === 'submitting'}
                   className="group w-full inline-flex items-center justify-center gap-3 pl-5 pr-6 py-3.5 bg-ink text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-rust transition-colors duration-500 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {state === 'submitting' ? 'Submitting…' : 'Download Brochure'}
+                  {state === 'submitting' ? 'Submitting…' : 'Book Appointment'}
                   <span
                     aria-hidden
                     className="inline-block transition-transform duration-500 group-hover:translate-x-1"
