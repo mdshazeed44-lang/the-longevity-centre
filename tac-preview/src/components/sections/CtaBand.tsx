@@ -22,6 +22,7 @@
  */
 import { useState } from 'react'
 import { PROGRAMS } from '../../lib/programs'
+import { BROCHURE_URL } from '../../lib/contact'
 import { submitToLeadSquared } from '../../lib/leadsquared'
 
 type FormState = 'idle' | 'submitting' | 'success'
@@ -307,10 +308,19 @@ function FormSuccess() {
       <h3 className="font-display text-white text-[17px] md:text-[19px] leading-[1.3] mb-2 font-light">
         Your request has been received.
       </h3>
-      <p className="text-[13px] text-white/60 font-light leading-[1.55]">
+      <p className="text-[13px] text-white/60 font-light leading-[1.55] mb-4">
         Thank you for reaching out to The Longevity Centre. Our medical team
         will be in touch shortly to schedule your consultation.
       </p>
+      <a
+        href={BROCHURE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cursor="hover"
+        className="inline-flex items-center gap-2 px-5 py-2.5 bg-rust text-white text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-white hover:text-ink transition-colors duration-500"
+      >
+        Open Brochure
+      </a>
     </div>
   )
 }

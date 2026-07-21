@@ -15,6 +15,7 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
+import { BROCHURE_URL } from '../lib/contact'
 import { submitToLeadSquared } from '../lib/leadsquared'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 
@@ -501,6 +502,15 @@ function SuccessPanel() {
         to schedule your consultation.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={BROCHURE_URL}
+          data-cursor="hover"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3.5 bg-rust text-white text-[11.5px] tracking-[0.22em] font-semibold uppercase rounded-full hover:bg-ink transition-colors duration-500"
+        >
+          Open Brochure
+        </a>
         <a
           href="/"
           data-cursor="hover"

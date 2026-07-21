@@ -23,6 +23,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
+import { BROCHURE_URL } from '../lib/contact'
 import { submitToLeadSquared } from '../lib/leadsquared'
 
 interface Props {
@@ -181,6 +182,15 @@ export function ConsultationModal({ open, onClose }: Props) {
                 Thank you for reaching out to The Longevity Centre. Our medical
                 team will be in touch shortly to schedule your consultation.
               </p>
+              <a
+                href={BROCHURE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 text-rust hover:text-ink text-[12px] tracking-[0.18em] font-semibold uppercase transition-colors"
+              >
+                Open Brochure
+                <span aria-hidden>→</span>
+              </a>
               <div>
               <button
                 type="button"

@@ -27,7 +27,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { submitToLeadSquared } from '../lib/leadsquared'
-import { PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
+import { BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
 
 // Brand-aligned sections reused from the homepage. Each ships with
 // TLC's visual language baked in, so the LP feels like a sibling
@@ -382,7 +382,10 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
       <div className={`relative ${isDark ? 'bg-white/[0.06] border-rust-soft/40' : 'bg-cream/70 border-rust/30'} backdrop-blur-sm border rounded-[22px] p-7 md:p-8`}>
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">— Thank you —</div>
         <h3 className={`font-display font-light text-[24px] md:text-[28px] leading-[1.12] tracking-[-0.02em] mb-3 ${isDark ? 'text-cream' : 'text-ink'}`}>Your request has been received.</h3>
-        <p className={`text-[13.5px] leading-[1.65] font-light ${isDark ? 'text-cream/65' : 'text-graphite'}`}>Thank you for reaching out to The Longevity Centre. Our medical team will be in touch shortly to schedule your consultation.</p>
+        <p className={`text-[13.5px] leading-[1.65] font-light mb-6 ${isDark ? 'text-cream/65' : 'text-graphite'}`}>Thank you for reaching out to The Longevity Centre. Our medical team will be in touch shortly to schedule your consultation.</p>
+        <a href={BROCHURE_URL} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2.5 px-6 py-3 text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full transition-colors duration-500 ${isDark ? 'bg-rust-soft text-ink hover:bg-cream' : 'bg-rust text-white hover:bg-ink'}`}>
+          Open Brochure <span aria-hidden>→</span>
+        </a>
       </div>
     )
   }
