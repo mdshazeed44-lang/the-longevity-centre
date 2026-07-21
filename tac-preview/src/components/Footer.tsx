@@ -32,8 +32,6 @@ const CLINICS = [
   'Mumbai',
   'Pune',
   'Nagpur',
-  'Goa',
-  'Hyderabad',
   'Bangalore',
 ]
 

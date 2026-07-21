@@ -27,7 +27,7 @@ const FAQS: Faq[] = [
   },
   {
     q: 'Is this in-person or virtual?',
-    a: 'Both. We have eight clinics across India (Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore) for in-person diagnostics and consultations. Follow-ups, reviews and protocol adjustments are also available virtually.',
+    a: 'Both. We have six clinics across India (Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore) for in-person diagnostics and consultations. Follow-ups, reviews and protocol adjustments are also available virtually.',
   },
   {
     q: 'What happens on the first consultation?',

@@ -48,7 +48,7 @@ export const LONGEVITY_CAMPAIGN: Campaign = {
   path: '/longevity-programme-india-lp',
   title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
   description:
-    "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Book a free consultation.",
+    "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, six centres across India. Book a free consultation.",
   eyebrow: "India's First Doctor-Led Longevity Programme",
   headlineLine1: 'Live longer.',
   headlineLine2: 'Live measurably better.',
@@ -61,7 +61,7 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
   path: '/gut-metabolic-india-lp',
   title: 'Gut & Metabolic Programme in India · Heal Your Gut · TLC',
   description:
-    'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 8 TLC centres in India.',
+    'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 6 TLC centres in India.',
   eyebrow: "India's Premier Gut & Metabolic Programme",
   headlineLine1: 'Heal your gut.',
   headlineLine2: 'Optimise your metabolism.',

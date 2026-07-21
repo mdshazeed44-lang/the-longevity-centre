@@ -1,4 +1,4 @@
-// centres.ts — single source of truth for the 8 TLC clinic cities.
+// centres.ts — single source of truth for the 6 TLC clinic cities.
 // Used by:
 //   - components/Footer.tsx (clinics column links)
 //   - pages/CentresPage.tsx (/centres directory)
@@ -308,81 +308,6 @@ export const CENTRES: Centre[] = [
         source: 'TAC patient',
       },
     ],
-  },
-  {
-    slug: 'goa',
-    city: 'Goa',
-    region: 'Goa',
-    state: 'Goa',
-    area: 'Dona Paula · LIFT × TLC',
-    address:
-      'Villa 1, Dona Paula, Tesoro Building, opp. Le Valencia, Vainguinim Valley, Panaji, Durgavado, Goa — 403004',
-    phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.co',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=LIFT+Dona+Paula+Vainguinim+Valley+Panaji+Goa+403004',
-    mapsEmbed:
-      'https://www.google.com/maps?q=Tesoro+Building+Dona+Paula+Vainguinim+Valley+Panaji+Goa+403004&output=embed',
-    hero: '/clinic-photos/goa-centre.webp',
-    description:
-      "TLC Goa operates in partnership with LIFT Face & Body Aesthetics in Dona Paula, Panaji — bringing precision longevity medicine to Goa, designed around the unique opportunity of preventive health combined with restorative travel. The centre offers TLC's full diagnostics, programme onboarding and on-site aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
-    highlights: [
-      'Full TLC diagnostic suite — 160+ blood biomarkers, BCA, hormonal panels',
-      'On-site dermatology and aesthetic-medicine suite via LIFT partnership',
-      'Coordinated wellness-retreat integration across Goa',
-      'Shared medical record with the wider TLC network',
-    ],
-    timings: 'Open all days · 10:00 AM to 7:00 PM',
-    status: 'open',
-    verified: true,
-    geo: { lat: 15.5524, lon: 73.7508 }, // Panaji, Goa
-    reviews: [
-      {
-        author: 'Vikas',
-        rating: 5,
-        text: "I've tried various wellness programs, but TAC stands out. Their commitment to longevity through cutting-edge testing — gut and genetic analysis — is unmatched. The personalised recommendations have significantly improved my mental clarity and physical health.",
-        source: 'TAC patient',
-      },
-      {
-        author: 'Shruti',
-        rating: 5,
-        text: 'I was skeptical about wellness programs until I discovered TAC. Their holistic approach, including gut testing and genetic testing, has been a game-changer. The personalised guidance has improved my overall well-being, and I feel more energetic than ever.',
-        source: 'TAC patient',
-      },
-      {
-        author: 'Aditya',
-        rating: 5,
-        text: "TAC's comprehensive approach to wellness is unparalleled. Their fat-loss programme helped me shed 20 kg, and I've never felt healthier. The genetic testing revealed valuable insights that let me tailor my lifestyle choices.",
-        source: 'TAC patient',
-      },
-    ],
-  },
-  {
-    slug: 'hyderabad',
-    city: 'Hyderabad',
-    region: 'Telangana',
-    state: 'Telangana',
-    area: 'Opening soon',
-    address: 'Hyderabad · Telangana (centre opening 2026)',
-    phone: '+91 88268 09123',
-    email: 'info@thelongevitycentre.co',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Hyderabad+Telangana',
-    mapsEmbed:
-      'https://www.google.com/maps?q=Hyderabad+Telangana+India&output=embed',
-    hero: '/clinic-photos/clinic-interior-2.jpg',
-    description:
-      "TLC's Hyderabad centre is opening in 2026 — bringing precision longevity medicine to South-Central India. Until the centre is operational, Hyderabad patients are onboarded via virtual consultation with at-home sample collection coordinated across Banjara Hills, Jubilee Hills, and Gachibowli. In-person diagnostics are coordinated through our Bangalore flagship.",
-    highlights: [
-      'At-home phlebotomy across Hyderabad',
-      'Virtual consultations available now',
-      'Coordinated with Bangalore flagship for in-person diagnostics',
-      'Programme enrolment open',
-    ],
-    timings: 'Opening 2026 · Remote onboarding available now',
-    status: 'opening-soon',
-    verified: false,
-    geo: { lat: 17.4239, lon: 78.4738 }, // Banjara Hills, Hyderabad
   },
   {
     slug: 'bangalore',

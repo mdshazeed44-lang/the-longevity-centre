@@ -604,7 +604,7 @@ export function CentreDetailPage() {
               </div>
               <h2 className="font-display font-light text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
-                  <span className="inline-block">Eight clinics,{' '}
+                  <span className="inline-block">Six clinics,{' '}
                     <span className="font-bold text-rust">one shared record.</span>
                   </span>
                 </span>
@@ -655,7 +655,7 @@ export function CentreDetailPage() {
               data-cursor="hover"
               className="inline-flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase text-rust font-semibold hover:text-ink transition-colors duration-300"
             >
-              ← View All Eight Centres
+              ← View All Six Centres
             </a>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { reduceMotion } from '../../lib/motion'
 gsap.registerPlugin(ScrollTrigger)
 
 export function ClinicsBand() {
-  // The eight TLC clinic locations across India.
+  // The six TLC clinic locations across India.
   type Clinic = {
     city: string
     region: string
@@ -43,18 +43,6 @@ export function ClinicsBand() {
       city: 'Nagpur',
       region: 'Maharashtra',
       area: 'Dharampeth · Asian KHMC',
-      phone: '+91 88268 09123',
-    },
-    {
-      city: 'Goa',
-      region: 'Goa',
-      area: 'Dona Paula · LIFT × TLC',
-      phone: '+91 88268 09123',
-    },
-    {
-      city: 'Hyderabad',
-      region: 'Telangana',
-      area: 'Banjara Hills',
       phone: '+91 88268 09123',
     },
     {
@@ -144,8 +132,6 @@ export function ClinicsBand() {
     Nagpur:    { left: '39%',   top: '48%', side: 'right'  }, // 21.15°N, 79.09°E
     Mumbai:    { left: '23%',   top: '54%', side: 'left'   }, // 19.08°N, 72.88°E
     Pune:      { left: '27%',   top: '56%', side: 'bottom' }, // 18.52°N, 73.86°E
-    Hyderabad: { left: '42%',   top: '62%', side: 'right'  }, // 17.39°N, 78.49°E
-    Goa:       { left: '27%',   top: '67%', side: 'left'   }, // 15.30°N, 74.12°E
     Bangalore: { left: '35%',   top: '75%', side: 'bottom' }, // 12.97°N, 77.59°E
   }
 
@@ -184,8 +170,8 @@ export function ClinicsBand() {
             </h2>
           </div>
           <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right md:pb-2">
-            Eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur,
-            Goa, Hyderabad and Bangalore. One shared medical record across
+            Six clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur
+            and Bangalore. One shared medical record across
             every centre.
           </p>
         </div>
@@ -270,7 +256,7 @@ export function ClinicsBand() {
                   Pan-India Network
                 </div>
                 <div className="font-display font-bold text-[14px] text-ink tabular-nums">
-                  8 Cities
+                  6 Cities
                 </div>
               </div>
 
@@ -365,7 +351,7 @@ export function ClinicsBand() {
                       </svg>
 
                       {/* Label pill — slightly tighter on mobile so the
-                          Mumbai/Pune/Goa/Hyderabad cluster doesn't overlap. */}
+                          Mumbai/Pune cluster doesn't overlap. */}
                       <span
                         className={`absolute ${labelPos[p.side]} px-1.5 py-[2px] md:px-2 md:py-[3px] bg-white border border-rust/25 rounded-full text-[8px] md:text-[9px] tracking-[0.12em] md:tracking-[0.16em] uppercase text-ink font-bold whitespace-nowrap shadow-[0_4px_10px_-3px_rgba(27,26,24,0.15)] group-hover:bg-rust group-hover:text-white group-hover:border-rust transition-colors duration-300`}
                       >

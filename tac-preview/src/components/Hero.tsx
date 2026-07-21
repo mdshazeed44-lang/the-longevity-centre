@@ -546,7 +546,7 @@ export function Hero() {
                 Explore
               </div>
               <div className="text-[13.5px] md:text-[15px] font-semibold text-white tracking-tight">
-                Our Eight Centres
+                Our Six Centres
               </div>
             </div>
             <span className="ml-auto w-8 h-8 md:w-9 md:h-9 rounded-full bg-white text-ink flex items-center justify-center group-hover:bg-rust group-hover:text-white transition-colors duration-300">

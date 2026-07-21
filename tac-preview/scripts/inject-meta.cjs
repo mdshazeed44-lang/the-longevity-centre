@@ -162,7 +162,7 @@ function siteNav() {
 function siteFooter() {
   return `
 <footer>
-  <p><strong>The Longevity Centre (TLC)</strong> — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Eight centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and Hyderabad.</p>
+  <p><strong>The Longevity Centre (TLC)</strong> — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Six centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur and Bangalore.</p>
   <p><a href="tel:+918826809123">+91 88268 09123</a> · <a href="mailto:info@thelongevitycentre.co">info@thelongevitycentre.co</a></p>
   <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sitemap">Sitemap</a></p>
   <p><small>Designed by <a href="https://www.incrementors.com/" rel="noopener">Incrementors</a></small></p>
@@ -279,7 +279,7 @@ ${sitemapBody}`.trim(),
     path: '/longevity-programme-india-lp',
     title: 'Longevity Programme in India · Live Longer, Live Better · TLC',
     description:
-      "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, eight centres across India. Book a free consultation.",
+      "Doctor-led 12-month longevity programme. 1000+ biomarkers, three biological-age clocks, six centres across India. Book a free consultation.",
     h1: 'Live longer. Live measurably better.',
     body: `
 <p><strong>India's first doctor-led longevity programme.</strong> A 12-month, physician-guided protocol that measures your biology with 1000+ diagnostics, corrects what's drifting and verifies progress with three validated biological-age clocks.</p>
@@ -301,16 +301,14 @@ ${sitemapBody}`.trim(),
 </ol>
 <h2>Founders &amp; team</h2>
 <p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of longevity physicians, endocrinologists and metabolic specialists.</p>
-<h2>Our eight centres across India</h2>
+<h2>Our six centres across India</h2>
 <ul>
   <li><a href="/centres/delhi">Delhi</a> (flagship)</li>
   <li><a href="/centres/gurgaon">Gurgaon</a></li>
   <li><a href="/centres/mumbai">Mumbai</a></li>
   <li><a href="/centres/pune">Pune</a></li>
   <li><a href="/centres/nagpur">Nagpur</a></li>
-  <li><a href="/centres/goa">Goa</a></li>
   <li><a href="/centres/bangalore">Bangalore</a></li>
-  <li><a href="/centres/hyderabad">Hyderabad</a></li>
 </ul>
 <p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
 <p>For full programme details and pricing, <a href="/contact">book a consultation</a> or call +91 88268 09123.</p>`.trim(),
@@ -319,7 +317,7 @@ ${sitemapBody}`.trim(),
     path: '/gut-metabolic-india-lp',
     title: 'Gut & Metabolic Programme in India · Heal Your Gut · TLC',
     description:
-      'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 8 TLC centres in India.',
+      'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 6 TLC centres in India.',
     h1: 'Heal your gut. Optimise your metabolism.',
     body: `
 <p><strong>India's premier gut &amp; metabolic programme.</strong> A doctor-led, diagnostics-first protocol that maps your gut microbiome, corrects hormonal and metabolic drift, and tracks weight, inflammation and energy outcomes month-on-month.</p>
@@ -341,16 +339,14 @@ ${sitemapBody}`.trim(),
 </ol>
 <h2>Founders &amp; team</h2>
 <p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of physicians, endocrinologists and metabolic specialists.</p>
-<h2>Our eight centres across India</h2>
+<h2>Our six centres across India</h2>
 <ul>
   <li><a href="/centres/delhi">Delhi</a> (flagship)</li>
   <li><a href="/centres/gurgaon">Gurgaon</a></li>
   <li><a href="/centres/mumbai">Mumbai</a></li>
   <li><a href="/centres/pune">Pune</a></li>
   <li><a href="/centres/nagpur">Nagpur</a></li>
-  <li><a href="/centres/goa">Goa</a></li>
   <li><a href="/centres/bangalore">Bangalore</a></li>
-  <li><a href="/centres/hyderabad">Hyderabad</a></li>
 </ul>
 <p><strong>Brand Ambassador:</strong> Milind Soman, Ironman finisher, Mr. India 1995.</p>
 <p>For full programme details and pricing, <a href="/contact">book a consultation</a> or call +91 88268 09123.</p>`.trim(),
@@ -358,7 +354,7 @@ ${sitemapBody}`.trim(),
   {
     path: '/',
     title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
-    description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 8 cities.',
+    description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 6 cities.',
     h1: 'The Longevity Centre · Age should never define you',
     body: `
 <p>The Longevity Centre (TLC) is India's first doctor-led longevity programme — built on twenty-plus years of preventive medicine and aesthetic expertise. We combine genomic diagnostics, hormonal optimisation, biological-age testing and advanced skin and hair science under one continuous care record.</p>
@@ -370,15 +366,13 @@ ${sitemapBody}`.trim(),
   <li><a href="/programs/cancer-prevention">Cancer Prevention</a> — early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
   <li><a href="/about-us">Founders &amp; team</a> — Dr. Abhinav Sharma, Dr. Bhavna Sharma and a multidisciplinary panel of longevity physicians.</li>
 </ul>
-<h2>Our 8 centres across India</h2>
+<h2>Our 6 centres across India</h2>
 <ul>
   <li><a href="/centres/delhi">Delhi (flagship)</a></li>
   <li><a href="/centres/gurgaon">Gurgaon</a></li>
   <li><a href="/centres/mumbai">Mumbai</a></li>
   <li><a href="/centres/pune">Pune</a></li>
   <li><a href="/centres/nagpur">Nagpur</a></li>
-  <li><a href="/centres/goa">Goa</a></li>
-  <li><a href="/centres/hyderabad">Hyderabad</a></li>
   <li><a href="/centres/bangalore">Bangalore</a></li>
 </ul>
 <h2>Read the journal</h2>
@@ -387,7 +381,7 @@ ${sitemapBody}`.trim(),
   {
     path: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
-    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 8 Indian cities.',
+    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
     h1: 'About The Longevity Centre',
     body: `
 <p>The Longevity Centre is India's first doctor-led longevity programme — built on twenty-plus years of preventive medicine and aesthetic expertise. Founded by Dr. Abhinav Sharma and Dr. Bhavna Sharma, TLC blends diagnostics, genomics, hormonal optimisation and skin-and-hair science under one continuous care record.</p>
@@ -410,35 +404,33 @@ ${sitemapBody}`.trim(),
     // page canonicals to /about-us instead.
     canonical: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
-    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 8 Indian cities.',
+    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
     h1: 'About The Longevity Centre',
     body: `<p>See <a href="/about-us">our full About page</a> for founder bios, the specialist team and our preventive medicine approach.</p>`,
   },
   {
     path: '/centres',
-    title: 'Our Centres · TLC Clinics Across 8 Indian Cities',
-    description: 'TLC operates 8 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
+    title: 'Our Centres · TLC Clinics Across 6 Indian Cities',
+    description: 'TLC operates 6 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
     h1: 'Our Centres',
     body: `
-<p>Eight TLC clinics across India, all running the same diagnostic protocol and shared medical record. Pick a city to see address, phone, email and on-site facilities.</p>
+<p>Six TLC clinics across India, all running the same diagnostic protocol and shared medical record. Pick a city to see address, phone, email and on-site facilities.</p>
 <ul>
   <li><a href="/centres/delhi">TLC Delhi</a></li>
   <li><a href="/centres/gurgaon">TLC Gurgaon</a></li>
   <li><a href="/centres/mumbai">TLC Mumbai</a></li>
   <li><a href="/centres/pune">TLC Pune</a></li>
   <li><a href="/centres/nagpur">TLC Nagpur</a></li>
-  <li><a href="/centres/goa">TLC Goa</a></li>
-  <li><a href="/centres/hyderabad">TLC Hyderabad</a></li>
   <li><a href="/centres/bangalore">TLC Bangalore</a></li>
 </ul>`.trim(),
   },
   {
     path: '/contact',
     title: 'Contact TLC — Book a 30-Minute Consultation',
-    description: 'Book a consultation with the TLC clinical team across 8 Indian cities. Phone, email and address details for each centre.',
+    description: 'Book a consultation with the TLC clinical team across 6 Indian cities. Phone, email and address details for each centre.',
     h1: 'Contact The Longevity Centre',
     body: `
-<p>Book a 30-minute consultation with our clinical team. Available across 8 Indian cities.</p>
+<p>Book a 30-minute consultation with our clinical team. Available across 6 Indian cities.</p>
 <ul>
   <li>Phone: <a href="tel:+918826809123">+91 88268 09123</a></li>
   <li>Email: <a href="mailto:info@thelongevitycentre.co">info@thelongevitycentre.co</a></li>
@@ -501,7 +493,7 @@ ${sitemapBody}`.trim(),
     description: 'Eight evidence-led skin and aesthetic treatments — PRP, microneedling, hydrafacial, laser hair reduction, hair-loss solutions, fillers & botox.',
     h1: 'Skin &amp; Aesthetics — Evidence-Led Treatments',
     body: `
-<p>Eight evidence-led skin and aesthetic treatments, delivered by trained physicians across 8 Indian cities.</p>
+<p>Eight evidence-led skin and aesthetic treatments, delivered by trained physicians across 6 Indian cities.</p>
 <ul>
   <li><a href="/skin-aesthetics/skin-prp">Skin PRP — Platelet-Rich Plasma</a></li>
   <li><a href="/skin-aesthetics/chemical-peels">Chemical Peels</a></li>

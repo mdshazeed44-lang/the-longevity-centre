@@ -1,4 +1,4 @@
-// CentresPage — eight clinics directory (7 open + 1 opening-soon).
+// CentresPage — six clinics directory (all 6 open).
 // Single source of truth: src/lib/centres.ts
 //
 // Open centres render full address + phone + email + Get Directions.
@@ -48,9 +48,9 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 }))
 
 const CENTRES_META = {
-  title: 'Our Centres · TLC Clinics Across 8 Indian Cities',
+  title: 'Our Centres · TLC Clinics Across 6 Indian Cities',
   description:
-    'TLC operates 8 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
+    'TLC operates 6 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
   path: '/centres',
   ogImage: '/og/centres.jpg',
   jsonLd: [
@@ -63,7 +63,7 @@ const CENTRES_META = {
       '@type': 'CollectionPage',
       '@id': 'https://thelongevitycentre.co/centres#webpage',
       url: 'https://thelongevitycentre.co/centres',
-      name: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad & Bangalore',
+      name: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur & Bangalore',
       isPartOf: { '@id': 'https://thelongevitycentre.co/#organization' },
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       inLanguage: 'en-IN',
@@ -211,8 +211,8 @@ export function CentresPage() {
           </h1>
 
           <p className="mt-10 text-[16px] md:text-[19px] leading-[1.7] text-white/75 max-w-[640px] font-light">
-            Eight clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur,
-            Goa, Hyderabad and Bangalore. One shared medical record across
+            Six clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur
+            and Bangalore. One shared medical record across
             every centre — your care continues wherever you go.
           </p>
 

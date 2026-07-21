@@ -24,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger)
 const META = {
   title: 'Begin a Consultation · TLC',
   description:
-    'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our eight clinics in India — no commitment, just clarity.',
+    'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our six clinics in India — no commitment, just clarity.',
   path: '/contact',
   ogImage: '/og/contact.jpg',
   jsonLd: [
@@ -371,7 +371,7 @@ export function ContactPage() {
                 data-cursor="hover"
                 className="inline-flex items-center gap-2 text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mt-5 hover:text-ink transition-colors"
               >
-                See all 8 centres →
+                See all 6 centres →
               </a>
             </div>
           </aside>

@@ -128,7 +128,7 @@ export function LandingPage() {
           </h3>
           <p className="text-[14px] md:text-[15px] leading-[1.6] text-white/70 max-w-[520px] mx-auto mb-7">
             A 30-minute consultation with TLC's clinical team — designed around
-            your biology, not a template. Eight centres across India.
+            your biology, not a template. Six centres across India.
           </p>
           <a
             href="/contact"

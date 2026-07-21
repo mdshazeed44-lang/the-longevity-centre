@@ -106,7 +106,7 @@ Yes. When supervised by certified longevity or anti-aging medical professionals,
 
 Most individuals notice improvements in energy and sleep within 1–2 weeks, while visible skin and metabolic changes typically appear within 2–12 weeks.
 
-The Longevity Centre's flagship [Longevity Plus programme](/programs/longevity-plus) consolidates these elements into a single, doctor-led pathway across 8 Indian cities.`,
+The Longevity Centre's flagship [Longevity Plus programme](/programs/longevity-plus) consolidates these elements into a single, doctor-led pathway across 6 Indian cities.`,
   },
   {
     slug: 'longevity-clinic-in-india',
@@ -191,7 +191,7 @@ Yes. When supervised by trained longevity and anti-aging medical professionals, 
 
 Improvements in energy and sleep may appear within days, skin quality in weeks, and measurable biological aging changes over several months.
 
-A trusted longevity clinic in India focuses on extending healthspan, not just lifespan. Explore [TLC's eight centres](/centres) across Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad and Bangalore.`,
+A trusted longevity clinic in India focuses on extending healthspan, not just lifespan. Explore [TLC's six centres](/centres) across Delhi, Gurgaon, Mumbai, Pune, Nagpur and Bangalore.`,
   },
   {
     slug: 'non-surgical-face-lift-treatment-in-india',
@@ -395,7 +395,7 @@ Non-surgical treatments are preferred because they offer:
 - Lower risk compared to surgery
 - Scientific results backed by longevity research
 
-People in Pune, Delhi, Gurgaon, Mumbai, Bangalore, and Hyderabad increasingly prefer treatments that work *from inside out*.
+People in Pune, Delhi, Gurgaon, Mumbai, and Bangalore increasingly prefer treatments that work *from inside out*.
 
 ## Top Non-Surgical Anti-Aging Treatments in India
 
@@ -477,7 +477,7 @@ Most non-invasive treatments involve minimal discomfort and require no recovery 
 
 Absolutely. Nearly **40% of anti-aging patients today are men**, and demand continues to grow.
 
-Browse [TLC's full Skin & Aesthetics suite](/skin-aesthetics) — 11 evidence-based treatments delivered by trained physicians across 8 Indian cities.`,
+Browse [TLC's full Skin & Aesthetics suite](/skin-aesthetics) — 11 evidence-based treatments delivered by trained physicians across 6 Indian cities.`,
   },
 ]
 

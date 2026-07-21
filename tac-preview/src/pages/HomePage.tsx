@@ -17,9 +17,9 @@ import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { useDocumentMeta } from '../lib/seo'
 
 const HOME_META = {
-  title: 'TLC — Precision Longevity Medicine, India · 8 Centres',
+  title: 'TLC — Precision Longevity Medicine, India · 6 Centres',
   description:
-    "The Longevity Centre (TLC) — India's first doctor-led longevity programme. Diagnostics-led metabolic, gut, weight & biological-age care across 8 centres.",
+    "The Longevity Centre (TLC) — India's first doctor-led longevity programme. Diagnostics-led metabolic, gut, weight & biological-age care across 6 centres.",
   path: '/',
   ogImage: '/og/home.jpg',
   jsonLd: [
@@ -35,7 +35,7 @@ const HOME_META = {
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       primaryImageOfPage: 'https://thelongevitycentre.co/og/home.jpg',
       description:
-        "India's first doctor-led personalised longevity programme. Eight centres pan-India. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal.",
+        "India's first doctor-led personalised longevity programme. Six centres pan-India. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal.",
       inLanguage: 'en-IN',
       // Speakable — tells voice assistants and AI engines (Google
       // AI Overview, Alexa, ChatGPT voice, Perplexity Pages) which

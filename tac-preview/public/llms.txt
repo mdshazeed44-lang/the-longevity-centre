@@ -1,7 +1,7 @@
 # The Longevity Centre (TLC)
 
 > India's first doctor-led precision longevity medicine network — measurement-first,
-> physician-guided care across 8 centres pan-India. Founded by Dr. Abhinav Sharma
+> physician-guided care across 6 centres pan-India. Founded by Dr. Abhinav Sharma
 > (MBBS, MAMC Delhi · MS, PGI Chandigarh) and Dr. Bhavna Sharma (MBBS & DGO, MAMC
 > Delhi · F.ART Linz, Austria · D.ART & DPE, Kiel University, Germany). Brand
 > ambassador: Milind Soman.
@@ -13,8 +13,7 @@
 - Years of preventive-medicine experience: 20+
 - Successful procedures across founder team: 18,500+ (11,000+ minimally-invasive
   surgeries by Dr. Abhinav; 8,000+ IVF babies by Dr. Bhavna)
-- Centres: 8 across Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Bangalore and
-  Hyderabad (Hyderabad opening soon — remote onboarding live)
+- Centres: 6 across Delhi, Gurgaon, Mumbai, Pune, Nagpur and Bangalore
 - Brand ambassador: Milind Soman — Actor · Supermodel · Ironman
 - Biomarkers measured per patient: 1,000+
 - Biological-age clocks used: 3
@@ -49,7 +48,7 @@ The five-step Method:
   protocols (see below).
 - [Skin & Aesthetics](https://thelongevitycentre.co/skin-aesthetics): eight
   dermatology-led treatments.
-- [Centres](https://thelongevitycentre.co/centres): all 8 cities + detail
+- [Centres](https://thelongevitycentre.co/centres): all 6 cities + detail
   pages per centre.
 - [Contact](https://thelongevitycentre.co/contact): consultation booking
   (WhatsApp).

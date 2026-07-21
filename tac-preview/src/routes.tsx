@@ -176,6 +176,11 @@ const REDIRECTS: Record<string, string> = {
   '/viora-rf': '/skin-aesthetics',
   '/wonder-muscle': '/skin-aesthetics',
 
+  // ── Removed centres (Goa + Hyderabad removed 2026-07-21 per client).
+  //    Old indexed detail URLs land on the centres index instead of 404. ──
+  '/centres/goa': '/centres',
+  '/centres/hyderabad': '/centres',
+
   // ── SEO landing pages (location-targeted) ────────────────────────────
   '/best-anti-aging-treatment-pune': '/centres/pune',
   '/laser-hair-removal-delhi': '/centres/delhi',

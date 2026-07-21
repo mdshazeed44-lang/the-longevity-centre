@@ -161,7 +161,7 @@ const MARQUEE_LINES = [
   'Medicine, not marketing.',
   'Real outcomes. Real data.',
   'Twenty years of preventive medicine.',
-  'Eight centres pan-India.',
+  'Six centres pan-India.',
 ]
 
 const STATS = [
@@ -474,7 +474,7 @@ export function AboutPage() {
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </span>
-              Delhi · Gurgaon · Mumbai · Pune · Nagpur · Goa · Hyderabad · Bangalore
+              Delhi · Gurgaon · Mumbai · Pune · Nagpur · Bangalore
             </span>
           </div>
         </div>

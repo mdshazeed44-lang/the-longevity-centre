@@ -62,7 +62,7 @@ function metaForCampaign(c: Campaign) {
   }
 }
 
-const CITIES = ['Delhi','Gurgaon','Mumbai','Pune','Nagpur','Goa','Bangalore','Hyderabad','Other / Online']
+const CITIES = ['Delhi','Gurgaon','Mumbai','Pune','Nagpur','Bangalore','Other / Online']
 const PROGRAMMES = [
   'Longevity Programme (Flagship)',
   'Metabolic & Weight Loss',
@@ -246,7 +246,7 @@ function GoogleReviews({ onCtaClick }: { onCtaClick?: () => void } = {}) {
             <span className="font-bold italic text-rust">across India.</span>
           </h2>
           <p className="mt-5 text-[14.5px] md:text-[16px] leading-[1.6] text-graphite font-light max-w-[560px] mx-auto">
-            Verified Google reviews from patients across our eight centres.
+            Verified Google reviews from patients across our six centres.
           </p>
         </div>
 
@@ -687,7 +687,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
 
       <InlineCta
         eyebrow="Led by experts"
-        headline="Twenty years of preventive medicine. Eight centres pan-India."
+        headline="Twenty years of preventive medicine. Six centres pan-India."
         ctaLabel="Speak with a Doctor"
         variant="tan"
         onCtaClick={() => setConsultOpen(true)}
