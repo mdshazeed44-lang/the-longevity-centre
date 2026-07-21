@@ -39,7 +39,7 @@ The five-step Method:
 ## Top-level pages
 
 - [Home](https://thelongevitycentre.co/): brand overview, the 5-step method,
-  patient outcomes, 8-centre map, FAQ.
+  patient outcomes, 6-centre map, FAQ.
 - [About](https://thelongevitycentre.co/about-us): founders, philosophy, full
   specialist team.
 - [Programmes](https://thelongevitycentre.co/programs): seven flagship

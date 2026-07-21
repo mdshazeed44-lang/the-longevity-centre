@@ -606,7 +606,7 @@ for (const p of staticPages) {
   })
 })
 
-// ── Centres — 8 city detail pages ─────────────────────────────────────
+// ── Centres — 6 city detail pages ─────────────────────────────────────
 ;(centres.CENTRES || []).forEach((c) => {
   const content = [
     `<article>`,

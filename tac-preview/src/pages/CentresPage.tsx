@@ -22,7 +22,7 @@ const CENTRES = CENTRES_DATA.map((c, i) => ({
 const HERO_STATS = [
   { k: 'Centres', v: '6' },
   { k: 'Reach', v: 'Pan-India' },
-  { k: 'Cities', v: '8 — Delhi to Bangalore' },
+  { k: 'Cities', v: '6 — Delhi to Bangalore' },
 ]
 
 // Per-centre JSON-LD — only for verified (operational) centres.
