@@ -148,7 +148,7 @@ const FAQS = [
 const HERO_PILLS = [
   { k: 'Lives Reformed', v: '50,000+' },
   { k: 'Experience', v: '20+ Years' },
-  { k: 'Centres', v: '8 Pan-India' },
+  { k: 'Centres', v: '6 Pan-India' },
 ]
 
 const PROGRAM_META = {

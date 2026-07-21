@@ -492,7 +492,7 @@ export function Hero() {
         {/* Slim spec pills — anchor key facts inline above the CTAs */}
         <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-7">
           {[
-            { k: 'Centres', v: '8 Pan-India' },
+            { k: 'Centres', v: '6 Pan-India' },
             { k: 'Experience', v: '20+ Years' },
             { k: 'Specialities', v: 'Longevity · Metabolic · Gut · Skin' },
           ].map((s) => (

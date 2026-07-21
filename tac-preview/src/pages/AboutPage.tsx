@@ -151,7 +151,7 @@ const SPECIALISTS = [
 
 const HERO_CHIPS = [
   { k: 'Experience', v: '20+ Years' },
-  { k: 'Centres', v: '8 Pan-India' },
+  { k: 'Centres', v: '6 Pan-India' },
   { k: 'Procedures', v: '18,500+' },
 ]
 
@@ -167,7 +167,7 @@ const MARQUEE_LINES = [
 const STATS = [
   { val: 20, suffix: '+', label: 'Years in Preventive Medicine' },
   { val: 18500, suffix: '+', label: 'Successful Procedures' },
-  { val: 8, suffix: '', label: 'Centres Pan-India' },
+  { val: 6, suffix: '', label: 'Centres Pan-India' },
   { val: 7, suffix: '', label: 'Specialities, One Team' },
 ]
 
