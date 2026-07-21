@@ -182,6 +182,53 @@ const skin = loadLibModule('skin-treatments.ts')
 // static HTML matches what useDocumentMeta sets at runtime.
 const seoOverrides = loadLibModule('seo-overrides.ts')
 const META_OVERRIDES = seoOverrides.META_OVERRIDES || {}
+// Client-supplied homepage FAQ schema (from the worksheet Schema sheet).
+const FAQ_SCHEMA = seoOverrides.HOMEPAGE_FAQ_SCHEMA || null
+
+/**
+ * MedicalClinic (a LocalBusiness subtype) JSON-LD for a centre, mirroring
+ * the runtime block in CentreDetailPage so the pre-baked static HTML that
+ * non-JS crawlers read carries the same Local Business schema. Emitted only
+ * for verified (operational) centres.
+ */
+function localBusinessLd(c) {
+  const url = SITE + '/centres/' + c.slug
+  const pin = String(c.address || '').match(/\b(\d{6})\b/)
+  const address = {
+    '@type': 'PostalAddress',
+    streetAddress: c.address,
+    addressLocality: c.city,
+    addressRegion: c.state,
+    addressCountry: 'IN',
+  }
+  if (pin) address.postalCode = pin[1]
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalClinic',
+    '@id': url + '#localbusiness',
+    name: 'The Longevity Centre — ' + c.city,
+    alternateName: 'TLC ' + c.city,
+    description: c.description,
+    parentOrganization: { '@id': SITE + '/#organization' },
+    url,
+    telephone: String(c.phone || '').replace(/\s+/g, ''),
+    email: c.email,
+    image: SITE + c.hero,
+    priceRange: '₹₹₹',
+    address,
+    geo: { '@type': 'GeoCoordinates', latitude: c.geo.lat, longitude: c.geo.lon },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '09:00',
+        closes: '20:00',
+      },
+    ],
+    areaServed: { '@type': 'City', name: c.city },
+    medicalSpecialty: ['PreventiveMedicine', 'Geriatric', 'Dermatology', 'Nutrition'],
+  }
+}
 
 // ── 2. Build the URL → meta + content map ─────────────────────────────
 
@@ -781,6 +828,28 @@ for (const item of entries) {
       /<div id="root"><\/div>/,
       `<div id="root"></div>\n    ${noscriptBlock}`
     )
+
+  // Extra JSON-LD schema in the static <head> so JS-disabled crawlers get
+  // the same structured data the runtime (useDocumentMeta) sets: the
+  // FAQPage on the homepage, a LocalBusiness (MedicalClinic) node on each
+  // verified centre detail page.
+  const extraLd = []
+  if (item.path === '/' && FAQ_SCHEMA) {
+    extraLd.push(FAQ_SCHEMA)
+  } else if (item.path.indexOf('/centres/') === 0) {
+    const slug = item.path.slice('/centres/'.length)
+    const c = (centres.CENTRES || []).find((x) => x.slug === slug)
+    if (c && c.verified) extraLd.push(localBusinessLd(c))
+  }
+  if (extraLd.length) {
+    const ldScripts = extraLd
+      .map(
+        (o) =>
+          `<script type="application/ld+json">${JSON.stringify(o).replace(/</g, '\\u003c')}</script>`
+      )
+      .join('\n    ')
+    html = html.replace('</head>', `    ${ldScripts}\n  </head>`)
+  }
 
   // dist/<route>/index.html
   const outDir = path.join(DIST, item.path.replace(/^\//, ''))

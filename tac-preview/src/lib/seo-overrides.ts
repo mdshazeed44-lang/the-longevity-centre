@@ -203,3 +203,75 @@ export const META_OVERRIDES: Record<string, SeoOverride> = {
     keywords: "longevity health center",
   },
 }
+
+/** Homepage FAQPage JSON-LD (client-supplied FAQ content from the worksheet). */
+export const HOMEPAGE_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is TLC's approach different from a regular doctor or health checkup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TLC goes beyond traditional health checkups — personalised, data-driven diagnostics across metabolic health, genetics, gut microbiome and biological-age clocks, supported by an in-house physician team. Measurement first, intervention second."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will my plan be personalised, or is it a pre-made protocol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fully personalised. We use your own diagnostics — blood, body composition, gut microbiome, genetics, vascular function — to build a protocol tailored to your biology and goals. Two patients on the same programme will rarely follow the same plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How useful is TLC if I feel fine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most decline begins silently in the forties. Our diagnostics surface sub-clinical drift — early metabolic slowdown, inflammation, hormonal imbalance, genetic risks — so you can intervene years before symptoms appear."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to see noticeable results?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most patients see early shifts (energy, sleep, weight, glucose stability) within the first 4–6 weeks. Deeper biomarker improvements — biological-age, GrimAge, gut diversity — are tracked across re-tests at 6 and 12 months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this in-person or virtual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both. We have eight clinics across India (Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad, Bangalore) for in-person diagnostics and consultations. Follow-ups, reviews and protocol adjustments are also available virtually."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens on the first consultation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The first 30-minute conversation with our medical team is where we understand your goals, recommend the right programme, and walk you through the diagnostics and pricing involved — with no commitment to proceed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I don't see the improvements I expected?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your protocol is reviewed at each diagnostic cycle. If markers aren't moving, the team adjusts the plan — interventions, supplements, hormonal support, or escalation to a deeper diagnostic. The whole programme is feedback-driven."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after the 12-month programme ends?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most patients move to a yearly review — annual diagnostics, a refreshed protocol, ongoing access to the medical team. Longevity is a long game; we stay on the journey with you for as long as you want us to."
+      }
+    }
+  ]
+} as const
