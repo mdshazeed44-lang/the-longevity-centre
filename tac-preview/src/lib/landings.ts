@@ -334,7 +334,7 @@ Programs customized using biological age testing, metabolic analysis, or hormona
 
 ### 4. Clinic Location in India
 
-Anti-aging treatment costs vary by city. Clinics in Pune, Delhi, Gurugram, and Mumbai may charge more due to advanced infrastructure, skilled professionals, and higher operational costs. See [TLC's eight Indian centres](/centres).
+Anti-aging treatment costs vary by city. Clinics in Pune, Delhi, Gurugram, and Mumbai may charge more due to advanced infrastructure, skilled professionals, and higher operational costs. See [TLC's six Indian centres](/centres).
 
 ## How to Choose an Anti-Aging Clinic Based on Your Budget
 
