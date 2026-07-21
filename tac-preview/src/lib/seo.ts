@@ -13,6 +13,7 @@
  * so it survives even before the SPA hydrates.
  */
 import { useEffect } from 'react'
+import { META_OVERRIDES } from './seo-overrides'
 
 /** Canonical site URL — used for og:url, canonical, and JSON-LD @ids. */
 export const SITE_URL = 'https://thelongevitycentre.co'
@@ -38,6 +39,9 @@ export interface PageMeta {
   ogImage?: string
   /** One or more JSON-LD objects to inject into <head>. */
   jsonLd?: JsonLd | JsonLd[]
+  /** Comma-separated keywords for <meta name="keywords">. Usually comes
+   *  from the per-page override map rather than being passed by hand. */
+  keywords?: string
 }
 
 function setNamedMeta(name: string, content: string): void {
@@ -103,20 +107,32 @@ export function useDocumentMeta(meta: PageMeta): void {
   useEffect(() => {
     const path = meta.path ?? '/'
     const url = SITE_URL + path
+
+    // Per-page SEO override from the client's worksheet (src/lib/
+    // seo-overrides.ts). When an entry exists for this path, its title /
+    // description / keywords win over whatever the page passed in — so the
+    // sheet is the single source of truth without editing every page.
+    const key = path.length > 1 ? path.replace(/\/$/, '') : path
+    const ov = META_OVERRIDES[key]
+    const title = ov?.title || meta.title
+    const description = ov?.description || meta.description
+    const keywords = ov?.keywords || meta.keywords
+
     const ogImage = meta.ogImage
       ? meta.ogImage.startsWith('http')
         ? meta.ogImage
         : SITE_URL + meta.ogImage
       : SITE_URL + DEFAULT_OG_IMAGE
 
-    document.title = meta.title
-    setNamedMeta('description', meta.description)
-    setPropMeta('og:title', meta.title)
-    setPropMeta('og:description', meta.description)
+    document.title = title
+    setNamedMeta('description', description)
+    if (keywords) setNamedMeta('keywords', keywords)
+    setPropMeta('og:title', title)
+    setPropMeta('og:description', description)
     setPropMeta('og:url', url)
     setPropMeta('og:image', ogImage)
-    setNamedMeta('twitter:title', meta.title)
-    setNamedMeta('twitter:description', meta.description)
+    setNamedMeta('twitter:title', title)
+    setNamedMeta('twitter:description', description)
     setNamedMeta('twitter:image', ogImage)
     setCanonical(url)
 

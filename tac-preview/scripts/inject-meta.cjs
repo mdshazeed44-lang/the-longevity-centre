@@ -177,6 +177,11 @@ const programs = loadLibModule('programs.ts')
 const centres = loadLibModule('centres.ts')
 const diagnostics = loadLibModule('diagnostics.ts')
 const skin = loadLibModule('skin-treatments.ts')
+// Per-page SEO overrides from the client's worksheet (title / description /
+// keywords), keyed by route path. Applied in the write loop below so the
+// static HTML matches what useDocumentMeta sets at runtime.
+const seoOverrides = loadLibModule('seo-overrides.ts')
+const META_OVERRIDES = seoOverrides.META_OVERRIDES || {}
 
 // ── 2. Build the URL → meta + content map ─────────────────────────────
 
@@ -703,8 +708,12 @@ for (const item of entries) {
   // Per-entry canonical override (e.g. /about → /about-us alias);
   // defaults to self-canonical.
   const canonical = SITE + (item.canonical || item.path)
-  const title = htmlEscape(item.title)
-  const description = htmlEscape(item.description)
+  // Worksheet override wins over the page's own title/description when present.
+  const ovKey = item.path.length > 1 ? item.path.replace(/\/$/, '') : item.path
+  const ov = META_OVERRIDES[ovKey]
+  const title = htmlEscape(ov ? ov.title : item.title)
+  const description = htmlEscape(ov ? ov.description : item.description)
+  const keywords = ov && ov.keywords ? ov.keywords : ''
   const breadcrumb = `<p><small><a href="/">Home</a> · ${title}</small></p>`
 
   // Wrap the per-route content in a <noscript>. The block is invisible
@@ -728,10 +737,14 @@ for (const item of entries) {
       /<title>[\s\S]*?<\/title>/,
       `<title>${title}</title>`
     )
-    // <meta name="description"> — may be multi-line
+    // <meta name="description"> — may be multi-line. A <meta name="keywords">
+    // is appended right after it when the route has worksheet keywords.
     .replace(
       /<meta\s+name="description"[\s\S]*?\/?>/,
-      `<meta name="description" content="${description}" />`
+      `<meta name="description" content="${description}" />` +
+        (keywords
+          ? `\n    <meta name="keywords" content="${htmlEscape(keywords)}" />`
+          : '')
     )
     // <link rel="canonical">
     .replace(
