@@ -473,9 +473,9 @@ export function LongevityProgramPage() {
     <div id="longevity-program">
       {/* HERO — cinematic dark with cross-fading montage + floating DNA glyph */}
       <section className="relative bg-ink text-white pt-28 md:pt-32 pb-12 md:pb-16 px-6 md:px-12 overflow-hidden min-h-screen min-h-[100svh] flex items-center">
-        <video className="hero-clip clip-1" src="/videos/centres-clips/dna.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
-        <video className="hero-clip clip-2" src="/videos/centres-clips/lab.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
-        <video className="hero-clip clip-3" src="/videos/centres-clips/clinic.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+        <video className="hero-clip clip-1" src="/videos/centres-clips/dna.mp4?v=2" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+        <video className="hero-clip clip-2" src="/videos/centres-clips/lab.mp4?v=2" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
+        <video className="hero-clip clip-3" src="/videos/centres-clips/clinic.mp4?v=2" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
 
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(180deg, rgba(10,8,7,0.65) 0%, rgba(10,8,7,0.35) 30%, rgba(10,8,7,0.55) 75%, rgba(10,8,7,0.85) 100%)' }} />
         <div aria-hidden className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(10,8,7,0.75) 0%, rgba(10,8,7,0.45) 45%, rgba(10,8,7,0.0) 70%)' }} />

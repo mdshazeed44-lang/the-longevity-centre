@@ -33,11 +33,11 @@ import { reduceMotion } from '../lib/motion'
 // mountain-hike clip (no skin treatment anywhere in the reel).
 // Filenames kept stable to avoid churn.
 const HERO_CLIPS = [
-  '/videos/hero-clips/dna.mp4?v=14',         // DNA helix 1080p — science
-  '/videos/hero-clips/cycling.mp4?v=14',     // group mountain hike — vitality
-  '/videos/hero-clips/yoga.mp4?v=14',        // dark studio yoga — mindfulness
-  '/videos/hero-clips/wellness.mp4?v=14',    // premium fresh nutrition — healthy living
-  '/videos/hero-clips/circulation.mp4?v=14', // blood cells in vein — circulation
+  '/videos/hero-clips/dna.mp4?v=15',         // DNA helix 1080p — science
+  '/videos/hero-clips/cycling.mp4?v=15',     // group mountain hike — vitality
+  '/videos/hero-clips/yoga.mp4?v=15',        // dark studio yoga — mindfulness
+  '/videos/hero-clips/wellness.mp4?v=15',    // premium fresh nutrition — healthy living
+  '/videos/hero-clips/circulation.mp4?v=15', // blood cells in vein — circulation
 ] as const
 const CLIP_DURATION_MS = 5500
 

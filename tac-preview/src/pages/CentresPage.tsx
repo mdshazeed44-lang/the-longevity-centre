@@ -143,19 +143,19 @@ export function CentresPage() {
         {/* Cross-fading clip stack */}
         <video
           className="hero-clip clip-1"
-          src="/videos/centres-clips/dna.mp4"
+          src="/videos/centres-clips/dna.mp4?v=2"
           autoPlay loop muted playsInline preload="metadata"
           aria-hidden="true"
         />
         <video
           className="hero-clip clip-2"
-          src="/videos/centres-clips/lab.mp4"
+          src="/videos/centres-clips/lab.mp4?v=2"
           autoPlay loop muted playsInline preload="metadata"
           aria-hidden="true"
         />
         <video
           className="hero-clip clip-3"
-          src="/videos/centres-clips/clinic.mp4"
+          src="/videos/centres-clips/clinic.mp4?v=2"
           autoPlay loop muted playsInline preload="metadata"
           aria-hidden="true"
         />
