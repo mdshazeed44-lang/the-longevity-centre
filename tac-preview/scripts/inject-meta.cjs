@@ -182,8 +182,11 @@ const skin = loadLibModule('skin-treatments.ts')
 // static HTML matches what useDocumentMeta sets at runtime.
 const seoOverrides = loadLibModule('seo-overrides.ts')
 const META_OVERRIDES = seoOverrides.META_OVERRIDES || {}
-// Client-supplied homepage FAQ schema (from the worksheet Schema sheet).
-const FAQ_SCHEMA = seoOverrides.HOMEPAGE_FAQ_SCHEMA || null
+// Homepage FAQ schema — built from the SAME single source (src/lib/faqs.ts)
+// the visible <Faq /> accordion uses, so static + runtime match exactly.
+const faqs = loadLibModule('faqs.ts')
+const FAQ_SCHEMA =
+  faqs.HOMEPAGE_FAQS && faqs.faqPageSchema ? faqs.faqPageSchema(faqs.HOMEPAGE_FAQS) : null
 
 /**
  * MedicalClinic (a LocalBusiness subtype) JSON-LD for a centre, mirroring
@@ -205,7 +208,9 @@ function localBusinessLd(c) {
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
-    '@id': url + '#localbusiness',
+    // Same @id as the runtime CentreDetailPage node so Google merges the
+    // static (crawler) and runtime (rendered) markup into ONE clinic entity.
+    '@id': url + '#clinic',
     name: 'The Longevity Centre — ' + c.city,
     alternateName: 'TLC ' + c.city,
     description: c.description,

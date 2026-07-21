@@ -15,7 +15,6 @@ import { Faq } from '../components/sections/Faq'
 import { CtaBand } from '../components/sections/CtaBand'
 import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { useDocumentMeta } from '../lib/seo'
-import { HOMEPAGE_FAQ_SCHEMA } from '../lib/seo-overrides'
 
 const HOME_META = {
   title: 'TLC — Precision Longevity Medicine, India · 6 Centres',
@@ -63,8 +62,8 @@ const HOME_META = {
         { '@type': 'ListItem', position: 7, name: 'Cancer Detection & Prevention Programme', url: 'https://thelongevitycentre.co/programs/cancer-prevention' },
       ],
     },
-    // FAQPage — client-supplied FAQ content (matches the on-page <Faq />).
-    HOMEPAGE_FAQ_SCHEMA,
+    // NOTE: the homepage FAQPage JSON-LD is emitted by the <Faq /> section
+    // itself (from src/lib/faqs.ts) — don't duplicate it here.
   ],
 }
 
