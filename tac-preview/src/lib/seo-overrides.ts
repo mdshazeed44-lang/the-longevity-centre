@@ -163,9 +163,9 @@ export const META_OVERRIDES: Record<string, SeoOverride> = {
     keywords: "botox and fillers treatment",
   },
   "/centres": {
-    title: "Best Longevity Medical Clinic - The Longevity Centre",
-    description: "Visit our longevity medical clinic in Delhi, Gurgaon, Mumbai, Pune, Nagpur, Goa, Hyderabad & Bangalore. Book your consultation today. Book your consultation now.",
-    keywords: "longevity medical clinic",
+    title: "Best Longevity Medical Centre - The Longevity Centre",
+    description: "TLC operates 6 longevity medical centre in Delhi, Gurgaon, Mumbai, Pune, Nagpur, & Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.",
+    keywords: "longevity medical centre",
   },
   "/centres/delhi": {
     title: "Best Longevity Clinic in New Delhi - The Longevity Centre",
