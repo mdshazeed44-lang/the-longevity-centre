@@ -75,7 +75,7 @@ export function BrandAmbassador() {
             <span className="font-bold italic text-rust">not a limit.</span>
           </h2>
           <p className="text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light max-w-[540px] mb-5">
-            At 58, Milind Soman is the clearest proof of what TLC stands for —
+            At 60, Milind Soman is the clearest proof of what TLC stands for —
             that strength, clarity and vitality are not surrendered to age,
             they are maintained by intention. He completed an Ironman triathlon
             at 50 and remains measurably fitter than most men half his age.

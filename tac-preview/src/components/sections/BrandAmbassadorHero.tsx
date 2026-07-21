@@ -114,7 +114,7 @@ export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
             </h2>
 
             <p className="text-[13.5px] md:text-[15px] leading-[1.7] text-graphite font-light max-w-[500px] mb-4 md:mb-5">
-              At 58, Milind Soman is the clearest proof of what TLC stands
+              At 60, Milind Soman is the clearest proof of what TLC stands
               for — strength, clarity and vitality are not surrendered to
               age, they are maintained by intention.
             </p>
@@ -177,7 +177,7 @@ export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-5 gap-x-5">
             <div>
               <dt className="font-display font-light text-rust text-[26px] md:text-[34px] leading-none tracking-[-0.02em]">
-                58
+                60
               </dt>
               <dd className="mt-1.5 text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-graphite/75 font-semibold">
                 Age Today

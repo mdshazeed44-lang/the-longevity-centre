@@ -440,7 +440,7 @@ export function SkinAestheticsPage() {
               <span className="font-bold italic text-rust">its own terms.</span>
             </h2>
             <p className="text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light max-w-[540px] mb-5">
-              At 58, Milind Soman is the clearest proof of what TLC stands for —
+              At 60, Milind Soman is the clearest proof of what TLC stands for —
               that vitality, skin and strength are not surrendered to age, they
               are maintained by intention. He doesn&rsquo;t chase a younger face;
               he keeps a healthier one.

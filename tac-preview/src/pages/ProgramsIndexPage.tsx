@@ -376,7 +376,7 @@ function BrandAmbassador() {
   const FEATS = [
     { k: 'Ironman', v: 'Triathlon, age 50' },
     { k: 'Pinkathon', v: "India's biggest women's run" },
-    { k: '58', v: 'Fitter than at 28' },
+    { k: '60', v: 'Fitter than at 28' },
   ]
 
   return (
@@ -460,7 +460,7 @@ function BrandAmbassador() {
             className="text-[14.5px] md:text-[16.5px] leading-[1.75] text-cream/75 font-light max-w-[560px] mb-6"
           >
             At 50, Milind Soman finished an Ironman triathlon — a 3.8&nbsp;km
-            swim, 180&nbsp;km cycle and a full marathon, inside 16 hours. At 58,
+            swim, 180&nbsp;km cycle and a full marathon, inside 16 hours. At 60,
             he is measurably fitter than most men half his age. He runs
             barefoot, trains by feel, and built the Pinkathon to put a
             generation of Indian women on the start line.
