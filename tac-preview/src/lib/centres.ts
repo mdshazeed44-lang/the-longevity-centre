@@ -170,28 +170,27 @@ export const CENTRES: Centre[] = [
     city: 'Mumbai',
     region: 'Maharashtra',
     state: 'Maharashtra',
-    area: 'Worli · LIFT × TLC',
+    area: 'Bandra West · Link Corner Mall',
     address:
-      'Unit No 3, 1st Floor, Atur House, Dr Annie Besant Rd, opposite Bharat Petrol Pump, above MG Select Showroom, Worli Naka, Siddharth Nagar, Worli, Mumbai, Maharashtra — 400018',
+      'Muscleheadon, Under Starbucks, Link Corner Mall, Upper Basement Level, 33rd Road, Bandra West, Mumbai, Maharashtra — 400052',
     phone: '+91 88268 09123',
     email: 'info@thelongevitycentre.co',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=Atur+House+Dr+Annie+Besant+Rd+Worli+Mumbai+400018',
+    mapsUrl: 'https://maps.app.goo.gl/uFeha1vhKE3wWRxH9',
     mapsEmbed:
-      'https://www.google.com/maps?q=Atur+House+Dr+Annie+Besant+Rd+Worli+Naka+Mumbai+400018&output=embed',
+      'https://www.google.com/maps?q=Muscleheadon+Link+Corner+Mall+33rd+Road+Bandra+West+Mumbai+400052&output=embed',
     hero: '/clinic-photos/mumbai-centre.webp',
     description:
-      "TLC Mumbai operates in partnership with LIFT Face & Body Aesthetics in Worli — bringing premium preventive medicine and longevity care to South Mumbai. The centre offers TLC's full diagnostics, programme onboarding and aesthetic-medicine suite, anchored by the same physician panel that runs every TLC clinic.",
+      "TLC Mumbai sits in the heart of Bandra West, at Link Corner Mall on 33rd Road — bringing diagnostics-led preventive medicine and longevity care to Mumbai's western suburbs. The centre offers TLC's full diagnostics suite and programme onboarding, anchored by the same physician panel that runs every TLC clinic.",
     highlights: [
       'Full TLC diagnostic suite — 160+ blood biomarkers, BCA, hormonal panels',
-      'On-site dermatology and aesthetic-medicine suite via LIFT partnership',
-      'Convenient South Mumbai location at Worli Naka',
+      'Doctor-led programme onboarding and follow-up reviews',
+      'Central Bandra West location at Link Corner Mall, 33rd Road',
       'Shared medical record with the wider TLC network',
     ],
     timings: 'Open all days · 10:00 AM to 7:00 PM',
     status: 'open',
     verified: true,
-    geo: { lat: 19.0628, lon: 72.8302 }, // Bandra West, Mumbai
+    geo: { lat: 19.0657612, lon: 72.8331167 }, // Bandra West — Link Corner Mall, 33rd Road
     reviews: [
       {
         author: 'Vikas',

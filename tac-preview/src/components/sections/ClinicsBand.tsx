@@ -30,7 +30,7 @@ export function ClinicsBand() {
     {
       city: 'Mumbai',
       region: 'Maharashtra',
-      area: 'Worli · LIFT × TLC',
+      area: 'Bandra West · Link Corner Mall',
       phone: '+91 88268 09123',
     },
     {
