@@ -1,6 +1,6 @@
 User-agent: *
-Allow: /
-Disallow: /demo
+Disallow:
+Disallow: /cgi-bin/
 
 # AI / generative engines — explicitly allowed so the site shows up
 # in AI Overview, ChatGPT search, Perplexity, etc.
