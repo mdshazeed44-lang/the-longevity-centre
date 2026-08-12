@@ -64,11 +64,21 @@ function MaskedReveal({
     gsap.set(chars, { yPercent: 110 })
     gsap.to(chars, {
       yPercent: 0,
-      duration: 1.1,
+      duration: 0.9,
       ease: 'expo.out',
-      stagger: 0.025,
+      stagger: 0.02,
       delay,
     })
+    // Safety net — Googlebot's renderer (WRS) throttles requestAnimationFrame
+    // while capturing its screenshot, so the rAF-driven GSAP reveal can stall
+    // and leave the headline stuck at its hidden yPercent:110 start (that's
+    // why the URL-Inspection screenshot showed an empty hero). setTimeout
+    // fires regardless of rAF throttling, so force the headline visible once
+    // the animation would have finished. A no-op for real users.
+    const reveal = window.setTimeout(() => {
+      gsap.set(chars, { yPercent: 0, clearProps: 'transform' })
+    }, 1800)
+    return () => window.clearTimeout(reveal)
   }, [delay])
 
   const words = text.split(' ')
@@ -161,7 +171,7 @@ export function Hero() {
     gsap.set(para.current, { opacity: 0, y: 16 })
     gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
 
-    const tl = gsap.timeline({ delay: 0.4 })
+    const tl = gsap.timeline({ delay: 0.15 })
     tl.to(eyebrow.current, {
       opacity: 1,
       y: 0,
@@ -171,7 +181,7 @@ export function Hero() {
       .to(
         para.current,
         { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-        '+=0.7'
+        '-=0.3'
       )
       .to(
         ctas.current?.children ?? [],
@@ -184,6 +194,19 @@ export function Hero() {
         },
         '-=0.5'
       )
+
+    // Safety net (same reason as MaskedReveal) — if GSAP's rAF-based reveal
+    // stalls in Googlebot's renderer, setTimeout still fires and forces the
+    // eyebrow / paragraph / CTAs visible, so the crawler + render snapshot see
+    // a real hero instead of a blank one. No-op for real users.
+    const heroReveal = window.setTimeout(() => {
+      const els = [
+        eyebrow.current,
+        para.current,
+        ...(ctas.current ? Array.from(ctas.current.children) : []),
+      ].filter(Boolean)
+      gsap.set(els, { opacity: 1, y: 0, clearProps: 'opacity,transform' })
+    }, 1800)
 
     // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS.
     const cycle = window.setInterval(() => {
@@ -211,6 +234,7 @@ export function Hero() {
 
     return () => {
       tl.kill()
+      window.clearTimeout(heroReveal)
       window.clearInterval(cycle)
       document.removeEventListener('touchstart', kickPlayOnFirstInteraction)
       document.removeEventListener('touchend', kickPlayOnFirstInteraction)
@@ -473,9 +497,9 @@ export function Hero() {
 
         {/* Headline */}
         <h1 className="tlc-hero-shadow font-display font-bold text-[34px] sm:text-[50px] md:text-[68px] xl:text-[92px] leading-[1.0] md:leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-4 md:mb-6">
-          <MaskedReveal text="Age should" delay={0.55} charClassName="text-white/95" />
+          <MaskedReveal text="Age should" delay={0.2} charClassName="text-white/95" />
           <br />
-          <MaskedReveal text="never define you." delay={0.7} charClassName="text-white" />
+          <MaskedReveal text="never define you." delay={0.35} charClassName="text-white" />
         </h1>
 
         {/* Description — bumped to text-white/95 (was /80) so even
