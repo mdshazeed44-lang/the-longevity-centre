@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
+import { FOUNDERS, SPECIALISTS } from '../lib/team'
 gsap.registerPlugin(ScrollTrigger)
 
 const ABOUT_META = {
@@ -69,85 +70,9 @@ const ABOUT_META = {
   ],
 }
 
-// Founders — two separate editorial cards (client reverted the
-// merged single-card version back to individual pics + write-ups).
-// The render loop alternates portrait sides (Abhinav: image left,
-// Bhavna: image right) for an editorial spread feel.
-const FOUNDERS = [
-  {
-    name: 'Dr. Abhinav Sharma',
-    creds:
-      'MBBS, MAMC, Delhi University · MS, PGI, Chandigarh',
-    role: 'Co-Founder · Anti-Aging & Preventive Medicine',
-    bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. Educated at Maulana Azad Medical College, Delhi, with postgraduate training at PGI Chandigarh — one of India’s most acclaimed centres. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness, blending clinical expertise with innovation for holistic, root-cause care.',
-    img: '/team/dr-abhinav.jpg?v=2',
-  },
-  {
-    name: 'Dr. Bhavna Sharma',
-    creds:
-      'MBBS, MAMC, Delhi University · DGO, MAMC, Delhi University · F ART, Linz, Austria · D ART, Kiel University, Germany · DPE, Kiel University, Germany',
-    role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
-    bio: 'A leading IVF specialist credited with over 8,000 IVF babies. Educated at Maulana Azad Medical College, Delhi, where she also completed her postgraduation. She now extends her expertise to hormonal and reproductive anti-aging, women’s health, oocyte preservation and HRT — helping patients preserve fertility, balance hormones and optimise long-term healthspan with compassion and cutting-edge science.',
-    img: '/team/dr-bhavna-2026.jpg?v=2',
-  },
-]
-
-// Specialist team — actual doctors with real portraits cropped from
-// the brochure PDF (pages 10–12). Founders shown in the dedicated
-// Founders section above; this list is the wider physician panel.
-//
-// Dr. Karan Mane (Director) is listed first per client request.
-// Portrait added 2026-06-06 — 1194×1600 studio shot. Face sits in
-// the upper third of the frame, so the card uses object-position
-// 'center 25%' to keep the face centred inside the circular crop
-// instead of cropping it out at the top.
-const SPECIALISTS = [
-  {
-    name: 'Dr. Karan Mane',
-    creds: 'MBBS · MS',
-    role: 'Director · The Longevity Centre',
-    photo: '/team/dr-karan-mane.jpg?v=1',
-    objectPosition: 'center 25%',
-  },
-  {
-    name: 'Dr. Rahul Chaube',
-    creds: 'MD Medicine',
-    role: 'Physician & Diabetologist',
-    photo: '/team/dr-rahul-chaube.jpg?v=5',
-  },
-  {
-    name: 'Dr. Rizwan',
-    creds: 'MBBS',
-    role: '',
-    photo: '/team/dr-rizwan.jpg?v=1',
-    objectPosition: 'center 25%',
-  },
-  {
-    name: 'Dr. Aniket Agarwal',
-    creds: 'MBBS · CPS',
-    role: 'Dermatologist & Trichologist',
-    photo: '/team/dr-aniket-agarwal.jpg',
-  },
-  {
-    name: 'Dr. Surekha Sawant',
-    creds: 'Longevity Consultant',
-    role: 'Patient Care · Programme Coordination',
-    photo: '/team/dr-surekha-sawant.jpg',
-  },
-  {
-    name: 'Dr. Pooja Dahiya',
-    creds: 'Longevity Consultant',
-    role: 'Patient Care · Programme Coordination',
-    photo: '/team/dr-pooja-dahiya.jpg?v=2',
-    objectPosition: 'center top',
-  },
-  {
-    name: 'Dr. Niloufar Hayat',
-    creds: 'Longevity Consultant',
-    role: 'Patient Care · Programme Coordination',
-    photo: '/team/dr-niloufar-hayat.jpg',
-  },
-]
+// Founders + specialist panel moved to src/lib/team.ts so the build-time
+// SEO injector (scripts/inject-meta.cjs) can share the SAME roster for the
+// static /about-us content + Physician JSON-LD (E-E-A-T). Imported above.
 
 const HERO_CHIPS = [
   { k: 'Experience', v: '20+ Years' },

@@ -187,6 +187,7 @@ const META_OVERRIDES = seoOverrides.META_OVERRIDES || {}
 // the ONLY FAQPage node (Faq.tsx no longer emits a runtime one). Injected on
 // every route that renders <Faq />.
 const faqs = loadLibModule('faqs.ts')
+const team = loadLibModule('team.ts')
 const FAQ_SCHEMA =
   faqs.HOMEPAGE_FAQS && faqs.faqPageSchema ? faqs.faqPageSchema(faqs.HOMEPAGE_FAQS) : null
 const FAQ_ROUTES = new Set([
@@ -488,9 +489,36 @@ ${sitemapBody}`.trim(),
     description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
     h1: 'About The Longevity Centre',
     body: `
-<p>The Longevity Centre is India's first doctor-led longevity programme — built on twenty-plus years of preventive medicine and aesthetic expertise. Founded by Dr. Abhinav Sharma and Dr. Bhavna Sharma, TLC blends diagnostics, genomics, hormonal optimisation and skin-and-hair science under one continuous care record.</p>
-<h2>Our specialists</h2>
-<p>A multidisciplinary panel of longevity physicians, endocrinologists, metabolic specialists and consultants. Every patient is cared for by a team — not a single doctor — that holds your complete biological picture.</p>
+<p>The Longevity Centre is India's first doctor-led longevity programme — built on ${htmlEscape(
+      (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.years) || '20+ years'
+    )} of preventive medicine and aesthetic expertise, with a founding team credited with ${htmlEscape(
+      (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.surgeries) || '11,000+ surgeries'
+    )} and ${htmlEscape(
+      (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.ivfBabies) || '8,000+ IVF babies'
+    )}, practising across ${htmlEscape(
+      (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.centres) || '6 centres across India'
+    )}. TLC blends diagnostics, genomics, hormonal optimisation and skin-and-hair science under one continuous care record.</p>
+<h2>Our founders</h2>
+${(team.FOUNDERS || [])
+  .map(
+    (f) =>
+      `<h3>${htmlEscape(f.name)}${f.creds ? ' — ' + htmlEscape(f.creds) : ''}</h3>\n<p><strong>${htmlEscape(
+        f.role || ''
+      )}.</strong> ${htmlEscape(f.bio || '')}</p>`
+  )
+  .join('\n')}
+<h2>Our specialist team</h2>
+<p>Every patient is cared for by a multidisciplinary panel — not a single doctor — that holds your complete biological picture:</p>
+<ul>
+${(team.SPECIALISTS || [])
+  .map(
+    (s) =>
+      `<li><strong>${htmlEscape(s.name)}</strong>${s.creds ? ' — ' + htmlEscape(s.creds) : ''}${
+        s.role ? ' · ' + htmlEscape(s.role) : ''
+      }</li>`
+  )
+  .join('\n')}
+</ul>
 <h2>What we treat</h2>
 <ul>
   <li>Metabolic dysfunction · weight, insulin resistance, fatty liver</li>
@@ -499,6 +527,9 @@ ${sitemapBody}`.trim(),
   <li>Biological aging · DNA methylation, GrimAge, PhenoAge</li>
   <li>Skin and aesthetic concerns · PRP, fillers, laser, peels</li>
 </ul>`.trim(),
+    // Physician JSON-LD (founders + panel) — the site's strongest first-hand
+    // E-E-A-T (Experience/Expertise) signal, made visible to AI engines.
+    schemas: typeof team.physicianSchema === 'function' ? team.physicianSchema() : null,
   },
   {
     path: '/about',
@@ -663,6 +694,7 @@ for (const p of staticPages) {
     description: p.description,
     content: `<h1>${p.h1}</h1>\n<p>${htmlEscape(p.description)}</p>\n${p.body}`,
     faqs: p.faqs || null,
+    schemas: p.schemas || null,
   })
 }
 
@@ -974,6 +1006,9 @@ for (const item of entries) {
   // BlogPosting schema (blogs only) — pre-baked so non-JS crawlers/AI see
   // the author + publish date + medical reviewer E-E-A-T signals.
   if (item.article) extraLd.push(item.article)
+  // Any extra pre-built schema nodes for this route (e.g. Physician list
+  // on /about-us) — an E-E-A-T Expertise/Experience signal for AI engines.
+  if (Array.isArray(item.schemas)) for (const s of item.schemas) extraLd.push(s)
   // BreadcrumbList on every non-home route (site hierarchy for crawlers/AI).
   const crumb = breadcrumbLd(item.path)
   if (crumb) extraLd.push(crumb)
