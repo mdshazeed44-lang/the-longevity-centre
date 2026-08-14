@@ -5,6 +5,8 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Faq } from '../components/sections/Faq'
+import { PROGRAMS_FAQS } from '../lib/faqs'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { PROGRAMS, type Program } from '../lib/programs'
@@ -675,6 +677,7 @@ export function ProgramsIndexPage() {
       <ProgrammesGrid />
       <BrandAmbassador />
       <BmiCalculator variant="selector" />
+      <Faq faqs={PROGRAMS_FAQS} heading="Questions about our programmes" idPrefix="programs-faq" />
       <CtaBand />
     </>
   )

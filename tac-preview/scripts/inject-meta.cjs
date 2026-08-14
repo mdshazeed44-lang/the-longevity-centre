@@ -815,6 +815,20 @@ for (const item of entries) {
   const keywords = ov && ov.keywords ? ov.keywords : ''
   const breadcrumb = `<p><small><a href="/">Home</a> · ${title}</small></p>`
 
+  // Section-index (hub) FAQs — Programmes / Diagnostics / Skin / Centres.
+  // Same src/lib/faqs.ts source the visible <Faq /> uses. Rendered as an
+  // answer-first Q&A section in the <noscript> body (below) and emitted as
+  // FAQPage schema (extraLd, further down) so the 0-citability hub pages get
+  // quotable question headings + direct answers for AI/GEO engines.
+  const hubFaqs = (faqs.HUB_FAQS || {})[item.path]
+  const faqSection = hubFaqs
+    ? '\n<section>\n<h2>Frequently asked questions</h2>\n' +
+      hubFaqs
+        .map((f) => `<h3>${htmlEscape(f.q)}</h3>\n<p>${htmlEscape(f.a)}</p>`)
+        .join('\n') +
+      '\n</section>'
+    : ''
+
   // Wrap the per-route content in a <noscript>. The block is invisible
   // to JS-enabled browsers (no flash for real users) but rendered as
   // normal HTML by JS-disabled crawlers (Ahrefs default, Bing, social
@@ -825,7 +839,7 @@ for (const item of entries) {
     `<main>\n` +
     NAV_HTML + '\n' +
     breadcrumb + '\n' +
-    (item.content || `<h1>${title}</h1>\n<p>${description}</p>`) + '\n' +
+    (item.content || `<h1>${title}</h1>\n<p>${description}</p>`) + faqSection + '\n' +
     FOOTER_HTML + '\n' +
     `</main>\n` +
     `</noscript>`
@@ -893,6 +907,9 @@ for (const item of entries) {
     const c = (centres.CENTRES || []).find((x) => x.slug === slug)
     if (c && c.verified) extraLd.push(localBusinessLd(c))
   }
+  // Hub FAQPage schema (from the same src/lib/faqs.ts the visible <Faq /> uses)
+  // — gives the 0-citability hub pages quotable Q&A for AI/GEO engines.
+  if (hubFaqs && faqs.faqPageSchema) extraLd.push(faqs.faqPageSchema(hubFaqs))
   // BreadcrumbList on every non-home route (site hierarchy for crawlers/AI).
   const crumb = breadcrumbLd(item.path)
   if (crumb) extraLd.push(crumb)

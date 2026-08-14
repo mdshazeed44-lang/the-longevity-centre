@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { Faq } from '../components/sections/Faq'
+import { DIAGNOSTICS_FAQS } from '../lib/faqs'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import { DIAGNOSTICS } from '../lib/diagnostics'
 
@@ -630,6 +632,7 @@ export function DiagnosticsPage() {
       </section>
 
       {/* ====================== CTA ====================== */}
+      <Faq faqs={DIAGNOSTICS_FAQS} heading="Questions about our diagnostics" idPrefix="diagnostics-faq" />
       <BrandAmbassador />
       <CtaBand />
     </div>

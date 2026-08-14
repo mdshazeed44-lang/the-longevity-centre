@@ -8,6 +8,8 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Faq } from '../components/sections/Faq'
+import { CENTRES_FAQS } from '../lib/faqs'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES as CENTRES_DATA } from '../lib/centres'
@@ -503,6 +505,8 @@ export function CentresPage() {
           </div>
         </div>
       </section>
+
+      <Faq faqs={CENTRES_FAQS} heading="Questions about our centres" idPrefix="centres-faq" />
 
       {/* FINAL CTA — site signature dark band */}
       <section className="relative bg-ink py-24 md:py-36 px-6 md:px-12 overflow-hidden">

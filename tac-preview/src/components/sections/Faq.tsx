@@ -5,18 +5,29 @@
 // system stays consistent across pages.
 
 import { useState } from 'react'
-import { HOMEPAGE_FAQS as FAQS } from '../../lib/faqs'
+import { HOMEPAGE_FAQS, type Faq as FaqItem } from '../../lib/faqs'
 
-export function Faq() {
+/**
+ * FAQ accordion. Defaults to the homepage FAQ but accepts a `faqs` list +
+ * `heading` so section/hub pages (Programmes, Diagnostics, Skin, Centres) can
+ * show their own answer-first Q&A (each hub's FAQPage schema is pre-baked into
+ * the static <head> by scripts/inject-meta.cjs from the SAME src/lib/faqs.ts
+ * source — so there's exactly one FAQPage node per page). `idPrefix` keeps
+ * panel ids unique per instance.
+ */
+export function Faq({
+  faqs = HOMEPAGE_FAQS,
+  heading = 'Things people ask us.',
+  idPrefix = 'home-faq',
+}: {
+  faqs?: FaqItem[]
+  heading?: string
+  idPrefix?: string
+} = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
     <section className="bg-cream/40 py-16 md:py-20 px-6 md:px-12">
-      {/* FAQPage JSON-LD is pre-baked into the static <head> by
-          scripts/inject-meta.cjs (for /, and the two ad LPs) from the same
-          src/lib/faqs.ts source — so there's exactly ONE FAQPage node per
-          page and it's visible to non-JS crawlers. Do NOT re-emit it here. */}
-
       <div className="max-w-[920px] mx-auto">
         <div className="text-center mb-12 md:mb-14">
           <div className="inline-flex items-center gap-3 mb-5">
@@ -27,12 +38,12 @@ export function Faq() {
             <span className="w-7 h-px bg-rust" />
           </div>
           <h2 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.03em] text-ink">
-            Things people ask us.
+            {heading}
           </h2>
         </div>
 
         <ul className="border-t border-mist">
-          {FAQS.map((f, i) => {
+          {faqs.map((f, i) => {
             const open = openIndex === i
             return (
               <li key={i} className="border-b border-mist">
@@ -40,7 +51,7 @@ export function Faq() {
                   type="button"
                   onClick={() => setOpenIndex(open ? null : i)}
                   aria-expanded={open}
-                  aria-controls={`home-faq-panel-${i}`}
+                  aria-controls={`${idPrefix}-panel-${i}`}
                   data-cursor="hover"
                   className="w-full text-left py-5 md:py-6 flex items-start gap-4 md:gap-7 group"
                 >
@@ -75,7 +86,7 @@ export function Faq() {
                   </span>
                 </button>
                 <div
-                  id={`home-faq-panel-${i}`}
+                  id={`${idPrefix}-panel-${i}`}
                   className="overflow-hidden transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] grid"
                   style={{ gridTemplateRows: open ? '1fr' : '0fr' }}
                 >

@@ -16,6 +16,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
+import { Faq } from '../components/sections/Faq'
+import { SKIN_FAQS } from '../lib/faqs'
 import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -467,6 +469,7 @@ export function SkinAestheticsPage() {
         </div>
       </section>
 
+      <Faq faqs={SKIN_FAQS} heading="Questions about skin & aesthetics" idPrefix="skin-faq" />
       <CtaBand />
     </div>
   )
