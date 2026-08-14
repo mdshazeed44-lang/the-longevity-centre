@@ -19,9 +19,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
-import { getProgramBySlug, PROGRAMS, type Program } from '../lib/programs'
+import { getProgramBySlug, PROGRAMS, programFaqs, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
+import { Faq } from '../components/sections/Faq'
 gsap.registerPlugin(ScrollTrigger)
 
 // Programmes where a BMI calculator adds direct decision value.
@@ -661,6 +662,11 @@ export function ProgramDetailPage() {
       <CareModel p={program} />
       <Outcomes p={program} />
       <Difference p={program} />
+      <Faq
+        faqs={programFaqs(program)}
+        heading="Questions about this programme"
+        idPrefix={`prog-${program.slug}-faq`}
+      />
       <Related p={program} />
       <BrandAmbassador />
       <FinalCta p={program} />

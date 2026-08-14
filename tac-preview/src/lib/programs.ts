@@ -465,3 +465,66 @@ export const PROGRAMS: Program[] = [
 export function getProgramBySlug(slug: string): Program | undefined {
   return PROGRAMS.find((p) => p.slug === slug)
 }
+
+// ── Programme FAQ (single source) ─────────────────────────────────────
+// Answer-first Q&A generated from each programme's OWN data (duration,
+// price, designed-for, care model, diagnostics, outcomes) — no invented
+// facts. Consumed by pages/ProgramDetailPage.tsx (visible accordion) AND
+// scripts/inject-meta.cjs (FAQPage schema + <noscript> body) so every
+// programme detail page ships quotable question headings + direct answers
+// for AI/GEO engines. Mirrors the hub-page HUB_FAQS pattern in faqs.ts.
+const lowerFirst = (s: string): string =>
+  s ? s.charAt(0).toLowerCase() + s.slice(1) : s
+
+export function programFaqs(p: Program): { q: string; a: string }[] {
+  const faqs: { q: string; a: string }[] = []
+
+  faqs.push({
+    q: `How long is the ${p.shortTitle} programme and what does it cost?`,
+    a: `The ${p.shortTitle} programme runs over ${p.duration} and is priced at ${p.price}${
+      p.priceNote ? ' ' + p.priceNote : ''
+    }. ${p.focus}`,
+  })
+
+  if (p.designedFor && p.designedFor.length) {
+    faqs.push({
+      q: `Who is the ${p.shortTitle} programme designed for?`,
+      a: `It is designed for people with ${p.designedFor
+        .slice(0, 4)
+        .map(lowerFirst)
+        .join('; ')}${p.designedFor.length > 4 ? ', among other concerns' : ''}.`,
+    })
+  }
+
+  if (p.careModel && p.careModel.length) {
+    faqs.push({
+      q: `What is included in the ${p.shortTitle} programme?`,
+      a: `Your care includes ${p.careModel
+        .slice(0, 4)
+        .map(lowerFirst)
+        .join('; ')}${p.careModel.length > 4 ? ', with continuous support throughout' : ''}.`,
+    })
+  }
+
+  if (p.diagnostics && p.diagnostics.length) {
+    faqs.push({
+      q: `What diagnostics are part of the ${p.shortTitle} programme?`,
+      a: `The programme includes ${p.diagnostics
+        .slice(0, 5)
+        .map(lowerFirst)
+        .join('; ')}.`,
+    })
+  }
+
+  if (p.outcomes && p.outcomes.length) {
+    faqs.push({
+      q: `What results can I expect from the ${p.shortTitle} programme?`,
+      a: `Reported outcomes include ${p.outcomes
+        .slice(0, 4)
+        .map(lowerFirst)
+        .join('; ')}. Results vary between individuals.`,
+    })
+  }
+
+  return faqs
+}

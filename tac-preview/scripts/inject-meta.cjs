@@ -570,7 +570,23 @@ ${sitemapBody}`.trim(),
   <li><a href="/programs/diabetes-fatty-liver-reversal">Diabetes &amp; Fatty Liver Reversal</a></li>
   <li><a href="/programs/pcod-correction">PCOD Correction</a></li>
   <li><a href="/programs/cancer-prevention">Cancer Detection &amp; Prevention</a></li>
-</ul>`.trim(),
+</ul>
+<h2>Compare all seven programmes</h2>
+<table>
+<thead><tr><th>Programme</th><th>Duration</th><th>From</th><th>Best for</th></tr></thead>
+<tbody>
+${(programs.PROGRAMS || [])
+  .map(
+    (p) =>
+      `<tr><td><a href="/programs/${p.slug}">${htmlEscape(
+        p.shortTitle || p.title
+      )}</a></td><td>${htmlEscape(p.duration || '')}</td><td>${htmlEscape(
+        p.price || ''
+      )}</td><td>${htmlEscape(p.focus || '')}</td></tr>`
+  )
+  .join('\n')}
+</tbody>
+</table>`.trim(),
   },
   {
     path: '/diagnostics',
@@ -702,6 +718,9 @@ for (const p of staticPages) {
     title: `${p.shortTitle} · TLC Programme`,
     description: (p.focus || p.desc || '').slice(0, 200),
     content,
+    // Data-derived programme FAQ (single source in src/lib/programs.ts) —
+    // becomes a FAQPage schema + answer-first <noscript> Q&A on this route.
+    faqs: typeof programs.programFaqs === 'function' ? programs.programFaqs(p) : null,
   })
 })
 
@@ -820,7 +839,7 @@ for (const item of entries) {
   // answer-first Q&A section in the <noscript> body (below) and emitted as
   // FAQPage schema (extraLd, further down) so the 0-citability hub pages get
   // quotable question headings + direct answers for AI/GEO engines.
-  const hubFaqs = (faqs.HUB_FAQS || {})[item.path]
+  const hubFaqs = item.faqs || (faqs.HUB_FAQS || {})[item.path]
   const faqSection = hubFaqs
     ? '\n<section>\n<h2>Frequently asked questions</h2>\n' +
       hubFaqs

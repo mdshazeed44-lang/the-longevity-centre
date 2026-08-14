@@ -656,6 +656,82 @@ function CtaBand() {
   )
 }
 
+// Programme comparison table — an at-a-glance, side-by-side of all seven
+// programmes (duration · price · focus). Scannable for visitors deciding
+// between protocols, and a highly citable structured asset for AI/GEO
+// engines answering "which TLC programme is shortest / most affordable /
+// for X". Data-driven from PROGRAMS — no hand-maintained duplication.
+function ProgrammesCompare() {
+  return (
+    <section className="bg-cream/40 py-16 md:py-24 px-6 md:px-12">
+      <div className="max-w-[1100px] mx-auto">
+        <div className="text-center mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="w-7 h-px bg-rust" />
+            <span className="text-[11px] tracking-[0.32em] text-rust font-semibold uppercase">
+              Compare
+            </span>
+            <span className="w-7 h-px bg-rust" />
+          </div>
+          <h2 className="font-display font-bold text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.03em] text-ink">
+            All seven programmes, side by side.
+          </h2>
+        </div>
+
+        <div className="overflow-x-auto -mx-6 md:mx-0 px-6 md:px-0">
+          <table className="w-full min-w-[720px] border-collapse text-left">
+            <thead>
+              <tr className="border-b-2 border-ink/15">
+                <th className="py-4 pr-4 font-display font-semibold text-[13px] md:text-[14px] text-ink">
+                  Programme
+                </th>
+                <th className="py-4 px-4 font-display font-semibold text-[13px] md:text-[14px] text-ink whitespace-nowrap">
+                  Duration
+                </th>
+                <th className="py-4 px-4 font-display font-semibold text-[13px] md:text-[14px] text-ink whitespace-nowrap">
+                  From
+                </th>
+                <th className="py-4 pl-4 font-display font-semibold text-[13px] md:text-[14px] text-ink">
+                  Best for
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {PROGRAMS.map((p) => (
+                <tr key={p.slug} className="border-b border-mist align-top">
+                  <td className="py-4 pr-4">
+                    <a
+                      href={`/programs/${p.slug}`}
+                      data-cursor="hover"
+                      className="font-display font-semibold text-[14px] md:text-[15px] text-ink hover:text-rust transition-colors"
+                    >
+                      {p.shortTitle}
+                    </a>
+                  </td>
+                  <td className="py-4 px-4 text-[13px] md:text-[14px] text-graphite whitespace-nowrap">
+                    {p.duration}
+                  </td>
+                  <td className="py-4 px-4 text-[13px] md:text-[14px] text-graphite tabular-nums whitespace-nowrap">
+                    {p.price}
+                  </td>
+                  <td className="py-4 pl-4 text-[13px] md:text-[14px] leading-[1.6] text-graphite font-light">
+                    {p.focus}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p className="mt-5 text-[12px] text-graphite/70 font-light">
+          Prices are starting points; final protocols are tailored after your
+          diagnostic assessment. All programmes are physician-led.
+        </p>
+      </div>
+    </section>
+  )
+}
+
 export function ProgramsIndexPage() {
   useDocumentMeta({
     title: 'Programmes · TLC — Diagnostics-Led Longevity & Metabolic Care',
@@ -675,6 +751,7 @@ export function ProgramsIndexPage() {
     <>
       <Hero />
       <ProgrammesGrid />
+      <ProgrammesCompare />
       <BrandAmbassador />
       <BmiCalculator variant="selector" />
       <Faq faqs={PROGRAMS_FAQS} heading="Questions about our programmes" idPrefix="programs-faq" />
