@@ -662,13 +662,37 @@ for (const p of staticPages) {
     `</header>`,
     md2html(b.content || ''),
     `<p>Author: ${htmlEscape(b.author || 'TLC Editorial')}</p>`,
+    `<p>Medically reviewed by ${htmlEscape(blogs.MEDICAL_REVIEWER || 'The Longevity Centre Medical Team')}</p>`,
     `</article>`,
   ].join('\n')
+  // BlogPosting schema for the STATIC head — the runtime React Article
+  // schema is invisible to non-JS crawlers/AI, so pre-bake it here with
+  // author + datePublished + reviewedBy (E-E-A-T) + publisher.
+  const article = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: b.h1 || b.title,
+    description: b.metaDescription,
+    image: b.heroImage ? SITE + b.heroImage : undefined,
+    datePublished: b.publishDate || undefined,
+    author: { '@type': 'Organization', name: 'The Longevity Centre' },
+    reviewedBy: {
+      '@type': 'Organization',
+      name: blogs.MEDICAL_REVIEWER || 'The Longevity Centre Medical Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'The Longevity Centre',
+      logo: { '@type': 'ImageObject', url: SITE + '/og/logo.png' },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + '/' + b.slug },
+  }
   entries.push({
     path: '/' + b.slug,
     title: b.metaTitle,
     description: b.metaDescription,
     content,
+    article,
   })
 })
 
@@ -929,6 +953,9 @@ for (const item of entries) {
   // Hub FAQPage schema (from the same src/lib/faqs.ts the visible <Faq /> uses)
   // — gives the 0-citability hub pages quotable Q&A for AI/GEO engines.
   if (hubFaqs && faqs.faqPageSchema) extraLd.push(faqs.faqPageSchema(hubFaqs))
+  // BlogPosting schema (blogs only) — pre-baked so non-JS crawlers/AI see
+  // the author + publish date + medical reviewer E-E-A-T signals.
+  if (item.article) extraLd.push(item.article)
   // BreadcrumbList on every non-home route (site hierarchy for crawlers/AI).
   const crumb = breadcrumbLd(item.path)
   if (crumb) extraLd.push(crumb)

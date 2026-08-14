@@ -40,6 +40,15 @@ export interface Blog {
   traffic: number
 }
 
+/**
+ * Medical reviewer credited on every article (byline + `reviewedBy` schema).
+ * A collective clinical entity — an honest E-E-A-T signal that doesn't assert
+ * a single named physician personally reviewed each post. Consumed by
+ * BlogDetailPage.tsx (visible line + Article schema) and inject-meta.cjs
+ * (static BlogPosting schema + <noscript> byline).
+ */
+export const MEDICAL_REVIEWER = 'The Longevity Centre Medical Team'
+
 export const BLOGS: Blog[] = [
   {
     slug: '10-tips-for-good-health',

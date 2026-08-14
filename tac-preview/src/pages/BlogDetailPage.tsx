@@ -12,7 +12,7 @@
 import { useMemo } from 'react'
 import { Markdown } from '../lib/markdown'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
-import { getBlogBySlug, getBlogsByTraffic } from '../lib/blogs'
+import { getBlogBySlug, getBlogsByTraffic, MEDICAL_REVIEWER } from '../lib/blogs'
 
 function formatDate(iso: string): string {
   const d = new Date(iso)
@@ -56,6 +56,7 @@ export function BlogDetailPage() {
               image: `https://thelongevitycentre.co${blog.heroImage}`,
               datePublished: blog.publishDate,
               author: { '@type': 'Organization', name: 'The Longevity Centre' },
+              reviewedBy: { '@type': 'Organization', name: MEDICAL_REVIEWER },
               publisher: {
                 '@type': 'Organization',
                 name: 'The Longevity Centre',
@@ -128,6 +129,16 @@ export function BlogDetailPage() {
           <span className="w-1 h-1 rounded-full bg-graphite/30" />
           <span>{blog.readingTime}</span>
         </div>
+        <p className="mt-4 text-[12px] text-graphite/70">
+          <span className="inline-flex items-center gap-1.5">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-rust">
+              <path d="M9 12l2 2 4-4" />
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.64 0 3.18.44 4.5 1.2" />
+            </svg>
+            Medically reviewed by{' '}
+            <span className="font-medium text-graphite">{MEDICAL_REVIEWER}</span>
+          </span>
+        </p>
       </header>
 
       {/* HERO IMAGE */}
