@@ -242,6 +242,46 @@ function localBusinessLd(c) {
   }
 }
 
+// Readable labels for the known section slugs used in breadcrumbs.
+const SEG_LABELS = {
+  'programs': 'Programmes',
+  'diagnostics': 'Diagnostics',
+  'skin-aesthetics': 'Skin & Aesthetics',
+  'centres': 'Centres',
+  'about-us': 'About Us',
+  'contact': 'Contact',
+  'blog': 'Blog',
+}
+
+/**
+ * BreadcrumbList JSON-LD from a route path (Home › Section › Page). Emitted
+ * into the static <head> for every non-home route so crawlers/AI engines get
+ * the site hierarchy in raw HTML — closes the GEO audit "BreadcrumbList
+ * missing" finding. Returns null for the homepage.
+ */
+function breadcrumbLd(itemPath) {
+  if (!itemPath || itemPath === '/') return null
+  const segs = itemPath.replace(/^\/|\/$/g, '').split('/')
+  const items = [{ name: 'Home', url: SITE + '/' }]
+  let acc = ''
+  segs.forEach((s) => {
+    acc += '/' + s
+    const name =
+      SEG_LABELS[s] || s.replace(/-/g, ' ').replace(/\b\w/g, (ch) => ch.toUpperCase())
+    items.push({ name, url: SITE + acc })
+  })
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((it, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  }
+}
+
 // ── 2. Build the URL → meta + content map ─────────────────────────────
 
 /** @type {{ path: string, title: string, description: string, content: string }[]} */
@@ -853,6 +893,9 @@ for (const item of entries) {
     const c = (centres.CENTRES || []).find((x) => x.slug === slug)
     if (c && c.verified) extraLd.push(localBusinessLd(c))
   }
+  // BreadcrumbList on every non-home route (site hierarchy for crawlers/AI).
+  const crumb = breadcrumbLd(item.path)
+  if (crumb) extraLd.push(crumb)
   if (extraLd.length) {
     const ldScripts = extraLd
       .map(

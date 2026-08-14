@@ -99,6 +99,10 @@ DirectorySlash Off
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  # HSTS — force HTTPS for a year incl. subdomains. Safe: the whole site is
+  # HTTPS-only (see Force HTTPS above). Closes the SEOmator/GEO "HSTS Missing"
+  # finding. `always` so it's emitted on error responses too.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 </IfModule>
 
 # ── Disable directory listing ───────────────────────────────────────────
