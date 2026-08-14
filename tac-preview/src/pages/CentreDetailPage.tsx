@@ -14,7 +14,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
-import { CENTRES, getCentreBySlug } from '../lib/centres'
+import { CENTRES, getCentreBySlug, centreFaqs } from '../lib/centres'
+import { Faq } from '../components/sections/Faq'
 import { CtaBand } from '../components/sections/CtaBand'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 gsap.registerPlugin(ScrollTrigger)
@@ -660,6 +661,12 @@ export function CentreDetailPage() {
           </div>
         </div>
       </section>
+
+      <Faq
+        faqs={centreFaqs(centre)}
+        heading={`Questions about our ${centre.city} centre`}
+        idPrefix={`centre-${centre.slug}-faq`}
+      />
 
       {/* CTA */}
       <BrandAmbassador />

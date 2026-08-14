@@ -637,7 +637,21 @@ ${(programs.PROGRAMS || [])
     title: 'Longevity Programme · The 12-Month Flagship · TLC',
     description: "TLC's flagship 12-month longevity programme — three biological age clocks tracked, full genomic + microbiome sequencing, end-to-end physician care.",
     h1: 'Longevity Plus — The 12-Month Flagship Programme',
-    body: `<p>TLC's flagship 12-month protocol. Three biological age clocks tracked, 323 genes decoded, GrimAge + PhenoAge epigenetic analysis, whole-genomic gut sequencing — every measurable pillar of aging, addressed together. Continue to <a href="/programs/longevity-plus">programme details</a>.</p>`,
+    body: `
+<p>TLC's flagship 12-month protocol tracks three biological age clocks, decodes 323 genes, runs GrimAge + PhenoAge epigenetic analysis and whole-genomic gut sequencing — every measurable pillar of aging, addressed together under one physician-led plan.</p>
+<h2>What is the Longevity Plus programme?</h2>
+<p>Longevity Plus is a 12-month, physician-guided longevity programme that measures your biological age across three validated clocks, then works to slow and improve it through diagnostics-led, continuously refined intervention — nutrition, hormones, metabolism, gut health and lifestyle therapeutics, all on one shared medical record.</p>
+<h2>Who is it for?</h2>
+<p>It is built for people who want a complete, measured approach to healthy aging rather than isolated tests — professionals and individuals seeking to understand their biological age, correct hidden metabolic and hormonal drivers, and sustain the change over a full year of guided care.</p>
+<h2>What does it include?</h2>
+<p>The programme includes epigenetic biological-age testing (GrimAge, PhenoAge), whole-genomic gut microbiome sequencing, comprehensive blood biomarker panels, genetic decoding, ongoing physician consultations, and a nutrition and lifestyle plan recalibrated through the year. Continue to the full <a href="/programs/longevity-plus">programme details</a>.</p>`.trim(),
+    faqs:
+      typeof programs.programFaqs === 'function' && typeof programs.getProgramBySlug === 'function'
+        ? (() => {
+            const lp = programs.getProgramBySlug('longevity-plus')
+            return lp ? programs.programFaqs(lp) : null
+          })()
+        : null,
   },
 ]
 
@@ -648,6 +662,7 @@ for (const p of staticPages) {
     title: p.title,
     description: p.description,
     content: `<h1>${p.h1}</h1>\n<p>${htmlEscape(p.description)}</p>\n${p.body}`,
+    faqs: p.faqs || null,
   })
 }
 
@@ -776,6 +791,7 @@ for (const p of staticPages) {
     title: `Longevity Clinic in ${c.city}${areaPart}${brandSuffix}`,
     description: `The Longevity Centre in ${c.city}${c.area ? ', ' + c.area : ''} — diagnostics-led, physician-guided preventive medicine, metabolic and longevity care.`,
     content,
+    faqs: typeof centres.centreFaqs === 'function' ? centres.centreFaqs(c) : null,
   })
 })
 
@@ -802,6 +818,7 @@ for (const p of staticPages) {
     title: `${d.name} · TLC Diagnostics`,
     description: (d.tagline || d.intro || '').slice(0, 200),
     content,
+    faqs: typeof diagnostics.diagnosticFaqs === 'function' ? diagnostics.diagnosticFaqs(d) : null,
   })
 })
 
@@ -831,6 +848,7 @@ for (const p of staticPages) {
     title: `${s.title} · TLC Skin & Aesthetics`,
     description: (s.description || '').slice(0, 200),
     content,
+    faqs: typeof skin.skinFaqs === 'function' ? skin.skinFaqs(s) : null,
   })
 })
 

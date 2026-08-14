@@ -421,3 +421,53 @@ export function getSkinTreatmentBySlug(
 ): SkinTreatment | undefined {
   return SKIN_TREATMENTS.find((t) => t.slug === slug)
 }
+
+// ── Skin-treatment FAQ (single source) ────────────────────────────────
+// Answer-first Q&A from each treatment's OWN data. Consumed by the skin
+// detail page (visible <Faq />) AND scripts/inject-meta.cjs (FAQPage schema
+// + <noscript> Q&A) — quotable question headings + direct answers for GEO.
+const sLower = (s: string): string =>
+  s ? s.charAt(0).toLowerCase() + s.slice(1) : s
+
+export function skinFaqs(s: SkinTreatment): { q: string; a: string }[] {
+  const faqs: { q: string; a: string }[] = []
+
+  if (s.description) {
+    faqs.push({ q: `What is ${s.title}?`, a: s.description })
+  }
+
+  if (s.treats && s.treats.length) {
+    faqs.push({
+      q: `What does ${s.shortName} treat?`,
+      a: `${s.title} helps with ${s.treats.slice(0, 5).map(sLower).join('; ')}.`,
+    })
+  }
+
+  if (s.benefits && s.benefits.length) {
+    faqs.push({
+      q: `What are the benefits of ${s.shortName}?`,
+      a: `Key benefits include ${s.benefits.slice(0, 4).map(sLower).join('; ')}.`,
+    })
+  }
+
+  if (s.duration) {
+    faqs.push({
+      q: `How long does a ${s.shortName} session take?`,
+      a: `A typical session takes around ${s.duration}.${
+        s.note ? ' ' + s.note : ''
+      }`,
+    })
+  }
+
+  if (s.process && s.process.length) {
+    faqs.push({
+      q: `How does ${s.shortName} work?`,
+      a: s.process
+        .slice(0, 3)
+        .map((p) => `${p.title}: ${p.body}`)
+        .join(' '),
+    })
+  }
+
+  return faqs
+}

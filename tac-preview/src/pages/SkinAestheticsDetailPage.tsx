@@ -18,7 +18,9 @@ import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 import {
   SKIN_TREATMENTS,
   getSkinTreatmentBySlug,
+  skinFaqs,
 } from '../lib/skin-treatments'
+import { Faq } from '../components/sections/Faq'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -394,6 +396,11 @@ export function SkinAestheticsDetailPage() {
           </div>
         </div>
       </section>
+      <Faq
+        faqs={skinFaqs(t)}
+        heading={`Questions about ${t.shortName}`}
+        idPrefix={`skin-${t.slug}-faq`}
+      />
       <BrandAmbassador />
       <CtaBand />
     </div>

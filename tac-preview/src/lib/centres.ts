@@ -365,3 +365,43 @@ export const CENTRES: Centre[] = [
 export function getCentreBySlug(slug: string): Centre | undefined {
   return CENTRES.find((c) => c.slug === slug)
 }
+
+// ── Centre FAQ (single source) ────────────────────────────────────────
+// Answer-first Q&A from each centre's OWN data (location, timings, contact,
+// facilities) — the exact "where / when / what" questions AI engines get
+// asked about a local clinic. Consumed by the centre detail page (visible
+// <Faq />) AND scripts/inject-meta.cjs (FAQPage schema + <noscript> Q&A).
+const cLower = (s: string): string =>
+  s ? s.charAt(0).toLowerCase() + s.slice(1) : s
+
+export function centreFaqs(c: Centre): { q: string; a: string }[] {
+  const faqs: { q: string; a: string }[] = []
+
+  faqs.push({
+    q: `Where is The Longevity Centre in ${c.city}?`,
+    a: `The Longevity Centre ${c.city} is located in ${c.area}, ${c.city}${
+      c.state ? ', ' + c.state : ''
+    }. Address: ${c.address}.`,
+  })
+
+  if (c.timings) {
+    faqs.push({
+      q: `What are the timings of the ${c.city} centre?`,
+      a: `The ${c.city} centre operates ${c.timings}.${
+        c.phone ? ` You can call ${c.phone} to book an appointment.` : ''
+      }`,
+    })
+  }
+
+  if (c.highlights && c.highlights.length) {
+    faqs.push({
+      q: `What does the ${c.city} centre offer?`,
+      a: `The ${c.city} centre offers ${c.highlights
+        .slice(0, 5)
+        .map(cLower)
+        .join('; ')}.`,
+    })
+  }
+
+  return faqs
+}

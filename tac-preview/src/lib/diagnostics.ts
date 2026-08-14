@@ -684,3 +684,59 @@ export const DIAGNOSTICS: Diagnostic[] = [
 export function getDiagnosticBySlug(slug: string): Diagnostic | undefined {
   return DIAGNOSTICS.find((d) => d.slug === slug)
 }
+
+// ── Diagnostic FAQ (single source) ────────────────────────────────────
+// Answer-first Q&A built from each test's OWN data — no invented facts.
+// Consumed by the diagnostics detail page (visible <Faq />) AND
+// scripts/inject-meta.cjs (FAQPage schema + <noscript> Q&A) so every test
+// page ships quotable question headings + direct answers for AI/GEO engines.
+const dLower = (s: string): string =>
+  s ? s.charAt(0).toLowerCase() + s.slice(1) : s
+
+export function diagnosticFaqs(d: Diagnostic): { q: string; a: string }[] {
+  const faqs: { q: string; a: string }[] = []
+
+  const whatBody = d.whatItIs && d.whatItIs.body && d.whatItIs.body.length
+    ? d.whatItIs.body[0]
+    : d.intro
+  if (whatBody) {
+    faqs.push({ q: `What is ${d.name}?`, a: whatBody })
+  }
+
+  if (d.duration || d.sampleType) {
+    faqs.push({
+      q: `How long does ${d.shortName} take and what sample is needed?`,
+      a: `${d.name} takes about ${d.duration || 'a short appointment'}${
+        d.sampleType ? ` and uses a ${dLower(d.sampleType)}` : ''
+      }. ${d.tagline || ''}`.trim(),
+    })
+  }
+
+  if (d.whoFor && d.whoFor.length) {
+    faqs.push({
+      q: `Who should consider ${d.shortName}?`,
+      a: `It is suited to ${d.whoFor.slice(0, 4).map(dLower).join('; ')}${
+        d.whoFor.length > 4 ? ', among others' : ''
+      }.`,
+    })
+  }
+
+  if (d.benefits && d.benefits.length) {
+    faqs.push({
+      q: `What are the benefits of ${d.shortName}?`,
+      a: `Key benefits include ${d.benefits.slice(0, 4).map(dLower).join('; ')}.`,
+    })
+  }
+
+  if (d.process && d.process.length) {
+    faqs.push({
+      q: `How does ${d.shortName} work?`,
+      a: d.process
+        .slice(0, 3)
+        .map((p) => `${p.title}: ${p.body}`)
+        .join(' '),
+    })
+  }
+
+  return faqs
+}

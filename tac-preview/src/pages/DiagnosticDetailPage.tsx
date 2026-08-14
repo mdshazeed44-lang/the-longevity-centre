@@ -19,7 +19,8 @@ import { reduceMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
-import { DIAGNOSTICS, getDiagnosticBySlug } from '../lib/diagnostics'
+import { DIAGNOSTICS, getDiagnosticBySlug, diagnosticFaqs } from '../lib/diagnostics'
+import { Faq } from '../components/sections/Faq'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -533,6 +534,12 @@ export function DiagnosticDetailPage() {
           </div>
         </section>
       )}
+
+      <Faq
+        faqs={diagnosticFaqs(test)}
+        heading={`Questions about ${test.shortName}`}
+        idPrefix={`diag-${test.slug}-faq`}
+      />
 
       {/* ============================ CTA ============================ */}
       <BrandAmbassador />
