@@ -7,7 +7,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Faq } from '../components/sections/Faq'
 import { PROGRAMS_FAQS } from '../lib/faqs'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { PROGRAMS, type Program } from '../lib/programs'
 import { BmiCalculator } from '../components/BmiCalculator'
@@ -55,7 +55,7 @@ function Hero() {
   // loop. We render all words stacked, then GSAP shifts a y-translate
   // index every ~2.5s so the visible word changes with a smooth slide.
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = cycleRef.current
     if (!el) return
     const items = el.querySelectorAll<HTMLElement>('[data-word]')
@@ -90,7 +90,7 @@ function Hero() {
   // breathing feel as the visitor moves. Lerp via gsap.quickTo so it
   // trails smoothly rather than locking to the cursor.
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const blob = blobRef.current
     const el = ref.current
     if (!blob || !el) return
@@ -109,7 +109,7 @@ function Hero() {
 
   // Headline + fade entrance + stat number count-up.
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = ref.current
     if (!el) return
 
@@ -360,7 +360,7 @@ function Hero() {
 function BrandAmbassador() {
   const ref = useRef<HTMLElement>(null)
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = ref.current
     if (!el) return
     const items = el.querySelectorAll<HTMLElement>('[data-ba-anim]')
@@ -500,7 +500,7 @@ function BrandAmbassador() {
 function ProgrammesGrid() {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = ref.current
     if (!el) return
     const cards = el.querySelectorAll<HTMLElement>('.prog-card')

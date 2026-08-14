@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../../lib/motion'
+import { instantMotion } from '../../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -58,7 +58,7 @@ export function ClinicsBand() {
   const railRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
 
     // Heading line reveal
     const lines = headRef.current?.querySelectorAll<HTMLElement>('.line-mask > span')

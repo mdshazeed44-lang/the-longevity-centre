@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { submitToLeadSquared } from '../lib/leadsquared'
 import { BROCHURE_URL, PHONE_TEL, PHONE_DISPLAY, EMAIL } from '../lib/contact'
@@ -462,7 +462,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
   // same animation grammar the main-site Hero uses, so the LP opens
   // with the same cinematic feel as the homepage.
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const root = heroRef.current
     if (!root) return
     const lines = root.querySelectorAll<HTMLElement>('.line-mask > span')

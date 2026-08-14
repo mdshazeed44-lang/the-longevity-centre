@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { reduceMotion, instantMotion } from '../lib/motion'
 
 // Hero brand-reel — cross-fades between 4 themed clips on a 5.5s
 // cycle to give the page the same multi-shot cinematic open as
@@ -57,7 +57,9 @@ function MaskedReveal({
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    // instantMotion() also bails for crawlers/headless renderers, so the
+    // masked headline is never left hidden in a render snapshot.
+    if (instantMotion()) return
     const el = ref.current
     if (!el) return
     const chars = el.querySelectorAll<HTMLElement>('.mr-char')
@@ -77,7 +79,7 @@ function MaskedReveal({
     // the animation would have finished. A no-op for real users.
     const reveal = window.setTimeout(() => {
       gsap.set(chars, { yPercent: 0, clearProps: 'transform' })
-    }, 1800)
+    }, 1000)
     return () => window.clearTimeout(reveal)
   }, [delay])
 
@@ -165,7 +167,9 @@ export function Hero() {
   // the choppy hero playback.
   // ────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (reduceMotion()) return
+    // Crawlers/headless renderers skip the hide, so eyebrow/paragraph/CTAs are
+    // painted immediately instead of waiting for the rAF-driven reveal.
+    if (instantMotion()) return
 
     gsap.set(eyebrow.current, { opacity: 0, y: -10 })
     gsap.set(para.current, { opacity: 0, y: 16 })
@@ -206,7 +210,7 @@ export function Hero() {
         ...(ctas.current ? Array.from(ctas.current.children) : []),
       ].filter(Boolean)
       gsap.set(els, { opacity: 1, y: 0, clearProps: 'opacity,transform' })
-    }, 1800)
+    }, 1000)
 
     // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS.
     const cycle = window.setInterval(() => {

@@ -11,7 +11,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CENTRES } from '../lib/centres'
 import { PROGRAMS } from '../lib/programs'
@@ -43,7 +43,7 @@ export function ContactPage() {
   const [state, setState] = useState<FormState>('idle')
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = root.current
     if (!el) return
     const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')

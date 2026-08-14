@@ -15,7 +15,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList, SITE_URL } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
@@ -79,7 +79,7 @@ export function DiagnosticDetailPage() {
 
   useEffect(() => {
     if (!test) return
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = root.current
     if (!el) return
 

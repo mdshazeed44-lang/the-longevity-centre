@@ -5,7 +5,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../../lib/motion'
+import { instantMotion } from '../../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,7 +16,7 @@ export function FoundersNote() {
   const quoteRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     if (!sectionRef.current) return
 
     const ctx = gsap.context(() => {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -52,7 +52,7 @@ export function Method() {
   const [active, setActive] = useState(0)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
 
     // Heading line reveal
     const lines = heading.current?.querySelectorAll<HTMLElement>('.line-mask > span')

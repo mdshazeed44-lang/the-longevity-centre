@@ -16,7 +16,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { PROGRAMS } from '../lib/programs'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -37,7 +37,7 @@ export function ProgramsHome() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const sectionEl = root.current
     if (!sectionEl) return
 

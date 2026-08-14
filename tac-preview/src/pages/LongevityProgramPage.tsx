@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { BrandAmbassador } from '../components/sections/BrandAmbassador'
 gsap.registerPlugin(ScrollTrigger)
@@ -212,7 +212,7 @@ export function LongevityProgramPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const cleanups: Array<() => void> = []
 
     // Hero heading masked-line reveal

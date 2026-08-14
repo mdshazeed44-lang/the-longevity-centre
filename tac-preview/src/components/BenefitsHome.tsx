@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -113,7 +113,7 @@ export function BenefitsHome({
   const story = items[storyIdx] ?? items[0]
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = root.current
     if (!el) return
 

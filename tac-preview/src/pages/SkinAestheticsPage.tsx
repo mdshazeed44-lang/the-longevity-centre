@@ -13,7 +13,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { reduceMotion } from '../lib/motion'
+import { instantMotion } from '../lib/motion'
 import { useDocumentMeta, breadcrumbList } from '../lib/seo'
 import { CtaBand } from '../components/sections/CtaBand'
 import { Faq } from '../components/sections/Faq'
@@ -80,7 +80,7 @@ export function SkinAestheticsPage() {
   const root = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (reduceMotion()) return
+    if (instantMotion()) return
     const el = root.current
     if (!el) return
     const lines = el.querySelectorAll<HTMLElement>('.line-mask > span')
