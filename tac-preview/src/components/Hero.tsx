@@ -63,24 +63,32 @@ function MaskedReveal({
     const el = ref.current
     if (!el) return
     const chars = el.querySelectorAll<HTMLElement>('.mr-char')
-    gsap.set(chars, { yPercent: 110 })
-    gsap.to(chars, {
-      yPercent: 0,
-      duration: 0.9,
-      ease: 'expo.out',
-      stagger: 0.02,
-      delay,
+    // Apply the hidden start-state INSIDE requestAnimationFrame. rAF callbacks
+    // run right before paint, so real users still never see the headline
+    // un-masked (no flash) — but a headless crawler that FREEZES rAF while it
+    // captures its screenshot (Screaming Frog, and some WRS snapshots) never
+    // runs this callback, so the text is left in its natural, fully-visible
+    // position instead of being captured stuck below the mask. That stuck-hidden
+    // state was the "rendered page looks blank" finding in the crawlability audit.
+    const raf = window.requestAnimationFrame(() => {
+      gsap.set(chars, { yPercent: 110 })
+      gsap.to(chars, {
+        yPercent: 0,
+        duration: 0.9,
+        ease: 'expo.out',
+        stagger: 0.02,
+        delay,
+      })
     })
-    // Safety net — Googlebot's renderer (WRS) throttles requestAnimationFrame
-    // while capturing its screenshot, so the rAF-driven GSAP reveal can stall
-    // and leave the headline stuck at its hidden yPercent:110 start (that's
-    // why the URL-Inspection screenshot showed an empty hero). setTimeout
-    // fires regardless of rAF throttling, so force the headline visible once
-    // the animation would have finished. A no-op for real users.
+    // Belt-and-suspenders: a timer (rAF-independent) forces the headline visible
+    // if the reveal ever stalls in a renderer whose rAF ticks but slowly.
     const reveal = window.setTimeout(() => {
       gsap.set(chars, { yPercent: 0, clearProps: 'transform' })
     }, 1000)
-    return () => window.clearTimeout(reveal)
+    return () => {
+      window.cancelAnimationFrame(raf)
+      window.clearTimeout(reveal)
+    }
   }, [delay])
 
   const words = text.split(' ')
@@ -171,33 +179,41 @@ export function Hero() {
     // painted immediately instead of waiting for the rAF-driven reveal.
     if (instantMotion()) return
 
-    gsap.set(eyebrow.current, { opacity: 0, y: -10 })
-    gsap.set(para.current, { opacity: 0, y: 16 })
-    gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
+    // Hide + reveal INSIDE requestAnimationFrame — a headless crawler that
+    // freezes rAF while it captures its screenshot never runs this callback, so
+    // eyebrow / paragraph / CTAs stay painted in their natural, fully-visible
+    // state (no blank crawler snapshot). rAF runs before paint, so real users
+    // see no flash.
+    let tl: gsap.core.Timeline | null = null
+    const introRaf = window.requestAnimationFrame(() => {
+      gsap.set(eyebrow.current, { opacity: 0, y: -10 })
+      gsap.set(para.current, { opacity: 0, y: 16 })
+      gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
 
-    const tl = gsap.timeline({ delay: 0.15 })
-    tl.to(eyebrow.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
+      tl = gsap.timeline({ delay: 0.15 })
+      tl.to(eyebrow.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+      })
+        .to(
+          para.current,
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+          '-=0.3'
+        )
+        .to(
+          ctas.current?.children ?? [],
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.08,
+          },
+          '-=0.5'
+        )
     })
-      .to(
-        para.current,
-        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-        '-=0.3'
-      )
-      .to(
-        ctas.current?.children ?? [],
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          stagger: 0.08,
-        },
-        '-=0.5'
-      )
 
     // Safety net (same reason as MaskedReveal) — if GSAP's rAF-based reveal
     // stalls in Googlebot's renderer, setTimeout still fires and forces the
@@ -237,7 +253,8 @@ export function Hero() {
     window.addEventListener('scroll', kickPlayOnFirstInteraction, opts)
 
     return () => {
-      tl.kill()
+      window.cancelAnimationFrame(introRaf)
+      tl?.kill()
       window.clearTimeout(heroReveal)
       window.clearInterval(cycle)
       document.removeEventListener('touchstart', kickPlayOnFirstInteraction)
