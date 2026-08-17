@@ -58,8 +58,11 @@ function MaskedReveal({
 
   useEffect(() => {
     // instantMotion() also bails for crawlers/headless renderers, so the
-    // masked headline is never left hidden in a render snapshot.
-    if (instantMotion()) return
+    // masked headline is never left hidden in a render snapshot. When the
+    // static #hero-boot first-paint layer is present (homepage first load) we
+    // also skip, so React renders the final headline that matches the boot —
+    // the boot then fades away with no re-animation / jump.
+    if (instantMotion() || document.getElementById('hero-boot')) return
     const el = ref.current
     if (!el) return
     const chars = el.querySelectorAll<HTMLElement>('.mr-char')
@@ -206,8 +209,10 @@ export function Hero() {
   // ────────────────────────────────────────────────────────────
   useEffect(() => {
     // Crawlers/headless renderers skip the hide, so eyebrow/paragraph/CTAs are
-    // painted immediately instead of waiting for the rAF-driven reveal.
-    if (instantMotion()) return
+    // painted immediately instead of waiting for the rAF-driven reveal. Also
+    // skip when the static #hero-boot first-paint layer is present so React's
+    // hero matches it and the hand-off is seamless.
+    if (instantMotion() || document.getElementById('hero-boot')) return
 
     // TRANSFORM-ONLY entrance (no opacity fade). The hero paragraph is the
     // mobile LCP element; fading it in delayed LCP by ~2.5s in the Lighthouse

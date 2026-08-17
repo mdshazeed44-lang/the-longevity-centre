@@ -937,6 +937,30 @@ for (const item of entries) {
     `</main>\n` +
     `</noscript>`
 
+  // First-paint hero (homepage only). A static copy of the hero — poster +
+  // headline + subtext, using the SAME Tailwind classes as the React hero so it
+  // renders identically — painted BEFORE React hydrates. Any renderer that
+  // snapshots early (Google's URL-Inspection smartphone render, which captures
+  // before the JS-driven hero appears) now sees the hero text instead of a
+  // blank #root, and it also makes the headline the immediate LCP element. The
+  // inline script removes it (with an opacity fade) the moment React has
+  // rendered the real interactive hero; hard fallbacks (4s timer + first
+  // interaction) guarantee it can never get stuck. When #hero-boot is present
+  // the Hero component skips its entrance animation and renders the final state,
+  // so the hand-off is seamless (no re-animation / jump).
+  const heroBoot = item.path === '/'
+    ? `\n    <div id="hero-boot" aria-hidden="true" style="position:fixed;inset:0;z-index:40;overflow:hidden;background:#1B1A18;color:#fff">
+      <img src="/videos/hero-poster.jpg?v=3" alt="" fetchpriority="high" decoding="async" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0" style="background:rgba(10,8,7,0.42)"></div>
+      <div class="relative z-10 min-h-screen min-h-[100svh] flex flex-col justify-center md:justify-end pt-24 pb-10 md:pt-28 md:pb-16 px-6 md:px-14 lg:px-20 max-w-[1500px] mx-auto">
+        <div class="mb-3 md:mb-5"><span class="text-[10.5px] md:text-[12px] tracking-[0.32em] uppercase font-semibold text-white" style="text-shadow:1px 1px 12px rgba(0,0,0,0.15)">Premium Longevity Clinics · India</span></div>
+        <h1 class="font-display font-bold text-[34px] sm:text-[50px] md:text-[68px] xl:text-[92px] leading-[1.0] md:leading-[0.98] tracking-[-0.04em] text-white max-w-[1100px] mb-4 md:mb-6" style="text-shadow:1px 1px 12px rgba(0,0,0,0.15)">Age should<br/>never define you.</h1>
+        <p class="text-[14px] md:text-[17px] leading-[1.55] md:leading-[1.6] text-white/95 max-w-[560px] mb-4 md:mb-6 font-light" style="text-shadow:1px 1px 12px rgba(0,0,0,0.15)">Explore TLC's innovative, personalised preventive medicine for a vibrant and fulfilling life, at any stage.</p>
+      </div>
+    </div>
+    <script>(function(){var b=document.getElementById('hero-boot');if(!b)return;var r=document.getElementById('root'),g=false;function rm(){if(g)return;g=true;b.style.transition='opacity .35s ease';b.style.opacity='0';setTimeout(function(){b.parentNode&&b.parentNode.removeChild(b);},400);}function c(){if(r&&r.children.length>0){requestAnimationFrame(function(){requestAnimationFrame(rm);});}else{requestAnimationFrame(c);}}requestAnimationFrame(c);setTimeout(rm,4000);['touchstart','pointerdown','keydown'].forEach(function(e){window.addEventListener(e,rm,{once:true,passive:true});});})();</script>`
+    : ''
+
   let html = baseHtml
     // <title>
     .replace(
@@ -985,7 +1009,7 @@ for (const item of entries) {
     // Inject the noscript block right after the empty <div id="root">
     .replace(
       /<div id="root"><\/div>/,
-      `<div id="root"></div>\n    ${noscriptBlock}`
+      `<div id="root"></div>${heroBoot}\n    ${noscriptBlock}`
     )
 
   // Extra JSON-LD schema in the static <head> so JS-disabled crawlers get
