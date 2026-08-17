@@ -139,13 +139,24 @@ export function Hero() {
     // mobile win on FCP/LCP/TBT and the visitor's data.
     const conn = (
       navigator as unknown as {
-        connection?: { saveData?: boolean; effectiveType?: string }
+        connection?: {
+          saveData?: boolean
+          effectiveType?: string
+          downlink?: number
+          rtt?: number
+        }
       }
     ).connection
     if (
       conn &&
       (conn.saveData === true ||
-        /(^|\b)(slow-2g|2g|3g)$/.test(conn.effectiveType || ''))
+        /(^|\b)(slow-2g|2g|3g)$/.test(conn.effectiveType || '') ||
+        // Genuinely slow link (also catches Lighthouse's Slow-4G throttle,
+        // ~0.4 Mbps / ~400 ms RTT) — poster carries the hero, save the ~6 MB.
+        (typeof conn.downlink === 'number' &&
+          conn.downlink > 0 &&
+          conn.downlink < 1.5) ||
+        (typeof conn.rtt === 'number' && conn.rtt >= 300))
     ) {
       return
     }
