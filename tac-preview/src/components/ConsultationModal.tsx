@@ -170,7 +170,7 @@ export function ConsultationModal({ open, onClose }: Props) {
                 </svg>
               </div>
               <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
-                — Thank you —
+                Thank you
               </div>
               <h2
                 id="consult-title"

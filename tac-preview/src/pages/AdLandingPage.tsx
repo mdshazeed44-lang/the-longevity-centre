@@ -71,7 +71,7 @@ const PROGRAMMES = [
   'PCOD Correction',
   'Advanced Metabolomics',
   'Cancer Detection & Prevention',
-  'Not sure — advise me',
+  'Not sure, advise me',
 ]
 
 // ──────────────────────────────────────────────────────────────────────
@@ -97,12 +97,12 @@ const REVIEWS: Review[] = [
     role: 'Longevity Programme',
   },
   {
-    quote: "Dr. Bhavna's depth of knowledge on hormones is unmatched. She caught a thyroid issue three other endocrinologists had missed. The personalised HRT plan has completely transformed my quality of life — sleep, mood and energy all measurably better.",
+    quote: "Dr. Bhavna's depth of knowledge on hormones is unmatched. She caught a thyroid issue three other endocrinologists had missed. The personalised HRT plan has completely transformed my quality of life, sleep, mood and energy all measurably better.",
     name: 'Vikram Khanna',
     role: 'Hormonal Optimisation',
   },
   {
-    quote: "Lost 14 kg, reversed fatty liver, off statins. My GrimAge dropped 4 years over 12 months. These aren't promises — they're the actual numbers from my re-tests. Exactly what a serious health investment should look like.",
+    quote: "Lost 14 kg, reversed fatty liver, off statins. My GrimAge dropped 4 years over 12 months. These aren't promises, they're the actual numbers from my re-tests. Exactly what a serious health investment should look like.",
     name: 'Rohan Desai',
     role: 'Diabetes & Fatty-Liver Reversal',
   },
@@ -380,7 +380,7 @@ function LeadForm({ variant, theme = 'light', sourcePrefix = 'Website - Ad LP' }
   if (state === 'success') {
     return (
       <div className={`relative ${isDark ? 'bg-white/[0.06] border-rust-soft/40' : 'bg-cream/70 border-rust/30'} backdrop-blur-sm border rounded-[22px] p-7 md:p-8`}>
-        <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">— Thank you —</div>
+        <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">Thank you</div>
         <h3 className={`font-display font-light text-[24px] md:text-[28px] leading-[1.12] tracking-[-0.02em] mb-3 ${isDark ? 'text-cream' : 'text-ink'}`}>Your request has been received.</h3>
         <p className={`text-[13.5px] leading-[1.65] font-light mb-6 ${isDark ? 'text-cream/65' : 'text-graphite'}`}>Thank you for reaching out to The Longevity Centre. Our medical team will be in touch shortly to schedule your consultation.</p>
         <a href={BROCHURE_URL} target="_blank" rel="noopener noreferrer" className={`inline-flex items-center gap-2.5 px-6 py-3 text-[11px] tracking-[0.22em] font-semibold uppercase rounded-full transition-colors duration-500 ${isDark ? 'bg-rust-soft text-ink hover:bg-cream' : 'bg-rust text-white hover:bg-ink'}`}>
@@ -674,7 +674,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
 
       <InlineCta
         eyebrow="Your turn"
-        headline="Real outcomes are measured — not promised. Begin yours today."
+        headline="Real outcomes are measured, not promised. Begin yours today."
         ctaLabel="Start Your Journey"
         variant="cream"
         onCtaClick={() => setConsultOpen(true)}
@@ -725,7 +725,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
             </h2>
             <p className="text-[15px] md:text-[17px] leading-[1.65] text-cream/70 font-light max-w-[500px] mb-7">
               Submit your details and our medical team will be in touch shortly
-              to schedule your consultation — programme guidance, diagnostics,
+              to schedule your consultation, programme guidance, diagnostics,
               and centre information tailored to you.
             </p>
             <div className="pt-6 border-t border-cream/15 flex flex-wrap gap-x-8 gap-y-4">

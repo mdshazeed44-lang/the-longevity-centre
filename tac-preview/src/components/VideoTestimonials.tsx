@@ -56,7 +56,7 @@ const TESTIMONIALS: Testimonial[] = [
     metric: 'Diabetic → Normal',
     metricLabel: 'Glucose normalised, −10 kg',
     quote:
-      'I reduced around 9–10 kg and my glucose levels improved from diabetic to normal. The progress came faster than I expected. The customised plan and continuous support made it easy to follow and maintain long-term results.',
+      'I reduced around 9-10 kg and my glucose levels improved from diabetic to normal. The progress came faster than I expected. The customised plan and continuous support made it easy to follow and maintain long-term results.',
     video: '/videos/testimonials/bhushan-v2.mp4',
     poster: '/videos/testimonials/posters/bhushan.png',
     orientation: 'vertical',
@@ -68,7 +68,7 @@ const TESTIMONIALS: Testimonial[] = [
     metric: '170s → 110',
     metricLabel: 'Fasting glucose',
     quote:
-      "I've had diabetes for many years, and my sugar levels are now much better controlled. My fasting dropped from around 170–180 to nearly 110, and my medications have reduced. I feel more energetic, and managing my diet and daily health has become much easier and more consistent.",
+      "I've had diabetes for many years, and my sugar levels are now much better controlled. My fasting dropped from around 170-180 to nearly 110, and my medications have reduced. I feel more energetic, and managing my diet and daily health has become much easier and more consistent.",
     video: '/videos/testimonials/sadhna-v2.mp4',
     poster: '/videos/testimonials/posters/sadhna.png',
     orientation: 'vertical',
@@ -245,7 +245,7 @@ export function VideoTestimonials() {
             <span className="font-bold text-rust"> Real measurements.</span>
           </h2>
           <p className="mt-4 text-[13px] md:text-[14px] leading-[1.6] text-graphite font-light max-w-[480px] mx-auto">
-            Every outcome below is documented through repeat diagnostics — not memory. These are TLC patients in their own words.
+            Every outcome below is documented through repeat diagnostics, not memory. These are TLC patients in their own words.
           </p>
         </div>
 
@@ -436,7 +436,7 @@ export function VideoTestimonials() {
                 style={{ animation: 'tac-quote-in 0.8s cubic-bezier(0.22,1,0.36,1) both' }}
               >
                 {active.name.replace(/^(Mr\.|Mrs\.|Ms\.|Dr\.)\s/, '')} shares
-                their experience with The Longevity Centre — watch the full
+                their experience with The Longevity Centre, watch the full
                 story.
               </p>
             )}

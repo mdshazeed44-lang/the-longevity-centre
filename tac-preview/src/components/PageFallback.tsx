@@ -7,7 +7,7 @@ export function PageFallback() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold animate-pulse">
-        — Loading —
+        Loading
       </div>
     </div>
   )

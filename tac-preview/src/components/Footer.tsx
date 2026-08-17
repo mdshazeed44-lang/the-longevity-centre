@@ -148,7 +148,7 @@ export function Footer() {
         {/* ============== BOTTOM — copyright + social ============== */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-ink/10">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] text-graphite tracking-tight">
-            <p>© {new Date().getFullYear()} TLC — The Longevity Centre.</p>
+            <p>© {new Date().getFullYear()} TLC, The Longevity Centre.</p>
             <p>
               Designed by{' '}
               <a

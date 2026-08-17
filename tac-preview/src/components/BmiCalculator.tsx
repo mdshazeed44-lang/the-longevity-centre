@@ -61,7 +61,7 @@ const BMI_BANDS: BmiBand[] = [
     category: 'normal',
     verdict: 'In the healthy range.',
     context:
-      'Weight is fine — but composition tells the rest of the story. Visceral fat, muscle mass and metabolic age can still be off.',
+      'Weight is fine, but composition tells the rest of the story. Visceral fat, muscle mass and metabolic age can still be off.',
     recommendedSlug: 'longevity-plus',
     recommendedName: 'Longevity Plus',
   },
@@ -72,7 +72,7 @@ const BMI_BANDS: BmiBand[] = [
     category: 'over',
     verdict: 'Slightly above the healthy range.',
     context:
-      'For Asian-Indians, the threshold for "overweight" begins at 23 — not 25. Worth investigating before the trajectory steepens.',
+      'For Asian-Indians, the threshold for "overweight" begins at 23, not 25. Worth investigating before the trajectory steepens.',
     recommendedSlug: 'metabolic-weight-loss',
     recommendedName: 'Metabolic & Weight Loss',
   },
@@ -83,7 +83,7 @@ const BMI_BANDS: BmiBand[] = [
     category: 'over',
     verdict: 'Above the healthy range.',
     context:
-      'Often comes with insulin resistance, fatty liver, lipid imbalances and inflammation — most of it silent. Reversible with the right protocol.',
+      'Often comes with insulin resistance, fatty liver, lipid imbalances and inflammation, most of it silent. Reversible with the right protocol.',
     recommendedSlug: 'metabolic-weight-loss',
     recommendedName: 'Metabolic & Weight Loss',
   },
@@ -105,7 +105,7 @@ const BMI_BANDS: BmiBand[] = [
     category: 'obese-2',
     verdict: 'Substantially above the healthy range.',
     context:
-      'A comprehensive metabolic + hormonal + behavioural protocol is essential. Don\'t do this alone — clinical-grade support changes the outcome.',
+      'A comprehensive metabolic + hormonal + behavioural protocol is essential. Don\'t do this alone, clinical-grade support changes the outcome.',
     recommendedSlug: 'diabetes-fatty-liver-reversal',
     recommendedName: 'Diabetes & Fatty Liver Reversal',
   },
@@ -169,14 +169,14 @@ export function BmiCalculator({
   const accent = band ? bandAccent(band.category) : null
 
   const defaultEyebrow =
-    variant === 'selector' ? '— Find Your Programme —' : '— Where Do You Stand —'
+    variant === 'selector' ? 'Find Your Programme' : 'Where Do You Stand'
   const defaultHeadline =
     variant === 'selector'
       ? 'Calculate your starting point.'
       : 'Calculate where you stand.'
   const defaultSubcopy =
     variant === 'selector'
-      ? 'BMI is the first conversation, not the last. Enter your numbers — we\'ll match you to the right programme.'
+      ? 'BMI is the first conversation, not the last. Enter your numbers, we\'ll match you to the right programme.'
       : 'A quick reality check before you begin. Your BMI tells us where to start; the full diagnostic baseline tells us how far we can go.'
 
   return (
@@ -283,7 +283,7 @@ export function BmiCalculator({
               BMI is a screening tool, not a diagnosis. It misreads athletes
               (high muscle mass) and the elderly (low muscle, retained fat).
               At TLC we measure body composition, visceral fat, hormone
-              profile and biological age — the real picture.
+              profile and biological age, the real picture.
             </p>
           </form>
 
@@ -308,8 +308,8 @@ export function BmiCalculator({
                 </div>
                 <p className="text-[14px] leading-[1.6] text-graphite font-light">
                   {hideGender
-                    ? "Enter height, weight and age — we'll calculate your BMI and recommend the next step."
-                    : "Enter height, weight, age and gender — we'll calculate your BMI and recommend the next step."}
+                    ? "Enter height, weight and age, we'll calculate your BMI and recommend the next step."
+                    : "Enter height, weight, age and gender, we'll calculate your BMI and recommend the next step."}
                 </p>
               </div>
             ) : (
@@ -376,8 +376,8 @@ export function BmiCalculator({
                     </div>
                     <h4 className="font-display font-bold text-[16px] md:text-[18px] leading-[1.35] tracking-[-0.01em] text-ink mb-4">
                       {currentProgramName
-                        ? `See exactly what ${currentProgramName} changes in 3 months — for someone with your numbers.`
-                        : 'Book a 30-minute consultation — we\'ll review your numbers in clinical depth.'}
+                        ? `See exactly what ${currentProgramName} changes in 3 months, for someone with your numbers.`
+                        : 'Book a 30-minute consultation, we\'ll review your numbers in clinical depth.'}
                     </h4>
                     <a
                       href="/contact"

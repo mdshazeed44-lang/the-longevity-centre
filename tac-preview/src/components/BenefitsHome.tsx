@@ -38,7 +38,7 @@ const BENEFITS: Benefit[] = [
     body:
       'Three validated epigenetic clocks tracked over time. Many patients see measurable reduction in biological age with sustained intervention.',
     img: '/longevity/brand/mood-forest-light.jpg',
-    alt: 'Forest light — longevity and vitality',
+    alt: 'Forest light, longevity and vitality',
   },
   {
     n: '02',
@@ -46,15 +46,15 @@ const BENEFITS: Benefit[] = [
     body:
       'Lower cortisol, calmer nervous system. Targeted protocols restore equilibrium so daily pressure stops shaping your biology.',
     img: '/longevity/brand/mood-zen-sand.jpg',
-    alt: 'Zen sand garden — calm and balance',
+    alt: 'Zen sand garden, calm and balance',
   },
   {
     n: '03',
     title: 'Ideal body composition',
     body:
-      'Optimised fat percentage, preserved lean mass. BCA-tracked, physician-guided — measured beyond the scale.',
+      'Optimised fat percentage, preserved lean mass. BCA-tracked, physician-guided, measured beyond the scale.',
     img: '/longevity/body-composition-pose.jpg',
-    alt: 'Editorial nutrition bowl — fresh vegetables, egg and seeds on a rustic wood surface',
+    alt: 'Editorial nutrition bowl, fresh vegetables, egg and seeds on a rustic wood surface',
   },
   {
     n: '04',
@@ -62,15 +62,15 @@ const BENEFITS: Benefit[] = [
     body:
       'The undisturbed sleep you deserve. We address circadian rhythm, hormonal balance, and gut health together.',
     img: '/longevity/brand/mood-water-ripple.jpg',
-    alt: 'Water ripple — calm restorative sleep',
+    alt: 'Water ripple, calm restorative sleep',
   },
   {
     n: '05',
     title: 'Higher energy levels',
     body:
-      'Mitochondrial efficiency restored. Stop relying on caffeine — your cellular machinery does the work.',
+      'Mitochondrial efficiency restored. Stop relying on caffeine, your cellular machinery does the work.',
     img: '/longevity/brand/mood-feet-moss.jpg',
-    alt: 'Bare feet on moss — vitality and grounding',
+    alt: 'Bare feet on moss, vitality and grounding',
   },
   {
     n: '06',
@@ -78,32 +78,32 @@ const BENEFITS: Benefit[] = [
     body:
       'Stronger, more resilient performance. Personalised diagnostics turn training into measurable adaptation.',
     img: '/longevity/performance-cyclist-v2.jpg',
-    alt: 'Cyclist on a country road at golden hour — peak performance',
+    alt: 'Cyclist on a country road at golden hour, peak performance',
   },
   {
     n: '07',
     title: 'Sharper memory & cognition',
     body:
-      'Brain biochemistry supported through nutrition, methylation, and gut–brain axis correction.',
+      'Brain biochemistry supported through nutrition, methylation, and gut-brain axis correction.',
     img: '/longevity/brand/mood-leaf-skeleton.jpg',
-    alt: 'Skeleton leaf — cognitive precision and memory',
+    alt: 'Skeleton leaf, cognitive precision and memory',
   },
   {
     n: '08',
     title: 'Enhanced sexual health',
     body:
-      'Hormonal balance restored — male and female. A measurable return of vitality, intimacy, and confidence.',
+      'Hormonal balance restored, male and female. A measurable return of vitality, intimacy, and confidence.',
     img: '/longevity/brand/mood-hands-pose.jpg',
-    alt: 'Elegant hands pose — intimate balance',
+    alt: 'Elegant hands pose, intimate balance',
   },
 ]
 
 export function BenefitsHome({
   benefits,
-  eyebrow = '— Benefits —',
+  eyebrow = 'Benefits',
   headlineLine1 = 'More than longer life.',
   headlineLine2 = 'Better life, measurably.',
-  body = 'Our team actively follows clinical trials and the latest longevity research. Every programme is grounded in evidence-based protocols — diagnostics-led, physician-guided, measured.',
+  body = 'Our team actively follows clinical trials and the latest longevity research. Every programme is grounded in evidence-based protocols, diagnostics-led, physician-guided, measured.',
 }: BenefitsHomeProps = {}) {
   const items = benefits ?? BENEFITS
   const root = useRef<HTMLElement>(null)

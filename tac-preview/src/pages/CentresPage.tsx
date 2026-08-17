@@ -24,7 +24,7 @@ const CENTRES = CENTRES_DATA.map((c, i) => ({
 const HERO_STATS = [
   { k: 'Centres', v: '6' },
   { k: 'Reach', v: 'Pan-India' },
-  { k: 'Cities', v: '6 — Delhi to Bangalore' },
+  { k: 'Cities', v: '6, Delhi to Bangalore' },
 ]
 
 // Per-centre JSON-LD — only for verified (operational) centres.
@@ -34,7 +34,7 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
   '@context': 'https://schema.org',
   '@type': 'MedicalClinic',
   '@id': `https://thelongevitycentre.co/centres/${c.slug}#clinic`,
-  name: `TLC ${c.city} — ${c.area}`,
+  name: `TLC ${c.city}, ${c.area}`,
   parentOrganization: { '@id': 'https://thelongevitycentre.co/#organization' },
   telephone: c.phone.replace(/\s+/g, ''),
   email: c.email,
@@ -52,7 +52,7 @@ const CENTRES_JSONLD = CENTRES.filter((c) => c.verified).map((c) => ({
 const CENTRES_META = {
   title: 'Our Centres · TLC Clinics Across 6 Indian Cities',
   description:
-    'TLC operates 6 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
+    'TLC operates 6 clinics, Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
   path: '/centres',
   ogImage: '/og/centres.jpg',
   jsonLd: [
@@ -65,7 +65,7 @@ const CENTRES_META = {
       '@type': 'CollectionPage',
       '@id': 'https://thelongevitycentre.co/centres#webpage',
       url: 'https://thelongevitycentre.co/centres',
-      name: 'Our Centres — TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur & Bangalore',
+      name: 'Our Centres, TLC Clinics in Delhi, Gurgaon, Mumbai, Pune, Nagpur & Bangalore',
       isPartOf: { '@id': 'https://thelongevitycentre.co/#organization' },
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       inLanguage: 'en-IN',
@@ -213,9 +213,9 @@ export function CentresPage() {
           </h1>
 
           <p className="mt-10 text-[16px] md:text-[19px] leading-[1.7] text-white/75 max-w-[640px] font-light">
-            Six clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur
+            Six clinics across India, Delhi, Gurgaon, Mumbai, Pune, Nagpur
             and Bangalore. One shared medical record across
-            every centre — your care continues wherever you go.
+            every centre, your care continues wherever you go.
           </p>
 
           {/* Slim spec pills — backdrop-blur chips matching About hero language */}
@@ -440,7 +440,7 @@ export function CentresPage() {
                 src="/longevity/milind-skin.webp?v=3"
                 width={1000}
                 height={660}
-                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                alt="Milind Soman, Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
@@ -479,13 +479,13 @@ export function CentresPage() {
             </h2>
             <p className="text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light max-w-[540px] mb-5">
               Whichever city you walk into, the promise is the same one Milind
-              Soman lives every day — that strength, clarity and vitality are
+              Soman lives every day, that strength, clarity and vitality are
               not surrendered to age, they are maintained by intention. Every
               TLC centre runs the same diagnostics, the same physicians&rsquo;
               standard, the same record.
             </p>
             <p className="font-display italic text-rust text-[16px] md:text-[19px] leading-[1.45] mb-7 max-w-[500px]">
-              &ldquo;Age is just a number — the only number that matters is how
+              &ldquo;Age is just a number, the only number that matters is how
               well you live.&rdquo;
             </p>
             <a

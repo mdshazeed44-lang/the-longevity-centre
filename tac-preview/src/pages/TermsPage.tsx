@@ -57,7 +57,7 @@ const SECTIONS = [
     n: '06',
     title: 'Intellectual Property',
     body: [
-      'All content on this website — text, images, design, logos, programme descriptions — is the property of TLC (The Longevity Centre) and protected under Indian copyright and trademark law.',
+      'All content on this website text, images, design, logos, programme descriptions is the property of TLC (The Longevity Centre) and protected under Indian copyright and trademark law.',
       'You may share links to our pages and quote brief excerpts with attribution. You may not copy, redistribute, or use our content for commercial purposes without written permission.',
     ],
   },
@@ -73,7 +73,7 @@ const SECTIONS = [
     title: 'Limitation of Liability',
     body: [
       'To the fullest extent permitted by Indian law, TLC and its physicians are not liable for any indirect, incidental, or consequential damages arising from use of this website or our services. Our total liability for any claim is limited to the amount you have paid us in the 12 months preceding the claim.',
-      'Nothing in these terms limits our liability for medical malpractice, gross negligence, or wilful misconduct — those remain governed by Indian medical law.',
+      'Nothing in these terms limits our liability for medical malpractice, gross negligence, or wilful misconduct, those remain governed by Indian medical law.',
     ],
   },
   {
@@ -94,13 +94,13 @@ const SECTIONS = [
     n: '11',
     title: 'Contact',
     body: [
-      'Questions about these terms — email info@thelongevitycentre.co or write to us at the registered office address provided on our Centres page.',
+      'Questions about these terms, email info@thelongevitycentre.co or write to us at the registered office address provided on our Centres page.',
     ],
   },
 ]
 
 const META = {
-  title: 'Terms of Service · TLC — The Longevity Centre',
+  title: 'Terms of Service · TLC, The Longevity Centre',
   description:
     'Terms governing use of TLC programmes, consultations, and the thelongevitycentre.co website. Indian law applies.',
   path: '/terms',
@@ -151,7 +151,7 @@ export function TermsPage() {
         />
         <div className="relative z-10 max-w-[820px] mx-auto">
           <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-            — Terms of Service —
+            Terms of Service
           </div>
           <h1 className="font-display font-light text-[36px] md:text-[52px] xl:text-[60px] leading-[1.05] tracking-[-0.025em] text-ink mb-6">
             <span className="line-mask inline-block overflow-hidden align-bottom">

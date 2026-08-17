@@ -170,7 +170,7 @@ export function ClinicsBand() {
             </h2>
           </div>
           <p className="text-[14px] md:text-[15px] text-graphite leading-[1.7] font-light max-w-[440px] md:text-right md:pb-2">
-            Six clinics across India — Delhi, Gurgaon, Mumbai, Pune, Nagpur
+            Six clinics across India, Delhi, Gurgaon, Mumbai, Pune, Nagpur
             and Bangalore. One shared medical record across
             every centre.
           </p>
@@ -393,7 +393,7 @@ export function ClinicsBand() {
                   Shared Medical Record
                 </div>
                 <p className="text-[12.5px] leading-[1.5] text-graphite font-light">
-                  Your care continues across every centre — one team, one
+                  Your care continues across every centre, one team, one
                   programme, one record.
                 </p>
               </div>

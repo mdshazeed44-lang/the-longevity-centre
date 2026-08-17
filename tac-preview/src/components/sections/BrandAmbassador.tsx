@@ -37,7 +37,7 @@ export function BrandAmbassador() {
               src="/longevity/milind-skin.webp?v=3"
               width={1000}
               height={660}
-              alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+              alt="Milind Soman, Brand Ambassador, The Longevity Centre"
               loading="lazy"
               decoding="async"
               className="absolute inset-0 w-full h-full object-cover object-center"
@@ -75,13 +75,13 @@ export function BrandAmbassador() {
             <span className="font-bold italic text-rust">not a limit.</span>
           </h2>
           <p className="text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light max-w-[540px] mb-5">
-            At 60, Milind Soman is the clearest proof of what TLC stands for —
+            At 60, Milind Soman is the clearest proof of what TLC stands for, 
             that strength, clarity and vitality are not surrendered to age,
             they are maintained by intention. He completed an Ironman triathlon
             at 50 and remains measurably fitter than most men half his age.
           </p>
           <p className="font-display italic text-rust text-[16px] md:text-[19px] leading-[1.45] mb-7 max-w-[500px]">
-            &ldquo;Strength isn&rsquo;t something you lose with age — it&rsquo;s
+            &ldquo;Strength isn&rsquo;t something you lose with age, it&rsquo;s
             something you choose to keep.&rdquo;
           </p>
           <a

@@ -32,7 +32,7 @@ export const FOUNDERS: Founder[] = [
     name: 'Dr. Abhinav Sharma',
     creds: 'MBBS, MAMC, Delhi University · MS, PGI, Chandigarh',
     role: 'Co-Founder · Anti-Aging & Preventive Medicine',
-    bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. Educated at Maulana Azad Medical College, Delhi, with postgraduate training at PGI Chandigarh — one of India’s most acclaimed centres. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness, blending clinical expertise with innovation for holistic, root-cause care.',
+    bio: 'Accomplished minimally invasive surgeon with over 11,000 successful surgeries. Educated at Maulana Azad Medical College, Delhi, with postgraduate training at PGI Chandigarh, one of India’s most acclaimed centres. A visionary health entrepreneur who pioneers advancements in anti-aging, preventive medicine and wellness, blending clinical expertise with innovation for holistic, root-cause care.',
     img: '/team/dr-abhinav.jpg?v=2',
   },
   {
@@ -40,7 +40,7 @@ export const FOUNDERS: Founder[] = [
     creds:
       'MBBS, MAMC, Delhi University · DGO, MAMC, Delhi University · F ART, Linz, Austria · D ART, Kiel University, Germany · DPE, Kiel University, Germany',
     role: 'Co-Founder · Reproductive & Sexual Anti-Aging',
-    bio: 'A leading IVF specialist credited with over 8,000 IVF babies. Educated at Maulana Azad Medical College, Delhi, where she also completed her postgraduation. She now extends her expertise to hormonal and reproductive anti-aging, women’s health, oocyte preservation and HRT — helping patients preserve fertility, balance hormones and optimise long-term healthspan with compassion and cutting-edge science.',
+    bio: 'A leading IVF specialist credited with over 8,000 IVF babies. Educated at Maulana Azad Medical College, Delhi, where she also completed her postgraduation. She now extends her expertise to hormonal and reproductive anti-aging, women’s health, oocyte preservation and HRT, helping patients preserve fertility, balance hormones and optimise long-term healthspan with compassion and cutting-edge science.',
     img: '/team/dr-bhavna-2026.jpg?v=2',
   },
 ]

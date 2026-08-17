@@ -30,10 +30,10 @@ const SERVICES: DiagnosticService[] = [
     n: '01',
     name: 'Oligoscan',
     short: 'Cell-level mineral & metals scan',
-    body: 'A non-invasive optical scan that quantifies intracellular minerals and heavy metals in real time — surfacing cellular imbalances that blood tests cannot reach.',
+    body: 'A non-invasive optical scan that quantifies intracellular minerals and heavy metals in real time, surfacing cellular imbalances that blood tests cannot reach.',
     what: 'Spectrophotometric assay · 30-second hand scan · 20 minerals + 14 toxic metals',
     img: '/diagnostics/oligoscan-spectrum.jpg',
-    alt: 'Light spectrum refraction — visualising the Oligoscan spectrophotometric scan principle',
+    alt: 'Light spectrum refraction, visualising the Oligoscan spectrophotometric scan principle',
   },
   {
     n: '02',
@@ -48,7 +48,7 @@ const SERVICES: DiagnosticService[] = [
     n: '03',
     name: 'Gut Microbiota',
     short: 'Whole-genome microbiome sequencing',
-    body: 'Complete sequencing of every microbial species in your gut — diversity, imbalances, compromised pathways and inflammation, far beyond the partial 16S panel most clinics use.',
+    body: 'Complete sequencing of every microbial species in your gut, diversity, imbalances, compromised pathways and inflammation, far beyond the partial 16S panel most clinics use.',
     what: 'Stool sample · shotgun metagenomic sequencing · Netherlands-lab analysed',
     img: '/diagnostics/microbiome.jpg',
     alt: 'Microbiome bacteria under electron microscope',
@@ -57,7 +57,7 @@ const SERVICES: DiagnosticService[] = [
     n: '04',
     name: 'Face Scan',
     short: 'Skin hydration · elasticity · pigmentation',
-    body: 'High-resolution dermatological imaging that measures skin hydration, elasticity, pigmentation depth and surface texture — quantitative inputs for an aesthetic-medicine plan.',
+    body: 'High-resolution dermatological imaging that measures skin hydration, elasticity, pigmentation depth and surface texture, quantitative inputs for an aesthetic-medicine plan.',
     what: 'Multi-spectral imaging · 7 dermal layers · tracked over time',
     img: '/diagnostics/face-scan-device.jpg',
     alt: 'Laser facial mapping during a Face Scan dermal-imaging diagnostic',
@@ -66,16 +66,16 @@ const SERVICES: DiagnosticService[] = [
     n: '05',
     name: 'EndoPAT',
     short: 'Endothelial / vascular function',
-    body: 'A 15-minute non-invasive test of endothelial reactivity — the earliest measurable signal of cardiovascular disease, often years before standard markers shift.',
+    body: 'A 15-minute non-invasive test of endothelial reactivity, the earliest measurable signal of cardiovascular disease, often years before standard markers shift.',
     what: 'Fingertip cuff plethysmography · arterial stiffness index · vascular age',
     img: '/diagnostics/endopat-device.webp',
-    alt: 'ECG heart-rhythm trace on clinical paper — cardiovascular waveform',
+    alt: 'ECG heart-rhythm trace on clinical paper, cardiovascular waveform',
   },
   {
     n: '06',
     name: 'Blood Tests',
     short: '160+ biomarkers · complete internal baseline',
-    body: 'A 160-marker panel covering metabolic, hormonal, inflammatory, cardiovascular, nutritional and organ health — collected at home for the most complete internal picture.',
+    body: 'A 160-marker panel covering metabolic, hormonal, inflammatory, cardiovascular, nutritional and organ health, collected at home for the most complete internal picture.',
     what: 'At-home phlebotomy · NABL-accredited lab · physician walk-through of every marker',
     img: '/diagnostics/blood-vials.jpg',
     alt: 'Lab technician handling labelled blood vial',
@@ -84,7 +84,7 @@ const SERVICES: DiagnosticService[] = [
     n: '07',
     name: 'Body Composition (BCA)',
     short: 'Fat · muscle · visceral · hydration',
-    body: 'Segmental body composition — fat percentage, lean mass, visceral fat, hydration status — tracked across the programme so transformation is measured beyond the scale.',
+    body: 'Segmental body composition fat percentage, lean mass, visceral fat, hydration status tracked across the programme so transformation is measured beyond the scale.',
     what: 'Multi-frequency bioimpedance · per-limb analysis · re-measured monthly',
     img: '/diagnostics/bca-tape.jpg',
     alt: 'Body composition silhouette',
@@ -93,7 +93,7 @@ const SERVICES: DiagnosticService[] = [
     n: '08',
     name: 'Bone Mineral Density (Ultrasound BMD)',
     short: 'Skeletal health · radiation-free',
-    body: 'Quantitative ultrasound assessment of bone strength at the heel — a fast, radiation-free screening that flags early bone loss and tracks the impact of strength, nutrition and hormonal interventions over time.',
+    body: 'Quantitative ultrasound assessment of bone strength at the heel, a fast, radiation-free screening that flags early bone loss and tracks the impact of strength, nutrition and hormonal interventions over time.',
     what: 'Calcaneal quantitative ultrasound · SOS · BUA · Stiffness Index · estimated T-score',
     img: '/longevity/brand/mood-feet-roots.jpg',
     alt: 'Skeletal density imagery',
@@ -102,7 +102,7 @@ const SERVICES: DiagnosticService[] = [
     n: '09',
     name: 'Biological Clock',
     short: 'Three validated epigenetic clocks',
-    body: 'GrimAge and PhenoAge analysis of DNA methylation across 9 million base pairs — the most accurate measure of true biological age and remaining healthspan.',
+    body: 'GrimAge and PhenoAge analysis of DNA methylation across 9 million base pairs, the most accurate measure of true biological age and remaining healthspan.',
     what: 'Methylation array · GrimAge + PhenoAge + Horvath · whole-methylome analysis',
     img: '/diagnostics/face-treatment.jpg',
     alt: 'Epigenetic age testing imagery',
@@ -130,9 +130,9 @@ export function DiagnosticsPage() {
   useDocumentMeta(
     useMemo(
       () => ({
-        title: 'Diagnostics · TLC — Genomic, Metabolic & Microbiome Testing',
+        title: 'Diagnostics · TLC, Genomic, Metabolic & Microbiome Testing',
         description:
-          "Nine validated diagnostic protocols at TLC — genomic, epigenomic, metabolic, microbiome and cellular. Measurement first, intervention second.",
+          "Nine validated diagnostic protocols at TLC, genomic, epigenomic, metabolic, microbiome and cellular. Measurement first, intervention second.",
         path: '/diagnostics',
         ogImage: '/og/diagnostics.jpg',
         jsonLd: [
@@ -144,7 +144,7 @@ export function DiagnosticsPage() {
             '@context': 'https://schema.org',
             '@type': 'MedicalBusiness',
             '@id': `${SITE_URL}/diagnostics#service`,
-            name: 'The Longevity Centre — Diagnostics',
+            name: 'The Longevity Centre, Diagnostics',
             description:
               'Diagnostics-led, physician-guided longevity medicine. Nine validated diagnostic protocols across genomic, epigenomic, metabolic and microbiome domains.',
             url: `${SITE_URL}/diagnostics`,
@@ -249,7 +249,7 @@ export function DiagnosticsPage() {
           src="/diagnostics/hero-dna.jpg"
           width={2400}
           height={1344}
-          alt="DNA double helix — decoding your biology"
+          alt="DNA double helix, decoding your biology"
           loading="eager"
           fetchPriority="high"
           decoding="async"
@@ -291,7 +291,7 @@ export function DiagnosticsPage() {
 
             {/* Sub-copy */}
             <p className="text-[14.5px] md:text-[17px] leading-[1.65] text-white/80 max-w-[540px] font-light mb-9">
-              Nine clinical-grade protocols across six biological domains —
+              Nine clinical-grade protocols across six biological domains, 
               the depth standard medicine doesn't reach.
             </p>
 
@@ -381,7 +381,7 @@ export function DiagnosticsPage() {
           {/* Text */}
           <div>
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Why Diagnostics-Led —
+              Why Diagnostics-Led
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink mb-8">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -396,12 +396,12 @@ export function DiagnosticsPage() {
               <p>
                 A 30-marker blood panel cannot tell you why you're tired, why
                 you've gained 4 kg, why your sleep is broken. The signal is in
-                the systems — methylation, microbiome, mitochondria,
-                endothelium — and standard medicine doesn't measure them.
+                the systems, methylation, microbiome, mitochondria,
+                endothelium, and standard medicine doesn't measure them.
               </p>
               <p>
-                Our diagnostic stack — 1000+ biomarkers, 323 genes, 9 M
-                base pairs of methylation, complete metagenomic microbiome —
+                Our diagnostic stack, 1000+ biomarkers, 323 genes, 9 M
+                base pairs of methylation, complete metagenomic microbiome, 
                 produces a picture of how your body is ageing and exactly which
                 interventions will move the needle.
               </p>
@@ -424,7 +424,7 @@ export function DiagnosticsPage() {
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-16 md:mb-20">
             <div>
               <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-                — Nine Diagnostic Protocols —
+                Nine Diagnostic Protocols
               </div>
               <h2 className="font-display font-light text-[34px] md:text-[52px] xl:text-[60px] leading-[1.05] tracking-[-0.03em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -439,7 +439,7 @@ export function DiagnosticsPage() {
             <p className="fade-up text-[14px] md:text-[15px] leading-[1.7] text-graphite font-light max-w-[420px] md:pb-3">
               Every patient is offered the full diagnostic stack at baseline.
               Each test below is selected, performed and interpreted by
-              physicians — not technicians.
+              physicians, not technicians.
             </p>
           </div>
 
@@ -525,11 +525,11 @@ export function DiagnosticsPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto">
           <div className="text-center mb-16 md:mb-20">
             <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-5">
-              — The Process —
+              The Process
             </div>
             <h2 className="font-display font-light text-[34px] md:text-[52px] leading-[1.05] tracking-[-0.025em] text-white max-w-[760px] mx-auto">
               From baseline to{' '}
-              <span className="font-bold text-rust-soft">protocol — in nine weeks.</span>
+              <span className="font-bold text-rust-soft">protocol, in nine weeks.</span>
             </h2>
           </div>
 
@@ -538,19 +538,19 @@ export function DiagnosticsPage() {
               {
                 n: '01',
                 title: 'Baseline',
-                duration: 'Day 1–7',
+                duration: 'Day 1-7',
                 body: 'At-home phlebotomy, saliva and stool collection, plus on-site Oligoscan, EndoPAT, BCA and BMD scans. Total time: under three hours of your week.',
               },
               {
                 n: '02',
                 title: 'Decode',
-                duration: 'Day 3–60',
-                body: 'Samples processed across our partner laboratories — including the Netherlands genomic lab. Two physicians independently review every result before your report is built.',
+                duration: 'Day 3-60',
+                body: 'Samples processed across our partner laboratories, including the Netherlands genomic lab. Two physicians independently review every result before your report is built.',
               },
               {
                 n: '03',
                 title: 'Protocol',
-                duration: 'Day 7–65',
+                duration: 'Day 7-65',
                 body: 'A 90-minute walk-through with your lead physician. Every marker explained, every intervention prioritised. You leave with a written protocol you actually understand.',
               },
             ].map((p) => (
@@ -586,7 +586,7 @@ export function DiagnosticsPage() {
           <div className="grid md:grid-cols-[1fr_1.3fr] gap-12 md:gap-20 items-start">
             <div>
               <div className="fade-up text-[10.5px] md:text-[11px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-                — Why TLC Diagnostics —
+                Why TLC Diagnostics
               </div>
               <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -602,7 +602,7 @@ export function DiagnosticsPage() {
               {[
                 {
                   k: 'Gold-standard labs',
-                  v: 'Genomic and epigenomic samples processed by our partner laboratory in the Netherlands — one of Europe\'s leading centres for SNP and methylation analysis.',
+                  v: 'Genomic and epigenomic samples processed by our partner laboratory in the Netherlands, one of Europe\'s leading centres for SNP and methylation analysis.',
                 },
                 {
                   k: 'Physician-interpreted',
@@ -610,7 +610,7 @@ export function DiagnosticsPage() {
                 },
                 {
                   k: 'Progress, measured',
-                  v: 'Diagnostics are repeated through your programme — so progress is measured, not felt. The number that has changed is the proof.',
+                  v: 'Diagnostics are repeated through your programme, so progress is measured, not felt. The number that has changed is the proof.',
                 },
                 {
                   k: 'At-home collection',

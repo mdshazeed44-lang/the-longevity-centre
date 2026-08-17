@@ -25,7 +25,7 @@ function NotFound({ slug }: { slug: string }) {
     <main className="min-h-[80vh] flex items-center justify-center px-6 py-32 bg-white">
       <div className="text-center max-w-[560px]">
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-          — Centre Not Found —
+          Centre Not Found
         </div>
         <h1 className="font-display font-bold text-[34px] md:text-[48px] leading-[1.05] tracking-[-0.025em] text-ink mb-5">
           We couldn't find a centre at <span className="text-rust">"{slug}"</span>.
@@ -55,7 +55,7 @@ export function CentreDetailPage() {
       ? `Longevity Clinic in ${centre.city} · ${centre.area} · TLC`
       : 'Centre · TLC',
     description: centre
-      ? `TLC ${centre.city} — doctor-led longevity, metabolic & aesthetics programmes at ${centre.area}. ${centre.description.substring(0, 110)}…`
+      ? `TLC ${centre.city}, doctor-led longevity, metabolic & aesthetics programmes at ${centre.area}. ${centre.description.substring(0, 110)}…`
       : 'TLC clinic location.',
     path: `/centres/${slug}`,
     jsonLd: centre && centre.verified
@@ -264,7 +264,7 @@ export function CentreDetailPage() {
 
             <p className="text-[14.5px] md:text-[16.5px] leading-[1.65] text-white/85 max-w-[620px] font-light mb-9">
               Premium preventive medicine, diagnostics-led care, and the same
-              physician panel that anchors the entire TLC network — now in{' '}
+              physician panel that anchors the entire TLC network, now in{' '}
               {centre.city}.
             </p>
 
@@ -295,7 +295,7 @@ export function CentreDetailPage() {
         <div className="relative z-10 max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-start">
           <div>
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-              — About This Centre —
+              About This Centre
             </div>
             <h2 className="font-display font-light text-[28px] md:text-[40px] xl:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -339,7 +339,7 @@ export function CentreDetailPage() {
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-14 items-end mb-10 md:mb-12">
             <div>
               <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-                — Location · Address —
+                Location · Address
               </div>
               <h2 className="font-display font-light text-[28px] md:text-[40px] xl:text-[44px] leading-[1.05] tracking-[-0.025em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -351,7 +351,7 @@ export function CentreDetailPage() {
               </h2>
             </div>
             <p className="fade-up text-[14px] leading-[1.7] text-graphite font-light max-w-[420px] md:pb-2">
-              Drop in for your first consultation, or call ahead — our team
+              Drop in for your first consultation, or call ahead, our team
               will arrange parking, paperwork, and a private waiting area
               before you arrive.
             </p>
@@ -500,7 +500,7 @@ export function CentreDetailPage() {
           <div className="relative z-10 max-w-[1180px] mx-auto">
             <div className="text-center max-w-[680px] mx-auto mb-10 md:mb-14">
               <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-                — Patient Reviews —
+                Patient Reviews
               </div>
               <h2 className="font-display font-light text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink">
                 What patients say about{' '}
@@ -569,7 +569,7 @@ export function CentreDetailPage() {
         <div className="relative z-10 max-w-[1180px] mx-auto">
           <div className="text-center max-w-[680px] mx-auto mb-10 md:mb-12">
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-              — What's Inside —
+              What's Inside
             </div>
             <h2 className="font-display font-light text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -601,7 +601,7 @@ export function CentreDetailPage() {
           <div className="grid md:grid-cols-[1.4fr_1fr] gap-8 md:gap-12 items-end mb-10 md:mb-12">
             <div>
               <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-                — Other Centres —
+                Other Centres
               </div>
               <h2 className="font-display font-light text-[28px] md:text-[40px] leading-[1.05] tracking-[-0.025em] text-ink">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -612,7 +612,7 @@ export function CentreDetailPage() {
               </h2>
             </div>
             <p className="fade-up text-[14px] leading-[1.7] text-graphite font-light max-w-[420px] md:pb-2">
-              Travel, relocate, or seek a second opinion — your full medical
+              Travel, relocate, or seek a second opinion, your full medical
               record moves with you across every TLC centre.
             </p>
           </div>

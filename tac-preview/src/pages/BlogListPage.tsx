@@ -11,9 +11,9 @@ import { getBlogsByTraffic } from '../lib/blogs'
 const PAGE_SIZE = 10
 
 const BLOG_META = {
-  title: 'TLC Insights — Longevity, Wellness & Anti-Aging Blogs',
+  title: 'TLC Insights, Longevity, Wellness & Anti-Aging Blogs',
   description:
-    'Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine — written by the TLC clinical team.',
+    'Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine, written by the TLC clinical team.',
   path: '/blog',
   ogImage: '/og/centres.jpg',
   jsonLd: [
@@ -73,7 +73,7 @@ export function BlogListPage() {
       {/* HERO */}
       <section className="px-6 md:px-12 max-w-[1200px] mx-auto mb-14 md:mb-20 text-center">
         <div className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
-          — TLC Insights —
+          TLC Insights
         </div>
         <h1 className="font-display font-bold text-[40px] md:text-[64px] leading-[1.05] tracking-[-0.02em] text-ink mb-6">
           Evidence-led writing
@@ -82,7 +82,7 @@ export function BlogListPage() {
         </h1>
         <p className="text-[15px] md:text-[17px] leading-[1.6] text-graphite max-w-[680px] mx-auto">
           Articles on longevity, gut health, hormones, skin, weight management
-          and preventive medicine — written by the TLC clinical team and edited
+          and preventive medicine, written by the TLC clinical team and edited
           for clarity over hype.
         </p>
       </section>

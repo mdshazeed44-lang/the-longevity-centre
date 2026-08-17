@@ -51,7 +51,7 @@ const LIFESTYLES = [
     n: '01',
     tag: 'Executive · Burnout',
     title: 'Leadership Elite',
-    body: 'Struggling with burnout, demanding schedules, and maintaining energy and focus? Long-term health optimisation strategies and biomarker reversal programmes for peak performance — without compromising on health.',
+    body: 'Struggling with burnout, demanding schedules, and maintaining energy and focus? Long-term health optimisation strategies and biomarker reversal programmes for peak performance, without compromising on health.',
     img: '/longevity/leadership.png',
   },
   {
@@ -85,12 +85,12 @@ const TRUST = [
   },
   {
     title: 'AI-Enhanced Human Insight',
-    body: 'Our AI platforms analyse thousands of biomarkers across genetics, microbiome, metabolism and inflammation — delivering insights no traditional check-up can match.',
+    body: 'Our AI platforms analyse thousands of biomarkers across genetics, microbiome, metabolism and inflammation, delivering insights no traditional check-up can match.',
     icon: '/longevity/trust-ai.png',
   },
   {
     title: 'Regular Expert Check-ins',
-    body: "Nutritionists check in weekly and senior doctors monthly — so you never feel alone in your longevity journey.",
+    body: "Nutritionists check in weekly and senior doctors monthly, so you never feel alone in your longevity journey.",
     icon: '/longevity/trust-checkin.png',
   },
   {
@@ -113,7 +113,7 @@ const HEALTH_CONCERNS = [
 const FAQS = [
   {
     q: "How is TLC's approach different from a regular doctor or health checkup?",
-    a: 'TLC goes beyond traditional health checkups by offering personalised, data-driven diagnostics across metabolic health, genetics and gut microbiome — powered by AI insights and supported by expert medical teams.',
+    a: 'TLC goes beyond traditional health checkups by offering personalised, data-driven diagnostics across metabolic health, genetics and gut microbiome, powered by AI insights and supported by expert medical teams.',
   },
   {
     q: 'Will my health plan be personalised to me, or is it a pre-made protocol?',
@@ -121,7 +121,7 @@ const FAQS = [
   },
   {
     q: 'How useful is TLC to me if I feel fine?',
-    a: 'Even if you feel fine, TLC helps you uncover hidden health issues that could affect your long-term wellness — such as early metabolic slowdowns, inflammation or genetic risks — so you can prevent future problems before they arise.',
+    a: 'Even if you feel fine, TLC helps you uncover hidden health issues that could affect your long-term wellness such as early metabolic slowdowns, inflammation or genetic risks so you can prevent future problems before they arise.',
   },
   {
     q: 'What exactly happens after I take the free longevity assessment?',
@@ -152,9 +152,9 @@ const HERO_PILLS = [
 ]
 
 const PROGRAM_META = {
-  title: 'Longevity Program · TLC — Your Anti-Aging Blueprint',
+  title: 'Longevity Program · TLC, Your Anti-Aging Blueprint',
   description:
-    "TLC's flagship 12-month protocol — advanced metabolic, DNA and gut microbiome diagnostics, AI analytics, doctor-designed personalised plans.",
+    "TLC's flagship 12-month protocol, advanced metabolic, DNA and gut microbiome diagnostics, AI analytics, doctor-designed personalised plans.",
   path: '/longevity-program',
   ogImage: '/og/longevity-program.jpg',
   jsonLd: [
@@ -167,7 +167,7 @@ const PROGRAM_META = {
       '@type': 'WebPage',
       '@id': 'https://thelongevitycentre.co/longevity-program#webpage',
       url: 'https://thelongevitycentre.co/longevity-program',
-      name: 'Longevity Program · TLC — Your Anti-Aging Blueprint',
+      name: 'Longevity Program · TLC, Your Anti-Aging Blueprint',
       isPartOf: { '@id': 'https://thelongevitycentre.co/#organization' },
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       inLanguage: 'en-IN',
@@ -179,7 +179,7 @@ const PROGRAM_META = {
       name: 'Longevity Program',
       procedureType: 'PreventiveMedicine',
       description:
-        'A 12-month medical longevity protocol — comprehensive blood panels, body composition (BCA, BMD), cardiovascular function (EndoPAT), DNA-based genetic testing and gut microbiome mapping with personalised interventions and ongoing follow-ups under one coordinated team.',
+        'A 12-month medical longevity protocol, comprehensive blood panels, body composition (BCA, BMD), cardiovascular function (EndoPAT), DNA-based genetic testing and gut microbiome mapping with personalised interventions and ongoing follow-ups under one coordinated team.',
       bodyLocation: 'Whole body',
       preparation: 'Free initial assessment with a senior doctor',
       followup: 'Weekly nutritionist check-ins, monthly senior-doctor reviews',
@@ -260,7 +260,7 @@ export function LongevityProgramPage() {
         ease: 'expo.out',
         scrollTrigger: { trigger: ageRef.current, start: 'top 75%' },
         onUpdate: () => {
-          ageNum.textContent = `5–${Math.round(obj.v)}`
+          ageNum.textContent = `5-${Math.round(obj.v)}`
         },
       })
       cleanups.push(() => {
@@ -567,7 +567,7 @@ export function LongevityProgramPage() {
             </h2>
             <p className="text-[15px] md:text-[16px] text-white/70 leading-[1.65] font-light max-w-[460px]">
               With evidence-based protocols our patients improve their biological
-              age by years and meaningfully slow their rate of ageing —
+              age by years and meaningfully slow their rate of ageing, 
               verified by repeat diagnostics.
             </p>
           </div>
@@ -577,7 +577,7 @@ export function LongevityProgramPage() {
                 className="age-num font-display font-bold text-[88px] sm:text-[104px] md:text-[148px] xl:text-[180px] leading-[0.88] tracking-[-0.05em] tabular-nums bg-clip-text text-transparent"
                 style={{ backgroundImage: 'linear-gradient(180deg, #ffffff 0%, #B27A7B 100%)' }}
               >
-                5–15
+                5-15
               </span>
               <span className="font-display font-medium text-rust-soft text-[22px] md:text-[34px] xl:text-[42px] leading-none tracking-[-0.02em]">
                 years
@@ -609,13 +609,13 @@ export function LongevityProgramPage() {
               <div className="space-y-4 text-[14.5px] md:text-[15.5px] leading-[1.7] text-graphite font-light max-w-[480px]">
                 <p>
                   Inspired by nature, skin textures, natural light and organic
-                  materials — the mood emphasises warmth, softness and
+                  materials, the mood emphasises warmth, softness and
                   authenticity.
                 </p>
                 <p>
                   The overall aesthetic balances clinical precision with a more
                   emotional, lifestyle-oriented experience. This direction
-                  supports our transition from anti-aging to longevity —
+                  supports our transition from anti-aging to longevity, 
                   focusing on long-term wellbeing, balance and inner vitality.
                 </p>
               </div>
@@ -677,7 +677,7 @@ export function LongevityProgramPage() {
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
                 <img src="/longevity/brand/mood-body-mind-soul.jpg"
   width={600}
-  height={900} alt="Body, mind and soul — TLC's whole-person framing" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
+  height={900} alt="Body, mind and soul, TLC's whole-person framing" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08]" />
                 <div aria-hidden className="absolute inset-0 ring-1 ring-inset ring-rust/0 group-hover:ring-rust/30 rounded-[16px] transition-all duration-500" />
               </div>
               <div className="mood-tile relative overflow-hidden rounded-[16px] bg-mist group" style={{ willChange: 'transform, opacity' }}>
@@ -768,7 +768,7 @@ export function LongevityProgramPage() {
               Nine technologies. One clear picture.
             </h2>
             <p className="mt-5 text-[14.5px] md:text-[15.5px] text-graphite/80 font-light max-w-[600px] mx-auto leading-[1.65]">
-              From cellular scans to epigenetic age — every signal mapped, every
+              From cellular scans to epigenetic age, every signal mapped, every
               variable measured.
             </p>
           </div>
@@ -835,7 +835,7 @@ export function LongevityProgramPage() {
               </h2>
             </div>
             <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite md:pb-4 max-w-[440px] font-light">
-              Whichever season of life you're in, we'll meet you there — with a
+              Whichever season of life you're in, we'll meet you there, with a
               programme shaped around your goals, biology and routine.
             </p>
           </div>
@@ -948,7 +948,7 @@ export function LongevityProgramPage() {
               </span>
               <br />
               <span className="line-mask">
-                <span>a luxury —</span>
+                <span>a luxury, </span>
               </span>
               <br />
               <span className="line-mask">
@@ -1013,7 +1013,7 @@ export function LongevityProgramPage() {
             Longevity, said out loud.
           </h2>
           <p className="mt-5 text-[14.5px] md:text-[15.5px] text-white/65 font-light max-w-[600px] mx-auto leading-[1.65]">
-            From our editorial campaigns — the questions, habits and ideas that
+            From our editorial campaigns, the questions, habits and ideas that
             shape a longer, calmer, healthier life.
           </p>
         </div>
@@ -1183,7 +1183,7 @@ export function LongevityProgramPage() {
           </h2>
           <p className="text-[14px] md:text-[15px] text-white/70 max-w-[560px] mx-auto leading-[1.6] mb-7 text-center font-light">
             A 30-minute assessment with a senior doctor. Choose what brings
-            you here — we'll guide you to the right protocol.
+            you here, we'll guide you to the right protocol.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-2 mb-7 max-w-[760px] mx-auto">

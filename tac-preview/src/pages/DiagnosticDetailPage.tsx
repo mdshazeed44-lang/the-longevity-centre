@@ -114,7 +114,7 @@ export function DiagnosticDetailPage() {
       <main className="min-h-[80vh] flex items-center justify-center px-6">
         <div className="text-center max-w-[560px]">
           <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-            — Not Found —
+            Not Found
           </div>
           <h1 className="font-display font-bold text-[34px] md:text-[48px] leading-[1.05] tracking-[-0.025em] text-ink mb-5">
             That diagnostic isn't here.
@@ -191,14 +191,14 @@ export function DiagnosticDetailPage() {
             {/* Headline */}
             <h1 className="font-display font-light text-[40px] md:text-[60px] xl:text-[74px] leading-[1.0] tracking-[-0.035em] text-white mb-6">
               <span className="line-mask inline-block overflow-hidden align-bottom">
-                <span className="inline-block">{test.name.split(' — ')[0]}</span>
+                <span className="inline-block">{test.name.split(', ')[0]}</span>
               </span>
-              {test.name.includes(' — ') && (
+              {test.name.includes(', ') && (
                 <>
                   <br />
                   <span className="line-mask inline-block overflow-hidden align-bottom">
                     <span className="inline-block font-bold text-rust-soft">
-                      {test.name.split(' — ')[1]}
+                      {test.name.split(', ')[1]}
                     </span>
                   </span>
                 </>
@@ -251,7 +251,7 @@ export function DiagnosticDetailPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-start">
           <div>
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — What It Is —
+              What It Is
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink mb-8">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -270,7 +270,7 @@ export function DiagnosticDetailPage() {
           {/* Spec card */}
           <div className="md:sticky md:top-28 bg-cream rounded-[20px] border border-mist p-7 md:p-9">
             <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Quick Facts —
+              Quick Facts
             </div>
             <ul className="divide-y divide-mist">
               {test.technical.map((t) => (
@@ -362,7 +362,7 @@ export function DiagnosticDetailPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto">
           <div className="text-center max-w-[760px] mx-auto mb-14 md:mb-16">
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Benefits —
+              Benefits
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -400,11 +400,11 @@ export function DiagnosticDetailPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto">
           <div className="text-center mb-14 md:mb-20">
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-5">
-              — The Process —
+              The Process
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[48px] leading-[1.1] tracking-[-0.025em] text-white max-w-[760px] mx-auto">
               From sample to{' '}
-              <span className="font-bold text-rust-soft">protocol — in three steps.</span>
+              <span className="font-bold text-rust-soft">protocol, in three steps.</span>
             </h2>
           </div>
 
@@ -436,7 +436,7 @@ export function DiagnosticDetailPage() {
         <div className="relative z-10 max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
           <div>
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Who It's For —
+              Who It's For
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -470,7 +470,7 @@ export function DiagnosticDetailPage() {
             <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-14 md:mb-16">
               <div>
                 <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-                  — Related Diagnostics —
+                  Related Diagnostics
                 </div>
                 <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.05] tracking-[-0.025em] text-ink">
                   <span className="line-mask inline-block overflow-hidden align-bottom">

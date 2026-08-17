@@ -101,7 +101,7 @@ export function ResultsSplit() {
             </span>
           </h2>
           <p className="text-[13.5px] md:text-[14.5px] leading-[1.55] text-graphite font-light max-w-[520px] mb-5">
-            After the 12-month programme, patients describe a reformed life —
+            After the 12-month programme, patients describe a reformed life, 
             restored vitality, measurably better health.
           </p>
 
@@ -141,7 +141,7 @@ export function ResultsSplit() {
               src="/longevity/brand/mood-feet-roots.jpg"
               width={720}
               height={1284}
-              alt="Restored vitality — grounded, lasting results"
+              alt="Restored vitality, grounded, lasting results"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />

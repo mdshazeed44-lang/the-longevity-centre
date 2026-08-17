@@ -45,7 +45,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Platelet-Rich Plasma',
     image: '/skin-aesthetics/01-prp-acp.jpg',
     description:
-      "PRP (Platelet-Rich Plasma) therapy uses your own blood platelets, rich in growth factors, to stimulate cellular renewal — natural, autologous, minimal-risk.",
+      "PRP (Platelet-Rich Plasma) therapy uses your own blood platelets, rich in growth factors, to stimulate cellular renewal, natural, autologous, minimal-risk.",
     treats: [
       'Facial wrinkles and fine lines',
       'Acne scars',
@@ -58,13 +58,13 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Minimises pores',
       'Enhances skin elasticity',
     ],
-    duration: '1–3 sessions, 4–6 weeks apart',
-    note: 'Visible improvement within 2–4 weeks. Long-lasting results.',
+    duration: '1-3 sessions, 4-6 weeks apart',
+    note: 'Visible improvement within 2-4 weeks. Long-lasting results.',
     process: [
       {
         n: '01',
         title: 'Blood draw',
-        body: 'A small sample of your own blood is drawn from the arm under sterile conditions — typically 10–20 ml.',
+        body: 'A small sample of your own blood is drawn from the arm under sterile conditions, typically 10-20 ml.',
       },
       {
         n: '02',
@@ -74,7 +74,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '03',
         title: 'Targeted injection',
-        body: 'The platelet-rich layer is injected into the treatment areas using a fine needle — face, scalp or scar tissue, depending on the goal.',
+        body: 'The platelet-rich layer is injected into the treatment areas using a fine needle, face, scalp or scar tissue, depending on the goal.',
       },
       {
         n: '04',
@@ -91,7 +91,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Cellular Renewal',
     image: '/skin-aesthetics/02-peels.jpg',
     description:
-      "Chemical peels exfoliate the top skin layer to reveal fresher skin underneath — addressing uneven texture, fine lines and pigmentation through cellular renewal.",
+      "Chemical peels exfoliate the top skin layer to reveal fresher skin underneath, addressing uneven texture, fine lines and pigmentation through cellular renewal.",
     treats: [
       'Uneven skin tone from excess tanning',
       'Irregular pigmentation and dark patches',
@@ -104,12 +104,12 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Lightens dark spots and hyperpigmentation',
       'Improves overall texture',
     ],
-    duration: 'Series of 4–6 sessions, depending on depth',
+    duration: 'Series of 4-6 sessions, depending on depth',
     process: [
       {
         n: '01',
         title: 'Skin assessment',
-        body: 'Fitzpatrick skin type, sensitivity, and concern mapping. We pick the chemistry — glycolic, salicylic, TCA or Cosmelan — to match.',
+        body: 'Fitzpatrick skin type, sensitivity, and concern mapping. We pick the chemistry glycolic, salicylic, TCA or Cosmelan to match.',
       },
       {
         n: '02',
@@ -119,12 +119,12 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '03',
         title: 'Application',
-        body: 'The solution is applied evenly with a brush and timed precisely — typically 3–10 minutes depending on agent and depth.',
+        body: 'The solution is applied evenly with a brush and timed precisely, typically 3-10 minutes depending on agent and depth.',
       },
       {
         n: '04',
         title: 'Neutralise & post-care',
-        body: 'The peel is neutralised, soothing serums are applied, and you leave with a written post-care routine — sunscreen and moisturiser are non-negotiable.',
+        body: 'The peel is neutralised, soothing serums are applied, and you leave with a written post-care routine, sunscreen and moisturiser are non-negotiable.',
       },
     ],
   },
@@ -136,7 +136,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Multi-Step Rejuvenation',
     image: '/skin-aesthetics/03-hydrafacial.jpg',
     description:
-      "Hydrafacial combines cleansing, exfoliation, painless extraction and antioxidant infusion in one sitting — for plump, glowing, hydrated skin with no downtime.",
+      "Hydrafacial combines cleansing, exfoliation, painless extraction and antioxidant infusion in one sitting, for plump, glowing, hydrated skin with no downtime.",
     treats: [
       'Acne and congested pores',
       'Fine lines',
@@ -149,8 +149,8 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Plump, dewy appearance',
       'Immediate visible improvement',
     ],
-    duration: '30–60 minutes · no downtime',
-    note: 'Perfect for events — visible glow same-day.',
+    duration: '30-60 minutes · no downtime',
+    note: 'Perfect for events, visible glow same-day.',
     process: [
       {
         n: '01',
@@ -165,7 +165,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '03',
         title: 'Extract',
-        body: 'Painless vacuum extraction clears blackheads and congestion — the part traditional facials hurt during.',
+        body: 'Painless vacuum extraction clears blackheads and congestion, the part traditional facials hurt during.',
       },
       {
         n: '04',
@@ -182,7 +182,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Collagen Induction',
     image: '/skin-aesthetics/04-microneedling-v2.jpg',
     description:
-      "Microneedling with Dermapen 4 creates micro-injuries that trigger natural collagen production — improving texture, scars, fine lines and tone across your face.",
+      "Microneedling with Dermapen 4 creates micro-injuries that trigger natural collagen production, improving texture, scars, fine lines and tone across your face.",
     treats: [
       'Fine lines and wrinkles',
       'Acne scars',
@@ -197,19 +197,19 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Fades scars and stretch marks',
       'Enhances elasticity',
     ],
-    duration: '3–6 sessions, 4–6 weeks apart',
+    duration: '3-6 sessions, 4-6 weeks apart',
     note:
-      'Topical numbing cream applied — relatively painless. Suitable for sensitive skin.',
+      'Topical numbing cream applied, relatively painless. Suitable for sensitive skin.',
     process: [
       {
         n: '01',
         title: 'Numbing',
-        body: 'A topical anaesthetic cream is applied for 20–30 minutes — most patients describe the procedure as comfortable.',
+        body: 'A topical anaesthetic cream is applied for 20-30 minutes, most patients describe the procedure as comfortable.',
       },
       {
         n: '02',
         title: 'Needling pass',
-        body: 'The Dermapen 4 glides over the area, creating microscopic channels at depths matched to each zone — finer around the eyes, deeper for scarring.',
+        body: 'The Dermapen 4 glides over the area, creating microscopic channels at depths matched to each zone, finer around the eyes, deeper for scarring.',
       },
       {
         n: '03',
@@ -219,7 +219,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '04',
         title: 'Recovery',
-        body: 'Mild redness for 24–48 hours, like a sunburn. Strict sun protection for 7 days. Visible improvement at 2–4 weeks, full results at 3–6 months.',
+        body: 'Mild redness for 24-48 hours, like a sunburn. Strict sun protection for 7 days. Visible improvement at 2-4 weeks, full results at 3-6 months.',
       },
     ],
   },
@@ -231,7 +231,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Quanta Long Pulse · Italy',
     image: '/skin-aesthetics/05-laser-v2.jpg',
     description:
-      'Permanent hair reduction with the Quanta Long Pulse Laser from Italy — CE and FDA approved, safe for all skin types (I–VI), no gel, no burn risk.',
+      'Permanent hair reduction with the Quanta Long Pulse Laser from Italy, CE and FDA approved, safe for all skin types (I-VI), no gel, no burn risk.',
     treats: [
       'Unwanted hair on all body areas',
       'Ingrown hairs',
@@ -255,7 +255,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '02',
         title: 'Pre-shave',
-        body: 'You arrive with the area shaved. The laser targets follicles below the skin — surface hair is not what we treat.',
+        body: 'You arrive with the area shaved. The laser targets follicles below the skin, surface hair is not what we treat.',
       },
       {
         n: '03',
@@ -265,7 +265,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '04',
         title: 'Cycle through sessions',
-        body: 'Hair grows in cycles — we treat across 6–8 sessions spaced 4–6 weeks apart to catch all follicles in their active phase.',
+        body: 'Hair grows in cycles, we treat across 6-8 sessions spaced 4-6 weeks apart to catch all follicles in their active phase.',
       },
     ],
   },
@@ -277,7 +277,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Diagnosis-First · 360° Care',
     image: '/skin-aesthetics/06-hair.jpg',
     description:
-      'A 360° approach to hair loss — we diagnose nutrient deficiencies, perform PRP and offer Hair Transplant for androgenetic alopecia, alopecia areata and telogen effluvium.',
+      'A 360° approach to hair loss, we diagnose nutrient deficiencies, perform PRP and offer Hair Transplant for androgenetic alopecia, alopecia areata and telogen effluvium.',
     treats: [
       'Androgenetic alopecia (male / female pattern)',
       'Alopecia areata (patchy hair loss)',
@@ -290,7 +290,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Plant-based supplementation',
       'Minimal scarring · permanent, natural results',
     ],
-    duration: 'Tiered protocol — assessment through maintenance',
+    duration: 'Tiered protocol, assessment through maintenance',
     process: [
       {
         n: '01',
@@ -327,34 +327,34 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Advanced FUE · Permanent Restoration',
     image: '/skin-aesthetics/08-hair-transplant.jpg',
     description:
-      'Doctor-led FUE hair transplant for permanent restoration of androgenetic hair loss — minimal scarring, natural hairline design, full diagnostics-led workup first.',
+      'Doctor-led FUE hair transplant for permanent restoration of androgenetic hair loss, minimal scarring, natural hairline design, full diagnostics-led workup first.',
     treats: [
-      'Androgenetic alopecia (male-pattern baldness, Norwood II–VI)',
-      'Female-pattern hair thinning (Ludwig I–III)',
+      'Androgenetic alopecia (male-pattern baldness, Norwood II-VI)',
+      'Female-pattern hair thinning (Ludwig I-III)',
       'Receding hairline · temple recession · crown thinning',
       'Eyebrow / beard / moustache restoration',
       'Scar revision (post-surgical or post-trauma)',
     ],
     benefits: [
-      'Permanent, natural-looking results — transplanted follicles are genetically resistant to DHT',
-      'Minimal scarring — punctate FUE marks, no linear strip scar',
+      'Permanent, natural-looking results, transplanted follicles are genetically resistant to DHT',
+      'Minimal scarring, punctate FUE marks, no linear strip scar',
       'Out-patient procedure under local anaesthesia',
       'Hairline designed in consultation, frame-accurate to your face',
-      'Lifetime growth — most patients see full coverage by month 9–12',
+      'Lifetime growth, most patients see full coverage by month 9-12',
     ],
-    duration: 'Single-day procedure · Visible growth by month 4 · Final result month 9–12',
+    duration: 'Single-day procedure · Visible growth by month 4 · Final result month 9-12',
     note:
-      'Transplant is offered only after diagnostics confirm pattern baldness has stabilised. We don\'t operate on active shedding — that\'s what the Hair Loss Solutions protocol corrects first.',
+      'Transplant is offered only after diagnostics confirm pattern baldness has stabilised. We don\'t operate on active shedding, that\'s what the Hair Loss Solutions protocol corrects first.',
     process: [
       {
         n: '01',
         title: 'Assess',
-        body: 'Trichoscopy, hormonal panels (DHT, ferritin, thyroid), Cellscan Spectrophotometry and Norwood / Ludwig scaling. We confirm pattern baldness has stabilised — and rule out reversible causes like deficiency or telogen effluvium — before recommending surgery.',
+        body: 'Trichoscopy, hormonal panels (DHT, ferritin, thyroid), Cellscan Spectrophotometry and Norwood / Ludwig scaling. We confirm pattern baldness has stabilised and rule out reversible causes like deficiency or telogen effluvium before recommending surgery.',
       },
       {
         n: '02',
         title: 'Design',
-        body: 'Hairline drawn in consultation. We use facial proportion landmarks (frontal hairline 7–9 cm above the glabella, temple-point geometry) so the result looks natural at 25 and at 65 — never a thick artificial line.',
+        body: 'Hairline drawn in consultation. We use facial proportion landmarks (frontal hairline 7-9 cm above the glabella, temple-point geometry) so the result looks natural at 25 and at 65, never a thick artificial line.',
       },
       {
         n: '03',
@@ -364,7 +364,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '04',
         title: 'Recover',
-        body: 'Scabs shed by day 10. Transplanted hair sheds at week 2–4 (this is expected — the follicle stays, only the visible shaft falls). Regrowth begins month 3, density visible by month 6, final density by month 9–12.',
+        body: 'Scabs shed by day 10. Transplanted hair sheds at week 2-4 (this is expected, the follicle stays, only the visible shaft falls). Regrowth begins month 3, density visible by month 6, final density by month 9-12.',
       },
     ],
   },
@@ -376,7 +376,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
     eyebrow: 'Restorative Injectables',
     image: '/skin-aesthetics/07-mesotherapy-v3.jpg',
     description:
-      'Three injectable treatments — Botox to relax wrinkles, Dermal Fillers to restore volume, and Skin Boosters to hydrate. Combinable. FDA-approved products only.',
+      'Three injectable treatments, Botox to relax wrinkles, Dermal Fillers to restore volume, and Skin Boosters to hydrate. Combinable. FDA-approved products only.',
     treats: [
       "Forehead lines, frown lines, crow's feet (Botox)",
       'Nasolabial folds, lip enhancement, cheek contouring (Fillers)',
@@ -389,13 +389,13 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       'Long-lasting effects',
       'Combinable for full-face rejuvenation',
     ],
-    duration: 'In-clinic · effects last 4–12 months by product',
+    duration: 'In-clinic · effects last 4-12 months by product',
     note: 'Administered only by qualified physicians.',
     process: [
       {
         n: '01',
         title: 'Consult & map',
-        body: 'A physician examines facial dynamics — animation lines vs static creases — and maps a plan that respects your natural anatomy.',
+        body: 'A physician examines facial dynamics animation lines vs static creases and maps a plan that respects your natural anatomy.',
       },
       {
         n: '02',
@@ -410,7 +410,7 @@ export const SKIN_TREATMENTS: SkinTreatment[] = [
       {
         n: '04',
         title: 'Two-week review',
-        body: 'Botox effect peaks at 14 days — that\'s when we review symmetry and add micro-corrections if needed. Filler is reviewed at 4 weeks.',
+        body: 'Botox effect peaks at 14 days, that\'s when we review symmetry and add micro-corrections if needed. Filler is reviewed at 4 weeks.',
       },
     ],
   },

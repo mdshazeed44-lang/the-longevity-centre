@@ -182,7 +182,7 @@ export function FoundersNote() {
                   <span className="text-ink font-medium">Dr. Bhavna Sharma</span>{' '}
                   and{' '}
                   <span className="text-ink font-medium">Dr. Abhinav Sharma</span>
-                  , and we started The Longevity Centre with a simple belief —
+                 , and we started The Longevity Centre with a simple belief, 
                   India deserves more centenarians who are active, independent
                   and deeply alive.
                 </p>
@@ -190,7 +190,7 @@ export function FoundersNote() {
                   Our ancestors, our rishi&#8209;munis and our traditional
                   healing systems always spoke about long, purposeful living.
                   Somewhere along the way, pollution of our air, water, soil
-                  and food — along with the stress of modern life — started
+                  and food along with the stress of modern life started
                   stealing both our lifespan and our health span. What most of
                   us really need is a clear bridge back to healthy longevity in
                   a modern world.
@@ -206,7 +206,7 @@ export function FoundersNote() {
                 <p data-reveal className="text-ink font-medium">
                   At The Longevity Centre, we combine time&#8209;tested Indian
                   practices and cutting&#8209;edge medical science to help you
-                  protect your body, brain, hormones, metabolism and immunity —
+                  protect your body, brain, hormones, metabolism and immunity, 
                   the bridge between ancient wisdom and modern medicine, so you
                   and your family can not only live longer, but live better,
                   together.

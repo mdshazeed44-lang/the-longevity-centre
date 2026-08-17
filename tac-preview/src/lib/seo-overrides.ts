@@ -69,7 +69,7 @@ export const META_OVERRIDES: Record<string, SeoOverride> = {
   },
   "/diagnostics": {
     title: "Best Longevity Medical Clinic - The Longevity Centre",
-    description: "Longevity medical clinic with nine validated diagnostic protocols—genomic, epigenomic, metabolic, microbiome and cellular. Measure first, intervene second.",
+    description: "Longevity medical clinic with nine validated diagnostic protocols, genomic, epigenomic, metabolic, microbiome and cellular. Measure first, intervene second.",
     keywords: "Longevity medical clinic",
   },
   "/diagnostics/oligoscan": {
@@ -134,7 +134,7 @@ export const META_OVERRIDES: Record<string, SeoOverride> = {
   },
   "/skin-aesthetics/laser-hair-reduction": {
     title: "Best Clinic for Laser Hair Reduction - The Longevity Centre",
-    description: "Visit the best clinic for Laser Hair Reduction with Quanta Long Pulse Laser from Italy—CE and FDA approved, safe for all skin types (I–VI), with no gel & risk.",
+    description: "Visit the best clinic for Laser Hair Reduction with Quanta Long Pulse Laser from Italy, CE and FDA approved, safe for all skin types (I-VI), with no gel & risk.",
     keywords: "clinic for Laser Hair Reduction",
   },
   "/skin-aesthetics/hair-transplant": {

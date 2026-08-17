@@ -24,7 +24,7 @@ gsap.registerPlugin(ScrollTrigger)
 const META = {
   title: 'Begin a Consultation · TLC',
   description:
-    'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our six clinics in India — no commitment, just clarity.',
+    'Speak with the TLC medical team via WhatsApp. A 30-minute personalised consultation across our six clinics in India, no commitment, just clarity.',
   path: '/contact',
   ogImage: '/og/contact.jpg',
   jsonLd: [
@@ -135,7 +135,7 @@ export function ContactPage() {
         />
         <div className="relative z-10 max-w-[1180px] mx-auto">
           <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-            — Begin a Consultation —
+            Begin a Consultation
           </div>
           <h1 className="font-display font-light text-[36px] md:text-[60px] xl:text-[72px] leading-[1.02] tracking-[-0.03em] text-ink mb-6 max-w-[900px]">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -148,7 +148,7 @@ export function ContactPage() {
           </h1>
           <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[640px]">
             Share a few details and our medical team will be in touch to
-            schedule your consultation — at the centre nearest you or online.
+            schedule your consultation, at the centre nearest you or online.
           </p>
         </div>
       </section>
@@ -232,7 +232,7 @@ export function ContactPage() {
                         Select a programme (optional)
                       </option>
                       <option value="Not sure yet">
-                        Not sure yet — help me decide
+                        Not sure yet, help me decide
                       </option>
                       {PROGRAMS.map((p) => (
                         <option key={p.slug} value={p.shortTitle}>
@@ -247,7 +247,7 @@ export function ContactPage() {
                     <textarea
                       name="message"
                       rows={4}
-                      placeholder="Symptoms, goals, questions — whatever you'd like our doctors to know in advance."
+                      placeholder="Symptoms, goals, questions, whatever you'd like our doctors to know in advance."
                       className={`${inputCls} resize-none`}
                     />
                   </Field>
@@ -306,7 +306,7 @@ export function ContactPage() {
               />
               <div className="relative z-10">
                 <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-5">
-                  — Reach us directly —
+                  Reach us directly
                 </div>
                 <h3 className="font-display font-light text-[26px] md:text-[30px] leading-[1.1] tracking-[-0.02em] text-white mb-7">
                   Prefer not to fill a form?{' '}
@@ -339,7 +339,7 @@ export function ContactPage() {
             {/* Visit a centre */}
             <div className="border border-ink/10 rounded-[24px] p-6 md:p-8 bg-white">
               <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-                — Or visit a centre —
+                Or visit a centre
               </div>
               <div className="space-y-3">
                 {operationalCentres.map((c) => (
@@ -385,7 +385,7 @@ export function ContactPage() {
             { k: '6', l: 'Centres pan-India' },
             { k: '20+ years', l: 'In preventive medicine' },
             { k: '1000+', l: 'Biomarkers per patient' },
-            { k: '3', l: 'Biological ages — Epigenetic · Blood · Gut' },
+            { k: '3', l: 'Biological ages, Epigenetic · Blood · Gut' },
           ].map((s) => (
             <div key={s.l} className="bg-white px-5 py-6 text-center">
               <div className="font-display font-bold text-[22px] md:text-[30px] text-rust leading-none mb-2 tabular-nums tracking-[-0.01em]">
@@ -490,7 +490,7 @@ function SuccessPanel() {
         </svg>
       </div>
       <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-3">
-        — Thank you —
+        Thank you
       </div>
       <h3 className="font-display font-light text-[28px] md:text-[36px] leading-[1.1] tracking-[-0.02em] text-ink mb-4">
         Your request has been{' '}

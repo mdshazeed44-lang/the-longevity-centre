@@ -25,14 +25,14 @@ export function ScienceCards() {
       tag: 'Vitality',
       title: 'Feel and look great',
       desc:
-        'Stay active and energetic well into your later years — measurably stronger, sharper and more resilient with each year.',
+        'Stay active and energetic well into your later years, measurably stronger, sharper and more resilient with each year.',
       img: '/longevity/vitality-mature-woman.jpg',
     },
     {
       tag: 'Prevention',
       title: 'Prevent disease',
       desc:
-        'Catch age-related disease decades early. Extend your lifespan and your healthspan together — not just years added, but quality years.',
+        'Catch age-related disease decades early. Extend your lifespan and your healthspan together, not just years added, but quality years.',
       img: '/longevity/prevention-clinical-care.jpg',
     },
     {

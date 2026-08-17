@@ -30,7 +30,7 @@ function accentBg(a: Program['accent']) {
 // site's editorial restraint.
 const HERO_STATS = [
   { k: 'Programmes', v: '6', display: '6' },
-  { k: 'Duration', v: '3–12 mo', display: '3–12 mo' },
+  { k: 'Duration', v: '3-12 mo', display: '3-12 mo' },
   { k: 'Specialists', v: 'Per protocol', display: 'Per protocol' },
 ]
 
@@ -235,7 +235,7 @@ function Hero() {
 
           <p className="fade-up mt-8 md:mt-10 text-[15px] md:text-[17px] lg:text-[18px] leading-[1.7] text-graphite font-light max-w-[560px]">
             Each programme is led by a dedicated specialist, but all run inside
-            one shared medical record — diagnostics-led, physician-guided, and
+            one shared medical record, diagnostics-led, physician-guided, and
             continuously refined.
           </p>
         </div>
@@ -412,7 +412,7 @@ function BrandAmbassador() {
             src="/longevity/milind-soman.jpg?v=3"
             width={1000}
             height={660}
-            alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+            alt="Milind Soman, Brand Ambassador, The Longevity Centre"
             loading="lazy"
             decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center"
@@ -461,7 +461,7 @@ function BrandAmbassador() {
             data-ba-anim
             className="text-[14.5px] md:text-[16.5px] leading-[1.75] text-cream/75 font-light max-w-[560px] mb-6"
           >
-            At 50, Milind Soman finished an Ironman triathlon — a 3.8&nbsp;km
+            At 50, Milind Soman finished an Ironman triathlon, a 3.8&nbsp;km
             swim, 180&nbsp;km cycle and a full marathon, inside 16 hours. At 60,
             he is measurably fitter than most men half his age. He runs
             barefoot, trains by feel, and built the Pinkathon to put a
@@ -471,7 +471,7 @@ function BrandAmbassador() {
             data-ba-anim
             className="font-display italic text-rust-soft text-[16px] md:text-[20px] leading-[1.4] mb-8 max-w-[520px]"
           >
-            “Strength isn’t something you lose with age — it’s something you
+            “Strength isn’t something you lose with age, it’s something you
             choose to keep.”
           </p>
 
@@ -632,7 +632,7 @@ function CtaBand() {
       />
       <div className="relative z-10 max-w-[820px] mx-auto text-center">
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-7">
-          — Not Sure Which One? —
+          Not Sure Which One?
         </div>
         <h2 className="font-display font-light text-[32px] md:text-[48px] xl:text-[56px] leading-[1.1] tracking-[-0.03em] mb-10">
           Begin with a 30-minute consultation.
@@ -734,9 +734,9 @@ function ProgrammesCompare() {
 
 export function ProgramsIndexPage() {
   useDocumentMeta({
-    title: 'Programmes · TLC — Diagnostics-Led Longevity & Metabolic Care',
+    title: 'Programmes · TLC, Diagnostics-Led Longevity & Metabolic Care',
     description:
-      "TLC's seven flagship longevity and metabolic programmes — physician-led, diagnostics-rooted, continuously refined.",
+      "TLC's seven flagship longevity and metabolic programmes, physician-led, diagnostics-rooted, continuously refined.",
     path: '/programs',
     ogImage: '/og/programmes.jpg',
     jsonLd: [

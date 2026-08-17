@@ -16,7 +16,7 @@ export function PressStrip() {
     <section className="bg-white border-y border-mist py-10 marquee overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 flex items-center gap-10">
         <span className="text-[10px] tracking-[0.3em] uppercase text-stone shrink-0">
-          As featured in —
+          As featured in, 
         </span>
         <div className="overflow-hidden flex-1">
           <div className="marquee-track">

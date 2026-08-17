@@ -98,7 +98,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
                 src="/longevity/milind-skin.webp?v=3"
                 width={1000}
                 height={660}
-                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                alt="Milind Soman, Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
@@ -158,7 +158,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
               </h2>
               <p className="text-[13.5px] md:text-[14.5px] text-white/60 font-light leading-[1.65] max-w-[440px]">
                 Request a 30-minute conversation with our medical team. No
-                commitment — we&rsquo;ll be in touch to schedule.
+                commitment, we&rsquo;ll be in touch to schedule.
               </p>
             </div>
 
@@ -215,7 +215,7 @@ export function CtaBand({ withPortrait = false }: { withPortrait?: boolean }) {
                     </option>
                   ))}
                   <option value="Not sure yet" className="text-ink">
-                    Not sure yet — advise me
+                    Not sure yet, advise me
                   </option>
                 </select>
 
@@ -303,7 +303,7 @@ function FormSuccess() {
   return (
     <div className="bg-white/[0.06] border border-rust/30 rounded-[18px] p-5">
       <div className="text-[10px] tracking-[0.42em] uppercase text-rust font-semibold mb-2.5">
-        — Thank you —
+        Thank you
       </div>
       <h3 className="font-display text-white text-[17px] md:text-[19px] leading-[1.3] mb-2 font-light">
         Your request has been received.

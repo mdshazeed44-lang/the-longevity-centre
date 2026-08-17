@@ -41,11 +41,11 @@ export const LANDINGS: Landing[] = [
     eyebrow: 'India Guide · 2025',
     h1: 'Best Longevity Clinic in India',
     intro:
-      'Choosing the right longevity clinic shapes how you age. This 2025 guide explains what world-class longevity care looks like — and why India is fast becoming a global hub.',
+      'Choosing the right longevity clinic shapes how you age. This 2025 guide explains what world-class longevity care looks like, and why India is fast becoming a global hub.',
     heroImage: '/landings/best-longevity-clinic-in-india/hero.jpg',
     content: `Choosing the **best longevity clinic in India** has become a key decision for individuals looking to optimize health, energy, and long-term vitality. With rapid progress in [biological science](https://www.researchgate.net/publication/10961016_The_Biology_of_aging), metabolic medicine, and cellular repair, longevity clinics now offer structured, evidence-based programs that go far beyond traditional wellness or cosmetic care.
 
-Across major cities, people are turning to longevity medicine to improve skin quality, immune function, metabolic health, and overall performance — while slowing down biological aging at its root.
+Across major cities, people are turning to longevity medicine to improve skin quality, immune function, metabolic health, and overall performance, while slowing down biological aging at its root.
 
 ## What Defines a World-Class Longevity Clinic?
 
@@ -57,7 +57,7 @@ Advanced testing evaluates how fast the body is aging using markers such as DNA 
 
 ### 2. Personalized Hormonal Optimization
 
-Longevity clinics assess and balance key hormones — including thyroid, cortisol, estrogen, and testosterone — to support energy, sleep, metabolism, and skin health.
+Longevity clinics assess and balance key hormones including thyroid, cortisol, estrogen, and testosterone to support energy, sleep, metabolism, and skin health.
 
 ### 3. Advanced Skin and Hair Rejuvenation Services
 
@@ -104,7 +104,7 @@ Yes. When supervised by certified longevity or anti-aging medical professionals,
 
 ### 3. How long does it take to see results?
 
-Most individuals notice improvements in energy and sleep within 1–2 weeks, while visible skin and metabolic changes typically appear within 2–12 weeks.
+Most individuals notice improvements in energy and sleep within 1-2 weeks, while visible skin and metabolic changes typically appear within 2-12 weeks.
 
 The Longevity Centre's flagship [Longevity Plus programme](/programs/longevity-plus) consolidates these elements into a single, doctor-led pathway across 6 Indian cities.`,
   },
@@ -116,9 +116,9 @@ The Longevity Centre's flagship [Longevity Plus programme](/programs/longevity-p
     eyebrow: 'Longevity Medicine in India',
     h1: 'Longevity Clinic in India',
     intro:
-      'No longer a futuristic idea — longevity clinics in India combine genomics, metabolic testing, and evidence-based medicine to slow biological aging at the cellular level.',
+      'No longer a futuristic idea, longevity clinics in India combine genomics, metabolic testing, and evidence-based medicine to slow biological aging at the cellular level.',
     heroImage: '/landings/longevity-clinic-in-india/hero.jpg',
-    content: `A **longevity clinic in India** is no longer a futuristic idea — it is a rapidly growing medical reality transforming how people age. These clinics combine advanced diagnostics, genetics, metabolic testing, and evidence-based anti-aging medicine to slow down biological aging at a cellular level.
+    content: `A **longevity clinic in India** is no longer a futuristic idea, it is a rapidly growing medical reality transforming how people age. These clinics combine advanced diagnostics, genetics, metabolic testing, and evidence-based anti-aging medicine to slow down biological aging at a cellular level.
 
 Across cities like Pune, Delhi, Gurgaon, and Mumbai, individuals are now choosing longevity programs not just to look younger, but to improve energy, metabolic health, skin quality, and long-term disease prevention.
 
@@ -202,7 +202,7 @@ A trusted longevity clinic in India focuses on extending healthspan, not just li
     eyebrow: 'Aesthetic Guide · 2025',
     h1: 'Non-Surgical Face Lift Treatment in India',
     intro:
-      'HIFU, radiofrequency, thread lifts and dermal fillers — the 2025 techniques delivering natural lifting, collagen regeneration, and no surgical downtime.',
+      'HIFU, radiofrequency, thread lifts and dermal fillers, the 2025 techniques delivering natural lifting, collagen regeneration, and no surgical downtime.',
     heroImage: '/landings/non-surgical-face-lift-treatment-in-india/hero.jpg',
     content: `The **non-surgical face lift treatment in India** has gained immense popularity as more individuals seek natural-looking facial rejuvenation without surgery, anesthesia, scars, or long recovery periods. Advancements in collagen-stimulating technologies now allow visible lifting, tightening, and contouring of the face through safe, non-invasive methods.
 
@@ -210,7 +210,7 @@ For those looking for a scientifically backed and low-risk approach to facial ag
 
 ## What Is a Non-Surgical Face Lift?
 
-A non-surgical facelift is a cosmetic procedure that lifts and tightens facial skin using energy-based devices or injectable techniques — without incisions or stitches. These treatments work by stimulating the [body's natural collagen and elastin production](https://pmc.ncbi.nlm.nih.gov/articles/PMC5123637/), improving skin firmness, texture, and facial contours over time.
+A non-surgical facelift is a cosmetic procedure that lifts and tightens facial skin using energy-based devices or injectable techniques, without incisions or stitches. These treatments work by stimulating the [body's natural collagen and elastin production](https://pmc.ncbi.nlm.nih.gov/articles/PMC5123637/), improving skin firmness, texture, and facial contours over time.
 
 Non-surgical facelifts are designed to deliver subtle, progressive improvements while maintaining natural facial expressions.
 
@@ -226,7 +226,7 @@ HIFU targets deep skin layers using focused ultrasound energy to trigger collage
 - Neck and chin tightening
 - Mid-face and cheek lift
 
-Results typically improve over 2–3 months as collagen rebuilds.
+Results typically improve over 2-3 months as collagen rebuilds.
 
 ### 2. Radiofrequency (RF) Skin Tightening
 
@@ -263,10 +263,10 @@ These treatments are also effective as preventive anti-aging solutions.
 
 The longevity of results depends on the treatment type and individual factors:
 
-- **HIFU:** 12–18 months
-- **RF treatments:** 6–12 months
-- **Dermal fillers:** 9–18 months
-- **Thread lifts:** 12–24 months
+- **HIFU:** 12-18 months
+- **RF treatments:** 6-12 months
+- **Dermal fillers:** 9-18 months
+- **Thread lifts:** 12-24 months
 
 Results often improve progressively due to ongoing collagen regeneration.
 
@@ -295,7 +295,7 @@ Speak with TLC's [aesthetic team](/contact) to map a personalised facelift plan 
     eyebrow: 'Pricing Guide · 2025',
     h1: 'Anti-Aging Treatment Cost in India',
     intro:
-      'A transparent 2025 breakdown of anti-aging treatment prices in India — IV therapy, HIFU, PRP, non-surgical facelifts and full longevity programs.',
+      'A transparent 2025 breakdown of anti-aging treatment prices in India, IV therapy, HIFU, PRP, non-surgical facelifts and full longevity programs.',
     heroImage: '/landings/anti-aging-treatment-cost-in-india/hero.jpg',
     content: `The **anti-aging treatment cost in India** is one of the most frequently asked questions by people exploring modern, science-backed solutions to look younger and feel healthier. With rapid advancements in non-surgical technologies, cellular rejuvenation, and longevity-based medicine, India has emerged as a leading destination for affordable and effective anti-aging care.
 
@@ -305,16 +305,16 @@ Biological aging [research](https://pubmed.ncbi.nlm.nih.gov/37657418/) often use
 
 ## Understanding Anti-Aging Treatment Costs in India
 
-Anti-aging is not a single procedure — it is a combination of aesthetic, medical, and longevity-based treatments. The overall cost depends on the treatment selected, number of sessions required, and whether the program is customized using biological or metabolic assessments.
+Anti-aging is not a single procedure, it is a combination of aesthetic, medical, and longevity-based treatments. The overall cost depends on the treatment selected, number of sessions required, and whether the program is customized using biological or metabolic assessments.
 
 ### Average Anti-Aging Treatment Prices in India (2025)
 
-- **Anti-aging IV therapy:** ₹4,000 – ₹12,000 per session
-- **Skin tightening (HIFU / RF):** ₹10,000 – ₹40,000
-- **Non-surgical facelift procedures:** ₹25,000 – ₹70,000
-- **[PRP rejuvenation treatments](/skin-aesthetics/skin-prp):** ₹6,000 – ₹18,000
-- **Wrinkle reduction procedures:** ₹8,000 – ₹25,000
-- **[Comprehensive longevity programs](/programs/longevity-plus):** ₹25,000 – ₹1,20,000+
+- **Anti-aging IV therapy:** ₹4,000 - ₹12,000 per session
+- **Skin tightening (HIFU / RF):** ₹10,000 - ₹40,000
+- **Non-surgical facelift procedures:** ₹25,000 - ₹70,000
+- **[PRP rejuvenation treatments](/skin-aesthetics/skin-prp):** ₹6,000 - ₹18,000
+- **Wrinkle reduction procedures:** ₹8,000 - ₹25,000
+- **[Comprehensive longevity programs](/programs/longevity-plus):** ₹25,000 - ₹1,20,000+
 
 These ranges reflect national averages and may vary between clinics and cities.
 
@@ -382,7 +382,7 @@ For a complete, doctor-led longevity programme that consolidates diagnostics, li
     eyebrow: 'Treatment Guide · 2025',
     h1: 'Non-Surgical Anti-Aging Treatments in India',
     intro:
-      'In 2025, non-surgical anti-aging in India means science-backed solutions for skin tightening, collagen rebuilding, and longevity enhancement — no downtime.',
+      'In 2025, non-surgical anti-aging in India means science-backed solutions for skin tightening, collagen rebuilding, and longevity enhancement, no downtime.',
     heroImage: '/landings/non-surgical-anti-aging-treatments-india/hero.jpg',
     content: `Non-surgical anti-aging treatments in India have evolved significantly in 2025, offering safe, science-backed solutions for skin tightening, collagen rebuilding, and longevity enhancement without surgery or downtime.
 
@@ -477,7 +477,7 @@ Most non-invasive treatments involve minimal discomfort and require no recovery 
 
 Absolutely. Nearly **40% of anti-aging patients today are men**, and demand continues to grow.
 
-Browse [TLC's full Skin & Aesthetics suite](/skin-aesthetics) — 11 evidence-based treatments delivered by trained physicians across 6 Indian cities.`,
+Browse [TLC's full Skin & Aesthetics suite](/skin-aesthetics), 11 evidence-based treatments delivered by trained physicians across 6 Indian cities.`,
   },
 ]
 

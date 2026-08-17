@@ -73,7 +73,7 @@ export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
                   src="/longevity/milind-skin.webp?v=3"
                   width={1000}
                   height={660}
-                  alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                  alt="Milind Soman, Brand Ambassador, The Longevity Centre"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"
@@ -115,13 +115,13 @@ export function BrandAmbassadorHero({ onCtaClick }: Props = {}) {
 
             <p className="text-[13.5px] md:text-[15px] leading-[1.7] text-graphite font-light max-w-[500px] mb-4 md:mb-5">
               At 60, Milind Soman is the clearest proof of what TLC stands
-              for — strength, clarity and vitality are not surrendered to
+              for, strength, clarity and vitality are not surrendered to
               age, they are maintained by intention.
             </p>
 
             <blockquote className="relative pl-4 md:pl-5 border-l-2 border-rust mb-5 md:mb-6">
               <p className="font-display italic text-rust text-[14.5px] md:text-[17px] leading-[1.45] max-w-[460px]">
-                &ldquo;Strength isn&rsquo;t something you lose with age — it&rsquo;s
+                &ldquo;Strength isn&rsquo;t something you lose with age, it&rsquo;s
                 something you choose to keep.&rdquo;
               </p>
             </blockquote>

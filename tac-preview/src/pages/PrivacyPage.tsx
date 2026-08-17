@@ -15,15 +15,15 @@ const SECTIONS = [
     n: '01',
     title: 'Information We Collect',
     body: [
-      'When you book a consultation, enrol in a programme, or contact us for any reason, we collect personal information that includes — name, contact details, date of birth, address, medical history, diagnostic results, biomarker readings, and any clinical information you choose to share with our physicians.',
-      'When you visit our website, we may also collect technical information automatically — your IP address, browser type, device, the pages you visit, and how long you spend on each page. This helps us understand how the site is used and improve it.',
+      'When you book a consultation, enrol in a programme, or contact us for any reason, we collect personal information that includes, name, contact details, date of birth, address, medical history, diagnostic results, biomarker readings, and any clinical information you choose to share with our physicians.',
+      'When you visit our website, we may also collect technical information automatically, your IP address, browser type, device, the pages you visit, and how long you spend on each page. This helps us understand how the site is used and improve it.',
     ],
   },
   {
     n: '02',
     title: 'How We Use Your Information',
     body: [
-      'Your medical information is used solely to deliver the clinical care you have engaged us for — diagnosis, programme design, ongoing monitoring, follow-up, and physician-to-physician handoff within the TLC network.',
+      'Your medical information is used solely to deliver the clinical care you have engaged us for, diagnosis, programme design, ongoing monitoring, follow-up, and physician-to-physician handoff within the TLC network.',
       'Your contact information may be used to send appointment reminders, programme updates, results notifications, and (with your explicit consent) educational content about longevity medicine.',
       'We do not sell your personal information. Ever. To anyone.',
     ],
@@ -32,9 +32,9 @@ const SECTIONS = [
     n: '03',
     title: 'Sharing Your Information',
     body: [
-      'Within the TLC physician panel — every doctor on your care team has access to your complete medical record so that decisions are informed and consistent.',
-      'With our diagnostic partner laboratories — including our Netherlands genomic partner — strictly for processing the samples you have authorised. These labs operate under their own data-protection regimes (GDPR for European labs).',
-      'When required by law — court order, valid subpoena, or statutory obligation under Indian law.',
+      'Within the TLC physician panel, every doctor on your care team has access to your complete medical record so that decisions are informed and consistent.',
+      'With our diagnostic partner laboratories including our Netherlands genomic partner strictly for processing the samples you have authorised. These labs operate under their own data-protection regimes (GDPR for European labs).',
+      'When required by law, court order, valid subpoena, or statutory obligation under Indian law.',
       'We do not share your information for marketing, advertising, or any commercial purpose outside of your direct clinical care.',
     ],
   },
@@ -44,14 +44,14 @@ const SECTIONS = [
     body: [
       'Your records are stored on encrypted servers within India, with role-based access controls so that only authorised members of your care team can view them.',
       'Diagnostic samples shipped abroad are processed under chain-of-custody documentation and destroyed after analysis per the partner laboratory\'s retention policy (typically 90 days for residual samples).',
-      'We retain medical records for the duration legally required under Indian medical practice rules — typically 10 years after the last consultation.',
+      'We retain medical records for the duration legally required under Indian medical practice rules, typically 10 years after the last consultation.',
     ],
   },
   {
     n: '05',
     title: 'Your Rights',
     body: [
-      'You have the right to access your complete medical record at any time — written request to info@thelongevitycentre.co gets you a copy within 30 days.',
+      'You have the right to access your complete medical record at any time, written request to info@thelongevitycentre.co gets you a copy within 30 days.',
       'You can correct any inaccuracies in your information.',
       'You can withdraw consent for any non-essential processing (newsletters, educational content, etc.) at any time.',
       'You can request deletion of your information, subject to medical-record retention requirements under Indian law.',
@@ -82,13 +82,13 @@ const SECTIONS = [
     n: '09',
     title: 'Contact',
     body: [
-      'For any privacy-related question, request, or complaint — email info@thelongevitycentre.co or call +91 88268 09123. Our Data Protection Officer responds within 5 working days.',
+      'For any privacy-related question, request, or complaint, email info@thelongevitycentre.co or call +91 88268 09123. Our Data Protection Officer responds within 5 working days.',
     ],
   },
 ]
 
 const META = {
-  title: 'Privacy Policy · TLC — The Longevity Centre',
+  title: 'Privacy Policy · TLC, The Longevity Centre',
   description:
     'How The Longevity Centre collects, uses, stores, and protects your personal and medical information. Privacy is a clinical responsibility, not just a legal one.',
   path: '/privacy',
@@ -140,7 +140,7 @@ export function PrivacyPage() {
         />
         <div className="relative z-10 max-w-[820px] mx-auto">
           <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-            — Privacy Policy —
+            Privacy Policy
           </div>
           <h1 className="font-display font-light text-[36px] md:text-[52px] xl:text-[60px] leading-[1.05] tracking-[-0.025em] text-ink mb-6">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -154,7 +154,7 @@ export function PrivacyPage() {
           <p className="text-[14.5px] md:text-[16px] leading-[1.65] text-graphite font-light max-w-[600px] mb-6">
             This policy describes what we collect, how we use it, where it
             lives, and the rights you hold over it. Privacy at TLC is a
-            clinical responsibility — not a legal afterthought.
+            clinical responsibility, not a legal afterthought.
           </p>
           <div className="text-[11px] tracking-[0.32em] uppercase text-stone font-semibold">
             Last updated · April 2026

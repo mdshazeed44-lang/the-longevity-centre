@@ -284,7 +284,7 @@ export function Header() {
               }
             }}
             className="shrink-0 pl-2 md:pl-3 flex items-center"
-            aria-label="The Longevity Centre — home"
+            aria-label="The Longevity Centre, home"
           >
             <Logo variant="dark" size={36} />
           </a>
@@ -387,7 +387,7 @@ export function Header() {
             <a
               href="/"
               onClick={() => setMenuOpen(false)}
-              aria-label="The Longevity Centre — home"
+              aria-label="The Longevity Centre, home"
               className="text-ink"
             >
               <Logo variant="dark" size={40} />

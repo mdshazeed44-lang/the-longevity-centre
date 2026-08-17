@@ -44,7 +44,7 @@ function NotFound({ slug }: { slug: string }) {
     <div className="bg-white min-h-screen flex items-center justify-center px-6 py-32">
       <div className="text-center max-w-[520px]">
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
-          — Programme Not Found —
+          Programme Not Found
         </div>
         <h1 className="font-display font-light text-[32px] md:text-[44px] leading-[1.1] tracking-[-0.025em] text-ink mb-6">
           We couldn't find a programme called{' '}
@@ -251,7 +251,7 @@ function DesignedFor({ p }: { p: Program }) {
       <div className="relative z-10 max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
         <div>
           <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-            — Designed For —
+            Designed For
           </div>
           <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -294,7 +294,7 @@ function Diagnostics({ p }: { p: Program }) {
       <div className="max-w-[1180px] mx-auto">
         <div className="text-center mb-14 md:mb-16 max-w-[760px] mx-auto">
           <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-            — Comprehensive Diagnostics —
+            Comprehensive Diagnostics
           </div>
           <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -331,7 +331,7 @@ function Diagnostics({ p }: { p: Program }) {
         {p.optionalAddons && p.optionalAddons.length > 0 && (
           <div className="fade-up mt-12 max-w-[920px] mx-auto text-center">
             <div className="text-[10px] tracking-[0.32em] uppercase text-iguana font-semibold mb-4">
-              — Optional Add-ons —
+              Optional Add-ons
             </div>
             <div className="flex flex-wrap gap-2 justify-center">
               {p.optionalAddons.map((a, i) => (
@@ -379,7 +379,7 @@ function CareModel({ p }: { p: Program }) {
       <div className="relative z-10 max-w-[1180px] mx-auto grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-start">
         <div>
           <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-6">
-            — Care Model —
+            Care Model
           </div>
           <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-white">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -418,7 +418,7 @@ function Outcomes({ p }: { p: Program }) {
       <div className="relative z-10 max-w-[1280px] mx-auto">
         <div className="text-center mb-14 md:mb-16 max-w-[760px] mx-auto">
           <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-            — Expected Outcomes —
+            Expected Outcomes
           </div>
           <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -463,7 +463,7 @@ function Difference({ p }: { p: Program }) {
     <section ref={ref} className="py-24 md:py-36 px-6 md:px-12 bg-white">
       <div className="max-w-[920px] mx-auto text-center">
         <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-8">
-          — The TLC Difference —
+          The TLC Difference
         </div>
         <p className="font-display font-light text-[24px] md:text-[36px] xl:text-[44px] leading-[1.25] tracking-[-0.02em] text-ink">
           <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -488,7 +488,7 @@ function Related({ p }: { p: Program }) {
         <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-16 items-end mb-12 md:mb-14">
           <div>
             <div className="fade-up text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-6">
-              — Other Programmes —
+              Other Programmes
             </div>
             <h2 className="font-display font-light text-[30px] md:text-[44px] leading-[1.05] tracking-[-0.025em] text-ink">
               <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -563,14 +563,14 @@ function FinalCta({ p }: { p: Program }) {
 
       <div className="relative z-10 max-w-[920px] mx-auto text-center">
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust-soft font-semibold mb-8">
-          — Begin —
+          Begin
         </div>
         <h2 className="font-display font-light text-[30px] md:text-[52px] xl:text-[64px] leading-[1.05] tracking-[-0.03em] mb-7">
           Begin with a comprehensive{' '}
           <span className="font-bold text-rust-soft">assessment.</span>
         </h2>
         <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-white/75 font-light max-w-[560px] mx-auto mb-12">
-          A 30-minute conversation with a senior physician — no commitment. Decide whether the {p.shortTitle} programme is right for you.
+          A 30-minute conversation with a senior physician, no commitment. Decide whether the {p.shortTitle} programme is right for you.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
@@ -621,7 +621,7 @@ export function ProgramDetailPage() {
       : 'Programme · TLC',
     description: program
       ? program.focus
-      : 'Programme details — The Longevity Centre.',
+      : 'Programme details, The Longevity Centre.',
     path: `/programs/${slug}`,
     jsonLd: program
       ? [

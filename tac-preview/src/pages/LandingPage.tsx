@@ -61,7 +61,7 @@ export function LandingPage() {
       <main className="min-h-screen flex items-center justify-center bg-cream px-6 pt-24">
         <div className="text-center max-w-md">
           <div className="text-[10px] tracking-[0.32em] uppercase text-rust font-semibold mb-4">
-            — 404 —
+            404
           </div>
           <h1 className="font-display font-bold text-[32px] leading-[1.15] text-ink mb-4">
             Page not found.
@@ -91,7 +91,7 @@ export function LandingPage() {
       {/* HERO */}
       <header className="px-6 md:px-12 max-w-[920px] mx-auto mb-10 md:mb-14">
         <div className="text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
-          — {landing.eyebrow} —
+          {landing.eyebrow}
         </div>
         <h1 className="font-display font-bold text-[36px] md:text-[56px] leading-[1.08] tracking-[-0.02em] text-ink mb-6">
           {landing.h1}
@@ -121,13 +121,13 @@ export function LandingPage() {
         {/* CTA */}
         <div className="mt-16 p-8 md:p-12 bg-ink text-white rounded-3xl text-center">
           <div className="text-[10px] tracking-[0.32em] uppercase text-rust-soft font-semibold mb-3">
-            — Speak with our team —
+            Speak with our team
           </div>
           <h3 className="font-display font-bold text-[24px] md:text-[32px] leading-[1.15] tracking-[-0.015em] mb-4">
             Personalised longevity care, delivered by physicians.
           </h3>
           <p className="text-[14px] md:text-[15px] leading-[1.6] text-white/70 max-w-[520px] mx-auto mb-7">
-            A 30-minute consultation with TLC's clinical team — designed around
+            A 30-minute consultation with TLC's clinical team, designed around
             your biology, not a template. Six centres across India.
           </p>
           <a

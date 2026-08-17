@@ -18,7 +18,7 @@ const STEPS = [
     n: '02',
     title: 'Personalised Intervention',
     desc:
-      'Targeted protocols for weight loss, diabetes & PCOD control, gut repair, hormonal balance and skin/hair anti-aging — built around your reports.',
+      'Targeted protocols for weight loss, diabetes & PCOD control, gut repair, hormonal balance and skin/hair anti-aging, built around your reports.',
     img: '/clinic-photos/personalised-intervention.jpg?v=2',
   },
   {
@@ -32,14 +32,14 @@ const STEPS = [
     n: '04',
     title: '12-Month Nourishment',
     desc:
-      'Anti-aging, nutritionist and dermatologist follow-ups — virtual or in-person — with oral supplement maintenance.',
+      'Anti-aging, nutritionist and dermatologist follow-ups virtual or in-person with oral supplement maintenance.',
     img: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1600&q=85',
   },
   {
     n: '05',
     title: 'A Reformed Life',
     desc:
-      'After the 12-month programme our patients lead a reformed life — expanded lifespan, restored vitality and a measurably better quality of life.',
+      'After the 12-month programme our patients lead a reformed life, expanded lifespan, restored vitality and a measurably better quality of life.',
     img: '/clinic-photos/reformed-life.jpg',
   },
 ]

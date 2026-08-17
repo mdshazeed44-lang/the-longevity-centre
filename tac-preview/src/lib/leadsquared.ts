@@ -102,7 +102,7 @@ export async function submitToLeadSquared(
 
     if (!res.ok) {
       console.warn(
-        `[LSQ] HTTP ${res.status} from Lead Capture API — lead NOT pushed to CRM. WhatsApp + brochure still delivered.`
+        `[LSQ] HTTP ${res.status} from Lead Capture API, lead NOT pushed to CRM. WhatsApp + brochure still delivered.`
       )
       return false
     }

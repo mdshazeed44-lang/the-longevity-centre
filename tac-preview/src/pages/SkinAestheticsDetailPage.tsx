@@ -111,7 +111,7 @@ export function SkinAestheticsDetailPage() {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center px-6 text-center">
         <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-4">
-          — Not found —
+          Not found
         </div>
         <h1 className="font-display font-light text-[34px] md:text-[50px] leading-[1.05] tracking-[-0.025em] text-ink mb-6">
           That treatment doesn't exist.
@@ -162,7 +162,7 @@ export function SkinAestheticsDetailPage() {
             {/* Copy */}
             <div>
               <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-                — {t.eyebrow} —
+                {t.eyebrow}
               </div>
               <h1 className="font-display font-light text-[36px] md:text-[58px] xl:text-[68px] leading-[1.0] tracking-[-0.03em] text-ink mb-7 max-w-[780px]">
                 <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -224,7 +224,7 @@ export function SkinAestheticsDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-ink/10 rounded-2xl overflow-hidden border border-ink/10">
             <article className="fade-up bg-white p-7 md:p-10">
               <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
-                — What it treats —
+                What it treats
               </div>
               <ul className="space-y-3.5">
                 {t.treats.map((x) => (
@@ -243,7 +243,7 @@ export function SkinAestheticsDetailPage() {
             </article>
             <article className="fade-up bg-white p-7 md:p-10">
               <div className="text-[10.5px] tracking-[0.32em] uppercase text-rust font-semibold mb-5">
-                — Key benefits —
+                Key benefits
               </div>
               <ul className="space-y-3.5">
                 {t.benefits.map((x) => (

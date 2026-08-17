@@ -17,9 +17,9 @@ import { BrandAmbassadorHero } from '../components/sections/BrandAmbassadorHero'
 import { useDocumentMeta } from '../lib/seo'
 
 const HOME_META = {
-  title: 'TLC — Precision Longevity Medicine, India · 6 Centres',
+  title: 'TLC, Precision Longevity Medicine, India · 6 Centres',
   description:
-    "The Longevity Centre (TLC) — India's first doctor-led longevity programme. Diagnostics-led metabolic, gut, weight & biological-age care across 6 centres.",
+    "The Longevity Centre (TLC), India's first doctor-led longevity programme. Diagnostics-led metabolic, gut, weight & biological-age care across 6 centres.",
   path: '/',
   ogImage: '/og/home.jpg',
   jsonLd: [
@@ -30,7 +30,7 @@ const HOME_META = {
       '@type': 'WebPage',
       '@id': 'https://thelongevitycentre.co/#webpage',
       url: 'https://thelongevitycentre.co/',
-      name: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
+      name: 'TLC, The Longevity Centre · Precision Longevity Medicine, India',
       isPartOf: { '@id': 'https://thelongevitycentre.co/#website' },
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       primaryImageOfPage: 'https://thelongevitycentre.co/og/home.jpg',

@@ -197,7 +197,7 @@ export function ProgramsHome() {
           </div>
           <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite md:pb-4 max-w-[440px] font-light">
             Each programme is led by a dedicated specialist, but all run inside
-            one shared medical record — diagnostics-led, physician-guided, and
+            one shared medical record, diagnostics-led, physician-guided, and
             continuously refined.
           </p>
         </div>

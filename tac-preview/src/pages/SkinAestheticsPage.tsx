@@ -23,9 +23,9 @@ import { SKIN_TREATMENTS } from '../lib/skin-treatments'
 gsap.registerPlugin(ScrollTrigger)
 
 const META = {
-  title: 'Skin & Aesthetics · TLC — The Longevity Centre',
+  title: 'Skin & Aesthetics · TLC, The Longevity Centre',
   description:
-    'Dermatology-led anti-aging skin clinic at TLC — pigmentation, acne, dullness, fine lines, wrinkles. Lasers, peels, injectables, facials by physicians.',
+    'Dermatology-led anti-aging skin clinic at TLC, pigmentation, acne, dullness, fine lines, wrinkles. Lasers, peels, injectables, facials by physicians.',
   path: '/skin-aesthetics',
   ogImage: '/og/skin-aesthetics.jpg',
   jsonLd: [
@@ -47,19 +47,19 @@ const WHY_CHOOSE = [
     n: '01',
     title: 'Expert team',
     body:
-      'Dermatologist-led care with extensive clinical experience — every procedure performed by a qualified physician, never a technician.',
+      'Dermatologist-led care with extensive clinical experience, every procedure performed by a qualified physician, never a technician.',
   },
   {
     n: '02',
     title: 'World-class facilities',
     body:
-      'Luxurious clinical environments designed for comfort and privacy — across our centres in Delhi, Gurgaon, Pune and Bangalore.',
+      'Luxurious clinical environments designed for comfort and privacy, across our centres in Delhi, Gurgaon, Pune and Bangalore.',
   },
   {
     n: '03',
     title: 'Personalised care',
     body:
-      'No package deals on the cell. Treatment plans are customised to your skin, your goals, and your timeline — and revised as your skin responds.',
+      'No package deals on the cell. Treatment plans are customised to your skin, your goals, and your timeline, and revised as your skin responds.',
   },
   {
     n: '04',
@@ -71,7 +71,7 @@ const WHY_CHOOSE = [
     n: '05',
     title: 'Proven outcomes',
     body:
-      'A track record of successful treatments — backed by photographic comparison, clinical scoring, and ongoing review at every visit.',
+      'A track record of successful treatments, backed by photographic comparison, clinical scoring, and ongoing review at every visit.',
   },
 ]
 
@@ -122,7 +122,7 @@ export function SkinAestheticsPage() {
         />
         <div className="relative z-10 max-w-[1180px] mx-auto">
           <div className="text-[10.5px] tracking-[0.42em] uppercase text-rust font-semibold mb-5">
-            — Skin & Aesthetics —
+            Skin & Aesthetics
           </div>
           <h1 className="font-display font-light text-[40px] md:text-[64px] xl:text-[78px] leading-[1.0] tracking-[-0.03em] text-ink mb-8 max-w-[1000px]">
             <span className="line-mask inline-block overflow-hidden align-bottom">
@@ -136,7 +136,7 @@ export function SkinAestheticsPage() {
           </h1>
           <p className="text-[15px] md:text-[17.5px] leading-[1.7] text-graphite font-light max-w-[700px] mb-10">
             Treatments for pigmentation, acne and acne scars, dullness, fine
-            lines and wrinkles — using lasers, peels, injectables and advanced
+            lines and wrinkles, using lasers, peels, injectables and advanced
             facials. Every protocol led by a physician, backed by diagnostics,
             and timed to your skin's regeneration cycle.
           </p>
@@ -404,7 +404,7 @@ export function SkinAestheticsPage() {
                 src="/longevity/milind-skin.webp?v=3"
                 width={1000}
                 height={660}
-                alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                alt="Milind Soman, Brand Ambassador, The Longevity Centre"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center"
@@ -442,7 +442,7 @@ export function SkinAestheticsPage() {
               <span className="font-bold italic text-rust">its own terms.</span>
             </h2>
             <p className="text-[14.5px] md:text-[16px] leading-[1.75] text-graphite font-light max-w-[540px] mb-5">
-              At 60, Milind Soman is the clearest proof of what TLC stands for —
+              At 60, Milind Soman is the clearest proof of what TLC stands for, 
               that vitality, skin and strength are not surrendered to age, they
               are maintained by intention. He doesn&rsquo;t chase a younger face;
               he keeps a healthier one.

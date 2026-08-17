@@ -61,7 +61,7 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
   path: '/gut-metabolic-india-lp',
   title: 'Gut & Metabolic Programme in India · Heal Your Gut · TLC',
   description:
-    'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 6 TLC centres in India.',
+    'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal, across 6 TLC centres in India.',
   eyebrow: "India's Premier Gut & Metabolic Programme",
   headlineLine1: 'Heal your gut.',
   headlineLine2: 'Optimise your metabolism.',
@@ -72,11 +72,11 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
   // ── Benefits section override — gut/metabolic specific. Uses the
   // existing brand mood imagery from public/longevity/brand/ so we
   // don't have to ship new assets.
-  benefitsEyebrow: '— Outcomes —',
+  benefitsEyebrow: 'Outcomes',
   benefitsHeadlineLine1: 'Heal from within.',
   benefitsHeadlineLine2: 'Measurably better.',
   benefitsBody:
-    'Every outcome is paired with a re-test at programme completion — your gut microbiome, metabolic markers and inflammation panel are measured before and after, not promised.',
+    'Every outcome is paired with a re-test at programme completion, your gut microbiome, metabolic markers and inflammation panel are measured before and after, not promised.',
   benefits: [
     {
       n: '01',
@@ -84,7 +84,7 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
       body:
         'Whole-genomic sequencing maps your gut. Targeted pre-/probiotic, fibre and polyphenol protocols rebuild bacterial diversity month over month.',
       img: '/longevity/brand/mood-leaf-skeleton.jpg',
-      alt: 'Skeleton leaf — delicate microbial diversity',
+      alt: 'Skeleton leaf, delicate microbial diversity',
     },
     {
       n: '02',
@@ -92,7 +92,7 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
       body:
         'Inflammation markers (CRP, calprotectin, leaky-gut panel) brought down by personalised gut-healing protocols and root-cause correction.',
       img: '/longevity/brand/mood-water-ripple.jpg',
-      alt: 'Calm water ripple — reduced gut inflammation',
+      alt: 'Calm water ripple, reduced gut inflammation',
     },
     {
       n: '03',
@@ -100,15 +100,15 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
       body:
         'Targeted food-sensitivity testing, enzyme support, and FODMAP-aware nutrition put an end to IBS-style discomfort and chronic bloating.',
       img: '/longevity/brand/mood-zen-sand.jpg',
-      alt: 'Zen sand garden — calm digestion',
+      alt: 'Zen sand garden, calm digestion',
     },
     {
       n: '04',
       title: 'Ideal body composition',
       body:
-        'Fat down, lean mass preserved. BCA-tracked, physician-guided — measured beyond the bathroom scale.',
+        'Fat down, lean mass preserved. BCA-tracked, physician-guided, measured beyond the bathroom scale.',
       img: '/longevity/body-composition-pose.jpg',
-      alt: 'Nutrition bowl — ideal body composition',
+      alt: 'Nutrition bowl, ideal body composition',
     },
     {
       n: '05',
@@ -116,31 +116,31 @@ export const GUT_METABOLIC_CAMPAIGN: Campaign = {
       body:
         'Fasting glucose, HbA1c and insulin sensitivity restored. Personalised nutrition + targeted therapeutics stop metabolic drift.',
       img: '/longevity/performance-cyclist-v2.jpg',
-      alt: 'Cyclist — stable blood sugar and metabolism',
+      alt: 'Cyclist, stable blood sugar and metabolism',
     },
     {
       n: '06',
       title: 'Hormonal balance restored',
       body:
-        'Thyroid, cortisol, insulin, sex hormones — corrected, then monitored. Mood, energy and weight follow the panel.',
+        'Thyroid, cortisol, insulin, sex hormones, corrected, then monitored. Mood, energy and weight follow the panel.',
       img: '/longevity/brand/mood-hands-pose.jpg',
-      alt: 'Elegant hands pose — hormonal balance',
+      alt: 'Elegant hands pose, hormonal balance',
     },
     {
       n: '07',
       title: 'Higher energy &  clearer mood',
       body:
-        'A healthy gut and stable hormones translate to mitochondrial efficiency. Stop relying on caffeine — your biochemistry does the work.',
+        'A healthy gut and stable hormones translate to mitochondrial efficiency. Stop relying on caffeine, your biochemistry does the work.',
       img: '/longevity/brand/mood-forest-light.jpg',
-      alt: 'Forest light — higher energy and clearer mood',
+      alt: 'Forest light, higher energy and clearer mood',
     },
     {
       n: '08',
       title: 'Healthier skin from within',
       body:
-        'The gut–skin axis: cleared inflammation and balanced hormones show up as clearer, brighter, more resilient skin.',
+        'The gut-skin axis: cleared inflammation and balanced hormones show up as clearer, brighter, more resilient skin.',
       img: '/longevity/brand/mood-terracotta.jpg',
-      alt: 'Terracotta texture — healthy skin from within',
+      alt: 'Terracotta texture, healthy skin from within',
     },
   ],
 }

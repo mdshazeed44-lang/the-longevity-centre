@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger)
 const ABOUT_META = {
   title: 'About TLC · Founders, Vision & Specialist Team',
   description:
-    'Meet the founders — Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 8,000+ pregnancies). 20+ years of preventive medicine.',
+    'Meet the founders, Dr. Abhinav Sharma (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF, 8,000+ pregnancies). 20+ years of preventive medicine.',
   path: '/about-us',
   ogImage: '/og/about.jpg',
   jsonLd: [
@@ -24,7 +24,7 @@ const ABOUT_META = {
       '@type': 'AboutPage',
       '@id': 'https://thelongevitycentre.co/about-us#webpage',
       url: 'https://thelongevitycentre.co/about-us',
-      name: 'About TLC — Leaders in Preventive & Anti-Aging Medicine, India',
+      name: 'About TLC, Leaders in Preventive & Anti-Aging Medicine, India',
       isPartOf: { '@id': 'https://thelongevitycentre.co/#organization' },
       about: { '@id': 'https://thelongevitycentre.co/#organization' },
       inLanguage: 'en-IN',
@@ -342,7 +342,7 @@ export function AboutPage() {
           </h1>
 
           <p className="mt-6 text-[15px] md:text-[17px] leading-[1.65] text-white/75 max-w-[640px] font-light">
-            Where serenity, aesthetics and sophistication meet — TLC is built
+            Where serenity, aesthetics and sophistication meet, TLC is built
             around personalised care for longevity, metabolic health, gut
             balance, weight loss and elegant anti-aging treatments. Led by a
             team with over twenty years of preventive-medicine experience.
@@ -456,13 +456,13 @@ export function AboutPage() {
             <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
               <p>
                 TLC is India's premier longevity and metabolic medicine clinic
-                — a precision-medicine centre where every protocol begins with
+, a precision-medicine centre where every protocol begins with
                 diagnostics and every program is built around one patient: you.
               </p>
               <p>
                 Our physicians bring together expertise in endocrinology,
                 metabolic medicine, gut health, regenerative science, and
-                anti-aging — each with more than twenty years of clinical
+                anti-aging, each with more than twenty years of clinical
                 experience.
               </p>
               <ul className="grid grid-cols-2 gap-x-6 gap-y-3 pt-3 mt-3 border-t border-mist/70">
@@ -516,8 +516,8 @@ export function AboutPage() {
             <div className="space-y-5 text-[15px] md:text-[16.5px] leading-[1.7] text-graphite font-light">
               <p>
                 There are places in the world where living to one hundred is
-                not exceptional. It is ordinary. The Blue Zones — Sardinia,
-                Okinawa, Ikaria, Loma Linda, Nicoya — are home to the highest
+                not exceptional. It is ordinary. The Blue Zones, Sardinia,
+                Okinawa, Ikaria, Loma Linda, Nicoya, are home to the highest
                 concentrations of centenarians on earth.
               </p>
               <p>
@@ -525,7 +525,7 @@ export function AboutPage() {
                 through a way of living that keeps their biology young.
               </p>
               <p className="text-ink font-medium">
-                At TLC, our mission is to bring that possibility to you — not
+                At TLC, our mission is to bring that possibility to you, not
                 through chance, but through science. We combine the most
                 advanced tools of longevity medicine with deeply personalised
                 clinical care to help our patients achieve what the Blue Zones
@@ -584,7 +584,7 @@ export function AboutPage() {
             </h2>
             <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light">
               The most powerful moment in medicine is not when disease is
-              diagnosed — it is the years before, when the biology that will
+              diagnosed, it is the years before, when the biology that will
               eventually produce that disease can still be read, understood,
               and changed. Every TLC programme is built on three principles.
             </p>
@@ -600,12 +600,12 @@ export function AboutPage() {
               {
                 n: '02',
                 title: 'Personalise completely',
-                body: "Your biology is unlike anyone else's. Your programme — your diagnostics, your protocol, your nutrition, your tracking — is designed entirely around you.",
+                body: "Your biology is unlike anyone else's. Your programme your diagnostics, your protocol, your nutrition, your tracking is designed entirely around you.",
               },
               {
                 n: '03',
                 title: 'Optimise continuously',
-                body: 'Longevity is not a destination. It is a practice. Your programme evolves as your data does — refined at every visit, tracked every day.',
+                body: 'Longevity is not a destination. It is a practice. Your programme evolves as your data does, refined at every visit, tracked every day.',
               },
             ].map((p) => (
               <article key={p.n} className="bg-white p-7 md:p-8 flex flex-col">
@@ -626,7 +626,7 @@ export function AboutPage() {
           <div className="mt-12 max-w-[760px] mx-auto text-center">
             <p className="font-display italic text-[18px] md:text-[22px] leading-[1.45] text-ink">
               This is not conventional medicine. It is medicine as it should
-              always have been —{' '}
+              always have been, {' '}
               <span className="text-rust font-bold not-italic">
                 proactive, precise, and built around the person in front of us.
               </span>
@@ -663,7 +663,7 @@ export function AboutPage() {
           <div className="space-y-5 text-[14.5px] md:text-[16.5px] leading-[1.75] text-white/80 font-light max-w-[720px] mx-auto">
             <p>
               We founded TLC with one conviction: that modern medicine arrives
-              too late. We wait for disease to declare itself — and then we
+              too late. We wait for disease to declare itself, and then we
               treat it. But the biology of illness begins years, sometimes
               decades, before any symptom appears. By then, precious time has
               already been lost.
@@ -671,13 +671,13 @@ export function AboutPage() {
             <p>
               We wanted to build something different. A place where science
               meets you before disease does. Where your biology is read in
-              full — at the genetic, cellular, and microbial level — and where
+              full at the genetic, cellular, and microbial level and where
               the finest tools of longevity medicine are used not to manage
               decline, but to prevent it entirely.
             </p>
             <p className="text-white font-medium">
               At TLC, we do not treat patients. We partner with individuals who
-              have decided that aging on their own terms is not a luxury — it
+              have decided that aging on their own terms is not a luxury, it
               is a right. That conviction is the foundation of everything we do.
             </p>
           </div>
@@ -721,7 +721,7 @@ export function AboutPage() {
             </div>
             <p className="text-[15px] md:text-[17px] leading-[1.7] text-graphite/80 font-light md:max-w-[460px] md:pb-2">
               Two decades of clinical practice. Eighteen-thousand procedures
-              between them. One conviction — that ageing should be measured,
+              between them. One conviction, that ageing should be measured,
               not managed.
             </p>
           </div>
@@ -810,7 +810,7 @@ export function AboutPage() {
           <div className="grid md:grid-cols-[1.15fr_1fr] gap-10 md:gap-16 items-end mb-12 md:mb-14">
             <div>
               <div className="text-[11px] tracking-[0.42em] text-rust font-semibold uppercase mb-5">
-                — Our European Partnership · The Netherlands Laboratory —
+                Our European Partnership · The Netherlands Laboratory
               </div>
               <h2 className="font-display font-light text-[30px] md:text-[44px] xl:text-[52px] leading-[1.05] tracking-[-0.025em] text-ink">
                 <span className="line-mask">
@@ -824,7 +824,7 @@ export function AboutPage() {
             </div>
             <p className="text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[440px] md:pb-2">
               For our most advanced diagnostics, TLC partners exclusively with
-              a specialist laboratory in the Netherlands — one of Europe's
+              a specialist laboratory in the Netherlands, one of Europe's
               foremost centres for genomic and epigenomic science.
             </p>
           </div>
@@ -834,17 +834,17 @@ export function AboutPage() {
               {
                 tag: '323 Genes & SNPs',
                 title: 'Complete Genetic Blueprint',
-                body: 'Genetic profile across metabolism, longevity, hormonal health and cardiovascular risk. Not a partial panel — the full picture. Most clinics test fewer than 99 genes; we test 323.',
+                body: 'Genetic profile across metabolism, longevity, hormonal health and cardiovascular risk. Not a partial panel, the full picture. Most clinics test fewer than 99 genes; we test 323.',
               },
               {
                 tag: 'Epigenetic Age',
                 title: 'GrimAge + PhenoAge',
-                body: 'The two most scientifically validated epigenetic clocks in clinical medicine — analysing DNA methylation across 9 million base pairs. The most accurate measure of biological age available anywhere.',
+                body: 'The two most scientifically validated epigenetic clocks in clinical medicine, analysing DNA methylation across 9 million base pairs. The most accurate measure of biological age available anywhere.',
               },
               {
                 tag: 'Whole-Genome Microbiome',
                 title: 'Every Microbial Species, Sequenced',
-                body: 'Complete sequencing of every microbial species in your gut — the gold standard, as opposed to the partial 16S rRNA sequencing used by most clinics globally.',
+                body: 'Complete sequencing of every microbial species in your gut, the gold standard, as opposed to the partial 16S rRNA sequencing used by most clinics globally.',
               },
             ].map((p, i) => (
               <article key={p.title} className="bg-white p-7 md:p-8 flex flex-col">
@@ -871,7 +871,7 @@ export function AboutPage() {
               limited genomic capability. At TLC, our European partnership
               ensures the science underpinning your programme is held to the{' '}
               <span className="text-rust font-bold not-italic">highest global standard</span>{' '}
-              — because when it comes to your biology, there is no acceptable
+, because when it comes to your biology, there is no acceptable
               margin for a partial picture.
             </p>
           </div>
@@ -903,7 +903,7 @@ export function AboutPage() {
             <p className="mt-7 text-[14.5px] md:text-[16px] leading-[1.7] text-graphite font-light max-w-[640px] mx-auto">
               A multidisciplinary panel of longevity physicians,
               endocrinologists, metabolic specialists and consultants. Every
-              patient is cared for by a team — not a single doctor — that
+              patient is cared for by a team not a single doctor that
               holds your complete biological picture.
             </p>
           </div>
@@ -1019,7 +1019,7 @@ export function AboutPage() {
                   src="/longevity/milind-skin.webp?v=3"
                   width={1000}
                   height={660}
-                  alt="Milind Soman — Brand Ambassador, The Longevity Centre"
+                  alt="Milind Soman, Brand Ambassador, The Longevity Centre"
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover object-center"

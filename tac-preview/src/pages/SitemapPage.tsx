@@ -27,7 +27,7 @@ import { CENTRES } from '../lib/centres'
 const META = {
   title: 'Sitemap · The Longevity Centre',
   description:
-    "Full index of every public page on The Longevity Centre — programmes, diagnostics, skin & aesthetics treatments, clinics, journal and resource pages.",
+    "Full index of every public page on The Longevity Centre, programmes, diagnostics, skin & aesthetics treatments, clinics, journal and resource pages.",
   path: '/sitemap',
   ogImage: '/og/home.jpg',
 }
@@ -35,7 +35,7 @@ const META = {
 const TOP_LEVEL: { href: string; label: string }[] = [
   { href: '/', label: 'Home' },
   { href: '/about-us', label: 'About TLC' },
-  { href: '/longevity-program', label: 'Longevity Programme — Flagship' },
+  { href: '/longevity-program', label: 'Longevity Programme, Flagship' },
   { href: '/programs', label: 'All Programmes' },
   { href: '/diagnostics', label: 'Diagnostics' },
   { href: '/skin-aesthetics', label: 'Skin & Aesthetics' },

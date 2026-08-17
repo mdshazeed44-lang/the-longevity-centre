@@ -162,7 +162,7 @@ function siteNav() {
 function siteFooter() {
   return `
 <footer>
-  <p><strong>The Longevity Centre (TLC)</strong> — India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Six centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur and Bangalore.</p>
+  <p><strong>The Longevity Centre (TLC)</strong>, India's first doctor-led personalised longevity programme. Diagnostics-led, physician-guided care across longevity, metabolic, gut, weight loss and biological-age reversal. Six centres across India: Delhi, Gurgaon, Mumbai, Pune, Nagpur and Bangalore.</p>
   <p><a href="tel:+918826809123">+91 88268 09123</a> · <a href="mailto:info@thelongevitycentre.co">info@thelongevitycentre.co</a></p>
   <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sitemap">Sitemap</a></p>
   <p><small>Designed by <a href="https://www.incrementors.com/" rel="noopener">Incrementors</a></small></p>
@@ -219,7 +219,7 @@ function localBusinessLd(c) {
     // Same @id as the runtime CentreDetailPage node so Google merges the
     // static (crawler) and runtime (rendered) markup into ONE clinic entity.
     '@id': url + '#clinic',
-    name: 'The Longevity Centre — ' + c.city,
+    name: 'The Longevity Centre, ' + c.city,
     alternateName: 'TLC ' + c.city,
     description: c.description,
     parentOrganization: { '@id': SITE + '/#organization' },
@@ -300,7 +300,7 @@ const sitemapSections = [
     items: [
       { href: '/', label: 'Home' },
       { href: '/about-us', label: 'About TLC' },
-      { href: '/longevity-program', label: 'Longevity Programme — Flagship' },
+      { href: '/longevity-program', label: 'Longevity Programme, Flagship' },
       { href: '/programs', label: 'All Programmes' },
       { href: '/diagnostics', label: 'Diagnostics' },
       { href: '/skin-aesthetics', label: 'Skin & Aesthetics' },
@@ -374,7 +374,7 @@ const staticPages = [
     path: '/sitemap',
     title: 'Sitemap · The Longevity Centre',
     description:
-      'Full index of every public page on The Longevity Centre — programmes, diagnostics, skin & aesthetics treatments, clinics, journal and resource pages.',
+      'Full index of every public page on The Longevity Centre, programmes, diagnostics, skin & aesthetics treatments, clinics, journal and resource pages.',
     h1: 'Every page on The Longevity Centre',
     body: `
 <p>A complete index of programmes, diagnostics, skin and aesthetics treatments, clinics, journal articles and resource pages on TLC.</p>
@@ -391,18 +391,18 @@ ${sitemapBody}`.trim(),
 <h2>What&rsquo;s inside the programme</h2>
 <ul>
   <li>Three validated epigenetic clocks (Horvath, GrimAge, PhenoAge) tracked over 12 months</li>
-  <li>Whole-genomic sequencing — 9 million CpG methylation sites + full DNA</li>
-  <li>Gut microbiome mapping — shotgun sequencing, bacterial diversity, inflammation markers</li>
-  <li>Hormonal optimisation — thyroid, cortisol, sex hormones, growth markers</li>
-  <li>Metabolic correction — weight, insulin resistance, fatty liver, lipid profile</li>
+  <li>Whole-genomic sequencing, 9 million CpG methylation sites + full DNA</li>
+  <li>Gut microbiome mapping, shotgun sequencing, bacterial diversity, inflammation markers</li>
+  <li>Hormonal optimisation, thyroid, cortisol, sex hormones, growth markers</li>
+  <li>Metabolic correction, weight, insulin resistance, fatty liver, lipid profile</li>
   <li>Continuous physician care from a multidisciplinary panel</li>
 </ul>
-<h2>How it works — four phases</h2>
+<h2>How it works, four phases</h2>
 <ol>
-  <li><strong>Assessment</strong> — Blood, genomic, body composition, microbiome and biological-age tests in one visit.</li>
-  <li><strong>Analysis</strong> — Your specialist panel reads every marker against your goals.</li>
-  <li><strong>Intervention</strong> — Personalised nutrition, supplementation, hormone correction, lifestyle and therapeutics.</li>
-  <li><strong>Verification</strong> — Re-tested at completion. Progress made measurable, not promised.</li>
+  <li><strong>Assessment</strong>, Blood, genomic, body composition, microbiome and biological-age tests in one visit.</li>
+  <li><strong>Analysis</strong>, Your specialist panel reads every marker against your goals.</li>
+  <li><strong>Intervention</strong>, Personalised nutrition, supplementation, hormone correction, lifestyle and therapeutics.</li>
+  <li><strong>Verification</strong>, Re-tested at completion. Progress made measurable, not promised.</li>
 </ol>
 <h2>Founders &amp; team</h2>
 <p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of longevity physicians, endocrinologists and metabolic specialists.</p>
@@ -422,25 +422,25 @@ ${sitemapBody}`.trim(),
     path: '/gut-metabolic-india-lp',
     title: 'Gut & Metabolic Programme in India · Heal Your Gut · TLC',
     description:
-      'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal — across 6 TLC centres in India.',
+      'Doctor-led gut & metabolic programme. Microbiome sequencing, hormone correction, weight & inflammation reversal, across 6 TLC centres in India.',
     h1: 'Heal your gut. Optimise your metabolism.',
     body: `
 <p><strong>India's premier gut &amp; metabolic programme.</strong> A doctor-led, diagnostics-first protocol that maps your gut microbiome, corrects hormonal and metabolic drift, and tracks weight, inflammation and energy outcomes month-on-month.</p>
 <h2>What&rsquo;s inside the programme</h2>
 <ul>
-  <li>Whole-genomic gut microbiome sequencing — bacterial diversity, inflammation markers, food sensitivities</li>
-  <li>Comprehensive metabolic panel — 1000+ biomarkers across blood, hormones, lipids and inflammation</li>
-  <li>Personalised gut repair protocols — pre-/probiotics, fibre, polyphenols, targeted therapeutics</li>
-  <li>Hormonal correction — thyroid, cortisol, insulin sensitivity, sex hormones</li>
-  <li>Weight, fatty liver and PCOD reversal — physician-led, not generic diets</li>
+  <li>Whole-genomic gut microbiome sequencing, bacterial diversity, inflammation markers, food sensitivities</li>
+  <li>Comprehensive metabolic panel, 1000+ biomarkers across blood, hormones, lipids and inflammation</li>
+  <li>Personalised gut repair protocols, pre-/probiotics, fibre, polyphenols, targeted therapeutics</li>
+  <li>Hormonal correction, thyroid, cortisol, insulin sensitivity, sex hormones</li>
+  <li>Weight, fatty liver and PCOD reversal, physician-led, not generic diets</li>
   <li>Continuous physician care from a multidisciplinary panel</li>
 </ul>
-<h2>How it works — four phases</h2>
+<h2>How it works, four phases</h2>
 <ol>
-  <li><strong>Assessment</strong> — Gut, blood, hormone and body-composition tests in one visit.</li>
-  <li><strong>Analysis</strong> — Your specialist panel reads every marker against your goals and symptom history.</li>
-  <li><strong>Intervention</strong> — Personalised nutrition, supplementation, hormone correction, lifestyle and targeted gut therapeutics.</li>
-  <li><strong>Verification</strong> — Re-tested at completion. Progress made measurable, not promised.</li>
+  <li><strong>Assessment</strong>, Gut, blood, hormone and body-composition tests in one visit.</li>
+  <li><strong>Analysis</strong>, Your specialist panel reads every marker against your goals and symptom history.</li>
+  <li><strong>Intervention</strong>, Personalised nutrition, supplementation, hormone correction, lifestyle and targeted gut therapeutics.</li>
+  <li><strong>Verification</strong>, Re-tested at completion. Progress made measurable, not promised.</li>
 </ol>
 <h2>Founders &amp; team</h2>
 <p>Co-founded by <a href="/about-us">Dr. Abhinav Sharma</a> (MBBS, MS, 11,000+ surgeries) and Dr. Bhavna Sharma (IVF specialist, 8,000+ pregnancies), with a multidisciplinary panel of physicians, endocrinologists and metabolic specialists.</p>
@@ -458,18 +458,18 @@ ${sitemapBody}`.trim(),
   },
   {
     path: '/',
-    title: 'TLC — The Longevity Centre · Precision Longevity Medicine, India',
+    title: 'TLC, The Longevity Centre · Precision Longevity Medicine, India',
     description: 'India\'s first doctor-led longevity programme. Genomic diagnostics, hormonal optimisation, biological-age testing & aesthetics across 6 cities.',
     h1: 'The Longevity Centre · Age should never define you',
     body: `
-<p>The Longevity Centre (TLC) is India's first doctor-led longevity programme — built on twenty-plus years of preventive medicine and aesthetic expertise. We combine genomic diagnostics, hormonal optimisation, biological-age testing and advanced skin and hair science under one continuous care record.</p>
+<p>The Longevity Centre (TLC) is India's first doctor-led longevity programme, built on twenty-plus years of preventive medicine and aesthetic expertise. We combine genomic diagnostics, hormonal optimisation, biological-age testing and advanced skin and hair science under one continuous care record.</p>
 <h2>What we do</h2>
 <ul>
-  <li><a href="/longevity-program">Longevity Programme</a> — 12-month physician-guided plan with whole-body diagnostics and lifestyle therapeutics.</li>
-  <li><a href="/diagnostics">Precision Diagnostics</a> — 1000+ biomarkers including DNA methylation (GrimAge, PhenoAge), genomics, gut microbiome, hormones.</li>
-  <li><a href="/skin-aesthetics">Skin &amp; Aesthetics</a> — physician-led PRP, fillers, lasers, peels and longevity-grade skincare.</li>
-  <li><a href="/programs/cancer-prevention">Cancer Prevention</a> — early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
-  <li><a href="/about-us">Founders &amp; team</a> — Dr. Abhinav Sharma, Dr. Bhavna Sharma and a multidisciplinary panel of longevity physicians.</li>
+  <li><a href="/longevity-program">Longevity Programme</a>, 12-month physician-guided plan with whole-body diagnostics and lifestyle therapeutics.</li>
+  <li><a href="/diagnostics">Precision Diagnostics</a>, 1000+ biomarkers including DNA methylation (GrimAge, PhenoAge), genomics, gut microbiome, hormones.</li>
+  <li><a href="/skin-aesthetics">Skin &amp; Aesthetics</a>, physician-led PRP, fillers, lasers, peels and longevity-grade skincare.</li>
+  <li><a href="/programs/cancer-prevention">Cancer Prevention</a>, early-detection screening across 1000+ biomarkers and genetic risk panels.</li>
+  <li><a href="/about-us">Founders &amp; team</a>, Dr. Abhinav Sharma, Dr. Bhavna Sharma and a multidisciplinary panel of longevity physicians.</li>
 </ul>
 <h2>Our 6 centres across India</h2>
 <ul>
@@ -481,15 +481,15 @@ ${sitemapBody}`.trim(),
   <li><a href="/centres/bangalore">Bangalore</a></li>
 </ul>
 <h2>Read the journal</h2>
-<p>Explore <a href="/blog">our blog</a> — evidence-led pieces on longevity, hormone health, metabolic dysfunction, gut microbiome and skin science.</p>`.trim(),
+<p>Explore <a href="/blog">our blog</a>, evidence-led pieces on longevity, hormone health, metabolic dysfunction, gut microbiome and skin science.</p>`.trim(),
   },
   {
     path: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
-    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
+    description: 'Meet the founders of The Longevity Centre, 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
     h1: 'About The Longevity Centre',
     body: `
-<p>The Longevity Centre is India's first doctor-led longevity programme — built on ${htmlEscape(
+<p>The Longevity Centre is India's first doctor-led longevity programme, built on ${htmlEscape(
       (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.years) || '20+ years'
     )} of preventive medicine and aesthetic expertise, with a founding team credited with ${htmlEscape(
       (team.TEAM_EXPERIENCE && team.TEAM_EXPERIENCE.surgeries) || '11,000+ surgeries'
@@ -502,18 +502,18 @@ ${sitemapBody}`.trim(),
 ${(team.FOUNDERS || [])
   .map(
     (f) =>
-      `<h3>${htmlEscape(f.name)}${f.creds ? ' — ' + htmlEscape(f.creds) : ''}</h3>\n<p><strong>${htmlEscape(
+      `<h3>${htmlEscape(f.name)}${f.creds ? ', ' + htmlEscape(f.creds) : ''}</h3>\n<p><strong>${htmlEscape(
         f.role || ''
       )}.</strong> ${htmlEscape(f.bio || '')}</p>`
   )
   .join('\n')}
 <h2>Our specialist team</h2>
-<p>Every patient is cared for by a multidisciplinary panel — not a single doctor — that holds your complete biological picture:</p>
+<p>Every patient is cared for by a multidisciplinary panel not a single doctor that holds your complete biological picture:</p>
 <ul>
 ${(team.SPECIALISTS || [])
   .map(
     (s) =>
-      `<li><strong>${htmlEscape(s.name)}</strong>${s.creds ? ' — ' + htmlEscape(s.creds) : ''}${
+      `<li><strong>${htmlEscape(s.name)}</strong>${s.creds ? ', ' + htmlEscape(s.creds) : ''}${
         s.role ? ' · ' + htmlEscape(s.role) : ''
       }</li>`
   )
@@ -539,14 +539,14 @@ ${(team.SPECIALISTS || [])
     // page canonicals to /about-us instead.
     canonical: '/about-us',
     title: 'About TLC · Founders, Vision & Specialist Team',
-    description: 'Meet the founders of The Longevity Centre — 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
+    description: 'Meet the founders of The Longevity Centre, 20+ years of preventive medicine, longevity science and aesthetic expertise across 6 Indian cities.',
     h1: 'About The Longevity Centre',
     body: `<p>See <a href="/about-us">our full About page</a> for founder bios, the specialist team and our preventive medicine approach.</p>`,
   },
   {
     path: '/centres',
     title: 'Our Centres · TLC Clinics Across 6 Indian Cities',
-    description: 'TLC operates 6 clinics — Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
+    description: 'TLC operates 6 clinics, Delhi, Gurgaon, Mumbai, Pune, Nagpur, Bangalore. Diagnostics-led, physician-guided preventive medicine, one record.',
     h1: 'Our Centres',
     body: `
 <p>Six TLC clinics across India, all running the same diagnostic protocol and shared medical record. Pick a city to see address, phone, email and on-site facilities.</p>
@@ -561,7 +561,7 @@ ${(team.SPECIALISTS || [])
   },
   {
     path: '/contact',
-    title: 'Contact TLC — Book a 30-Minute Consultation',
+    title: 'Contact TLC, Book a 30-Minute Consultation',
     description: 'Book a consultation with the TLC clinical team across 6 Indian cities. Phone, email and address details for each centre.',
     h1: 'Contact The Longevity Centre',
     body: `
@@ -574,29 +574,29 @@ ${(team.SPECIALISTS || [])
   },
   {
     path: '/privacy',
-    title: 'Privacy Policy · TLC — The Longevity Centre',
+    title: 'Privacy Policy · TLC, The Longevity Centre',
     description: 'How The Longevity Centre handles personal and medical information across our clinics and digital products.',
     h1: 'Privacy Policy',
     body: `<p>How The Longevity Centre collects, stores and uses personal and medical information across our clinics, programmes and digital products. Read the full policy on the page.</p>`,
   },
   {
     path: '/terms',
-    title: 'Terms of Service · TLC — The Longevity Centre',
+    title: 'Terms of Service · TLC, The Longevity Centre',
     description: 'Terms governing your use of The Longevity Centre website and clinical services.',
     h1: 'Terms of Service',
     body: `<p>Terms governing your use of The Longevity Centre website, clinical services and programmes.</p>`,
   },
   {
     path: '/programs',
-    title: 'Programmes · TLC — Diagnostics-Led Longevity & Metabolic Care',
-    description: 'Seven flagship programmes — metabolic & weight, gut & microbiome, longevity-plus, cancer prevention, PCOD, diabetes reversal and advanced metabolomics.',
-    h1: 'Programmes — Diagnostics-Led, Physician-Guided',
+    title: 'Programmes · TLC, Diagnostics-Led Longevity & Metabolic Care',
+    description: 'Seven flagship programmes, metabolic & weight, gut & microbiome, longevity-plus, cancer prevention, PCOD, diabetes reversal and advanced metabolomics.',
+    h1: 'Programmes, Diagnostics-Led, Physician-Guided',
     body: `
-<p>Seven flagship programmes. Every one runs on the same shared medical record — diagnostics-led, physician-guided, continuously refined.</p>
+<p>Seven flagship programmes. Every one runs on the same shared medical record, diagnostics-led, physician-guided, continuously refined.</p>
 <ul>
   <li><a href="/programs/metabolic-weight-loss">Metabolic &amp; Weight Loss</a></li>
   <li><a href="/programs/gut-metabolic">Gut &amp; Metabolic</a></li>
-  <li><a href="/programs/longevity-plus">Longevity Plus</a> — flagship 12-month protocol</li>
+  <li><a href="/programs/longevity-plus">Longevity Plus</a>, flagship 12-month protocol</li>
   <li><a href="/programs/advanced-metabolomics">Advanced Metabolomics</a></li>
   <li><a href="/programs/diabetes-fatty-liver-reversal">Diabetes &amp; Fatty Liver Reversal</a></li>
   <li><a href="/programs/pcod-correction">PCOD Correction</a></li>
@@ -621,32 +621,32 @@ ${(programs.PROGRAMS || [])
   },
   {
     path: '/diagnostics',
-    title: 'Diagnostics · TLC — Gold-Standard Longevity Testing',
-    description: 'Comprehensive longevity diagnostics — biological age clocks, genomic testing, whole-genome gut microbiome, advanced blood panels, EndoPAT, BCA, BMD.',
-    h1: 'Diagnostics — Gold-Standard Longevity Testing',
+    title: 'Diagnostics · TLC, Gold-Standard Longevity Testing',
+    description: 'Comprehensive longevity diagnostics, biological age clocks, genomic testing, whole-genome gut microbiome, advanced blood panels, EndoPAT, BCA, BMD.',
+    h1: 'Diagnostics, Gold-Standard Longevity Testing',
     body: `
-<p>Nine diagnostic tests run from the world's finest labs. Biological age, genomics, microbiome, vascular function, body composition and more — every result reviewed by a TLC physician.</p>
+<p>Nine diagnostic tests run from the world's finest labs. Biological age, genomics, microbiome, vascular function, body composition and more, every result reviewed by a TLC physician.</p>
 <ul>
   <li><a href="/diagnostics/biological-clock">Biological Clock (DNA methylation)</a></li>
-  <li><a href="/diagnostics/genetic-testing">Genetic Testing — 323 Genes</a></li>
-  <li><a href="/diagnostics/gut-microbiota">Gut Microbiome — Whole Genomic Sequencing</a></li>
-  <li><a href="/diagnostics/blood-tests">Blood Tests — 160+ Biomarkers</a></li>
+  <li><a href="/diagnostics/genetic-testing">Genetic Testing, 323 Genes</a></li>
+  <li><a href="/diagnostics/gut-microbiota">Gut Microbiome, Whole Genomic Sequencing</a></li>
+  <li><a href="/diagnostics/blood-tests">Blood Tests, 160+ Biomarkers</a></li>
   <li><a href="/diagnostics/body-composition">Body Composition Analysis (BCA)</a></li>
   <li><a href="/diagnostics/bone-mineral-density">Bone Mineral Density (Ultrasound BMD)</a></li>
-  <li><a href="/diagnostics/endopat">EndoPAT — Vascular Function</a></li>
-  <li><a href="/diagnostics/face-scan">Face Scan — Skin Analysis</a></li>
-  <li><a href="/diagnostics/oligoscan">Oligoscan — Mineral &amp; Toxin Profile</a></li>
+  <li><a href="/diagnostics/endopat">EndoPAT, Vascular Function</a></li>
+  <li><a href="/diagnostics/face-scan">Face Scan, Skin Analysis</a></li>
+  <li><a href="/diagnostics/oligoscan">Oligoscan, Mineral &amp; Toxin Profile</a></li>
 </ul>`.trim(),
   },
   {
     path: '/skin-aesthetics',
-    title: 'Skin & Aesthetics · TLC — The Longevity Centre',
-    description: 'Eight evidence-led skin and aesthetic treatments — PRP, microneedling, hydrafacial, laser hair reduction, hair-loss solutions, fillers & botox.',
-    h1: 'Skin &amp; Aesthetics — Evidence-Led Treatments',
+    title: 'Skin & Aesthetics · TLC, The Longevity Centre',
+    description: 'Eight evidence-led skin and aesthetic treatments, PRP, microneedling, hydrafacial, laser hair reduction, hair-loss solutions, fillers & botox.',
+    h1: 'Skin &amp; Aesthetics, Evidence-Led Treatments',
     body: `
 <p>Eight evidence-led skin and aesthetic treatments, delivered by trained physicians across 6 Indian cities.</p>
 <ul>
-  <li><a href="/skin-aesthetics/skin-prp">Skin PRP — Platelet-Rich Plasma</a></li>
+  <li><a href="/skin-aesthetics/skin-prp">Skin PRP, Platelet-Rich Plasma</a></li>
   <li><a href="/skin-aesthetics/chemical-peels">Chemical Peels</a></li>
   <li><a href="/skin-aesthetics/hydrafacial">Hydrafacial</a></li>
   <li><a href="/skin-aesthetics/microneedling-with-dermapen">Microneedling with Dermapen</a></li>
@@ -658,22 +658,22 @@ ${(programs.PROGRAMS || [])
   },
   {
     path: '/blog',
-    title: 'TLC Insights — Longevity, Wellness & Anti-Aging Articles',
-    description: 'Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine — written by the TLC clinical team.',
-    h1: 'TLC Insights — Evidence-Led Articles',
-    body: `<p>Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine — written by the TLC clinical team. Browse all <a href="/blog">articles</a>.</p>`,
+    title: 'TLC Insights, Longevity, Wellness & Anti-Aging Articles',
+    description: 'Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine, written by the TLC clinical team.',
+    h1: 'TLC Insights, Evidence-Led Articles',
+    body: `<p>Evidence-led articles on longevity, gut health, hormones, skin, weight and preventive medicine, written by the TLC clinical team. Browse all <a href="/blog">articles</a>.</p>`,
   },
   {
     path: '/longevity-program',
     title: 'Longevity Programme · The 12-Month Flagship · TLC',
-    description: "TLC's flagship 12-month longevity programme — three biological age clocks tracked, full genomic + microbiome sequencing, end-to-end physician care.",
-    h1: 'Longevity Plus — The 12-Month Flagship Programme',
+    description: "TLC's flagship 12-month longevity programme, three biological age clocks tracked, full genomic + microbiome sequencing, end-to-end physician care.",
+    h1: 'Longevity Plus, The 12-Month Flagship Programme',
     body: `
-<p>TLC's flagship 12-month protocol tracks three biological age clocks, decodes 323 genes, runs GrimAge + PhenoAge epigenetic analysis and whole-genomic gut sequencing — every measurable pillar of aging, addressed together under one physician-led plan.</p>
+<p>TLC's flagship 12-month protocol tracks three biological age clocks, decodes 323 genes, runs GrimAge + PhenoAge epigenetic analysis and whole-genomic gut sequencing, every measurable pillar of aging, addressed together under one physician-led plan.</p>
 <h2>What is the Longevity Plus programme?</h2>
-<p>Longevity Plus is a 12-month, physician-guided longevity programme that measures your biological age across three validated clocks, then works to slow and improve it through diagnostics-led, continuously refined intervention — nutrition, hormones, metabolism, gut health and lifestyle therapeutics, all on one shared medical record.</p>
+<p>Longevity Plus is a 12-month, physician-guided longevity programme that measures your biological age across three validated clocks, then works to slow and improve it through diagnostics-led, continuously refined intervention, nutrition, hormones, metabolism, gut health and lifestyle therapeutics, all on one shared medical record.</p>
 <h2>Who is it for?</h2>
-<p>It is built for people who want a complete, measured approach to healthy aging rather than isolated tests — professionals and individuals seeking to understand their biological age, correct hidden metabolic and hormonal drivers, and sustain the change over a full year of guided care.</p>
+<p>It is built for people who want a complete, measured approach to healthy aging rather than isolated tests, professionals and individuals seeking to understand their biological age, correct hidden metabolic and hormonal drivers, and sustain the change over a full year of guided care.</p>
 <h2>What does it include?</h2>
 <p>The programme includes epigenetic biological-age testing (GrimAge, PhenoAge), whole-genomic gut microbiome sequencing, comprehensive blood biomarker panels, genetic decoding, ongoing physician consultations, and a nutrition and lifestyle plan recalibrated through the year. Continue to the full <a href="/programs/longevity-plus">programme details</a>.</p>`.trim(),
     faqs:
@@ -781,7 +781,7 @@ for (const p of staticPages) {
     list(p.careModel, 'Care Model'),
     list(p.outcomes, 'Outcomes'),
     p.difference ? `<h2>The TLC Difference</h2><p>${htmlEscape(p.difference)}</p>` : '',
-    p.price ? `<p><strong>Price:</strong> ${htmlEscape(p.price)}${p.priceNote ? ' — ' + htmlEscape(p.priceNote) : ''}</p>` : '',
+    p.price ? `<p><strong>Price:</strong> ${htmlEscape(p.price)}${p.priceNote ? ', ' + htmlEscape(p.priceNote) : ''}</p>` : '',
     `</article>`,
   ].filter(Boolean).join('\n')
   entries.push({
@@ -802,7 +802,7 @@ for (const p of staticPages) {
     `<header>`,
     `<div><small>TLC Centre</small></div>`,
     `<h1>Longevity Clinic in ${htmlEscape(c.city)}${c.area ? ' · ' + htmlEscape(c.area) : ''}</h1>`,
-    `<p>The Longevity Centre at ${htmlEscape(c.area || c.city)}, ${htmlEscape(c.city)} — diagnostics-led, physician-guided preventive medicine and longevity care.</p>`,
+    `<p>The Longevity Centre at ${htmlEscape(c.area || c.city)}, ${htmlEscape(c.city)}, diagnostics-led, physician-guided preventive medicine and longevity care.</p>`,
     `</header>`,
     c.address ? `<h2>Address</h2><p>${htmlEscape(c.address)}</p>` : '',
     c.phone ? `<p><strong>Phone:</strong> <a href="tel:${String(c.phone).replace(/\s+/g, '')}">${htmlEscape(c.phone)}</a></p>` : '',
@@ -821,7 +821,7 @@ for (const p of staticPages) {
   entries.push({
     path: '/centres/' + c.slug,
     title: `Longevity Clinic in ${c.city}${areaPart}${brandSuffix}`,
-    description: `The Longevity Centre in ${c.city}${c.area ? ', ' + c.area : ''} — diagnostics-led, physician-guided preventive medicine, metabolic and longevity care.`,
+    description: `The Longevity Centre in ${c.city}${c.area ? ', ' + c.area : ''}, diagnostics-led, physician-guided preventive medicine, metabolic and longevity care.`,
     content,
     faqs: typeof centres.centreFaqs === 'function' ? centres.centreFaqs(c) : null,
   })
@@ -887,7 +887,7 @@ for (const p of staticPages) {
 // ── 3. Generate per-route index.html ──────────────────────────────────
 
 if (!fs.existsSync(path.join(DIST, 'index.html'))) {
-  console.error('inject-meta: dist/index.html not found — run `vite build` first.')
+  console.error('inject-meta: dist/index.html not found, run `vite build` first.')
   process.exit(1)
 }
 
