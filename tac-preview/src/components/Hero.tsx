@@ -74,17 +74,19 @@ function MaskedReveal({
       gsap.set(chars, { yPercent: 110 })
       gsap.to(chars, {
         yPercent: 0,
-        duration: 0.9,
+        duration: 0.6,
         ease: 'expo.out',
         stagger: 0.02,
         delay,
       })
     })
     // Belt-and-suspenders: a timer (rAF-independent) forces the headline visible
-    // if the reveal ever stalls in a renderer whose rAF ticks but slowly.
+    // if the reveal ever stalls in a renderer whose rAF ticks but slowly. Kept
+    // just above the animation's natural end so it's a no-op for real users but
+    // guarantees a fast reveal for any crawler that captures late.
     const reveal = window.setTimeout(() => {
       gsap.set(chars, { yPercent: 0, clearProps: 'transform' })
-    }, 1000)
+    }, 700)
     return () => {
       window.cancelAnimationFrame(raf)
       window.clearTimeout(reveal)
@@ -190,28 +192,28 @@ export function Hero() {
       gsap.set(para.current, { opacity: 0, y: 16 })
       gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
 
-      tl = gsap.timeline({ delay: 0.15 })
+      tl = gsap.timeline({ delay: 0.1 })
       tl.to(eyebrow.current, {
         opacity: 1,
         y: 0,
-        duration: 0.9,
+        duration: 0.55,
         ease: 'power3.out',
       })
         .to(
           para.current,
-          { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-          '-=0.3'
+          { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+          '-=0.35'
         )
         .to(
           ctas.current?.children ?? [],
           {
             opacity: 1,
             y: 0,
-            duration: 0.7,
+            duration: 0.45,
             ease: 'power3.out',
-            stagger: 0.08,
+            stagger: 0.06,
           },
-          '-=0.5'
+          '-=0.4'
         )
     })
 
@@ -226,7 +228,7 @@ export function Hero() {
         ...(ctas.current ? Array.from(ctas.current.children) : []),
       ].filter(Boolean)
       gsap.set(els, { opacity: 1, y: 0, clearProps: 'opacity,transform' })
-    }, 1000)
+    }, 900)
 
     // Cross-fade rotation — advance to the next clip every CLIP_DURATION_MS.
     const cycle = window.setInterval(() => {
