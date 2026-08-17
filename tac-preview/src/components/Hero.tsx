@@ -198,33 +198,32 @@ export function Hero() {
     // painted immediately instead of waiting for the rAF-driven reveal.
     if (instantMotion()) return
 
-    // Hide + reveal INSIDE requestAnimationFrame — a headless crawler that
-    // freezes rAF while it captures its screenshot never runs this callback, so
-    // eyebrow / paragraph / CTAs stay painted in their natural, fully-visible
-    // state (no blank crawler snapshot). rAF runs before paint, so real users
-    // see no flash.
+    // TRANSFORM-ONLY entrance (no opacity fade). The hero paragraph is the
+    // mobile LCP element; fading it in delayed LCP by ~2.5s in the Lighthouse
+    // lab test. Keeping the content at full opacity and only sliding it (y)
+    // means it PAINTS on first frame — fast LCP — while still animating in for
+    // real users. It also keeps the content permanently visible to crawlers
+    // (no opacity:0 to get stuck on), so the render-blank fix stays robust.
     let tl: gsap.core.Timeline | null = null
     const introRaf = window.requestAnimationFrame(() => {
-      gsap.set(eyebrow.current, { opacity: 0, y: -10 })
-      gsap.set(para.current, { opacity: 0, y: 16 })
-      gsap.set(ctas.current?.children ?? [], { opacity: 0, y: 16 })
+      gsap.set(eyebrow.current, { y: -10 })
+      gsap.set(para.current, { y: 16 })
+      gsap.set(ctas.current?.children ?? [], { y: 16 })
 
       tl = gsap.timeline({ delay: 0.1 })
       tl.to(eyebrow.current, {
-        opacity: 1,
         y: 0,
         duration: 0.55,
         ease: 'power3.out',
       })
         .to(
           para.current,
-          { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+          { y: 0, duration: 0.55, ease: 'power3.out' },
           '-=0.35'
         )
         .to(
           ctas.current?.children ?? [],
           {
-            opacity: 1,
             y: 0,
             duration: 0.45,
             ease: 'power3.out',
