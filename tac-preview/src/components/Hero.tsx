@@ -133,6 +133,23 @@ export function Hero() {
   const [armed, setArmed] = useState(false)
 
   useEffect(() => {
+    // Never fetch the multi-MB hero clips on data-saver or slow connections
+    // (2g / 3g, and Lighthouse's throttled mobile test where it applies): the
+    // poster alone carries the hero, so skipping ~7 MB of video is a large
+    // mobile win on FCP/LCP/TBT and the visitor's data.
+    const conn = (
+      navigator as unknown as {
+        connection?: { saveData?: boolean; effectiveType?: string }
+      }
+    ).connection
+    if (
+      conn &&
+      (conn.saveData === true ||
+        /(^|\b)(slow-2g|2g|3g)$/.test(conn.effectiveType || ''))
+    ) {
+      return
+    }
+
     let done = false
     const arm = () => {
       if (done) return

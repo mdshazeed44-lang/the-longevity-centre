@@ -6,23 +6,58 @@
     <meta name="theme-color" content="#1B1A18" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KFF28PCG');</script>
-    <!-- End Google Tag Manager -->
-
-    <!-- Google tag (gtag.js) — GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FB560VK6LD"></script>
+    <!-- Google Tag Manager + GA4 — DEFERRED.
+         Loading gtm.js / gtag.js in the head competed with the app JS for
+         bandwidth + main-thread time during hydration, hurting mobile
+         FCP/LCP/TBT on Slow 4G. They carry no above-the-fold render value, so
+         we load them on the first user interaction OR when the main thread
+         first goes idle (requestIdleCallback, ~3.5s cap) — whichever comes
+         first. Analytics still fire within the session; the critical render
+         path is freed. dataLayer is created immediately so any early pushes
+         are preserved and replayed once GTM/GA attach. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-FB560VK6LD');
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      (function () {
+        var loaded = false;
+        function loadTags() {
+          if (loaded) return; loaded = true;
+          // GTM
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s),
+              dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, 'script', 'dataLayer', 'GTM-KFF28PCG');
+          // GA4 gtag.js
+          var g = document.createElement('script');
+          g.async = true;
+          g.src = 'https://www.googletagmanager.com/gtag/js?id=G-FB560VK6LD';
+          document.head.appendChild(g);
+          gtag('js', new Date());
+          gtag('config', 'G-FB560VK6LD');
+        }
+        var evs = ['scroll', 'mousemove', 'touchstart', 'pointerdown', 'keydown', 'click'];
+        function onFirst() {
+          evs.forEach(function (e) { window.removeEventListener(e, onFirst); });
+          loadTags();
+        }
+        evs.forEach(function (e) {
+          window.addEventListener(e, onFirst, { passive: true, once: true });
+        });
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadTags, { timeout: 3500 });
+        } else {
+          window.addEventListener('load', function () { setTimeout(loadTags, 2500); });
+        }
+      })();
     </script>
-    <!-- End Google tag (gtag.js) -->
+    <!-- End Google Tag Manager + GA4 (deferred) -->
 
     <!-- Favicons — TLC rust DNA icon at multiple sizes -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -114,7 +149,7 @@
     <link
       rel="preload"
       as="image"
-      href="/videos/hero-poster.jpg"
+      href="/videos/hero-poster.jpg?v=3"
       fetchpriority="high"
     />
     <link rel="preload" as="image" href="/tlc-logo.png" />
