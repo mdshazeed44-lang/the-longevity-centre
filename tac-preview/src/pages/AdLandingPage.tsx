@@ -475,7 +475,7 @@ export function AdLandingPage({ campaign = LONGEVITY_CAMPAIGN }: { campaign?: Ca
       delay: 0.1,
     })
     const fade = root.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fade, { opacity: 0, y: 18 })
+    gsap.set(fade, { y: 18 })
     gsap.to(fade, {
       opacity: 1,
       y: 0,

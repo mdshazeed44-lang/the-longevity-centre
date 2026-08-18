@@ -67,7 +67,7 @@ export function ScienceCards() {
     const cardsEls = ref.current?.querySelectorAll<HTMLElement>('.sci-card')
     let cardTween: gsap.core.Tween | undefined
     if (cardsEls?.length) {
-      gsap.set(cardsEls, { y: 60, opacity: 0, scale: 0.97 })
+      gsap.set(cardsEls, { y: 60, scale: 0.97 })
       cardTween = gsap.to(cardsEls, {
         y: 0,
         opacity: 1,

@@ -96,7 +96,7 @@ export function SkinAestheticsPage() {
       })
     })
     const fade = el.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fade, { opacity: 0, y: 18 })
+    gsap.set(fade, { y: 18 })
     gsap.utils.toArray<HTMLElement>('.fade-up').forEach((node) => {
       gsap.to(node, {
         opacity: 1,

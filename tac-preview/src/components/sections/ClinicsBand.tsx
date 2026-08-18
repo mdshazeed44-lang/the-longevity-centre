@@ -78,7 +78,7 @@ export function ClinicsBand() {
     const rows = railRef.current?.querySelectorAll<HTMLElement>('.clinic-row')
     let rowTween: gsap.core.Tween | undefined
     if (rows?.length) {
-      gsap.set(rows, { opacity: 0, y: 28 })
+      gsap.set(rows, { y: 28 })
       rowTween = gsap.to(rows, {
         opacity: 1,
         y: 0,

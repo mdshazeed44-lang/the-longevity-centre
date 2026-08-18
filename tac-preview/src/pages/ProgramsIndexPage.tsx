@@ -124,7 +124,7 @@ function Hero() {
     })
 
     const fade = el.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fade, { opacity: 0, y: 16 })
+    gsap.set(fade, { y: 16 })
     gsap.to(fade, {
       opacity: 1,
       y: 0,
@@ -364,7 +364,7 @@ function BrandAmbassador() {
     const el = ref.current
     if (!el) return
     const items = el.querySelectorAll<HTMLElement>('[data-ba-anim]')
-    gsap.set(items, { opacity: 0, y: 28 })
+    gsap.set(items, { y: 28 })
     gsap.to(items, {
       opacity: 1,
       y: 0,

@@ -58,7 +58,7 @@ export function ResultsSplit() {
     const items = ref.current?.querySelectorAll<HTMLElement>('.result-row')
     let rowTween: gsap.core.Tween | undefined
     if (items?.length) {
-      gsap.set(items, { y: 24, opacity: 0 })
+      gsap.set(items, { y: 24 })
       rowTween = gsap.to(items, {
         y: 0,
         opacity: 1,

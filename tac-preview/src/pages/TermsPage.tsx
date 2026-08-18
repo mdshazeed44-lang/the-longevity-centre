@@ -127,7 +127,7 @@ export function TermsPage() {
       })
     })
     const fade = el.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fade, { opacity: 0, y: 18 })
+    gsap.set(fade, { y: 18 })
     gsap.to(fade, {
       opacity: 1,
       y: 0,

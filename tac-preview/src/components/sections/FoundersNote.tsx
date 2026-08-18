@@ -34,7 +34,6 @@ export function FoundersNote() {
       if (bodyRef.current) {
         gsap.from(bodyRef.current.querySelectorAll('[data-reveal]'), {
           y: 18,
-          opacity: 0,
           duration: 0.8,
           ease: 'power3.out',
           stagger: 0.07,
@@ -46,7 +45,6 @@ export function FoundersNote() {
       if (quoteRef.current) {
         gsap.from(quoteRef.current, {
           y: 22,
-          opacity: 0,
           duration: 1.0,
           ease: 'power3.out',
           scrollTrigger: { trigger: quoteRef.current, start: 'top 84%' },

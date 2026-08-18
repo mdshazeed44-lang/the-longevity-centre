@@ -103,7 +103,7 @@ export function CentresPage() {
       const img = row.querySelector<HTMLElement>('.centre-img')
       const content = row.querySelector<HTMLElement>('.centre-content')
       if (img) {
-        gsap.set(img, { y: 60, opacity: 0 })
+        gsap.set(img, { y: 60 })
         const t = gsap.to(img, {
           y: 0,
           opacity: 1,
@@ -117,7 +117,7 @@ export function CentresPage() {
         })
       }
       if (content) {
-        gsap.set(content, { y: 50, opacity: 0 })
+        gsap.set(content, { y: 50 })
         const t = gsap.to(content, {
           y: 0,
           opacity: 1,

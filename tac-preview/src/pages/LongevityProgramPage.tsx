@@ -272,7 +272,7 @@ export function LongevityProgramPage() {
     // Step cards stagger + animated connecting line draw
     const stepCards = stepsRef.current?.querySelectorAll<HTMLElement>('.step-card')
     if (stepCards?.length) {
-      gsap.set(stepCards, { y: 60, opacity: 0, scale: 0.96 })
+      gsap.set(stepCards, { y: 60, scale: 0.96 })
       const t = gsap.to(stepCards, {
         y: 0,
         opacity: 1,
@@ -308,7 +308,7 @@ export function LongevityProgramPage() {
     // Diagnostics chips — staggered reveal with subtle scale
     const diagChips = diagnosticsRef.current?.querySelectorAll<HTMLElement>('.diag-chip')
     if (diagChips?.length) {
-      gsap.set(diagChips, { y: 30, opacity: 0, scale: 0.9 })
+      gsap.set(diagChips, { y: 30, scale: 0.9 })
       const t = gsap.to(diagChips, {
         y: 0,
         opacity: 1,
@@ -413,7 +413,7 @@ export function LongevityProgramPage() {
     // Mood images — staggered scale-in reveal
     const moodTiles = moodRef.current?.querySelectorAll<HTMLElement>('.mood-tile')
     if (moodTiles?.length) {
-      gsap.set(moodTiles, { opacity: 0, scale: 0.9, y: 20 })
+      gsap.set(moodTiles, { scale: 0.9, y: 20 })
       const t = gsap.to(moodTiles, {
         opacity: 1,
         scale: 1,
@@ -451,7 +451,7 @@ export function LongevityProgramPage() {
     // Trust cards stagger
     const trustCards = trustRef.current?.querySelectorAll<HTMLElement>('.trust-card')
     if (trustCards?.length) {
-      gsap.set(trustCards, { y: 40, opacity: 0 })
+      gsap.set(trustCards, { y: 40 })
       const t = gsap.to(trustCards, {
         y: 0,
         opacity: 1,

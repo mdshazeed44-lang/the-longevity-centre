@@ -136,7 +136,7 @@ export function AboutPage() {
     // Hero spec chips — entrance + perpetual subtle Y bob
     const chips = heroChipsRef.current?.querySelectorAll<HTMLElement>('.spec-chip')
     if (chips?.length) {
-      gsap.set(chips, { y: 24, opacity: 0 })
+      gsap.set(chips, { y: 24 })
       const t = gsap.to(chips, {
         y: 0,
         opacity: 1,
@@ -162,7 +162,7 @@ export function AboutPage() {
     // Specialist team cards — staggered fade-up
     const teamCards = teamRef.current?.querySelectorAll<HTMLElement>('.team-card')
     if (teamCards?.length) {
-      gsap.set(teamCards, { y: 50, opacity: 0 })
+      gsap.set(teamCards, { y: 50 })
       const t = gsap.to(teamCards, {
         y: 0,
         opacity: 1,
@@ -180,7 +180,7 @@ export function AboutPage() {
     // Founder cards stagger
     const cards = foundersRef.current?.querySelectorAll<HTMLElement>('.founder-card')
     if (cards?.length) {
-      gsap.set(cards, { y: 60, opacity: 0, scale: 0.97 })
+      gsap.set(cards, { y: 60, scale: 0.97 })
       const t = gsap.to(cards, {
         y: 0,
         opacity: 1,
@@ -238,7 +238,7 @@ export function AboutPage() {
     // Stats — count-up + cell fade-up
     const cells = statsRef.current?.querySelectorAll<HTMLElement>('.stat-cell')
     if (cells?.length) {
-      gsap.set(cells, { y: 40, opacity: 0 })
+      gsap.set(cells, { y: 40 })
       const t = gsap.to(cells, {
         y: 0,
         opacity: 1,

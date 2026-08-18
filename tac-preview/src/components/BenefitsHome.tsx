@@ -128,7 +128,7 @@ export function BenefitsHome({
     })
 
     const fade = el.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fade, { opacity: 0, y: 16 })
+    gsap.set(fade, { y: 16 })
     gsap.to(fade, {
       opacity: 1,
       y: 0,
@@ -139,7 +139,7 @@ export function BenefitsHome({
     })
 
     const cards = el.querySelectorAll<HTMLElement>('.benefit-card')
-    gsap.set(cards, { opacity: 0, y: 28 })
+    gsap.set(cards, { y: 28 })
     gsap.to(cards, {
       opacity: 1,
       y: 0,

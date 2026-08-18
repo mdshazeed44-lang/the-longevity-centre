@@ -73,7 +73,7 @@ export function Method() {
     // Per-step row reveal
     const rows = stepsRef.current?.querySelectorAll<HTMLElement>('.method-row')
     rows?.forEach((row, i) => {
-      gsap.set(row, { y: 40, opacity: 0 })
+      gsap.set(row, { y: 40 })
       const t = gsap.to(row, {
         y: 0,
         opacity: 1,

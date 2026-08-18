@@ -200,7 +200,7 @@ export function DiagnosticsPage() {
 
     // Fade-up blocks
     const fades = el.querySelectorAll<HTMLElement>('.fade-up')
-    gsap.set(fades, { opacity: 0, y: 18 })
+    gsap.set(fades, { y: 18 })
     gsap.to(fades, {
       opacity: 1,
       y: 0,
@@ -212,7 +212,7 @@ export function DiagnosticsPage() {
 
     // Service cards stagger
     const cards = el.querySelectorAll<HTMLElement>('.svc-card')
-    gsap.set(cards, { opacity: 0, y: 28 })
+    gsap.set(cards, { y: 28 })
     gsap.to(cards, {
       opacity: 1,
       y: 0,
@@ -224,7 +224,7 @@ export function DiagnosticsPage() {
 
     // Process steps stagger
     const steps = el.querySelectorAll<HTMLElement>('.proc-step')
-    gsap.set(steps, { opacity: 0, y: 24 })
+    gsap.set(steps, { y: 24 })
     gsap.to(steps, {
       opacity: 1,
       y: 0,
