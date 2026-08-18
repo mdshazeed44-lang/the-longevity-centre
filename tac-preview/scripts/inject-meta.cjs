@@ -929,6 +929,11 @@ for (const item of entries) {
   // empty <div id="root"> below it and hydrates as before.
   const noscriptBlock =
     `<noscript>\n` +
+    // When JS is disabled, hide the first-paint hero overlay so the full
+    // readable content below shows from the top (progressive-enhancement /
+    // "disable JS" crawler test). With JS on, this <style> is ignored and the
+    // boot behaves normally.
+    `<style>#hero-boot,#root{display:none!important}</style>\n` +
     `<main>\n` +
     NAV_HTML + '\n' +
     breadcrumb + '\n' +
