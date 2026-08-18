@@ -134,32 +134,59 @@ async function main() {
   }
   const ws = new WebSocket(page.webSocketDebuggerUrl)
   let id = 0; const pend = {}
-  ws.addEventListener('message', (ev) => { const m = JSON.parse(ev.data); if (m.id && pend[m.id]) { pend[m.id](m); delete pend[m.id] } })
+  let inflight = 0 // in-flight network requests (for network-idle detection)
+  ws.addEventListener('message', (ev) => {
+    const m = JSON.parse(ev.data)
+    if (m.id && pend[m.id]) { pend[m.id](m); delete pend[m.id]; return }
+    if (m.method === 'Network.requestWillBeSent') inflight++
+    else if (m.method === 'Network.loadingFinished' || m.method === 'Network.loadingFailed') inflight = Math.max(0, inflight - 1)
+  })
   const send = (method, params = {}) => new Promise((r) => { const i = ++id; pend[i] = r; ws.send(JSON.stringify({ id: i, method, params })) })
   await new Promise((r) => ws.addEventListener('open', r))
-  await send('Page.enable'); await send('Runtime.enable')
+  await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable')
 
   let done = 0, skipped = 0
+  const thin = []
   for (const { route, file } of routes) {
     const html = fs.readFileSync(file, 'utf8')
     // only rewrite routes whose index.html carries our content <noscript>
     const nsRe = /<noscript>\s*<style>#hero-boot,#root\{display:none!important\}<\/style>[\s\S]*?<\/noscript>/
     if (!nsRe.test(html)) { skipped++; continue }
 
+    inflight = 0
     await send('Page.navigate', { url: `http://localhost:${PORT}${route}` })
-    // wait for the lazy route component to render real content into #root
+
+    // Wait for the LAZY route component to actually render — not just the
+    // header/footer shell (whose mega-menu alone exceeds a naive char count).
+    // Strategy: network-idle (all JS chunks loaded) AND the #root text length
+    // has stabilised (stopped growing) at a non-trivial size.
     let captured = ''
-    for (let t = 0; t < 30; t++) {
-      await sleep(300)
+    let last = -1, idleStable = 0, contentStable = 0
+    const start = Date.now()
+    while (Date.now() - start < 18000) {
+      await sleep(250)
       const r = await send('Runtime.evaluate', {
-        expression: `(function(){var r=document.getElementById('root');if(!r)return '';var tl=(r.textContent||'').replace(/\\s+/g,' ').trim().length;return tl>600? r.innerHTML : '';})()`,
+        expression: `(function(){var r=document.getElementById('root');if(!r)return '0';return String((r.textContent||'').replace(/\\s+/g,' ').trim().length);})()`,
         returnByValue: true,
       })
-      if (r.result && r.result.result && r.result.result.value) { captured = r.result.result.value; break }
+      const len = parseInt((r.result && r.result.result && r.result.result.value) || '0', 10)
+      const sizeStable = len === last && len > 600
+      last = len
+      if (inflight <= 0 && sizeStable) idleStable++; else idleStable = 0
+      if (sizeStable) contentStable++; else contentStable = 0
+      // Fast path: network idle AND size steady ~750ms. Fallback (media pages
+      // whose looping bg video keeps the network busy): size steady ~2s alone.
+      if (idleStable >= 3 || contentStable >= 8) {
+        const g = await send('Runtime.evaluate', { expression: `document.getElementById('root').innerHTML`, returnByValue: true })
+        captured = (g.result && g.result.result && g.result.result.value) || ''
+        break
+      }
     }
     if (!captured) { skipped++; console.warn('  no content:', route); continue }
 
     const inner = sanitize(captured)
+    const headings = (inner.match(/<h[1-6]/g) || []).length
+    if (headings === 0) { thin.push(route) }
     const block =
       `<noscript>\n<style>#hero-boot,#root{display:none!important}</style>\n<main>\n` +
       inner + `\n</main>\n</noscript>`
@@ -167,6 +194,7 @@ async function main() {
     done++
   }
   console.log(`prerender: rewrote ${done} routes with full rendered content (${skipped} skipped)`)
+  if (thin.length) console.warn(`prerender: WARNING ${thin.length} route(s) captured with 0 headings (possible shell-only): ${thin.slice(0, 10).join(', ')}`)
   chrome.kill(); srv.close(); process.exit(0)
 }
 
