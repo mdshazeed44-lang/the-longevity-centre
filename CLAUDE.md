@@ -28,12 +28,19 @@ npm run build            # production build to dist/  + per-route HTML injection
 npx tsc --noEmit         # type check (no emit)
 ```
 
-The `build` script chains three steps:
+The `build` script chains four steps:
 1. `tsc -b` — type check
 2. `vite build` — bundle JS/CSS, copy `public/*` to `dist/`
-3. `node scripts/inject-meta.cjs` — generate 73 per-route `dist/<path>/index.html`
+3. `node scripts/inject-meta.cjs` — generate 75 per-route `dist/<path>/index.html`
    files with the correct `<title>`, `<meta description>`, `<link canonical>`
    and a `<noscript>` content block. See **SEO pre-baking** below.
+4. `node scripts/prerender.cjs` — render every route in headless Chrome (bot UA)
+   and replace each route's content `<noscript>` summary with the FULL rendered,
+   sanitised semantic HTML, so every visible word is in the static source for
+   bots / no-JS / View-Source. **Requires Chrome** (auto-discovers the Windows
+   path or `$CHROME_PATH`; if not found it logs + skips with exit 0 so the build
+   still succeeds — but then pages ship only the summary noscript). See
+   **SEO pre-baking** below.
 
 ## Routing — `src/routes.tsx`
 
